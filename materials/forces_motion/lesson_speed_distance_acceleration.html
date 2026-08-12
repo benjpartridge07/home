@@ -1,0 +1,313 @@
+<style>
+  #ls4-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --phys: #B5762A; --phys-soft: #F1E3CE;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls4-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls4-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls4-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls4-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls4-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls4-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls4-section { margin-bottom: 26px; }
+  .ls4-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls4-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls4-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls4-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls4-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls4-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls4-card p:last-child { margin-bottom: 0; }
+  .ls4-card ul { margin: 0 0 10px; padding-left: 20px; font-size: 13.5px; line-height: 1.6; }
+  .ls4-term { font-weight: 600; color: var(--phys); }
+  .ls4-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls4-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls4-table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .ls4-table-wrap th, .ls4-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls4-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls4-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls4-diagram-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; }
+  .ls4-diagram-wrap svg { max-width: 320px; width: 100%; height: auto; }
+
+  .ls4-activity { background: var(--phys-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls4-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls4-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls4-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls4-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls4-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls4-blank-row input { flex: 1; min-width: 90px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls4-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls4-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls4-feedback.ok { color: #2E6B45; }
+  .ls4-feedback.no { color: #A34B4B; }
+
+  .ls4-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls4-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls4-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls4-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls4-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--phys); background: none; border: 1.5px solid var(--phys); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls4-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--phys); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls4-answer.show { display: block; }
+
+  .ls4-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls4-root">
+  <p class="ls4-eyebrow">Kick-off lesson &middot; Session 4, Week 3</p>
+  <h1 class="ls4-title">Speed, distance &amp; acceleration</h1>
+  <div class="ls4-meta">
+    <span><span class="ls4-dot" style="background:var(--phys)"></span>Physics</span>
+    <span><span class="ls4-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>60 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls4-section">
+    <div class="ls4-section-head">
+      <span class="ls4-section-num">01</span>
+      <h2 class="ls4-section-title">Scalars and vectors</h2>
+      <span class="ls4-section-time">10 min</span>
+    </div>
+    <div class="ls4-card">
+      <p>Some quantities need a <span class="ls4-term">direction</span> to be complete, and some don't. A quantity with no direction is called a <span class="ls4-term">scalar</span>; a quantity that includes a direction is called a <span class="ls4-term">vector</span>.</p>
+    </div>
+    <div class="ls4-table-wrap">
+      <table>
+        <tr><th>Quantity</th><th>Type</th><th>Meaning</th></tr>
+        <tr><td><strong>Distance</strong></td><td>Scalar</td><td>How far something moves &mdash; no direction needed</td></tr>
+        <tr><td><strong>Displacement</strong></td><td>Vector</td><td>Straight-line distance from start to finish, plus direction</td></tr>
+        <tr><td><strong>Speed</strong></td><td>Scalar</td><td>How fast something moves &mdash; no direction needed</td></tr>
+        <tr><td><strong>Velocity</strong></td><td>Vector</td><td>Speed in a given direction</td></tr>
+      </table>
+    </div>
+    <div class="ls4-card">
+      <p>Typical speeds worth memorising: walking <strong>1.5 m/s</strong>, running <strong>3 m/s</strong>, cycling <strong>6 m/s</strong>, sound in air <strong>330 m/s</strong>.</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls4-section">
+    <div class="ls4-section-head">
+      <span class="ls4-section-num">02</span>
+      <h2 class="ls4-section-title">Distance, speed and time</h2>
+      <span class="ls4-section-time">15 min</span>
+    </div>
+    <div class="ls4-card">
+      <p><span class="ls4-eq">distance = speed &times; time</span> &nbsp; or &nbsp; <span class="ls4-eq">s = vt</span></p>
+      <p>s &mdash; distance, in metres, m &nbsp;&middot;&nbsp; v &mdash; speed, in metres per second, m/s &nbsp;&middot;&nbsp; t &mdash; time, in seconds, s</p>
+    </div>
+    <div class="ls4-diagram-wrap">
+      <svg viewBox="0 0 220 190" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="110,15 20,170 200,170" fill="none" stroke="#23201A" stroke-width="1.5"/>
+        <line x1="65" y1="92.5" x2="155" y2="92.5" stroke="#23201A" stroke-width="1.5"/>
+        <line x1="110" y1="92.5" x2="110" y2="170" stroke="#23201A" stroke-width="1.5"/>
+        <text x="110" y="72" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="22" font-weight="600" fill="#B5762A">s</text>
+        <text x="110" y="86" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#6B6355">distance</text>
+        <text x="64" y="140" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="600" fill="#3A5E85">v</text>
+        <text x="64" y="154" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#6B6355">speed</text>
+        <text x="156" y="140" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="600" fill="#3A5E85">t</text>
+        <text x="156" y="154" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#6B6355">time</text>
+      </svg>
+    </div>
+    <div class="ls4-card">
+      <p>Cover the letter you want to find. Top-over-bottom means divide, side-by-side on the bottom means multiply.</p>
+      <p>Cover <strong>s</strong> &rarr; v next to t &rarr; <strong>s = vt</strong>. Cover <strong>v</strong> &rarr; s over t &rarr; <strong>v = s / t</strong>. Cover <strong>t</strong> &rarr; s over v &rarr; <strong>t = s / v</strong>.</p>
+    </div>
+    <div class="ls4-diagram-wrap">
+      <svg viewBox="0 0 260 170" xmlns="http://www.w3.org/2000/svg">
+        <line x1="35" y1="20" x2="35" y2="150" stroke="#23201A" stroke-width="1.2"/>
+        <line x1="35" y1="150" x2="245" y2="150" stroke="#23201A" stroke-width="1.2"/>
+        <text x="140" y="166" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="#6B6355">time</text>
+        <text x="18" y="85" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="#6B6355" transform="rotate(-90 18 85)">distance</text>
+        <line x1="35" y1="150" x2="125" y2="70" stroke="#3A5E85" stroke-width="2.5"/>
+        <line x1="125" y1="70" x2="175" y2="70" stroke="#B5762A" stroke-width="2.5"/>
+        <text x="70" y="100" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-style="italic" font-size="9" fill="#3A5E85">moving</text>
+        <text x="150" y="60" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-style="italic" font-size="9" fill="#B5762A">stopped</text>
+      </svg>
+    </div>
+    <div class="ls4-card">
+      <p>The <span class="ls4-term">gradient</span> (steepness) of a distance&ndash;time graph equals the <strong>speed</strong>. A steeper line means faster speed. A <strong>flat, horizontal</strong> line means the object has stopped.</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls4-section">
+    <div class="ls4-section-head">
+      <span class="ls4-section-num">&bull;</span>
+      <h2 class="ls4-section-title">Activity &mdash; rearrange and solve</h2>
+      <span class="ls4-section-time">10 min</span>
+    </div>
+    <div class="ls4-activity">
+      <p class="ls4-activity-label">Use s = vt, v = s / t, or t = s / v as needed</p>
+      <p class="prompt">Type just the number for each blank.</p>
+      <div class="ls4-blank-row"><label>v = 10 m/s, t = 6 s &rarr; s =</label><input type="text" data-answer="60"></div>
+      <div class="ls4-blank-row"><label>s = 200 m, t = 25 s &rarr; v =</label><input type="text" data-answer="8"></div>
+      <div class="ls4-blank-row"><label>s = 45 m, v = 9 m/s &rarr; t =</label><input type="text" data-answer="5"></div>
+      <div class="ls4-blank-row"><label>v = 20 m/s, t = 12 s &rarr; s =</label><input type="text" data-answer="240"></div>
+      <div class="ls4-blank-row"><label>s = 500 m, v = 20 m/s &rarr; t =</label><input type="text" data-answer="25"></div>
+      <button class="ls4-check-btn" id="ls4-check-1">Check answers</button>
+      <p class="ls4-feedback" id="ls4-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls4-section">
+    <div class="ls4-section-head">
+      <span class="ls4-section-num">03</span>
+      <h2 class="ls4-section-title">Acceleration</h2>
+      <span class="ls4-section-time">15 min</span>
+    </div>
+    <div class="ls4-card">
+      <p><span class="ls4-eq">acceleration = change in velocity &divide; time</span> &nbsp; or &nbsp; <span class="ls4-eq">a = &Delta;v / t</span></p>
+      <p>a &mdash; acceleration, in metres per second squared, m/s&sup2; &nbsp;&middot;&nbsp; &Delta;v &mdash; change in velocity, in m/s &nbsp;&middot;&nbsp; t &mdash; time, in s</p>
+    </div>
+    <div class="ls4-diagram-wrap">
+      <svg viewBox="0 0 220 190" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="110,15 20,170 200,170" fill="none" stroke="#23201A" stroke-width="1.5"/>
+        <line x1="65" y1="92.5" x2="155" y2="92.5" stroke="#23201A" stroke-width="1.5"/>
+        <line x1="110" y1="92.5" x2="110" y2="170" stroke="#23201A" stroke-width="1.5"/>
+        <text x="110" y="72" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="600" fill="#B5762A">&Delta;v</text>
+        <text x="110" y="86" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#6B6355">change in velocity</text>
+        <text x="64" y="140" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="600" fill="#3A5E85">a</text>
+        <text x="64" y="154" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#6B6355">acceleration</text>
+        <text x="156" y="140" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="600" fill="#3A5E85">t</text>
+        <text x="156" y="154" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#6B6355">time</text>
+      </svg>
+    </div>
+    <div class="ls4-card">
+      <p>A <strong>negative</strong> acceleration means the object is <span class="ls4-term">decelerating</span> (slowing down). Near the Earth's surface, an object in free fall accelerates at about <strong>9.8 m/s&sup2;</strong>.</p>
+    </div>
+    <div class="ls4-diagram-wrap">
+      <svg viewBox="0 0 260 170" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="35,150 175,70 175,150" fill="#DDE6EF"/>
+        <line x1="35" y1="20" x2="35" y2="150" stroke="#23201A" stroke-width="1.2"/>
+        <line x1="35" y1="150" x2="245" y2="150" stroke="#23201A" stroke-width="1.2"/>
+        <text x="140" y="166" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="#6B6355">time</text>
+        <text x="18" y="85" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="#6B6355" transform="rotate(-90 18 85)">velocity</text>
+        <line x1="35" y1="150" x2="175" y2="70" stroke="#3A5E85" stroke-width="2.5"/>
+        <text x="118" y="42" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-style="italic" font-size="9" fill="#3A5E85">gradient = acceleration</text>
+        <text x="90" y="135" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-style="italic" font-size="9" fill="#B5762A">area = distance</text>
+      </svg>
+    </div>
+    <div class="ls4-card">
+      <p>The <span class="ls4-term">gradient</span> of a velocity&ndash;time graph equals the <strong>acceleration</strong>. The <span class="ls4-term">area</span> underneath the graph equals the <strong>distance travelled</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls4-section">
+    <div class="ls4-section-head">
+      <span class="ls4-section-num">&bull;</span>
+      <h2 class="ls4-section-title">Activity &mdash; acceleration practice</h2>
+      <span class="ls4-section-time">10 min</span>
+    </div>
+    <div class="ls4-activity maths">
+      <p class="ls4-activity-label">Use a = &Delta;v / t, or &Delta;v = at</p>
+      <p class="prompt">Type just the number for each blank.</p>
+      <div class="ls4-blank-row"><label>&Delta;v = 24 m/s, t = 8 s &rarr; a =</label><input type="text" data-answer="3"></div>
+      <div class="ls4-blank-row"><label>a = 4 m/s&sup2;, t = 5 s &rarr; &Delta;v =</label><input type="text" data-answer="20"></div>
+      <div class="ls4-blank-row"><label>An object speeds up from 6 m/s to 26 m/s in 4 s &rarr; a =</label><input type="text" data-answer="5"></div>
+      <div class="ls4-blank-row"><label>An object slows from 30 m/s to 10 m/s in 5 s &rarr; a =</label><input type="text" data-answer="-4"></div>
+      <button class="ls4-check-btn" id="ls4-check-2">Check answers</button>
+      <p class="ls4-feedback" id="ls4-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 4 GCSE questions -->
+  <div class="ls4-section">
+    <div class="ls4-section-head">
+      <span class="ls4-section-num">04</span>
+      <h2 class="ls4-section-title">GCSE-style review questions</h2>
+      <span class="ls4-section-time">15 min</span>
+    </div>
+
+    <div class="ls4-q">
+      <div class="ls4-q-top"><p class="ls4-q-text">1. State whether distance and velocity are each a scalar or a vector quantity, and explain the difference between the two terms "scalar" and "vector".</p><span class="ls4-q-marks">[3 marks]</span></div>
+      <button class="ls4-reveal-btn" data-reveal="c1">Show mark scheme</button>
+      <div class="ls4-answer" id="c1">Distance is a scalar (1). Velocity is a vector (1). A vector quantity has a direction as well as a size; a scalar quantity has no direction (1).</div>
+    </div>
+
+    <div class="ls4-q">
+      <div class="ls4-q-top"><p class="ls4-q-text">2. A train travels 300 m in 15 s at a constant speed. Calculate its speed.</p><span class="ls4-q-marks">[3 marks]</span></div>
+      <button class="ls4-reveal-btn" data-reveal="c2">Show mark scheme</button>
+      <div class="ls4-answer" id="c2">v = s / t (1) &nbsp; v = 300 / 15 (1) &nbsp; v = <strong>20 m/s</strong> (1)</div>
+    </div>
+
+    <div class="ls4-q">
+      <div class="ls4-q-top"><p class="ls4-q-text">3. A skater speeds up from 2 m/s to 14 m/s in 6 s. Calculate their acceleration.</p><span class="ls4-q-marks">[3 marks]</span></div>
+      <button class="ls4-reveal-btn" data-reveal="c3">Show mark scheme</button>
+      <div class="ls4-answer" id="c3">&Delta;v = 14 &minus; 2 = 12 m/s (1) &nbsp; a = &Delta;v / t = 12 / 6 (1) &nbsp; a = <strong>2 m/s&sup2;</strong> (1)</div>
+    </div>
+
+    <div class="ls4-q">
+      <div class="ls4-q-top"><p class="ls4-q-text">4. Explain what a horizontal section of a distance&ndash;time graph tells you about an object's motion.</p><span class="ls4-q-marks">[2 marks]</span></div>
+      <button class="ls4-reveal-btn" data-reveal="c4">Show mark scheme</button>
+      <div class="ls4-answer" id="c4">The object is stationary / at rest (1), because the distance is not changing over time, so the speed (gradient) is zero (1).</div>
+    </div>
+
+    <div class="ls4-q">
+      <div class="ls4-q-top"><p class="ls4-q-text">5. Explain what the area under a velocity&ndash;time graph represents.</p><span class="ls4-q-marks">[1 mark]</span></div>
+      <button class="ls4-reveal-btn" data-reveal="c5">Show mark scheme</button>
+      <div class="ls4-answer" id="c5">The distance travelled by the object (1).</div>
+    </div>
+  </div>
+
+  <p class="ls4-footer-note">Tip: whenever a question gives you two velocities instead of "&Delta;v" directly (like question 3), your first step is always to subtract them &mdash; that subtraction is worth its own method mark, separate from using the equation itself.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls4-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls4-root .ls4-activity:not(.maths) input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls4-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls4-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls4-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls4-root .ls4-activity.maths input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls4-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls4-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls4-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

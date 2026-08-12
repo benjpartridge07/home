@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ready for Year 10 &mdash; Maths Essentials</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#7c3aed;
+    --accent-soft:#f2e9fe;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{
+    padding:2.5rem 1.5rem 1.5rem;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header h1{
+    margin:0 0 .25rem;
+    font-size:1.9rem;
+  }
+  header p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:1rem;
+  }
+  .progress-bar{
+    max-width:900px;
+    margin:1.25rem auto 0;
+    padding:0 1.5rem;
+  }
+  .progress-track{
+    background:var(--border);
+    border-radius:999px;
+    height:10px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    background:var(--accent);
+    height:100%;
+    width:0%;
+    transition:width .2s ease;
+  }
+  .progress-label{
+    margin-top:.5rem;
+    font-size:.85rem;
+    color:var(--text-dim);
+    font-weight:600;
+  }
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:1.5rem 1.5rem 3rem;
+  }
+  .group{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:1.25rem 1.5rem;
+    margin-bottom:1.25rem;
+  }
+  .group h2{
+    margin:0 0 .9rem;
+    font-size:1rem;
+    color:var(--accent);
+  }
+  .item{
+    display:flex;
+    align-items:flex-start;
+    gap:.7rem;
+    padding:.5rem 0;
+    border-top:1px solid var(--border);
+  }
+  .item:first-of-type{
+    border-top:none;
+    padding-top:0;
+  }
+  .item input[type="checkbox"]{
+    margin-top:.25rem;
+    width:18px;
+    height:18px;
+    accent-color:var(--accent);
+    flex-shrink:0;
+    cursor:pointer;
+  }
+  .item label{
+    cursor:pointer;
+    font-size:.95rem;
+    line-height:1.4;
+  }
+  .item.checked label{
+    color:var(--text-dim);
+    text-decoration:line-through;
+  }
+  .reset-row{
+    text-align:center;
+    margin-top:.5rem;
+  }
+  #reset-btn{
+    background:none;
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:var(--text-dim);
+    padding:.5rem 1rem;
+    font-family:inherit;
+    font-size:.85rem;
+    cursor:pointer;
+  }
+  #reset-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="school/math/index.html">&larr; Math</a>
+  <h1>Ready for Year 10?</h1>
+  <p>KS3 maths essentials Eric should already be solid on before starting GCSE topics &mdash; same content regardless of exam board. Tick things off as you check them together.</p>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="progress-label" id="progress-label">0 of 0 checked</div>
+</div>
+
+<main id="checklist">
+
+  <div class="group">
+    <h2>Number</h2>
+    <div class="item"><input type="checkbox" id="n1"><label for="n1">Place value &amp; ordering (integers, decimals, fractions, negatives)</label></div>
+    <div class="item"><input type="checkbox" id="n2"><label for="n2">Factors, multiples, HCF &amp; LCM, prime factorisation</label></div>
+    <div class="item"><input type="checkbox" id="n3"><label for="n3">The four operations with fractions, decimals, negatives &amp; mixed numbers</label></div>
+    <div class="item"><input type="checkbox" id="n4"><label for="n4">Order of operations (BIDMAS), powers, roots &amp; reciprocals</label></div>
+    <div class="item"><input type="checkbox" id="n5"><label for="n5">Standard form</label></div>
+    <div class="item"><input type="checkbox" id="n6"><label for="n6">Converting between fractions, decimals &amp; percentages</label></div>
+    <div class="item"><input type="checkbox" id="n7"><label for="n7">Percentage change (increase/decrease)</label></div>
+    <div class="item"><input type="checkbox" id="n8"><label for="n8">Rounding, estimating &amp; error bounds</label></div>
+    <div class="item"><input type="checkbox" id="n9"><label for="n9">Confident non-calculator arithmetic</label></div>
+  </div>
+
+  <div class="group">
+    <h2>Algebra</h2>
+    <div class="item"><input type="checkbox" id="a1"><label for="a1">Algebraic notation &amp; collecting like terms</label></div>
+    <div class="item"><input type="checkbox" id="a2"><label for="a2">Substituting into formulae</label></div>
+    <div class="item"><input type="checkbox" id="a3"><label for="a3">Expanding and factorising (including simple quadratics)</label></div>
+    <div class="item"><input type="checkbox" id="a4"><label for="a4">Solving linear equations (with rearrangement)</label></div>
+    <div class="item"><input type="checkbox" id="a5"><label for="a5">Plotting coordinates in all four quadrants</label></div>
+    <div class="item"><input type="checkbox" id="a6"><label for="a6">Sketching linear &amp; quadratic graphs; gradient and intercept</label></div>
+    <div class="item"><input type="checkbox" id="a7"><label for="a7">Sequences: term-to-term, nth term of arithmetic sequences</label></div>
+  </div>
+
+  <div class="group">
+    <h2>Ratio, Proportion &amp; Rates of Change</h2>
+    <div class="item"><input type="checkbox" id="r1"><label for="r1">Simplifying ratios &amp; sharing in a given ratio</label></div>
+    <div class="item"><input type="checkbox" id="r2"><label for="r2">Ratio &harr; fraction relationships</label></div>
+    <div class="item"><input type="checkbox" id="r3"><label for="r3">Direct &amp; inverse proportion</label></div>
+    <div class="item"><input type="checkbox" id="r4"><label for="r4">Compound units (speed, density, unit pricing)</label></div>
+    <div class="item"><input type="checkbox" id="r5"><label for="r5">Converting between related units (length, area, volume, mass, time)</label></div>
+  </div>
+
+  <div class="group">
+    <h2>Geometry &amp; Measures</h2>
+    <div class="item"><input type="checkbox" id="g1"><label for="g1">Area &amp; perimeter of triangles, parallelograms, trapezia &amp; circles</label></div>
+    <div class="item"><input type="checkbox" id="g2"><label for="g2">Volume of cuboids &amp; prisms (including cylinders)</label></div>
+    <div class="item"><input type="checkbox" id="g3"><label for="g3">Angle facts: on a line, at a point, parallel lines</label></div>
+    <div class="item"><input type="checkbox" id="g4"><label for="g4">Angle sums of triangles &amp; polygons</label></div>
+    <div class="item"><input type="checkbox" id="g5"><label for="g5">Properties of 2D/3D shapes; congruence &amp; similarity</label></div>
+    <div class="item"><input type="checkbox" id="g6"><label for="g6">Transformations: translation, rotation, reflection, enlargement</label></div>
+    <div class="item"><input type="checkbox" id="g7"><label for="g7">Basic constructions (perpendicular/angle bisectors)</label></div>
+    <div class="item"><input type="checkbox" id="g8"><label for="g8">Pythagoras' theorem &amp; intro trigonometry (SOH CAH TOA)</label></div>
+  </div>
+
+  <div class="group">
+    <h2>Probability</h2>
+    <div class="item"><input type="checkbox" id="p1"><label for="p1">Probability scale &amp; sample spaces</label></div>
+    <div class="item"><input type="checkbox" id="p2"><label for="p2">Venn diagrams &amp; two-way tables</label></div>
+    <div class="item"><input type="checkbox" id="p3"><label for="p3">Combined events</label></div>
+  </div>
+
+  <div class="group">
+    <h2>Statistics</h2>
+    <div class="item"><input type="checkbox" id="s1"><label for="s1">Mean, median, mode &amp; range</label></div>
+    <div class="item"><input type="checkbox" id="s2"><label for="s2">Bar charts, pie charts &amp; frequency tables</label></div>
+    <div class="item"><input type="checkbox" id="s3"><label for="s3">Scatter graphs &amp; correlation</label></div>
+  </div>
+
+  <div class="reset-row">
+    <button type="button" id="reset-btn">Reset all</button>
+  </div>
+
+</main>
+
+<script>
+  const STORAGE_KEY = "eric_ks3_essentials";
+  const checkboxes = Array.from(document.querySelectorAll('#checklist input[type="checkbox"]'));
+  const fill = document.getElementById("progress-fill");
+  const label = document.getElementById("progress-label");
+
+  function loadState() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    } catch {
+      return {};
+    }
+  }
+
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function updateProgress() {
+    const total = checkboxes.length;
+    const checked = checkboxes.filter(cb => cb.checked).length;
+    fill.style.width = total ? `${(checked / total) * 100}%` : "0%";
+    label.textContent = `${checked} of ${total} checked`;
+  }
+
+  const state = loadState();
+  checkboxes.forEach(cb => {
+    cb.checked = !!state[cb.id];
+    cb.closest(".item").classList.toggle("checked", cb.checked);
+    cb.addEventListener("change", () => {
+      const current = loadState();
+      current[cb.id] = cb.checked;
+      saveState(current);
+      cb.closest(".item").classList.toggle("checked", cb.checked);
+      updateProgress();
+    });
+  });
+  updateProgress();
+
+  document.getElementById("reset-btn").addEventListener("click", () => {
+    localStorage.removeItem(STORAGE_KEY);
+    checkboxes.forEach(cb => {
+      cb.checked = false;
+      cb.closest(".item").classList.remove("checked");
+    });
+    updateProgress();
+  });
+</script>
+
+</body>
+</html>

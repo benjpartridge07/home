@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Times Tables Practice</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#2f6fed;
+    --accent-soft:#eaf0fe;
+    --good:#2f9d5c;
+    --good-soft:#e7f8ee;
+    --bad:#d64545;
+    --bad-soft:#fbe6e6;
+    --random:#8b5fa3;
+    --random-soft:#f0e6f5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{
+    padding:2.5rem 1.5rem 1rem;
+    max-width:700px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+    cursor:pointer;
+    background:none;
+    border:none;
+    padding:0;
+    font-family:inherit;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header h1{
+    margin:0 0 .25rem;
+    font-size:1.9rem;
+  }
+  header p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:1rem;
+  }
+  main{
+    max-width:700px;
+    margin:0 auto;
+    padding:0 1.5rem 3.5rem;
+  }
+
+  /* ---------- Home view ---------- */
+  .table-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:.9rem;
+    margin-top:1.5rem;
+  }
+  @media (max-width:480px){ .table-grid{ grid-template-columns:repeat(3, 1fr); } }
+  .table-btn{
+    font-family:inherit;
+    font-size:1.6rem;
+    font-weight:700;
+    padding:1.4rem 0;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--accent);
+    cursor:pointer;
+    transition:transform .1s ease, box-shadow .1s ease;
+  }
+  .table-btn:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(20,22,26,.08); border-color:var(--accent); }
+  .random-btn{
+    width:100%;
+    margin-top:.9rem;
+    font-family:inherit;
+    font-size:1.1rem;
+    font-weight:700;
+    padding:1.1rem 0;
+    border-radius:14px;
+    border:1px solid var(--random);
+    background:var(--random-soft);
+    color:var(--random);
+    cursor:pointer;
+  }
+  .random-btn:hover{ transform:translateY(-2px); }
+  .progress-link{
+    display:block;
+    text-align:center;
+    margin-top:1.5rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+  }
+  .progress-link:hover{ color:var(--accent); }
+
+  /* ---------- Quiz view ---------- */
+  .quiz-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:1.5rem;
+    margin-bottom:.6rem;
+    font-size:.85rem;
+    color:var(--text-dim);
+  }
+  .progress-bar{
+    background:var(--border);
+    border-radius:999px;
+    height:8px;
+    overflow:hidden;
+    margin-bottom:2rem;
+  }
+  .progress-bar-fill{
+    background:var(--accent);
+    height:100%;
+    width:0%;
+    transition:width .2s ease;
+  }
+  .question-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:3rem 1.5rem;
+    text-align:center;
+    margin-bottom:1.75rem;
+  }
+  .question-text{
+    font-size:2.6rem;
+    font-weight:700;
+    letter-spacing:.01em;
+  }
+  .answer-btns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+  }
+  .answer-btns button{
+    font-family:inherit;
+    font-size:1.3rem;
+    font-weight:700;
+    padding:1.5rem 0;
+    border-radius:16px;
+    border:none;
+    cursor:pointer;
+  }
+  #btn-correct{ background:var(--good-soft); color:var(--good); }
+  #btn-correct:hover{ background:var(--good); color:#fff; }
+  #btn-wrong{ background:var(--bad-soft); color:var(--bad); }
+  #btn-wrong:hover{ background:var(--bad); color:#fff; }
+  .kbd-hint{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:.8rem;
+    margin-top:1rem;
+  }
+
+  /* ---------- Summary view ---------- */
+  .score-banner{
+    text-align:center;
+    margin-top:1.5rem;
+    margin-bottom:1.5rem;
+  }
+  .score-banner .score{
+    font-size:3rem;
+    font-weight:700;
+    color:var(--accent);
+  }
+  .score-banner .score-label{
+    color:var(--text-dim);
+    font-size:.95rem;
+  }
+  .result-list{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    margin-bottom:1.5rem;
+  }
+  .result-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:.8rem 1.2rem;
+    border-bottom:1px solid var(--border);
+    font-size:1rem;
+  }
+  .result-row:last-child{ border-bottom:none; }
+  .result-row.wrong{ background:var(--bad-soft); }
+  .result-row .icon{ font-size:1.1rem; }
+  .summary-actions{
+    display:flex;
+    gap:.9rem;
+    flex-wrap:wrap;
+  }
+  .summary-actions button{
+    flex:1;
+    min-width:160px;
+    font-family:inherit;
+    font-size:.95rem;
+    font-weight:600;
+    padding:.85rem 1rem;
+    border-radius:10px;
+    cursor:pointer;
+  }
+  #btn-retry{ background:var(--accent); color:#fff; border:none; }
+  #btn-home{ background:var(--card); color:var(--text); border:1px solid var(--border); }
+
+  /* ---------- Stats view ---------- */
+  .stats-table-wrap{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    margin-top:1.5rem;
+  }
+  table{ width:100%; border-collapse:collapse; }
+  th, td{ text-align:left; padding:.7rem 1rem; font-size:.9rem; border-bottom:1px solid var(--border); }
+  th{ font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-dim); background:var(--bg); }
+  tbody tr:last-child td{ border-bottom:none; }
+  .accuracy-low{ color:var(--bad); font-weight:700; }
+  .accuracy-mid{ color:#b98900; font-weight:700; }
+  .accuracy-high{ color:var(--good); font-weight:700; }
+  .stats-empty{
+    text-align:center;
+    color:var(--text-dim);
+    padding:2.5rem 1rem;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    margin-top:1.5rem;
+  }
+  #btn-clear-stats{
+    margin-top:1.25rem;
+    font-family:inherit;
+    font-size:.85rem;
+    padding:.6rem 1rem;
+    border-radius:8px;
+    border:1px solid var(--bad);
+    background:#fff;
+    color:var(--bad);
+    cursor:pointer;
+  }
+
+  [hidden]{ display:none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <button class="back-link" id="back-btn" type="button">&larr; <span id="back-label">Math</span></button>
+  <h1>Times Tables Practice</h1>
+  <p id="subtitle">Pick a table, ask Eric each question aloud, then tick or cross his answer.</p>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <div id="view-home">
+    <div class="table-grid" id="table-grid"></div>
+    <button class="random-btn" id="random-btn">🎲 Random Mix</button>
+    <a class="progress-link" id="stats-link" href="#">📊 View progress</a>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="view-quiz" hidden>
+    <div class="quiz-top">
+      <span id="quiz-title"></span>
+      <span id="quiz-count"></span>
+    </div>
+    <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
+    <div class="question-card">
+      <div class="question-text" id="question-text"></div>
+    </div>
+    <div class="answer-btns">
+      <button type="button" id="btn-correct">✅ Tick</button>
+      <button type="button" id="btn-wrong">❌ Cross</button>
+    </div>
+    <p class="kbd-hint">Tip: press <b>Y</b> or <b>&rarr;</b> for tick, <b>N</b> or <b>&larr;</b> for cross.</p>
+  </div>
+
+  <!-- SUMMARY -->
+  <div id="view-summary" hidden>
+    <div class="score-banner">
+      <div class="score" id="summary-score"></div>
+      <div class="score-label" id="summary-label"></div>
+    </div>
+    <div class="result-list" id="result-list"></div>
+    <div class="summary-actions">
+      <button type="button" id="btn-retry">🔁 Practice again</button>
+      <button type="button" id="btn-home">🏠 Choose another table</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div id="view-stats" hidden>
+    <div id="stats-content"></div>
+    <button type="button" id="btn-clear-stats">🗑️ Clear all progress</button>
+  </div>
+
+</main>
+
+<script>
+  const TABLES = [2,3,4,5,6,7,8,9,10,11,12];
+  const QUESTIONS_PER_ROUND = 10;
+  const STATS_KEY = "timesTablesStats";
+
+  const views = {
+    home: document.getElementById("view-home"),
+    quiz: document.getElementById("view-quiz"),
+    summary: document.getElementById("view-summary"),
+    stats: document.getElementById("view-stats")
+  };
+
+  function showView(name) {
+    Object.values(views).forEach(v => v.hidden = true);
+    views[name].hidden = false;
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // ---------- Stats persistence ----------
+  function loadStats() {
+    try { return JSON.parse(localStorage.getItem(STATS_KEY)) || {}; }
+    catch (e) { return {}; }
+  }
+  function saveStats(stats) {
+    localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+  }
+  function recordFact(a, b, correct) {
+    const key = `${a}x${b}`;
+    const stats = loadStats();
+    if (!stats[key]) stats[key] = { a, b, correct: 0, wrong: 0 };
+    if (correct) stats[key].correct++; else stats[key].wrong++;
+    saveStats(stats);
+  }
+
+  // ---------- Home: build table buttons ----------
+  const tableGrid = document.getElementById("table-grid");
+  TABLES.forEach(n => {
+    const btn = document.createElement("button");
+    btn.className = "table-btn";
+    btn.textContent = n;
+    btn.addEventListener("click", () => startTableRound(n));
+    tableGrid.appendChild(btn);
+  });
+
+  document.getElementById("random-btn").addEventListener("click", startRandomRound);
+  document.getElementById("stats-link").addEventListener("click", (e) => {
+    e.preventDefault();
+    openStats();
+  });
+
+  // ---------- Quiz state ----------
+  let currentQuestions = [];
+  let currentIndex = 0;
+  let currentResults = [];
+  let currentMode = null; // { type: 'table', table: n } or { type: 'random' }
+
+  function buildTableQuestions(table) {
+    const multipliers = shuffle([1,2,3,4,5,6,7,8,9,10,11,12]).slice(0, QUESTIONS_PER_ROUND);
+    return multipliers.map(m => ({ a: table, b: m, answer: table * m }));
+  }
+
+  function buildRandomQuestions() {
+    const qs = [];
+    for (let i = 0; i < QUESTIONS_PER_ROUND; i++) {
+      const a = TABLES[Math.floor(Math.random() * TABLES.length)];
+      const b = TABLES[Math.floor(Math.random() * TABLES.length)];
+      qs.push({ a, b, answer: a * b });
+    }
+    return qs;
+  }
+
+  function startTableRound(table) {
+    currentMode = { type: "table", table };
+    currentQuestions = buildTableQuestions(table);
+    beginRound(`${table} times table`);
+  }
+
+  function startRandomRound() {
+    currentMode = { type: "random" };
+    currentQuestions = buildRandomQuestions();
+    beginRound("Random mix");
+  }
+
+  function beginRound(title) {
+    currentIndex = 0;
+    currentResults = [];
+    document.getElementById("quiz-title").textContent = title;
+    document.getElementById("back-label").textContent = "Menu";
+    showView("quiz");
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const q = currentQuestions[currentIndex];
+    document.getElementById("quiz-count").textContent = `Question ${currentIndex + 1} of ${currentQuestions.length}`;
+    document.getElementById("progress-fill").style.width = `${(currentIndex / currentQuestions.length) * 100}%`;
+    document.getElementById("question-text").textContent = `${q.a} × ${q.b} = ${q.answer}`;
+  }
+
+  function answer(correct) {
+    const q = currentQuestions[currentIndex];
+    currentResults.push({ ...q, correct });
+    recordFact(q.a, q.b, correct);
+    currentIndex++;
+    if (currentIndex >= currentQuestions.length) {
+      document.getElementById("progress-fill").style.width = "100%";
+      showSummary();
+    } else {
+      renderQuestion();
+    }
+  }
+
+  document.getElementById("btn-correct").addEventListener("click", () => answer(true));
+  document.getElementById("btn-wrong").addEventListener("click", () => answer(false));
+
+  document.addEventListener("keydown", (e) => {
+    if (views.quiz.hidden) return;
+    if (e.key === "y" || e.key === "Y" || e.key === "ArrowRight" || e.key === "Enter") answer(true);
+    if (e.key === "n" || e.key === "N" || e.key === "ArrowLeft" || e.key === "Backspace") answer(false);
+  });
+
+  // ---------- Summary ----------
+  function showSummary() {
+    const correctCount = currentResults.filter(r => r.correct).length;
+    document.getElementById("summary-score").textContent = `${correctCount} / ${currentResults.length}`;
+    document.getElementById("summary-label").textContent = "correct this round";
+
+    const list = document.getElementById("result-list");
+    list.innerHTML = "";
+    currentResults.forEach(r => {
+      const row = document.createElement("div");
+      row.className = "result-row" + (r.correct ? "" : " wrong");
+      row.innerHTML = `<span>${r.a} × ${r.b} = ${r.answer}</span><span class="icon">${r.correct ? "✅" : "❌"}</span>`;
+      list.appendChild(row);
+    });
+
+    document.getElementById("back-label").textContent = "Menu";
+    showView("summary");
+  }
+
+  document.getElementById("btn-retry").addEventListener("click", () => {
+    if (currentMode.type === "table") startTableRound(currentMode.table);
+    else startRandomRound();
+  });
+  document.getElementById("btn-home").addEventListener("click", goHome);
+
+  // ---------- Stats view ----------
+  function openStats() {
+    const stats = loadStats();
+    const facts = Object.values(stats).filter(f => (f.correct + f.wrong) > 0);
+    const container = document.getElementById("stats-content");
+
+    if (facts.length === 0) {
+      container.innerHTML = '<div class="stats-empty">No practice recorded yet &mdash; play a round first!</div>';
+    } else {
+      facts.sort((x, y) => {
+        const accX = x.correct / (x.correct + x.wrong);
+        const accY = y.correct / (y.correct + y.wrong);
+        if (accX !== accY) return accX - accY;
+        return (y.correct + y.wrong) - (x.correct + x.wrong);
+      });
+
+      let rows = "";
+      facts.forEach(f => {
+        const attempts = f.correct + f.wrong;
+        const pct = Math.round((f.correct / attempts) * 100);
+        const cls = pct < 60 ? "accuracy-low" : pct < 85 ? "accuracy-mid" : "accuracy-high";
+        rows += `<tr><td>${f.a} × ${f.b}</td><td>${attempts}</td><td>${f.correct}</td><td class="${cls}">${pct}%</td></tr>`;
+      });
+
+      container.innerHTML = `
+        <div class="stats-table-wrap">
+          <table>
+            <thead><tr><th>Fact</th><th>Attempts</th><th>Correct</th><th>Accuracy</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+        <p style="color:var(--text-dim); font-size:.85rem; margin-top:.8rem;">Sorted weakest first &mdash; good facts to focus on next.</p>
+      `;
+    }
+
+    document.getElementById("back-label").textContent = "Menu";
+    showView("stats");
+  }
+
+  document.getElementById("btn-clear-stats").addEventListener("click", () => {
+    if (!confirm("Clear all recorded progress? This can't be undone.")) return;
+    localStorage.removeItem(STATS_KEY);
+    openStats();
+  });
+
+  // ---------- Navigation ----------
+  function goHome() {
+    document.getElementById("back-label").textContent = "Math";
+    showView("home");
+  }
+
+  document.getElementById("back-btn").addEventListener("click", () => {
+    if (views.home.hidden) {
+      goHome();
+    } else {
+      window.location.href = "../index.html";
+    }
+  });
+</script>
+
+</body>
+</html>

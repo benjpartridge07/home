@@ -1,0 +1,273 @@
+<style>
+  #ls11-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --acc: #B5762A; --acc-soft: #F1E3CE;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls11-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls11-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls11-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls11-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls11-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls11-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls11-section { margin-bottom: 26px; }
+  .ls11-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls11-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls11-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls11-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls11-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls11-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls11-card p:last-child { margin-bottom: 0; }
+  .ls11-card ul { margin: 0 0 10px; padding-left: 20px; font-size: 13.5px; line-height: 1.6; }
+  .ls11-term { font-weight: 600; color: var(--maths); }
+  .ls11-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls11-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls11-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls11-table-wrap th, .ls11-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls11-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls11-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls11-activity { background: var(--acc-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls11-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls11-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls11-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls11-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls11-blank-row label { font-size: 13px; min-width: 220px; font-weight: 500; }
+  .ls11-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls11-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls11-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls11-feedback.ok { color: #2E6B45; }
+  .ls11-feedback.no { color: #A34B4B; }
+
+  .ls11-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls11-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls11-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls11-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls11-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--acc); background: none; border: 1.5px solid var(--acc); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls11-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--acc); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls11-answer.show { display: block; }
+
+  .ls11-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls11-root">
+  <p class="ls11-eyebrow">GCSE Maths &middot; Number</p>
+  <h1 class="ls11-title">Fractions, Decimals &amp; Percentages</h1>
+  <div class="ls11-meta">
+    <span><span class="ls11-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>55 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls11-section">
+    <div class="ls11-section-head">
+      <span class="ls11-section-num">01</span>
+      <h2 class="ls11-section-title">Three ways of saying the same amount</h2>
+      <span class="ls11-section-time">8 min</span>
+    </div>
+    <div class="ls11-card">
+      <p>A <span class="ls11-term">fraction</span>, a <span class="ls11-term">decimal</span> and a <span class="ls11-term">percentage</span> can all describe exactly the same amount — they're just three different ways of writing "part of a whole". Being able to switch between them fast is one of the most-used skills across the whole GCSE course.</p>
+      <p>Some are worth simply memorising, because they come up constantly:</p>
+    </div>
+    <div class="ls11-table-wrap">
+      <table>
+        <tr><th>Fraction</th><th>Decimal</th><th>Percentage</th></tr>
+        <tr><td>1/2</td><td>0.5</td><td>50%</td></tr>
+        <tr><td>1/4</td><td>0.25</td><td>25%</td></tr>
+        <tr><td>1/5</td><td>0.2</td><td>20%</td></tr>
+        <tr><td>1/10</td><td>0.1</td><td>10%</td></tr>
+        <tr><td>1/8</td><td>0.125</td><td>12.5%</td></tr>
+        <tr><td>1/3</td><td>0.333&hellip;</td><td>33.3%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls11-section">
+    <div class="ls11-section-head">
+      <span class="ls11-section-num">02</span>
+      <h2 class="ls11-section-title">Converting between the three</h2>
+      <span class="ls11-section-time">12 min</span>
+    </div>
+    <div class="ls11-card">
+      <ul>
+        <li><span class="ls11-term">Fraction &rarr; Decimal:</span> divide top by bottom. <span class="ls11-eq">3/4 = 3 &divide; 4 = 0.75</span></li>
+        <li><span class="ls11-term">Decimal &rarr; Percentage:</span> multiply by 100 (move the point two places right). <span class="ls11-eq">0.75 &times; 100 = 75%</span></li>
+        <li><span class="ls11-term">Percentage &rarr; Decimal:</span> divide by 100 (move the point two places left). <span class="ls11-eq">45% &rarr; 0.45</span></li>
+        <li><span class="ls11-term">Decimal &rarr; Fraction:</span> use place value, then simplify. <span class="ls11-eq">0.6 = 6/10 = 3/5</span></li>
+        <li><span class="ls11-term">Fraction &rarr; Percentage:</span> convert to a decimal first, then &times;100. <span class="ls11-eq">9/20 = 0.45 = 45%</span></li>
+      </ul>
+    </div>
+    <div class="ls11-table-wrap">
+      <table>
+        <tr><th>Start</th><th>Working</th><th>Result</th></tr>
+        <tr><td>3/4</td><td>3 &divide; 4 = 0.75, &times;100</td><td>0.75 &nbsp;&middot;&nbsp; 75%</td></tr>
+        <tr><td>0.6</td><td>6/10, simplify &divide;2</td><td>3/5 &nbsp;&middot;&nbsp; 60%</td></tr>
+        <tr><td>45%</td><td>&divide;100, place value</td><td>0.45 &nbsp;&middot;&nbsp; 9/20</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls11-section">
+    <div class="ls11-section-head">
+      <span class="ls11-section-num">&bull;</span>
+      <h2 class="ls11-section-title">Activity &mdash; convert straight across</h2>
+      <span class="ls11-section-time">8 min</span>
+    </div>
+    <div class="ls11-activity">
+      <p class="ls11-activity-label">Type the number only &mdash; fractions in simplest form, e.g. 3/5</p>
+      <div class="ls11-blank-row"><label>7/10 = ___ (decimal)</label><input type="text" data-answer="0.7"></div>
+      <div class="ls11-blank-row"><label>0.35 = ___ (%)</label><input type="text" data-answer="35"></div>
+      <div class="ls11-blank-row"><label>60% = ___ (fraction)</label><input type="text" data-answer="3/5"></div>
+      <div class="ls11-blank-row"><label>0.125 = ___ (%)</label><input type="text" data-answer="12.5"></div>
+      <button class="ls11-check-btn" id="ls11-check-1">Check answers</button>
+      <p class="ls11-feedback" id="ls11-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls11-section">
+    <div class="ls11-section-head">
+      <span class="ls11-section-num">03</span>
+      <h2 class="ls11-section-title">Ordering FDP values</h2>
+      <span class="ls11-section-time">10 min</span>
+    </div>
+    <div class="ls11-card">
+      <p>When a question mixes fractions, decimals and percentages and asks you to order them, the trick is to <strong>convert everything into the same form</strong> first — decimals are usually quickest.</p>
+      <p>Worked example: order 7/20, 30%, 0.28, 1/3 from smallest to largest.</p>
+      <p style="padding-left:14px">7/20 = 0.35 &nbsp;&middot;&nbsp; 30% = 0.30 &nbsp;&middot;&nbsp; 0.28 &nbsp;&middot;&nbsp; 1/3 = 0.333&hellip;</p>
+      <p style="padding-left:14px"><strong>Order: 0.28, 30%, 1/3, 7/20</strong></p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls11-section">
+    <div class="ls11-section-head">
+      <span class="ls11-section-num">&bull;</span>
+      <h2 class="ls11-section-title">Activity &mdash; convert, then order</h2>
+      <span class="ls11-section-time">8 min</span>
+    </div>
+    <div class="ls11-activity maths">
+      <p class="ls11-activity-label">Convert each to a decimal, then say which is smallest</p>
+      <div class="ls11-blank-row"><label>3/8 = ___ (decimal)</label><input type="text" data-answer="0.375"></div>
+      <div class="ls11-blank-row"><label>0.6 = ___ (%)</label><input type="text" data-answer="60"></div>
+      <div class="ls11-blank-row"><label>45% = ___ (fraction)</label><input type="text" data-answer="9/20"></div>
+      <div class="ls11-blank-row"><label>Smallest of 3/8, 0.6, 45%? Type it exactly as shown</label><input type="text" data-answer="3/8"></div>
+      <button class="ls11-check-btn" id="ls11-check-2">Check answers</button>
+      <p class="ls11-feedback" id="ls11-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls11-section">
+    <div class="ls11-section-head">
+      <span class="ls11-section-num">04</span>
+      <h2 class="ls11-section-title">Fraction and percentage of an amount</h2>
+      <span class="ls11-section-time">15 min</span>
+    </div>
+    <div class="ls11-card">
+      <p><span class="ls11-term">Fraction of an amount:</span> divide by the denominator (bottom number), then multiply by the numerator (top number).</p>
+      <p style="padding-left:14px">3/5 of 40 &rarr; 40 &divide; 5 = 8, &nbsp; 8 &times; 3 = <strong>24</strong></p>
+      <p><span class="ls11-term">Percentage of an amount, no calculator (building-block method):</span> find 10% by dividing by 10, then 1% by dividing by 10 again, and combine to build any percentage you need.</p>
+      <p style="padding-left:14px">35% of &pound;60 &rarr; 10% = &pound;6, so 30% = &pound;18, and 5% = &pound;3 &nbsp;&rarr;&nbsp; 30% + 5% = <strong>&pound;21</strong></p>
+    </div>
+  </div>
+
+  <!-- 5 GCSE questions -->
+  <div class="ls11-section">
+    <div class="ls11-section-head">
+      <span class="ls11-section-num">05</span>
+      <h2 class="ls11-section-title">GCSE-style review questions</h2>
+      <span class="ls11-section-time">12 min</span>
+    </div>
+
+    <div class="ls11-q">
+      <div class="ls11-q-top"><p class="ls11-q-text">1. Convert 7/8 to a decimal.</p><span class="ls11-q-marks">[1 mark]</span></div>
+      <button class="ls11-reveal-btn" data-reveal="f1">Show mark scheme</button>
+      <div class="ls11-answer" id="f1"><strong>0.875</strong> (1)</div>
+    </div>
+
+    <div class="ls11-q">
+      <div class="ls11-q-top"><p class="ls11-q-text">2. Write 0.34 as a percentage.</p><span class="ls11-q-marks">[1 mark]</span></div>
+      <button class="ls11-reveal-btn" data-reveal="f2">Show mark scheme</button>
+      <div class="ls11-answer" id="f2"><strong>34%</strong> (1)</div>
+    </div>
+
+    <div class="ls11-q">
+      <div class="ls11-q-top"><p class="ls11-q-text">3. Write 65% as a fraction in its simplest form.</p><span class="ls11-q-marks">[2 marks]</span></div>
+      <button class="ls11-reveal-btn" data-reveal="f3">Show mark scheme</button>
+      <div class="ls11-answer" id="f3">65/100 (1) &nbsp; simplified = <strong>13/20</strong> (1)</div>
+    </div>
+
+    <div class="ls11-q">
+      <div class="ls11-q-top"><p class="ls11-q-text">4. Calculate 3/4 of 96.</p><span class="ls11-q-marks">[2 marks]</span></div>
+      <button class="ls11-reveal-btn" data-reveal="f4">Show mark scheme</button>
+      <div class="ls11-answer" id="f4">96 &divide; 4 = 24 (1) &nbsp; 24 &times; 3 = <strong>72</strong> (1)</div>
+    </div>
+
+    <div class="ls11-q">
+      <div class="ls11-q-top"><p class="ls11-q-text">5. Calculate 15% of &pound;220 without a calculator. Show your method.</p><span class="ls11-q-marks">[3 marks]</span></div>
+      <button class="ls11-reveal-btn" data-reveal="f5">Show mark scheme</button>
+      <div class="ls11-answer" id="f5">10% = &pound;22 (1) &nbsp; 5% = &pound;11 (1) &nbsp; 15% = 22 + 11 = <strong>&pound;33</strong> (1)</div>
+    </div>
+  </div>
+
+  <p class="ls11-footer-note">Tip: whichever form a question gives you, converting to a decimal first is usually the fastest route to compare or order values — just don't forget to convert your final answer back if the question asked for a fraction or percentage.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls11-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls11-root .ls11-activity:not(.maths) input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls11-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls11-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls11-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls11-root .ls11-activity.maths input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls11-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls11-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls11-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

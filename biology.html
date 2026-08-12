@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Eric's Biology Revision</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#2f9d5c;
+    --accent-soft:#e7f8ee;
+    --done:#1f9d55;
+    --done-soft:#e7f8ee;
+    --upcoming:#b98900;
+    --upcoming-soft:#fbf1dc;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{
+    padding:2.5rem 1.5rem 1.5rem;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header h1{
+    margin:0 0 .25rem;
+    font-size:1.9rem;
+  }
+  header p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:1rem;
+  }
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 1.5rem 3rem;
+  }
+  .subject{
+    margin-top:2rem;
+  }
+  .subject h2{
+    font-size:1.1rem;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--text-dim);
+    margin:0 0 .75rem;
+  }
+  .topic{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:1.25rem 1.5rem;
+    margin-bottom:1rem;
+  }
+  .topic-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .topic-head h3{
+    margin:0;
+    font-size:1.15rem;
+  }
+  .topic-head .spec-ref{
+    font-family: 'Courier New', monospace;
+    font-size:.75rem;
+    color:var(--text-dim);
+    font-weight:400;
+  }
+  .status{
+    font-size:.75rem;
+    font-weight:600;
+    padding:.2rem .6rem;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .status.done{ background:var(--done-soft); color:var(--done); }
+  .status.upcoming{ background:var(--upcoming-soft); color:var(--upcoming); }
+  .topic p.desc{
+    color:var(--text-dim);
+    margin:.5rem 0 1rem;
+    font-size:.95rem;
+  }
+  .files{
+    display:flex;
+    gap:.6rem;
+    flex-wrap:wrap;
+  }
+  .files a{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    padding:.5rem .9rem;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    text-decoration:none;
+    font-size:.9rem;
+    font-weight:600;
+    border:1px solid transparent;
+  }
+  .files a:hover{
+    border-color:var(--accent);
+  }
+  .files .placeholder{
+    display:inline-flex;
+    align-items:center;
+    padding:.5rem .9rem;
+    border-radius:8px;
+    background:#f0f1f4;
+    color:var(--text-dim);
+    font-size:.9rem;
+    font-style:italic;
+  }
+  .files button{
+    font-family:inherit;
+    cursor:pointer;
+  }
+  dialog#video-dialog{
+    border:none;
+    border-radius:12px;
+    padding:1.5rem;
+    width:min(420px, 90vw);
+    color:var(--text);
+  }
+  dialog#video-dialog::backdrop{
+    background:rgba(20,22,26,.45);
+  }
+  dialog#video-dialog h3{
+    margin:0 0 1rem;
+    font-size:1.1rem;
+  }
+  #video-dialog-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:.5rem;
+  }
+  #video-dialog-list a{
+    display:block;
+    padding:.6rem .8rem;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:600;
+    font-size:.92rem;
+  }
+  #video-dialog-list a:hover{
+    text-decoration:underline;
+  }
+  #video-dialog-list .empty{
+    color:var(--text-dim);
+    font-style:italic;
+    font-size:.9rem;
+  }
+  #video-dialog-close{
+    margin-top:1.25rem;
+    padding:.5rem 1rem;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    font-family:inherit;
+    font-size:.9rem;
+    cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="school/science/index.html">&larr; All subjects</a>
+  <h1>Eric's Biology Revision</h1>
+  <p>AQA Combined Science: Synergy (8465), Foundation tier. Some spec sections are bigger than one lesson, so they're split into parts &mdash; same pattern used for Forces &amp; Motion in Physics.</p>
+</header>
+
+<main>
+
+  <div class="subject">
+    <h2>GCSE Biology</h2>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Spot Quizzes</h3>
+      </div>
+      <p class="desc">Quick standalone practice on the maths skills that show up across topics: standard form and order of magnitude calculations.</p>
+      <div class="files">
+        <a href="materials/spot_quizzes/standard_form_quiz.pdf">📝 Standard Form</a>
+        <a href="materials/spot_quizzes/standard_form_quiz_answers.pdf">✅ Standard Form Answers</a>
+        <a href="materials/spot_quizzes/order_of_magnitude_quiz.pdf">📝 Order of Magnitude</a>
+        <a href="materials/spot_quizzes/order_of_magnitude_quiz_answers.pdf">✅ Order of Magnitude Answers</a>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Animal &amp; Plant Cells <span class="spec-ref">4.1.3.2</span></h3>
+        <span class="status done">Done</span>
+      </div>
+      <p class="desc">Animal cell parts (nucleus, cytoplasm, cell membrane, mitochondria, ribosomes), plant cell extras (chloroplasts, permanent vacuole, cell wall), and what each part does. Test includes labelling a diagram. 22-mark test.</p>
+      <div class="files">
+        <a href="materials/animal_plant_cells/lesson_animal_plant_cells.html">🧪 Interactive lesson</a>
+        <a href="materials/animal_plant_cells/animal_plant_cells_reference.pdf">📄 Reference sheet</a>
+        <button type="button" class="videos-btn" data-topic="animal_plant_cells">🎥 Videos</button>
+        <a href="materials/animal_plant_cells/animal_plant_cells_test.pdf">📝 Test</a>
+        <a href="materials/animal_plant_cells/animal_plant_cells_test_answers.pdf">✅ Answers</a>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Eukaryotes, Prokaryotes &amp; the Scale of Cells <span class="spec-ref">4.1.1/4.1.3</span></h3>
+        <span class="status done">Done</span>
+      </div>
+      <p class="desc">Eukaryotic vs prokaryotic cells, bacterial cell structure, unit conversion ladder (m/mm/&micro;m/nm), standard form for tiny numbers, and order of magnitude calculations. 24-mark test.</p>
+      <div class="files">
+        <a href="materials/eukaryotes_prokaryotes/lesson_eukaryotes_prokaryotes.html">🧪 Interactive lesson</a>
+        <a href="materials/eukaryotes_prokaryotes/eukaryotes_prokaryotes_reference.pdf">📄 Reference sheet</a>
+        <button type="button" class="videos-btn" data-topic="eukaryotes_prokaryotes">🎥 Videos</button>
+        <a href="materials/eukaryotes_prokaryotes/eukaryotes_prokaryotes_test.pdf">📝 Test</a>
+        <a href="materials/eukaryotes_prokaryotes/eukaryotes_prokaryotes_test_answers.pdf">✅ Answers</a>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Cells: Structure, Transport &amp; Division <span class="spec-ref">4.1.3</span></h3>
+        <span class="status done">Done</span>
+      </div>
+      <p class="desc">Cell structures (animal, plant, bacterial), microscopy &amp; magnification calculations, diffusion/osmosis/active transport, mitosis &amp; the cell cycle, meiosis, cell differentiation and stem cells. 33-mark test.</p>
+      <div class="files">
+        <a href="materials/cells/lesson_cells.html">🧪 Interactive lesson</a>
+        <a href="materials/cells/cells_reference.pdf">📄 Reference sheet</a>
+        <button type="button" class="videos-btn" data-topic="cells">🎥 Videos</button>
+        <a href="materials/cells/cells_test.pdf">📝 Test</a>
+        <a href="materials/cells/cells_test_answers.pdf">✅ Answers</a>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Cell Specialisation <span class="spec-ref">4.1.1.3</span></h3>
+        <span class="status done">Done</span>
+      </div>
+      <p class="desc">How the structure of specialised cells relates to their function: sperm, nerve &amp; muscle cells (animals); root hair, xylem &amp; phloem cells (plants). Includes the 3-step method for unfamiliar-cell "explain" questions. 24-mark test.</p>
+      <div class="files">
+        <a href="materials/cell_specialisation/lesson_cell_specialisation.html">🧪 Interactive lesson</a>
+        <a href="materials/cell_specialisation/cell_specialisation_reference.pdf">📄 Reference sheet</a>
+        <button type="button" class="videos-btn" data-topic="cell_specialisation">🎥 Videos</button>
+        <a href="materials/cell_specialisation/cell_specialisation_test.pdf">📝 Test</a>
+        <a href="materials/cell_specialisation/cell_specialisation_test_answers.pdf">✅ Answers</a>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Human Body Systems, Part 1: Breathing &amp; Transport <span class="spec-ref">4.2.1</span></h3>
+        <span class="status done">Done</span>
+      </div>
+      <p class="desc">Aerobic &amp; anaerobic respiration, exchange surfaces, the circulatory system (heart, blood vessels), and blood cells. 38-mark test.</p>
+      <div class="files">
+        <a href="materials/human_body_1/lesson_human_body_1.html">🧪 Interactive lesson</a>
+        <a href="materials/human_body_1/human_body_1_reference.pdf">📄 Reference sheet</a>
+        <button type="button" class="videos-btn" data-topic="human_body_1">🎥 Videos</button>
+        <a href="materials/human_body_1/human_body_1_test.pdf">📝 Test</a>
+        <a href="materials/human_body_1/human_body_1_test_answers.pdf">✅ Answers</a>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Human Body Systems, Part 2: Digestion &amp; Control <span class="spec-ref">4.2.1</span></h3>
+        <span class="status done">Done</span>
+      </div>
+      <p class="desc">The human digestive system (enzymes, bile), the nervous system (reflex arc, synapses), and the endocrine system (hormones, glands). 37-mark test.</p>
+      <div class="files">
+        <a href="materials/human_body_2/lesson_human_body_2.html">🧪 Interactive lesson</a>
+        <a href="materials/human_body_2/human_body_2_reference.pdf">📄 Reference sheet</a>
+        <button type="button" class="videos-btn" data-topic="human_body_2">🎥 Videos</button>
+        <a href="materials/human_body_2/human_body_2_test.pdf">📝 Test</a>
+        <a href="materials/human_body_2/human_body_2_test_answers.pdf">✅ Answers</a>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Plants, Part 1: Structure &amp; Transpiration <span class="spec-ref">4.2.2</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Meristem tissue, plant structures (roots, stem, leaves), and transpiration (water movement, factors affecting rate).</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="plants_1">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Plants, Part 2: Photosynthesis <span class="spec-ref">4.2.2</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Chlorophyll &amp; plant pigments, the photosynthesis equation, factors affecting the rate of photosynthesis, translocation, and plant diseases.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="plants_2">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Lifestyle &amp; Health, Part 1: Disease Risk <span class="spec-ref">4.3.1</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Communicable vs non-communicable disease, risk factors for non-communicable disease, treatments for cardiovascular disease, and homeostasis.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="lifestyle_1">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Lifestyle &amp; Health, Part 2: Hormones <span class="spec-ref">4.3.1</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Insulin &amp; diabetes (type 1 vs type 2), human reproductive hormones, and contraception (hormonal &amp; non-hormonal methods).</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="lifestyle_2">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Disease, Part 1: Infection &amp; Defence <span class="spec-ref">4.3.3</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">How communicable diseases spread, key human communicable diseases, the body's defences against pathogens, and the immune system.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="disease_1">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Disease, Part 2: Treatment &amp; Technology <span class="spec-ref">4.3.3</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Vaccination, medicines &amp; antibiotics, how new drugs are tested, genetic modification, stem cells, and how different diseases can interact.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="disease_2">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Ecosystems, Part 1: Communities &amp; Fieldwork <span class="spec-ref">4.4.2</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Levels of organisation in an ecosystem, interdependence &amp; competition, abiotic/biotic factors affecting communities, and fieldwork techniques (quadrats, transects).</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="ecosystems_1">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Ecosystems, Part 2: Biodiversity &amp; Human Impact <span class="spec-ref">4.4.2</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">What biodiversity is and why it matters, negative human impacts on ecosystems (pollution, deforestation), and positive human impacts (conservation).</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="ecosystems_2">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Inheritance <span class="spec-ref">4.4.3</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Chromosomes &amp; genes, sex determination in humans, single gene inheritance &amp; Punnett squares, and genotype vs phenotype.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="inheritance">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Variation &amp; Evolution <span class="spec-ref">4.4.4</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Mutations, evolution through natural selection, evidence for evolution, classification of living things, selective breeding, and genetic engineering.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="variation_evolution">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<dialog id="video-dialog">
+  <h3 id="video-dialog-title">Videos</h3>
+  <ul id="video-dialog-list"></ul>
+  <button type="button" id="video-dialog-close">Close</button>
+</dialog>
+
+<script>
+  // One entry per topic. Add more objects to a topic's array as videos come in.
+  const VIDEOS = {
+    human_body_2: [
+      { name: "GCSE Biology Revision \"Digestive Enzymes\"", url: "https://www.youtube.com/watch?v=ypHpbHfDJsA" },
+      { name: "GCSE Biology Revision \"The Nervous System\"", url: "https://www.youtube.com/watch?v=oDS1hAqWp2M" },
+      { name: "GCSE Science Revision Biology \"The Endocrine System\"", url: "https://www.youtube.com/watch?v=c6olhi88KZs" }
+    ],
+    human_body_1: [
+      { name: "GCSE Science Revision Biology \"Respiration\"", url: "https://www.youtube.com/watch?v=ZKAaDbTP6Dc" },
+      { name: "GCSE Biology - The Heart #17", url: "https://www.youtube.com/watch?v=zU90AkcTJEs" }
+    ],
+    cell_specialisation: [
+      { name: "Specialisation in Animal Cells - Nerve, Muscle, Sperm and Fat Cells", url: "https://www.youtube.com/watch?v=xP93oumLLno" },
+      { name: "Specialised Plant Cells - GCSE Biology", url: "https://www.youtube.com/watch?v=EYbGYheEl40" }
+    ],
+    eukaryotes_prokaryotes: [
+      { name: "GCSE Biology Revision: Eukaryotes and Prokaryotes", url: "https://www.youtube.com/watch?v=Yk3ooRgDVI4" },
+      { name: "Cell Size - GCSE Biology", url: "https://www.youtube.com/watch?v=bOqpxpslUKM" }
+    ],
+    animal_plant_cells: [
+      { name: "GCSE Biology 01 - Animal, Plant and Bacterial Cells", url: "https://www.youtube.com/watch?v=T-ivQS7pzNw" },
+      { name: "Plant Cell Structure - GCSE Biology", url: "https://www.youtube.com/watch?v=qSjqlBgHOyw" }
+    ],
+    cells: [
+      { name: "Microscopy & Magnification: Calculating Magnification (GCSE Biology Revision)", url: "https://www.youtube.com/watch?v=jTLkuCzF_9Q" },
+      { name: "GCSE Biology 01 - Animal, Plant and Bacterial Cells", url: "https://www.youtube.com/watch?v=T-ivQS7pzNw" },
+      { name: "Diffusion, Osmosis & Active Transport - GCSE Biology", url: "https://www.youtube.com/watch?v=vbdwTor6H14" },
+      { name: "Cell Division - Mitosis and Meiosis - GCSE Biology (9-1)", url: "https://www.youtube.com/watch?v=w7vp_uRA8kw" },
+      { name: "5-Minute GCSE Biology: Stem Cells & The Cell Cycle", url: "https://www.youtube.com/watch?v=bMWS6wJ8zqY" }
+    ]
+  };
+
+  const dialog = document.getElementById("video-dialog");
+  const dialogTitle = document.getElementById("video-dialog-title");
+  const dialogList = document.getElementById("video-dialog-list");
+
+  document.querySelectorAll(".videos-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const topic = btn.dataset.topic;
+      const videos = VIDEOS[topic] || [];
+      const topicLabel = btn.closest(".topic").querySelector("h3").textContent;
+
+      dialogTitle.textContent = `${topicLabel} — Videos`;
+      dialogList.innerHTML = "";
+
+      if (videos.length === 0) {
+        const li = document.createElement("li");
+        li.className = "empty";
+        li.textContent = "No videos added yet.";
+        dialogList.appendChild(li);
+      } else {
+        videos.forEach(v => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = v.url;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = v.name;
+          li.appendChild(a);
+          dialogList.appendChild(li);
+        });
+      }
+
+      dialog.showModal();
+    });
+  });
+
+  document.getElementById("video-dialog-close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+</script>
+
+</body>
+</html>

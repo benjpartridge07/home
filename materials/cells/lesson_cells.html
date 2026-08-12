@@ -1,0 +1,343 @@
+<style>
+  #ls5-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --bio: #2F8B57; --bio-soft: #DFF0E5;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls5-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls5-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls5-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls5-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls5-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls5-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls5-section { margin-bottom: 26px; }
+  .ls5-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls5-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls5-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls5-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls5-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls5-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls5-card p:last-child { margin-bottom: 0; }
+  .ls5-card ul { margin: 0 0 10px; padding-left: 20px; font-size: 13.5px; line-height: 1.6; }
+  .ls5-term { font-weight: 600; color: var(--bio); }
+  .ls5-eq { font-family: 'IBM Plex Mono', monospace; background: #E5F0E9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls5-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls5-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls5-table-wrap th, .ls5-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls5-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls5-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls5-diagram-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
+  .ls5-diagram-wrap svg { max-width: 260px; width: 100%; height: auto; }
+
+  .ls5-activity { background: var(--bio-soft); border: 1px solid #B7D9C4; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls5-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls5-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls5-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls5-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls5-blank-row label { font-size: 13px; min-width: 280px; font-weight: 500; }
+  .ls5-blank-row input { flex: 1; min-width: 90px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls5-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls5-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls5-feedback.ok { color: #2E6B45; }
+  .ls5-feedback.no { color: #A34B4B; }
+
+  .ls5-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls5-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls5-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls5-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls5-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--bio); background: none; border: 1.5px solid var(--bio); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls5-answer { display: none; font-size: 13px; line-height: 1.55; background: #EEF6F0; border-left: 3px solid var(--bio); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls5-answer.show { display: block; }
+
+  .ls5-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls5-root">
+  <p class="ls5-eyebrow">Kick-off lesson &middot; Session 5, Week 3</p>
+  <h1 class="ls5-title">Cells: structure, transport &amp; division</h1>
+  <div class="ls5-meta">
+    <span><span class="ls5-dot" style="background:var(--bio)"></span>Biology</span>
+    <span><span class="ls5-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>75 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls5-section">
+    <div class="ls5-section-head">
+      <span class="ls5-section-num">01</span>
+      <h2 class="ls5-section-title">Microscopy &amp; magnification</h2>
+      <span class="ls5-section-time">12 min</span>
+    </div>
+    <div class="ls5-card">
+      <p>Cells are studied using microscopes. An <span class="ls5-term">electron microscope</span> has a much higher resolving power than a <span class="ls5-term">light microscope</span>, so it can show much finer detail &mdash; up to about &times;1,000,000 magnification, compared to a useful limit of about &times;1,000 for a light microscope.</p>
+      <p><span class="ls5-eq">magnification = size of image &divide; size of real object</span> &nbsp; or &nbsp; <span class="ls5-eq">M = I / R</span></p>
+      <p>Image and real size must be in the <strong>same units</strong> before you divide &mdash; watch out for mm, &micro;m (micrometres) and nm (nanometres). Remember: 1 mm = 1000 &micro;m.</p>
+    </div>
+    <div class="ls5-diagram-wrap">
+      <svg viewBox="0 0 220 190" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="110,15 20,170 200,170" fill="none" stroke="#23201A" stroke-width="1.5"/>
+        <line x1="65" y1="92.5" x2="155" y2="92.5" stroke="#23201A" stroke-width="1.5"/>
+        <line x1="110" y1="92.5" x2="110" y2="170" stroke="#23201A" stroke-width="1.5"/>
+        <text x="110" y="72" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="22" font-weight="600" fill="#2F8B57">I</text>
+        <text x="110" y="86" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#6B6355">image size</text>
+        <text x="64" y="140" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="600" fill="#3A5E85">M</text>
+        <text x="64" y="154" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#6B6355">magnification</text>
+        <text x="156" y="140" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="600" fill="#3A5E85">R</text>
+        <text x="156" y="154" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#6B6355">real size</text>
+      </svg>
+    </div>
+    <div class="ls5-card">
+      <p>Cover the letter you want to find. Cover <strong>I</strong> &rarr; M next to R &rarr; <strong>I = M &times; R</strong>. Cover <strong>M</strong> &rarr; I over R &rarr; <strong>M = I / R</strong>. Cover <strong>R</strong> &rarr; I over M &rarr; <strong>R = I / M</strong>.</p>
+      <p><strong>Worked example:</strong> a cell has a real width of 0.02 mm. In a photo taken through a microscope it appears 8 mm wide. M = I / R = 8 / 0.02 = <strong>&times;400</strong>.</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls5-section">
+    <div class="ls5-section-head">
+      <span class="ls5-section-num">02</span>
+      <h2 class="ls5-section-title">Cell structures</h2>
+      <span class="ls5-section-time">15 min</span>
+    </div>
+    <div class="ls5-card">
+      <p>Animal and plant cells are <span class="ls5-term">eukaryotic</span> &mdash; their genetic material is enclosed in a nucleus. Bacterial cells are <span class="ls5-term">prokaryotic</span> &mdash; much smaller, with genetic material as a single DNA loop floating free in the cytoplasm (plus small rings of DNA called <span class="ls5-term">plasmids</span>), not enclosed in a nucleus.</p>
+    </div>
+    <div class="ls5-diagram-wrap">
+      <svg viewBox="0 0 220 170" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="110" cy="90" rx="95" ry="70" fill="#F4F1EA" stroke="#23201A" stroke-width="1.5"/>
+        <circle cx="80" cy="90" r="26" fill="#DDE6EF" stroke="#3A5E85" stroke-width="1.3"/>
+        <text x="80" y="93" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8.5" fill="#23201A">nucleus</text>
+        <ellipse cx="150" cy="65" rx="16" ry="9" fill="#F1E3CE" stroke="#B5762A" stroke-width="1.2"/>
+        <ellipse cx="155" cy="115" rx="16" ry="9" fill="#F1E3CE" stroke="#B5762A" stroke-width="1.2"/>
+        <text x="152" y="45" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="7.5" fill="#6B6355">mitochondria</text>
+        <circle cx="60" cy="130" r="2.2" fill="#2F8B57"/>
+        <circle cx="70" cy="140" r="2.2" fill="#2F8B57"/>
+        <circle cx="50" cy="140" r="2.2" fill="#2F8B57"/>
+        <text x="60" y="155" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="7.5" fill="#6B6355">ribosomes</text>
+        <text x="110" y="20" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="9" font-weight="600" fill="#23201A">Animal cell</text>
+      </svg>
+      <svg viewBox="0 0 220 170" xmlns="http://www.w3.org/2000/svg">
+        <rect x="15" y="20" width="190" height="135" rx="6" fill="none" stroke="#2F8B57" stroke-width="3"/>
+        <rect x="22" y="27" width="176" height="121" rx="4" fill="#F4F1EA" stroke="#23201A" stroke-width="1.2"/>
+        <ellipse cx="150" cy="60" rx="24" ry="30" fill="#DDE6EF" stroke="#3A5E85" stroke-width="1.3"/>
+        <text x="150" y="63" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#23201A">vacuole</text>
+        <circle cx="60" cy="115" r="20" fill="#F1E3CE" stroke="#B5762A" stroke-width="1.2"/>
+        <text x="60" y="118" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="7.5" fill="#23201A">nucleus</text>
+        <ellipse cx="110" cy="130" rx="10" ry="6" fill="#DFF0E5" stroke="#2F8B57" stroke-width="1"/>
+        <ellipse cx="60" cy="45" rx="10" ry="6" fill="#DFF0E5" stroke="#2F8B57" stroke-width="1"/>
+        <text x="90" y="150" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="7.5" fill="#6B6355">chloroplasts</text>
+        <text x="110" y="12" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="9" font-weight="600" fill="#23201A">Plant cell</text>
+      </svg>
+    </div>
+    <div class="ls5-table-wrap">
+      <table>
+        <tr><th>Structure</th><th>Animal</th><th>Plant</th><th>Bacterial</th><th>Function</th></tr>
+        <tr><td>Nucleus</td><td>&check;</td><td>&check;</td><td>&mdash;</td><td>Contains genetic material</td></tr>
+        <tr><td>Cytoplasm</td><td>&check;</td><td>&check;</td><td>&check;</td><td>Where most chemical reactions happen</td></tr>
+        <tr><td>Cell membrane</td><td>&check;</td><td>&check;</td><td>&check;</td><td>Controls what enters/exits the cell</td></tr>
+        <tr><td>Mitochondria</td><td>&check;</td><td>&check;</td><td>&mdash;</td><td>Site of respiration (releases energy)</td></tr>
+        <tr><td>Ribosomes</td><td>&check;</td><td>&check;</td><td>&check;</td><td>Where proteins are made</td></tr>
+        <tr><td>Cell wall</td><td>&mdash;</td><td>&check; (cellulose)</td><td>&check;</td><td>Strengthens/supports the cell</td></tr>
+        <tr><td>Chloroplasts</td><td>&mdash;</td><td>&check;</td><td>&mdash;</td><td>Site of photosynthesis</td></tr>
+        <tr><td>Permanent vacuole</td><td>&mdash;</td><td>&check;</td><td>&mdash;</td><td>Filled with cell sap, keeps cell rigid</td></tr>
+        <tr><td>Single DNA loop &amp; plasmids</td><td>&mdash;</td><td>&mdash;</td><td>&check;</td><td>Carries genetic material (not in a nucleus)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls5-section">
+    <div class="ls5-section-head">
+      <span class="ls5-section-num">&bull;</span>
+      <h2 class="ls5-section-title">Activity &mdash; magnification practice</h2>
+      <span class="ls5-section-time">10 min</span>
+    </div>
+    <div class="ls5-activity maths">
+      <p class="ls5-activity-label">Use M = I / R, I = M &times; R, or R = I / M &mdash; all lengths in mm</p>
+      <p class="prompt">Type just the number for each blank.</p>
+      <div class="ls5-blank-row"><label>R = 0.01 mm, M = &times;50 &rarr; I =</label><input type="text" data-answer="0.5"></div>
+      <div class="ls5-blank-row"><label>I = 4 mm, R = 0.02 mm &rarr; M =</label><input type="text" data-answer="200"></div>
+      <div class="ls5-blank-row"><label>I = 3 mm, M = &times;150 &rarr; R =</label><input type="text" data-answer="0.02"></div>
+      <div class="ls5-blank-row"><label>R = 0.05 mm, M = &times;40 &rarr; I =</label><input type="text" data-answer="2"></div>
+      <div class="ls5-blank-row"><label>I = 10 mm, M = &times;500 &rarr; R =</label><input type="text" data-answer="0.02"></div>
+      <button class="ls5-check-btn" id="ls5-check-1">Check answers</button>
+      <p class="ls5-feedback" id="ls5-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls5-section">
+    <div class="ls5-section-head">
+      <span class="ls5-section-num">03</span>
+      <h2 class="ls5-section-title">Transport across membranes</h2>
+      <span class="ls5-section-time">15 min</span>
+    </div>
+    <div class="ls5-card">
+      <p>Substances move into and out of cells in three ways. Cell membranes are <span class="ls5-term">partially permeable</span> &mdash; they let small molecules like water through, but not larger ones.</p>
+    </div>
+    <div class="ls5-table-wrap">
+      <table>
+        <tr><th>Process</th><th>What moves</th><th>Direction</th><th>Needs energy?</th><th>Example</th></tr>
+        <tr><td><strong>Diffusion</strong></td><td>Particles (e.g. gases, dissolved substances)</td><td>High &rarr; low concentration</td><td>No</td><td>Oxygen moving from alveoli into blood</td></tr>
+        <tr><td><strong>Osmosis</strong></td><td>Water only</td><td>High &rarr; low water concentration, through a partially permeable membrane</td><td>No</td><td>Water entering root hair cells from soil</td></tr>
+        <tr><td><strong>Active transport</strong></td><td>Dissolved substances</td><td>Low &rarr; high concentration (against the gradient)</td><td><strong>Yes</strong> (from respiration)</td><td>Mineral ions into root hairs; glucose from gut into blood</td></tr>
+      </table>
+    </div>
+    <div class="ls5-card">
+      <p>Diffusion and osmosis both happen <span class="ls5-term">without</span> any energy input &mdash; particles just spread out naturally. Active transport is the odd one out: it moves substances the <em>"wrong way"</em> (from low to high concentration), so it needs energy from respiration to make it happen.</p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls5-section">
+    <div class="ls5-section-head">
+      <span class="ls5-section-num">&bull;</span>
+      <h2 class="ls5-section-title">Activity &mdash; name the process</h2>
+      <span class="ls5-section-time">10 min</span>
+    </div>
+    <div class="ls5-activity">
+      <p class="ls5-activity-label">Type diffusion, osmosis, or active transport for each scenario</p>
+      <div class="ls5-blank-row"><label>Perfume particles spreading across a room &rarr;</label><input type="text" data-answer="diffusion"></div>
+      <div class="ls5-blank-row"><label>Water moving into a plant root hair cell from the soil &rarr;</label><input type="text" data-answer="osmosis"></div>
+      <div class="ls5-blank-row"><label>Mineral ions absorbed into root hairs from a very dilute soil solution &rarr;</label><input type="text" data-answer="activetransport"></div>
+      <div class="ls5-blank-row"><label>Oxygen moving from the alveoli into the blood &rarr;</label><input type="text" data-answer="diffusion"></div>
+      <div class="ls5-blank-row"><label>Glucose absorbed from the gut into blood with a higher glucose concentration &rarr;</label><input type="text" data-answer="activetransport"></div>
+      <button class="ls5-check-btn" id="ls5-check-2">Check answers</button>
+      <p class="ls5-feedback" id="ls5-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls5-section">
+    <div class="ls5-section-head">
+      <span class="ls5-section-num">04</span>
+      <h2 class="ls5-section-title">Cell division: mitosis &amp; meiosis</h2>
+      <span class="ls5-section-time">12 min</span>
+    </div>
+    <div class="ls5-card">
+      <p>A human body cell nucleus contains <strong>46 chromosomes</strong> (23 pairs), carrying the DNA and genes. Cells divide by <span class="ls5-term">mitosis</span> so organisms can grow and repair damaged tissue. Before dividing, a cell copies all its organelles and replicates its chromosomes; mitosis then splits these into two new cells. You don't need to know the individual stages &mdash; just the outcome.</p>
+      <p>Cells in the reproductive organs divide by <span class="ls5-term">meiosis</span> to make gametes (egg and sperm cells). Meiosis divides twice, halving the chromosome number, so each gamete gets a single set of chromosomes &mdash; and every gamete produced is genetically different. At fertilisation, two gametes join to restore the full number of chromosomes, and the new cell then grows by mitosis.</p>
+    </div>
+    <div class="ls5-table-wrap">
+      <table>
+        <tr><th></th><th>Mitosis</th><th>Meiosis</th></tr>
+        <tr><td>Purpose</td><td>Growth &amp; repair</td><td>Making gametes (sex cells)</td></tr>
+        <tr><td>Number of divisions</td><td>One</td><td>Two</td></tr>
+        <tr><td>Cells produced</td><td>2</td><td>4</td></tr>
+        <tr><td>Chromosome number</td><td>Same as parent cell (46)</td><td>Half the parent cell (23)</td></tr>
+        <tr><td>Genetically identical?</td><td>Yes, identical to parent &amp; each other</td><td>No, all four are different</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="ls5-section">
+    <div class="ls5-section-head">
+      <span class="ls5-section-num">05</span>
+      <h2 class="ls5-section-title">Cell differentiation &amp; stem cells</h2>
+      <span class="ls5-section-time">8 min</span>
+    </div>
+    <div class="ls5-card">
+      <p>Early in an embryo's development, its cells can grow and divide into any cell type &mdash; these are <span class="ls5-term">stem cells</span>. As the embryo develops, most cells <span class="ls5-term">differentiate</span>: they become specialised to carry out one particular job (e.g. a red blood cell, a nerve cell, a muscle cell).</p>
+      <p>Once a cell has differentiated, it <strong>cannot</strong> change into a different kind of cell. However, most adult tissues still contain some stem cells, ready to divide and replace old or damaged cells.</p>
+    </div>
+  </div>
+
+  <!-- 6 GCSE questions -->
+  <div class="ls5-section">
+    <div class="ls5-section-head">
+      <span class="ls5-section-num">06</span>
+      <h2 class="ls5-section-title">GCSE-style review questions</h2>
+      <span class="ls5-section-time">15 min</span>
+    </div>
+
+    <div class="ls5-q">
+      <div class="ls5-q-top"><p class="ls5-q-text">1. A cell has a real diameter of 0.025 mm. Under a microscope, its image measures 10 mm across. Calculate the magnification used.</p><span class="ls5-q-marks">[3 marks]</span></div>
+      <button class="ls5-reveal-btn" data-reveal="c1">Show mark scheme</button>
+      <div class="ls5-answer" id="c1">M = I / R (1) &nbsp; M = 10 / 0.025 (1) &nbsp; M = <strong>&times;400</strong> (1)</div>
+    </div>
+
+    <div class="ls5-q">
+      <div class="ls5-q-top"><p class="ls5-q-text">2. Name two structures found in a plant cell that are not found in an animal cell, and state the function of each.</p><span class="ls5-q-marks">[4 marks]</span></div>
+      <button class="ls5-reveal-btn" data-reveal="c2">Show mark scheme</button>
+      <div class="ls5-answer" id="c2">Any two of: chloroplasts &mdash; site of photosynthesis (2); cell wall &mdash; strengthens/supports the cell (2); permanent vacuole &mdash; filled with cell sap, keeps the cell rigid (2). [1 mark for naming, 1 for correct function, per structure]</div>
+    </div>
+
+    <div class="ls5-q">
+      <div class="ls5-q-top"><p class="ls5-q-text">3. Explain why active transport requires energy, but diffusion does not.</p><span class="ls5-q-marks">[2 marks]</span></div>
+      <button class="ls5-reveal-btn" data-reveal="c3">Show mark scheme</button>
+      <div class="ls5-answer" id="c3">Active transport moves substances from a low to a high concentration, against the concentration gradient (1); diffusion moves substances from high to low concentration, which happens naturally without any energy input (1).</div>
+    </div>
+
+    <div class="ls5-q">
+      <div class="ls5-q-top"><p class="ls5-q-text">4. A human skin cell divides by mitosis. State the number of chromosomes in each of the two new cells, and explain how they compare genetically to the original cell.</p><span class="ls5-q-marks">[2 marks]</span></div>
+      <button class="ls5-reveal-btn" data-reveal="c4">Show mark scheme</button>
+      <div class="ls5-answer" id="c4">46 chromosomes in each new cell (1); both new cells are genetically identical to each other and to the original cell (1).</div>
+    </div>
+
+    <div class="ls5-q">
+      <div class="ls5-q-top"><p class="ls5-q-text">5. Explain why a specialised nerve cell cannot later become a muscle cell, even though both cells originally came from the same stem cell.</p><span class="ls5-q-marks">[2 marks]</span></div>
+      <button class="ls5-reveal-btn" data-reveal="c5">Show mark scheme</button>
+      <div class="ls5-answer" id="c5">Once a cell has differentiated (become specialised) it cannot change into a different type of cell (1); differentiation is a one-way process, unlike an undifferentiated stem cell which can still become various cell types (1).</div>
+    </div>
+  </div>
+
+  <p class="ls5-footer-note">Tip: in magnification questions, always check the units of image size and real size match before dividing &mdash; converting mm to &micro;m (or back) is the single most common place marks are lost.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls5-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls5-root .ls5-activity.maths input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls5-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls5-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls5-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls5-root .ls5-activity:not(.maths) input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls5-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls5-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls5-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

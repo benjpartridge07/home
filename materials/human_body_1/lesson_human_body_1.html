@@ -1,0 +1,327 @@
+<style>
+  #ls9-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --bio: #2F8B57; --bio-soft: #DFF0E5;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --oxy: #B5462E; --oxy-soft: #F5E2DC;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls9-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls9-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls9-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls9-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls9-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls9-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls9-section { margin-bottom: 26px; }
+  .ls9-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls9-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls9-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls9-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls9-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls9-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls9-card p:last-child { margin-bottom: 0; }
+  .ls9-term { font-weight: 600; color: var(--bio); }
+
+  .ls9-cellgrid { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+  .ls9-cellcard { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 12px; box-shadow: 0 1px 4px var(--shadow); flex: 1; min-width: 210px; }
+  .ls9-cellcard svg { width: 100%; height: auto; display: block; margin-bottom: 8px; }
+  .ls9-cellcard h4 { margin: 0 0 6px; font-size: 13.5px; color: var(--bio); }
+  .ls9-cellcard ul { margin: 0; padding-left: 16px; font-size: 12px; line-height: 1.55; }
+
+  .ls9-wide-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls9-wide-card svg { width: 100%; max-width: 420px; height: auto; display: block; margin: 0 auto 10px; }
+  .ls9-wide-card ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.6; }
+  .ls9-key { display: flex; gap: 16px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); margin-bottom: 10px; }
+  .ls9-key span { display: flex; align-items: center; gap: 5px; }
+  .ls9-key i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+  .ls9-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls9-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls9-table-wrap th, .ls9-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls9-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls9-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls9-activity { background: var(--bio-soft); border: 1px solid #B7D9C4; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls9-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls9-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls9-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls9-blank-row input { flex: 1; min-width: 90px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls9-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls9-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls9-feedback.ok { color: #2E6B45; }
+  .ls9-feedback.no { color: #A34B4B; }
+
+  .ls9-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls9-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls9-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls9-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls9-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--bio); background: none; border: 1.5px solid var(--bio); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls9-answer { display: none; font-size: 13px; line-height: 1.55; background: #EEF6F0; border-left: 3px solid var(--bio); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls9-answer.show { display: block; }
+
+  .ls9-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls9-root">
+  <p class="ls9-eyebrow">Kick-off lesson &middot; Session 9, Week 5</p>
+  <h1 class="ls9-title">Human body systems: breathing &amp; transport</h1>
+  <div class="ls9-meta">
+    <span><span class="ls9-dot" style="background:var(--bio)"></span>Biology</span>
+    <span>55 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls9-section">
+    <div class="ls9-section-head">
+      <span class="ls9-section-num">01</span>
+      <h2 class="ls9-section-title">Aerobic &amp; anaerobic respiration</h2>
+      <span class="ls9-section-time">6 min</span>
+    </div>
+    <div class="ls9-card">
+      <p>Every cell needs energy, and it gets that energy from <span class="ls9-term">respiration</span> &mdash; the breakdown of glucose. Most of the time this happens <span class="ls9-term">aerobically</span> (using oxygen):</p>
+      <p style="text-align:center; font-family:'IBM Plex Mono',monospace; font-size:12.5px;">glucose + oxygen &rarr; carbon dioxide + water &nbsp;<i>(+ energy released)</i></p>
+      <p>But if your muscles can't get oxygen fast enough &mdash; like during a sprint &mdash; they switch to <span class="ls9-term">anaerobic</span> respiration instead:</p>
+      <p style="text-align:center; font-family:'IBM Plex Mono',monospace; font-size:12.5px;">glucose &rarr; lactic acid &nbsp;<i>(+ energy released, no oxygen needed)</i></p>
+      <p>Anaerobic respiration is faster to kick in but releases far <b>less</b> energy per glucose molecule, and the lactic acid that builds up causes muscle fatigue and cramp.</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls9-section">
+    <div class="ls9-section-head">
+      <span class="ls9-section-num">02</span>
+      <h2 class="ls9-section-title">Exchange surfaces &amp; the alveoli</h2>
+      <span class="ls9-section-time">9 min</span>
+    </div>
+    <div class="ls9-card">
+      <p>To respire, cells need a steady supply of oxygen in and carbon dioxide out. Every efficient exchange surface in the body shares the same four features:</p>
+      <ul style="font-size:13.5px; line-height:1.6; padding-left:20px; margin:0;">
+        <li><b>Large surface area</b> &mdash; lets a lot of a substance cross at once</li>
+        <li><b>Thin walls</b> &mdash; short diffusion distance</li>
+        <li><b>Good blood supply</b> &mdash; keeps a steep concentration gradient</li>
+        <li><b>Moist lining</b> &mdash; lets gases dissolve so they can diffuse</li>
+      </ul>
+    </div>
+    <div class="ls9-wide-card">
+      <svg viewBox="0 0 200 90" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="55" cy="45" r="30" fill="#DFF0E5" stroke="#2F8B57" stroke-width="1.5"/>
+        <path d="M95,25 C130,15 172,25 186,45 C172,65 130,75 95,65" fill="none" stroke="#3A5E85" stroke-width="7" stroke-linecap="round"/>
+      </svg>
+      <p style="text-align:center; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-soft); margin:-4px 0 10px;">alveolus (green) &middot; capillary (blue)</p>
+      <ul>
+        <li>Millions of tiny <b>alveoli</b> in the lungs give the gas exchange surface a huge <b>surface area</b></li>
+        <li>Alveoli walls are just <b>one cell thick</b> &mdash; a short diffusion path for oxygen and CO&#8322;</li>
+        <li>Each alveolus is wrapped in <b>capillaries</b>, giving a good blood supply that keeps the gradient steep</li>
+        <li>The lining is <b>moist</b>, so gases can dissolve and diffuse across</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls9-section">
+    <div class="ls9-section-head">
+      <span class="ls9-section-num">03</span>
+      <h2 class="ls9-section-title">The heart &amp; double circulation</h2>
+      <span class="ls9-section-time">9 min</span>
+    </div>
+    <div class="ls9-wide-card">
+      <div class="ls9-key">
+        <span><i style="background:var(--maths)"></i>deoxygenated (right side)</span>
+        <span><i style="background:var(--oxy)"></i>oxygenated (left side)</span>
+      </div>
+      <svg viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20" y1="18" x2="52" y2="28" stroke="#3A5E85" stroke-width="4"/>
+        <line x1="68" y1="52" x2="95" y2="14" stroke="#3A5E85" stroke-width="4"/>
+        <line x1="145" y1="14" x2="172" y2="28" stroke="#B5462E" stroke-width="4"/>
+        <line x1="205" y1="58" x2="228" y2="20" stroke="#B5462E" stroke-width="5"/>
+        <ellipse cx="70" cy="32" rx="26" ry="18" fill="#DDE6EF" stroke="#3A5E85" stroke-width="1.5"/>
+        <ellipse cx="170" cy="32" rx="26" ry="18" fill="#F5E2DC" stroke="#B5462E" stroke-width="1.5"/>
+        <rect x="48" y="52" width="50" height="42" rx="8" fill="#DDE6EF" stroke="#3A5E85" stroke-width="2"/>
+        <rect x="138" y="48" width="62" height="50" rx="8" fill="#F5E2DC" stroke="#B5462E" stroke-width="4"/>
+        <line x1="120" y1="18" x2="120" y2="104" stroke="#6B6355" stroke-width="1" stroke-dasharray="3 3"/>
+      </svg>
+      <p style="text-align:center; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-soft); margin:-4px 0 10px;">right atrium &amp; ventricle (left of diagram) &middot; left atrium &amp; ventricle (right of diagram)</p>
+      <ul>
+        <li>Blood passes through the heart <b>twice</b> per full circuit &mdash; this is <b>double circulation</b></li>
+        <li><b>Pulmonary circuit:</b> right ventricle &rarr; lungs (to pick up oxygen) &rarr; back to the left atrium</li>
+        <li><b>Systemic circuit:</b> left ventricle &rarr; the rest of the body &rarr; back to the right atrium</li>
+        <li>The <b>left ventricle wall is much thicker</b> than the right &mdash; it has to pump blood all the way around the body, not just to the nearby lungs</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls9-section">
+    <div class="ls9-section-head">
+      <span class="ls9-section-num">04</span>
+      <h2 class="ls9-section-title">Blood vessels</h2>
+      <span class="ls9-section-time">7 min</span>
+    </div>
+    <div class="ls9-cellgrid">
+      <div class="ls9-cellcard">
+        <svg viewBox="0 0 200 90" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="45" r="34" fill="none" stroke="#B5462E" stroke-width="14"/>
+          <circle cx="100" cy="45" r="13" fill="#F5E2DC"/>
+        </svg>
+        <h4>Artery</h4>
+        <ul>
+          <li><b>Thick, muscular &amp; elastic wall</b> &mdash; withstands high pressure</li>
+          <li><b>Narrow lumen</b></li>
+          <li>Carries blood <b>away</b> from the heart</li>
+        </ul>
+      </div>
+      <div class="ls9-cellcard">
+        <svg viewBox="0 0 200 90" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="45" r="34" fill="none" stroke="#3A5E85" stroke-width="6"/>
+          <circle cx="100" cy="45" r="26" fill="#DDE6EF"/>
+          <path d="M82,45 L97,34 L97,56 Z" fill="#3A5E85"/>
+          <path d="M118,45 L103,34 L103,56 Z" fill="#3A5E85"/>
+        </svg>
+        <h4>Vein</h4>
+        <ul>
+          <li><b>Thin wall</b>, <b>wide lumen</b></li>
+          <li><b>Valves</b> stop blood flowing backwards</li>
+          <li>Carries blood at low pressure <b>to</b> the heart</li>
+        </ul>
+      </div>
+      <div class="ls9-cellcard">
+        <svg viewBox="0 0 200 90" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="45" r="15" fill="none" stroke="#2F8B57" stroke-width="2"/>
+          <circle cx="58" cy="24" r="8" fill="#F1E3CE" stroke="#B5762A" stroke-width="1"/>
+          <circle cx="146" cy="62" r="8" fill="#F1E3CE" stroke="#B5762A" stroke-width="1"/>
+        </svg>
+        <h4>Capillary</h4>
+        <ul>
+          <li>Wall is just <b>one cell thick</b></li>
+          <li>Links arteries to veins</li>
+          <li>Substances diffuse quickly into/out of nearby cells</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="ls9-section">
+    <div class="ls9-section-head">
+      <span class="ls9-section-num">05</span>
+      <h2 class="ls9-section-title">Blood components</h2>
+      <span class="ls9-section-time">7 min</span>
+    </div>
+    <div class="ls9-table-wrap">
+      <table>
+        <tr><th>Component</th><th>What it looks like</th><th>Function</th></tr>
+        <tr><td>Red blood cell</td><td>Biconcave disc, no nucleus, full of haemoglobin</td><td>Carries oxygen around the body</td></tr>
+        <tr><td>White blood cell</td><td>Larger, has a nucleus</td><td>Fights infection (engulfs pathogens / makes antibodies)</td></tr>
+        <tr><td>Platelet</td><td>Small cell fragment, no nucleus</td><td>Helps blood clot at a wound</td></tr>
+        <tr><td>Plasma</td><td>Pale yellow liquid</td><td>Transports blood cells, dissolved food, CO&#8322;, urea &amp; hormones</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity -->
+  <div class="ls9-section">
+    <div class="ls9-section-head">
+      <span class="ls9-section-num">&bull;</span>
+      <h2 class="ls9-section-title">Activity &mdash; which part does each job?</h2>
+      <span class="ls9-section-time">6 min</span>
+    </div>
+    <div class="ls9-activity" id="ls9-activity-1">
+      <p class="ls9-activity-label">alveolus / capillary / left ventricle / valve / red blood cell / platelet</p>
+      <div class="ls9-blank-row"><label>Pumps blood all around the body at high pressure &rarr;</label><input type="text" data-answer="leftventricle"></div>
+      <div class="ls9-blank-row"><label>Site of gas exchange with the air in the lungs &rarr;</label><input type="text" data-answer="alveolus"></div>
+      <div class="ls9-blank-row"><label>Stops blood flowing backwards in a vein &rarr;</label><input type="text" data-answer="valve"></div>
+      <div class="ls9-blank-row"><label>Carries oxygen using haemoglobin &rarr;</label><input type="text" data-answer="redbloodcell"></div>
+      <div class="ls9-blank-row"><label>Wall just one cell thick for fast diffusion &rarr;</label><input type="text" data-answer="capillary"></div>
+      <div class="ls9-blank-row"><label>Helps blood clot at a wound &rarr;</label><input type="text" data-answer="platelet"></div>
+      <button class="ls9-check-btn" id="ls9-check-1">Check answers</button>
+      <p class="ls9-feedback" id="ls9-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 6 GCSE questions -->
+  <div class="ls9-section">
+    <div class="ls9-section-head">
+      <span class="ls9-section-num">06</span>
+      <h2 class="ls9-section-title">GCSE-style review questions</h2>
+      <span class="ls9-section-time">11 min</span>
+    </div>
+
+    <div class="ls9-q">
+      <div class="ls9-q-top"><p class="ls9-q-text">1. Complete the word equation for aerobic respiration: glucose + oxygen &rarr; ______ + ______.</p><span class="ls9-q-marks">[2 marks]</span></div>
+      <button class="ls9-reveal-btn" data-reveal="g1">Show mark scheme</button>
+      <div class="ls9-answer" id="g1">Carbon dioxide (1) + water (1).</div>
+    </div>
+
+    <div class="ls9-q">
+      <div class="ls9-q-top"><p class="ls9-q-text">2. A sprinter's muscles can't get enough oxygen during a race. Name the type of respiration this triggers, and explain one problem it causes.</p><span class="ls9-q-marks">[3 marks]</span></div>
+      <button class="ls9-reveal-btn" data-reveal="g2">Show mark scheme</button>
+      <div class="ls9-answer" id="g2">Anaerobic respiration (1); it produces lactic acid (1), which builds up and causes muscle fatigue/cramp (1).</div>
+    </div>
+
+    <div class="ls9-q">
+      <div class="ls9-q-top"><p class="ls9-q-text">3. Explain how the structure of alveoli makes them efficient at gas exchange.</p><span class="ls9-q-marks">[4 marks]</span></div>
+      <button class="ls9-reveal-btn" data-reveal="g3">Show mark scheme</button>
+      <div class="ls9-answer" id="g3">There are millions of alveoli, giving a large surface area (1); the walls are one cell thick, giving a short diffusion distance (1); they're surrounded by capillaries, giving a good blood supply that maintains a steep concentration gradient (1); the lining is moist, letting gases dissolve (1).</div>
+    </div>
+
+    <div class="ls9-q">
+      <div class="ls9-q-top"><p class="ls9-q-text">4. Explain why the left ventricle has a thicker, more muscular wall than the right ventricle.</p><span class="ls9-q-marks">[2 marks]</span></div>
+      <button class="ls9-reveal-btn" data-reveal="g4">Show mark scheme</button>
+      <div class="ls9-answer" id="g4">The left ventricle pumps blood all the way around the body (systemic circuit) (1), while the right ventricle only pumps blood to the nearby lungs, so the left needs to generate much higher pressure (1).</div>
+    </div>
+
+    <div class="ls9-q">
+      <div class="ls9-q-top"><p class="ls9-q-text">5. State one structural difference between an artery and a vein, and explain why it's needed.</p><span class="ls9-q-marks">[2 marks]</span></div>
+      <button class="ls9-reveal-btn" data-reveal="g5">Show mark scheme</button>
+      <div class="ls9-answer" id="g5">Arteries have thicker, more muscular/elastic walls (1) because they carry blood at high pressure away from the heart (1). <i>[or: veins have a wider lumen (1) to help blood flow at low pressure (1)]</i></div>
+    </div>
+
+    <div class="ls9-q">
+      <div class="ls9-q-top"><p class="ls9-q-text">6. Explain how red blood cells are adapted to carry oxygen efficiently.</p><span class="ls9-q-marks">[3 marks]</span></div>
+      <button class="ls9-reveal-btn" data-reveal="g6">Show mark scheme</button>
+      <div class="ls9-answer" id="g6">Biconcave disc shape gives a large surface area (1); no nucleus, giving more space to carry oxygen (1); contains haemoglobin, which binds to oxygen (1).</div>
+    </div>
+  </div>
+
+  <p class="ls9-footer-note">Tip: whenever a question mentions "double circulation", remember it's really two loops sharing one heart &mdash; right side to the lungs, left side to the body &mdash; not blood going round twice in one loop.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls9-check-1').addEventListener('click', () => {
+    const rows = document.getElementById('ls9-activity-1').querySelectorAll('input[data-answer]');
+    let correct = 0;
+    rows.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7D9C4');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls9-feedback-1');
+    fb.textContent = `${correct} of ${rows.length} correct.`;
+    fb.className = 'ls9-feedback ' + (correct === rows.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls9-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

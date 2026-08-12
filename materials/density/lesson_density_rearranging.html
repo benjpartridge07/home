@@ -1,0 +1,258 @@
+<style>
+  #ls2-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --phys: #B5762A; --phys-soft: #F1E3CE;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls2-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls2-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls2-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls2-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls2-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls2-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls2-section { margin-bottom: 26px; }
+  .ls2-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls2-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls2-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls2-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls2-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls2-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls2-card p:last-child { margin-bottom: 0; }
+  .ls2-card ul { margin: 0 0 10px; padding-left: 20px; font-size: 13.5px; line-height: 1.6; }
+  .ls2-term { font-weight: 600; color: var(--phys); }
+  .ls2-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls2-triangle-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; }
+  .ls2-triangle-wrap svg { max-width: 320px; width: 100%; height: auto; }
+
+  .ls2-activity { background: var(--phys-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls2-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls2-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls2-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls2-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls2-blank-row label { font-size: 13px; min-width: 220px; font-weight: 500; }
+  .ls2-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls2-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls2-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls2-feedback.ok { color: #2E6B45; }
+  .ls2-feedback.no { color: #A34B4B; }
+
+  .ls2-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls2-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls2-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls2-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls2-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--phys); background: none; border: 1.5px solid var(--phys); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls2-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--phys); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls2-answer.show { display: block; }
+
+  .ls2-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls2-root">
+  <p class="ls2-eyebrow">Kick-off lesson &middot; Session 2, Week 1</p>
+  <h1 class="ls2-title">Density + Rearranging equations</h1>
+  <div class="ls2-meta">
+    <span><span class="ls2-dot" style="background:var(--phys)"></span>Physics</span>
+    <span><span class="ls2-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>60 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls2-section">
+    <div class="ls2-section-head">
+      <span class="ls2-section-num">01</span>
+      <h2 class="ls2-section-title">What density actually measures</h2>
+      <span class="ls2-section-time">10 min</span>
+    </div>
+    <div class="ls2-card">
+      <p><span class="ls2-term">Density</span> is how much mass is packed into a given amount of space. A brick and a sponge can be the same size (same volume) but the brick has far more mass squeezed into it — so the brick is denser.</p>
+      <p>The equation: <span class="ls2-eq">density = mass ÷ volume</span>, or in symbols: <strong>ρ = m / V</strong></p>
+      <ul>
+        <li><span class="ls2-term">ρ</span> (rho) — density, usually in kg/m&sup3; or g/cm&sup3;</li>
+        <li><span class="ls2-term">m</span> — mass, in kg or g</li>
+        <li><span class="ls2-term">V</span> — volume, in m&sup3; or cm&sup3;</li>
+      </ul>
+      <p>This is already confident territory — the real point of today is using this familiar equation as safe ground to build the skill of <strong>rearranging</strong>, which then transfers to every other equation-based question in the course.</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls2-section">
+    <div class="ls2-section-head">
+      <span class="ls2-section-num">02</span>
+      <h2 class="ls2-section-title">Rearranging: the proper way, and the shortcut</h2>
+      <span class="ls2-section-time">15 min</span>
+    </div>
+    <div class="ls2-card">
+      <p><strong>The proper way (algebra):</strong> whatever you do to one side of an equation, you must do to the other. Starting from ρ = m / V, to get m on its own, multiply both sides by V:</p>
+      <p style="padding-left:14px">ρ &times; V = (m / V) &times; V &nbsp;&rarr;&nbsp; <strong>m = ρV</strong></p>
+      <p>To get V on its own instead, start again from ρ = m / V. Multiply both sides by V (giving ρV = m), then divide both sides by ρ:</p>
+      <p style="padding-left:14px"><strong>V = m / ρ</strong></p>
+      <p>This "do the same to both sides" method works on <em>every</em> equation in the course, not just this one — that's why it's worth practicing properly rather than just memorising three versions of the density formula.</p>
+    </div>
+    <div class="ls2-triangle-wrap">
+      <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="150,20 20,230 280,230" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <line x1="20" y1="150" x2="280" y2="150" stroke="#23201A" stroke-width="2"/>
+        <line x1="150" y1="150" x2="150" y2="230" stroke="#23201A" stroke-width="2"/>
+        <text x="150" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="30" font-weight="600" fill="#B5762A">m</text>
+        <text x="150" y="140" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">mass</text>
+        <text x="85" y="200" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="26" font-weight="600" fill="#3A5E85">&#961;</text>
+        <text x="85" y="220" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">density</text>
+        <text x="215" y="200" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="26" font-weight="600" fill="#3A5E85">V</text>
+        <text x="215" y="220" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">volume</text>
+      </svg>
+    </div>
+    <div class="ls2-card">
+      <p><strong>The shortcut (formula triangle):</strong> cover up the letter you want to find — the positions of the remaining two letters tell you the operation. Cover <strong>m</strong> and you see ρ next to V (multiply). Cover <strong>ρ</strong> and you see m over V (divide). Cover <strong>V</strong> and you see m over ρ (divide).</p>
+      <p>Useful for speed in an exam, but it only works for this exact shape of equation — the algebra method above is what actually transfers to harder equations later in the course, so aim to understand both.</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls2-section">
+    <div class="ls2-section-head">
+      <span class="ls2-section-num">•</span>
+      <h2 class="ls2-section-title">Activity — find the density</h2>
+      <span class="ls2-section-time">10 min</span>
+    </div>
+    <div class="ls2-activity">
+      <p class="ls2-activity-label">Straight substitution — no rearranging needed yet</p>
+      <p class="prompt">Use ρ = m / V. Type just the number (no units).</p>
+      <div class="ls2-blank-row"><label>m = 20 kg, V = 4 m&sup3; &rarr; ρ =</label><input type="text" data-answer="5"></div>
+      <div class="ls2-blank-row"><label>m = 100 g, V = 20 cm&sup3; &rarr; ρ =</label><input type="text" data-answer="5"></div>
+      <div class="ls2-blank-row"><label>m = 54 g, V = 2 cm&sup3; &rarr; ρ =</label><input type="text" data-answer="27"></div>
+      <button class="ls2-check-btn" id="ls2-check-1">Check answers</button>
+      <p class="ls2-feedback" id="ls2-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls2-section">
+    <div class="ls2-section-head">
+      <span class="ls2-section-num">03</span>
+      <h2 class="ls2-section-title">Now the other way round</h2>
+      <span class="ls2-section-time">10 min</span>
+    </div>
+    <div class="ls2-card">
+      <p>The exam won't always ask for density. Sometimes you're given density and one other quantity, and asked to find mass or volume — that's when rearranging becomes essential rather than optional.</p>
+      <p>Worked example: A block has a density of 8 g/cm&sup3; and a volume of 5 cm&sup3;. Find its mass.</p>
+      <p style="padding-left:14px">m = ρV &nbsp;&rarr;&nbsp; m = 8 &times; 5 &nbsp;&rarr;&nbsp; <strong>m = 40 g</strong></p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls2-section">
+    <div class="ls2-section-head">
+      <span class="ls2-section-num">•</span>
+      <h2 class="ls2-section-title">Activity — rearrange and solve</h2>
+      <span class="ls2-section-time">10 min</span>
+    </div>
+    <div class="ls2-activity maths">
+      <p class="ls2-activity-label">Mixed practice — decide which version of the equation you need</p>
+      <p class="prompt">Type just the number.</p>
+      <div class="ls2-blank-row"><label>ρ = 3 g/cm&sup3;, V = 10 cm&sup3; &rarr; m =</label><input type="text" data-answer="30"></div>
+      <div class="ls2-blank-row"><label>ρ = 2 g/cm&sup3;, m = 16 g &rarr; V =</label><input type="text" data-answer="8"></div>
+      <div class="ls2-blank-row"><label>ρ = 7 kg/m&sup3;, V = 6 m&sup3; &rarr; m =</label><input type="text" data-answer="42"></div>
+      <div class="ls2-blank-row"><label>ρ = 4 kg/m&sup3;, m = 36 kg &rarr; V =</label><input type="text" data-answer="9"></div>
+      <button class="ls2-check-btn" id="ls2-check-2">Check answers</button>
+      <p class="ls2-feedback" id="ls2-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 4 GCSE questions -->
+  <div class="ls2-section">
+    <div class="ls2-section-head">
+      <span class="ls2-section-num">04</span>
+      <h2 class="ls2-section-title">GCSE-style review questions</h2>
+      <span class="ls2-section-time">15 min</span>
+    </div>
+
+    <div class="ls2-q">
+      <div class="ls2-q-top"><p class="ls2-q-text">1. Write down the equation that links density, mass and volume.</p><span class="ls2-q-marks">[1 mark]</span></div>
+      <button class="ls2-reveal-btn" data-reveal="b1">Show mark scheme</button>
+      <div class="ls2-answer" id="b1">density = mass &divide; volume, or &rho; = m / V (1)</div>
+    </div>
+
+    <div class="ls2-q">
+      <div class="ls2-q-top"><p class="ls2-q-text">2. A metal block has a mass of 270 g and a volume of 30 cm&sup3;. Calculate its density.</p><span class="ls2-q-marks">[2 marks]</span></div>
+      <button class="ls2-reveal-btn" data-reveal="b2">Show mark scheme</button>
+      <div class="ls2-answer" id="b2">&rho; = m &divide; V = 270 &divide; 30 (1) &nbsp; <strong>&rho; = 9 g/cm&sup3;</strong> (1)</div>
+    </div>
+
+    <div class="ls2-q">
+      <div class="ls2-q-top"><p class="ls2-q-text">3. A liquid has a density of 1.2 g/cm&sup3;. Calculate the mass of 50 cm&sup3; of the liquid. Show how you rearranged the equation.</p><span class="ls2-q-marks">[3 marks]</span></div>
+      <button class="ls2-reveal-btn" data-reveal="b3">Show mark scheme</button>
+      <div class="ls2-answer" id="b3">m = &rho;V (1) &nbsp; m = 1.2 &times; 50 (1) &nbsp; <strong>m = 60 g</strong> (1)</div>
+    </div>
+
+    <div class="ls2-q">
+      <div class="ls2-q-top"><p class="ls2-q-text">4. A block of wood has a density of 0.6 g/cm&sup3; and a mass of 90 g. Calculate its volume. Show how you rearranged the equation.</p><span class="ls2-q-marks">[3 marks]</span></div>
+      <button class="ls2-reveal-btn" data-reveal="b4">Show mark scheme</button>
+      <div class="ls2-answer" id="b4">V = m &divide; &rho; (1) &nbsp; V = 90 &divide; 0.6 (1) &nbsp; <strong>V = 150 cm&sup3;</strong> (1)</div>
+    </div>
+
+    <div class="ls2-q">
+      <div class="ls2-q-top"><p class="ls2-q-text">5. Two blocks have the same mass, but block A has a larger volume than block B. Which block has the higher density? Explain your answer.</p><span class="ls2-q-marks">[2 marks]</span></div>
+      <button class="ls2-reveal-btn" data-reveal="b5">Show mark scheme</button>
+      <div class="ls2-answer" id="b5"><strong>Block B</strong> has the higher density (1), because the same mass is packed into a smaller volume, and density = mass &divide; volume increases as volume decreases for a fixed mass (1).</div>
+    </div>
+  </div>
+
+  <p class="ls2-footer-note">Tip: on the calculation questions, always write the rearranged equation as its own line before substituting numbers in — that's a guaranteed method mark even on a day the arithmetic goes wrong.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls2-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls2-root .ls2-activity:not(.maths) input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls2-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls2-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls2-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls2-root .ls2-activity.maths input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls2-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls2-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls2-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

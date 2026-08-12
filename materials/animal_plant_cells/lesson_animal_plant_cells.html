@@ -1,0 +1,320 @@
+<style>
+  #ls6-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --bio: #2F8B57; --bio-soft: #DFF0E5;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls6-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls6-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls6-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls6-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls6-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls6-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls6-section { margin-bottom: 26px; }
+  .ls6-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls6-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls6-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls6-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls6-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls6-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls6-card p:last-child { margin-bottom: 0; }
+  .ls6-term { font-weight: 600; color: var(--bio); }
+
+  .ls6-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls6-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls6-table-wrap th, .ls6-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls6-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls6-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls6-diagram-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; }
+  .ls6-diagram-wrap svg { max-width: 340px; width: 100%; height: auto; }
+
+  .ls6-activity { background: var(--bio-soft); border: 1px solid #B7D9C4; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls6-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls6-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls6-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls6-blank-row label { font-size: 13px; min-width: 40px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+  .ls6-blank-row input { flex: 1; min-width: 160px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls6-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls6-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls6-feedback.ok { color: #2E6B45; }
+  .ls6-feedback.no { color: #A34B4B; }
+
+  .ls6-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls6-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls6-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls6-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls6-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--bio); background: none; border: 1.5px solid var(--bio); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls6-answer { display: none; font-size: 13px; line-height: 1.55; background: #EEF6F0; border-left: 3px solid var(--bio); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls6-answer.show { display: block; }
+
+  .ls6-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls6-root">
+  <p class="ls6-eyebrow">Kick-off lesson &middot; Session 6, Week 4</p>
+  <h1 class="ls6-title">Animal &amp; plant cells</h1>
+  <div class="ls6-meta">
+    <span><span class="ls6-dot" style="background:var(--bio)"></span>Biology</span>
+    <span>50 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls6-section">
+    <div class="ls6-section-head">
+      <span class="ls6-section-num">01</span>
+      <h2 class="ls6-section-title">Animal cells</h2>
+      <span class="ls6-section-time">10 min</span>
+    </div>
+    <div class="ls6-card">
+      <p>Most animal cells have the same five basic parts, each doing a specific job.</p>
+    </div>
+    <div class="ls6-diagram-wrap">
+      <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="150" cy="120" rx="125" ry="95" fill="#F4F1EA" stroke="#23201A" stroke-width="1.6"/>
+        <circle cx="105" cy="125" r="38" fill="#DDE6EF" stroke="#3A5E85" stroke-width="1.3"/>
+        <ellipse cx="205" cy="80" rx="18" ry="10" fill="#F1E3CE" stroke="#B5762A" stroke-width="1.2"/>
+        <circle cx="175" cy="185" r="2.5" fill="#2F8B57"/>
+        <circle cx="185" cy="192" r="2.5" fill="#2F8B57"/>
+        <circle cx="165" cy="195" r="2.5" fill="#2F8B57"/>
+        <!-- badges -->
+        <circle cx="105" cy="125" r="15" fill="#23201A" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="105" y="130" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#fff">1</text>
+        <circle cx="205" cy="80" r="15" fill="#23201A" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="205" y="85" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#fff">2</text>
+        <circle cx="176" cy="190" r="15" fill="#23201A" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="176" y="195" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#fff">3</text>
+        <circle cx="150" cy="30" r="15" fill="#23201A" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="150" y="35" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#fff">4</text>
+        <circle cx="230" cy="150" r="15" fill="#23201A" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="230" y="155" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#fff">5</text>
+      </svg>
+    </div>
+    <div class="ls6-table-wrap">
+      <table>
+        <tr><th>#</th><th>Structure</th><th>Function</th></tr>
+        <tr><td>1</td><td>Nucleus</td><td>Contains the genetic material (DNA), which controls the cell's activities</td></tr>
+        <tr><td>2</td><td>Mitochondria</td><td>Site of respiration &mdash; releases energy the cell needs</td></tr>
+        <tr><td>3</td><td>Ribosomes</td><td>Where proteins are made</td></tr>
+        <tr><td>4</td><td>Cell membrane</td><td>Controls what substances enter and leave the cell</td></tr>
+        <tr><td>5</td><td>Cytoplasm</td><td>Jelly-like substance where many chemical reactions happen</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls6-section">
+    <div class="ls6-section-head">
+      <span class="ls6-section-num">&bull;</span>
+      <h2 class="ls6-section-title">Activity &mdash; label the animal cell</h2>
+      <span class="ls6-section-time">6 min</span>
+    </div>
+    <div class="ls6-activity" id="ls6-activity-1">
+      <p class="ls6-activity-label">Using the diagram above, name each numbered structure</p>
+      <div class="ls6-blank-row"><label>1</label><input type="text" data-answer="nucleus"></div>
+      <div class="ls6-blank-row"><label>2</label><input type="text" data-answer="mitochondria"></div>
+      <div class="ls6-blank-row"><label>3</label><input type="text" data-answer="ribosomes"></div>
+      <div class="ls6-blank-row"><label>4</label><input type="text" data-answer="cellmembrane"></div>
+      <div class="ls6-blank-row"><label>5</label><input type="text" data-answer="cytoplasm"></div>
+      <button class="ls6-check-btn" id="ls6-check-1">Check answers</button>
+      <p class="ls6-feedback" id="ls6-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls6-section">
+    <div class="ls6-section-head">
+      <span class="ls6-section-num">02</span>
+      <h2 class="ls6-section-title">Plant cells</h2>
+      <span class="ls6-section-time">10 min</span>
+    </div>
+    <div class="ls6-card">
+      <p>Plant cells have <span class="ls6-term">everything an animal cell has</span> (nucleus, cytoplasm, cell membrane, mitochondria, ribosomes) &mdash; <strong>plus</strong> three extra structures.</p>
+    </div>
+    <div class="ls6-diagram-wrap">
+      <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg">
+        <rect x="15" y="20" width="270" height="200" rx="6" fill="none" stroke="#2F8B57" stroke-width="4"/>
+        <rect x="23" y="28" width="254" height="184" rx="4" fill="#F4F1EA" stroke="#23201A" stroke-width="1.3"/>
+        <ellipse cx="195" cy="120" rx="68" ry="72" fill="#DDE6EF" stroke="#3A5E85" stroke-width="1.3"/>
+        <circle cx="85" cy="150" r="32" fill="#F1E3CE" stroke="#B5762A" stroke-width="1.2"/>
+        <ellipse cx="70" cy="60" rx="14" ry="8" fill="#DFF0E5" stroke="#2F8B57" stroke-width="1.2"/>
+        <ellipse cx="110" cy="80" rx="14" ry="8" fill="#DFF0E5" stroke="#2F8B57" stroke-width="1.2"/>
+        <!-- badges -->
+        <circle cx="23" cy="27" r="15" fill="#23201A" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="23" y="32" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#fff">1</text>
+        <circle cx="277" cy="35" r="15" fill="#23201A" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="277" y="40" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#fff">2</text>
+        <circle cx="85" cy="150" r="15" fill="#23201A" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="85" y="155" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#fff">3</text>
+        <circle cx="70" cy="60" r="15" fill="#23201A" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="70" y="65" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#fff">4</text>
+        <circle cx="195" cy="120" r="15" fill="#23201A" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="195" y="125" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#fff">5</text>
+        <circle cx="130" cy="190" r="15" fill="#23201A" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="130" y="195" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#fff">6</text>
+      </svg>
+    </div>
+    <div class="ls6-table-wrap">
+      <table>
+        <tr><th>#</th><th>Structure</th><th>Function</th></tr>
+        <tr><td>1</td><td>Cell wall</td><td>Made of <strong>cellulose</strong>; strengthens and supports the cell</td></tr>
+        <tr><td>2</td><td>Cell membrane</td><td>Controls what substances enter and leave the cell</td></tr>
+        <tr><td>3</td><td>Nucleus</td><td>Contains the genetic material (DNA)</td></tr>
+        <tr><td>4</td><td>Chloroplast</td><td>Site of photosynthesis (contains chlorophyll)</td></tr>
+        <tr><td>5</td><td>Permanent vacuole</td><td>Filled with cell sap; helps keep the cell rigid</td></tr>
+        <tr><td>6</td><td>Cytoplasm</td><td>Jelly-like substance where many chemical reactions happen</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls6-section">
+    <div class="ls6-section-head">
+      <span class="ls6-section-num">&bull;</span>
+      <h2 class="ls6-section-title">Activity &mdash; label the plant cell</h2>
+      <span class="ls6-section-time">6 min</span>
+    </div>
+    <div class="ls6-activity" id="ls6-activity-2">
+      <p class="ls6-activity-label">Using the diagram above, name each numbered structure</p>
+      <div class="ls6-blank-row"><label>1</label><input type="text" data-answer="cellwall"></div>
+      <div class="ls6-blank-row"><label>2</label><input type="text" data-answer="cellmembrane"></div>
+      <div class="ls6-blank-row"><label>3</label><input type="text" data-answer="nucleus"></div>
+      <div class="ls6-blank-row"><label>4</label><input type="text" data-answer="chloroplast"></div>
+      <div class="ls6-blank-row"><label>5</label><input type="text" data-answer="permanentvacuole"></div>
+      <div class="ls6-blank-row"><label>6</label><input type="text" data-answer="cytoplasm"></div>
+      <button class="ls6-check-btn" id="ls6-check-2">Check answers</button>
+      <p class="ls6-feedback" id="ls6-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls6-section">
+    <div class="ls6-section-head">
+      <span class="ls6-section-num">03</span>
+      <h2 class="ls6-section-title">Animal vs plant: what's the difference?</h2>
+      <span class="ls6-section-time">10 min</span>
+    </div>
+    <div class="ls6-table-wrap">
+      <table>
+        <tr><th>Structure</th><th>Animal cell</th><th>Plant cell</th></tr>
+        <tr><td>Nucleus, cytoplasm, cell membrane</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>Mitochondria, ribosomes</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>Cell wall (cellulose)</td><td>&mdash;</td><td>&check;</td></tr>
+        <tr><td>Chloroplasts</td><td>&mdash;</td><td>&check;</td></tr>
+        <tr><td>Permanent vacuole</td><td>&mdash;</td><td>&check;</td></tr>
+      </table>
+    </div>
+    <div class="ls6-card">
+      <p>Plants can't move around to escape danger or find support, so they need their own built-in structure. The <span class="ls6-term">cell wall</span> gives each cell a rigid shape, and millions of rigid cells stacked together is what lets a plant stand upright &mdash; think of a stack of rigid boxes versus a pile of soft balloons.</p>
+      <p>Only cells that carry out photosynthesis (like leaf cells) need <span class="ls6-term">chloroplasts</span> &mdash; that's why root cells, for example, don't have any.</p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls6-section">
+    <div class="ls6-section-head">
+      <span class="ls6-section-num">04</span>
+      <h2 class="ls6-section-title">A quick look at bacterial cells</h2>
+      <span class="ls6-section-time">4 min</span>
+    </div>
+    <div class="ls6-card">
+      <p>Bacterial cells are much simpler and smaller than animal or plant cells. Their genetic material isn't held in a nucleus &mdash; it's a single loop of DNA floating in the cytoplasm, plus small extra rings of DNA called <span class="ls6-term">plasmids</span>.</p>
+    </div>
+  </div>
+
+  <!-- 5 GCSE questions -->
+  <div class="ls6-section">
+    <div class="ls6-section-head">
+      <span class="ls6-section-num">05</span>
+      <h2 class="ls6-section-title">GCSE-style review questions</h2>
+      <span class="ls6-section-time">14 min</span>
+    </div>
+
+    <div class="ls6-q">
+      <div class="ls6-q-top"><p class="ls6-q-text">1. State the function of the nucleus and the function of the mitochondria.</p><span class="ls6-q-marks">[2 marks]</span></div>
+      <button class="ls6-reveal-btn" data-reveal="d1">Show mark scheme</button>
+      <div class="ls6-answer" id="d1">Nucleus &mdash; contains the genetic material, controls the cell's activities (1). Mitochondria &mdash; site of respiration, releases energy (1).</div>
+    </div>
+
+    <div class="ls6-q">
+      <div class="ls6-q-top"><p class="ls6-q-text">2. Name three structures found in a plant cell that are not found in an animal cell.</p><span class="ls6-q-marks">[3 marks]</span></div>
+      <button class="ls6-reveal-btn" data-reveal="d2">Show mark scheme</button>
+      <div class="ls6-answer" id="d2">Cell wall (1), chloroplasts (1), permanent vacuole (1).</div>
+    </div>
+
+    <div class="ls6-q">
+      <div class="ls6-q-top"><p class="ls6-q-text">3. Explain why a root cell (which is underground and never sees light) does not need chloroplasts, but still has a cell wall.</p><span class="ls6-q-marks">[2 marks]</span></div>
+      <button class="ls6-reveal-btn" data-reveal="d3">Show mark scheme</button>
+      <div class="ls6-answer" id="d3">Chloroplasts are for photosynthesis, which needs light &mdash; a root cell gets no light, so it has no use for them (1). A cell wall is needed for structural support/strength, which every plant cell needs regardless of light (1).</div>
+    </div>
+
+    <div class="ls6-q">
+      <div class="ls6-q-top"><p class="ls6-q-text">4. What is the cell wall made of, and what is its function?</p><span class="ls6-q-marks">[2 marks]</span></div>
+      <button class="ls6-reveal-btn" data-reveal="d4">Show mark scheme</button>
+      <div class="ls6-answer" id="d4">Cellulose (1). It strengthens and supports the cell (1).</div>
+    </div>
+
+    <div class="ls6-q">
+      <div class="ls6-q-top"><p class="ls6-q-text">5. State one difference between a bacterial cell and an animal cell, in terms of where the genetic material is found.</p><span class="ls6-q-marks">[2 marks]</span></div>
+      <button class="ls6-reveal-btn" data-reveal="d5">Show mark scheme</button>
+      <div class="ls6-answer" id="d5">In an animal cell, the genetic material is inside a nucleus (1); in a bacterial cell, it is a single DNA loop (plus plasmids) free in the cytoplasm, not in a nucleus (1).</div>
+    </div>
+  </div>
+
+  <p class="ls6-footer-note">Tip: "state the function" questions want what the structure <em>does</em>, not just its name or what it's made of &mdash; e.g. don't just say "cell wall", say what the cell wall <em>does</em> (strengthens the cell).</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls6-check-1').addEventListener('click', () => {
+    const rows = document.querySelectorAll('#ls6-activity-1 input[data-answer]');
+    let correct = 0;
+    rows.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7D9C4');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls6-feedback-1');
+    fb.textContent = `${correct} of ${rows.length} correct.`;
+    fb.className = 'ls6-feedback ' + (correct === rows.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls6-check-2').addEventListener('click', () => {
+    const rows = document.querySelectorAll('#ls6-activity-2 input[data-answer]');
+    let correct = 0;
+    rows.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7D9C4');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls6-feedback-2');
+    fb.textContent = `${correct} of ${rows.length} correct.`;
+    fb.className = 'ls6-feedback ' + (correct === rows.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls6-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

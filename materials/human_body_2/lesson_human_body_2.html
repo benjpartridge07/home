@@ -1,0 +1,283 @@
+<style>
+  #ls10-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --bio: #2F8B57; --bio-soft: #DFF0E5;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --horm: #8B5FA3; --horm-soft: #EBE1F0;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls10-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls10-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls10-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls10-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls10-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls10-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls10-section { margin-bottom: 26px; }
+  .ls10-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls10-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls10-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls10-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls10-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls10-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls10-card p:last-child { margin-bottom: 0; }
+  .ls10-term { font-weight: 600; color: var(--bio); }
+
+  .ls10-wide-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls10-wide-card svg { width: 100%; max-width: 460px; height: auto; display: block; margin: 0 auto 10px; }
+  .ls10-wide-card ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.6; }
+
+  .ls10-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls10-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls10-table-wrap th, .ls10-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls10-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls10-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls10-activity { background: var(--bio-soft); border: 1px solid #B7D9C4; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls10-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls10-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls10-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls10-blank-row input { flex: 1; min-width: 90px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls10-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls10-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls10-feedback.ok { color: #2E6B45; }
+  .ls10-feedback.no { color: #A34B4B; }
+
+  .ls10-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls10-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls10-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls10-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls10-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--bio); background: none; border: 1.5px solid var(--bio); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls10-answer { display: none; font-size: 13px; line-height: 1.55; background: #EEF6F0; border-left: 3px solid var(--bio); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls10-answer.show { display: block; }
+
+  .ls10-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls10-root">
+  <p class="ls10-eyebrow">Kick-off lesson &middot; Session 10, Week 6</p>
+  <h1 class="ls10-title">Human body systems: digestion &amp; control</h1>
+  <div class="ls10-meta">
+    <span><span class="ls10-dot" style="background:var(--bio)"></span>Biology</span>
+    <span>55 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls10-section">
+    <div class="ls10-section-head">
+      <span class="ls10-section-num">01</span>
+      <h2 class="ls10-section-title">The digestive system</h2>
+      <span class="ls10-section-time">8 min</span>
+    </div>
+    <div class="ls10-card">
+      <p><span class="ls10-term">Digestion</span> breaks down large, insoluble food molecules into small, soluble molecules that can pass through the gut wall into the blood. Food travels through a series of organs, each with its own job:</p>
+    </div>
+    <div class="ls10-table-wrap">
+      <table>
+        <tr><th>Organ</th><th>What it does</th></tr>
+        <tr><td>Mouth</td><td>Chews food; saliva contains <b>amylase</b>, which starts digesting starch</td></tr>
+        <tr><td>Oesophagus</td><td>Muscular tube that pushes food down to the stomach</td></tr>
+        <tr><td>Stomach</td><td>Churns food; produces acid (kills bacteria, gives the right pH for protease) and protease enzymes</td></tr>
+        <tr><td>Small intestine</td><td>Digestion is completed here (enzymes from the pancreas and gut wall); digested food is <b>absorbed</b> into the blood</td></tr>
+        <tr><td>Large intestine</td><td>Absorbs water from the remaining material; forms faeces</td></tr>
+        <tr><td>Pancreas</td><td>Produces amylase, protease &amp; lipase and releases them into the small intestine</td></tr>
+        <tr><td>Liver</td><td>Produces bile</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls10-section">
+    <div class="ls10-section-head">
+      <span class="ls10-section-num">02</span>
+      <h2 class="ls10-section-title">Enzymes &amp; bile</h2>
+      <span class="ls10-section-time">10 min</span>
+    </div>
+    <div class="ls10-card">
+      <p><span class="ls10-term">Enzymes</span> are biological catalysts &mdash; proteins that speed up reactions without being used up themselves. Each enzyme has an <span class="ls10-term">active site</span> shaped to fit one particular substrate, like a lock and key.</p>
+    </div>
+    <div class="ls10-table-wrap">
+      <table>
+        <tr><th>Enzyme</th><th>Breaks down</th><th>Into</th></tr>
+        <tr><td><b>Amylase</b></td><td>Starch (a carbohydrate)</td><td>Sugars</td></tr>
+        <tr><td><b>Protease</b></td><td>Protein</td><td>Amino acids</td></tr>
+        <tr><td><b>Lipase</b></td><td>Lipids (fats)</td><td>Fatty acids + glycerol</td></tr>
+      </table>
+    </div>
+    <div class="ls10-card">
+      <p><span class="ls10-term">Bile</span> is made in the liver and stored in the gallbladder before being released into the small intestine. It is <b>not</b> an enzyme &mdash; it has two separate jobs:</p>
+      <ul style="font-size:13.5px; line-height:1.6; padding-left:20px; margin:0;">
+        <li><b>Neutralises</b> the acid that comes from the stomach, giving the alkaline pH that enzymes in the small intestine work best at</li>
+        <li><b>Emulsifies</b> fats &mdash; breaks them into tiny droplets, giving a much larger surface area for lipase to act on</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls10-section">
+    <div class="ls10-section-head">
+      <span class="ls10-section-num">03</span>
+      <h2 class="ls10-section-title">The nervous system &amp; reflexes</h2>
+      <span class="ls10-section-time">12 min</span>
+    </div>
+    <div class="ls10-card">
+      <p>The nervous system lets the body respond to a <span class="ls10-term">stimulus</span> quickly, using electrical impulses that travel along cells called <span class="ls10-term">neurons</span>. Where two neurons meet, there is a tiny gap called a <span class="ls10-term">synapse</span> &mdash; the impulse triggers the release of a chemical that diffuses across the gap and starts a new impulse in the next neuron.</p>
+    </div>
+    <div class="ls10-wide-card">
+      <svg viewBox="0 0 460 90" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="30" width="80" height="30" rx="7" fill="#DFF0E5" stroke="#2F8B57" stroke-width="1.5"/>
+        <text x="44" y="49" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="#23201A">Receptor</text>
+        <line x1="84" y1="45" x2="106" y2="45" stroke="#6B6355" stroke-width="2"/>
+        <polygon points="106,40 106,50 114,45" fill="#6B6355"/>
+        <rect x="116" y="30" width="90" height="30" rx="7" fill="#DDE6EF" stroke="#3A5E85" stroke-width="1.5"/>
+        <text x="161" y="49" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="9.5" fill="#23201A">Sensory neuron</text>
+        <line x1="206" y1="45" x2="228" y2="45" stroke="#6B6355" stroke-width="2"/>
+        <polygon points="228,40 228,50 236,45" fill="#6B6355"/>
+        <rect x="238" y="30" width="100" height="30" rx="7" fill="#EBE1F0" stroke="#8B5FA3" stroke-width="1.5"/>
+        <text x="288" y="43" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="9" fill="#23201A">Relay neuron</text>
+        <text x="288" y="54" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#6B6355">(spinal cord)</text>
+        <line x1="338" y1="45" x2="360" y2="45" stroke="#6B6355" stroke-width="2"/>
+        <polygon points="360,40 360,50 368,45" fill="#6B6355"/>
+        <rect x="370" y="30" width="88" height="30" rx="7" fill="#DDE6EF" stroke="#3A5E85" stroke-width="1.5"/>
+        <text x="414" y="49" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="9" fill="#23201A">Motor neuron</text>
+      </svg>
+      <p style="text-align:center; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-soft); margin:-4px 0 10px;">the reflex arc (continues to an effector, e.g. a muscle)</p>
+      <ul>
+        <li>A <b>reflex</b> is a fast, automatic response that does not involve conscious thought</li>
+        <li>The pathway is: <b>stimulus &rarr; receptor &rarr; sensory neuron &rarr; relay neuron (in the spinal cord) &rarr; motor neuron &rarr; effector &rarr; response</b></li>
+        <li>Because the signal is processed in the spinal cord instead of the brain, reflexes are <b>much faster</b> than a considered response &mdash; useful for protecting the body from harm (e.g. pulling a hand away from something hot)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls10-section">
+    <div class="ls10-section-head">
+      <span class="ls10-section-num">04</span>
+      <h2 class="ls10-section-title">The endocrine system</h2>
+      <span class="ls10-section-time">10 min</span>
+    </div>
+    <div class="ls10-card">
+      <p><span class="ls10-term">Hormones</span> are chemical messengers, released directly into the blood by <span class="ls10-term">glands</span>. They travel to a target organ, where they produce an effect. Compared with the nervous system, hormonal control is <b>slower</b> to start but produces effects that last <b>longer</b>.</p>
+    </div>
+    <div class="ls10-table-wrap">
+      <table>
+        <tr><th>Gland</th><th>Hormone</th><th>Effect</th></tr>
+        <tr><td>Pituitary gland</td><td>Several</td><td>The "master gland" &mdash; releases hormones that control other glands</td></tr>
+        <tr><td>Pancreas</td><td>Insulin</td><td>Reduces blood glucose concentration</td></tr>
+        <tr><td>Adrenal glands</td><td>Adrenaline</td><td>Prepares the body for "fight or flight" (raises heart rate, etc.)</td></tr>
+        <tr><td>Thyroid gland</td><td>Thyroxine</td><td>Regulates metabolic rate</td></tr>
+        <tr><td>Ovaries / testes</td><td>Oestrogen / testosterone</td><td>Reproduction and secondary sexual characteristics</td></tr>
+      </table>
+    </div>
+    <div class="ls10-card">
+      <p><b>Nervous vs hormonal control &mdash; the one thing to remember:</b> nervous signals are <b>electrical</b> and travel along neurons, fast but short-lived; hormonal signals are <b>chemical</b> and travel in the blood, slower but longer-lasting.</p>
+    </div>
+  </div>
+
+  <!-- Activity -->
+  <div class="ls10-section">
+    <div class="ls10-section-head">
+      <span class="ls10-section-num">&bull;</span>
+      <h2 class="ls10-section-title">Activity &mdash; which part does each job?</h2>
+      <span class="ls10-section-time">6 min</span>
+    </div>
+    <div class="ls10-activity" id="ls10-activity-1">
+      <p class="ls10-activity-label">amylase / bile / insulin / synapse / pituitary gland / sensory neuron</p>
+      <div class="ls10-blank-row"><label>Breaks down starch into sugars &rarr;</label><input type="text" data-answer="amylase"></div>
+      <div class="ls10-blank-row"><label>Made in the liver; emulsifies fats &rarr;</label><input type="text" data-answer="bile"></div>
+      <div class="ls10-blank-row"><label>The "master gland" that controls other glands &rarr;</label><input type="text" data-answer="pituitarygland"></div>
+      <div class="ls10-blank-row"><label>Carries an impulse from a receptor to the CNS &rarr;</label><input type="text" data-answer="sensoryneuron"></div>
+      <div class="ls10-blank-row"><label>Hormone that reduces blood glucose concentration &rarr;</label><input type="text" data-answer="insulin"></div>
+      <div class="ls10-blank-row"><label>The gap between two neurons &rarr;</label><input type="text" data-answer="synapse"></div>
+      <button class="ls10-check-btn" id="ls10-check-1">Check answers</button>
+      <p class="ls10-feedback" id="ls10-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 5 GCSE questions -->
+  <div class="ls10-section">
+    <div class="ls10-section-head">
+      <span class="ls10-section-num">05</span>
+      <h2 class="ls10-section-title">GCSE-style review questions</h2>
+      <span class="ls10-section-time">9 min</span>
+    </div>
+
+    <div class="ls10-q">
+      <div class="ls10-q-top"><p class="ls10-q-text">1. What is an enzyme?</p><span class="ls10-q-marks">[2 marks]</span></div>
+      <button class="ls10-reveal-btn" data-reveal="h1">Show mark scheme</button>
+      <div class="ls10-answer" id="h1">A biological catalyst (1); made of protein, it speeds up a reaction without being used up (1).</div>
+    </div>
+
+    <div class="ls10-q">
+      <div class="ls10-q-top"><p class="ls10-q-text">2. Name the enzyme that breaks down protein, and state what it is broken down into.</p><span class="ls10-q-marks">[2 marks]</span></div>
+      <button class="ls10-reveal-btn" data-reveal="h2">Show mark scheme</button>
+      <div class="ls10-answer" id="h2">Protease (1); broken down into amino acids (1).</div>
+    </div>
+
+    <div class="ls10-q">
+      <div class="ls10-q-top"><p class="ls10-q-text">3. Explain the role of bile in digestion.</p><span class="ls10-q-marks">[3 marks]</span></div>
+      <button class="ls10-reveal-btn" data-reveal="h3">Show mark scheme</button>
+      <div class="ls10-answer" id="h3">Produced in the liver (1); neutralises stomach acid, giving the right (alkaline) pH for enzymes in the small intestine (1); emulsifies fats into tiny droplets, increasing the surface area for lipase to act on (1).</div>
+    </div>
+
+    <div class="ls10-q">
+      <div class="ls10-q-top"><p class="ls10-q-text">4. Describe the pathway of a reflex arc, from stimulus to response.</p><span class="ls10-q-marks">[4 marks]</span></div>
+      <button class="ls10-reveal-btn" data-reveal="h4">Show mark scheme</button>
+      <div class="ls10-answer" id="h4">Stimulus detected by a receptor (1); impulse passes along a sensory neuron to the CNS/spinal cord (1); passes across a synapse to a relay neuron then a motor neuron (1); impulse travels to an effector, which produces the response (1).</div>
+    </div>
+
+    <div class="ls10-q">
+      <div class="ls10-q-top"><p class="ls10-q-text">5. Explain why reflexes are faster than responses that involve conscious thought.</p><span class="ls10-q-marks">[2 marks]</span></div>
+      <button class="ls10-reveal-btn" data-reveal="h5">Show mark scheme</button>
+      <div class="ls10-answer" id="h5">The impulse is processed by a relay neuron in the spinal cord (1), rather than travelling all the way to the brain and back, so it doesn't involve conscious thought/decision-making (1).</div>
+    </div>
+
+    <div class="ls10-q">
+      <div class="ls10-q-top"><p class="ls10-q-text">6. Compare hormonal and nervous communication in terms of speed and how long the effect lasts.</p><span class="ls10-q-marks">[2 marks]</span></div>
+      <button class="ls10-reveal-btn" data-reveal="h6">Show mark scheme</button>
+      <div class="ls10-answer" id="h6">Nervous communication is fast-acting but short-lived (1); hormonal communication is slower-acting but longer-lasting (1).</div>
+    </div>
+  </div>
+
+  <p class="ls10-footer-note">Tip: if a question mentions "master gland," that's the pituitary gland &mdash; it doesn't cause an effect directly, it releases hormones that tell other glands what to do.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls10-check-1').addEventListener('click', () => {
+    const rows = document.getElementById('ls10-activity-1').querySelectorAll('input[data-answer]');
+    let correct = 0;
+    rows.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7D9C4');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls10-feedback-1');
+    fb.textContent = `${correct} of ${rows.length} correct.`;
+    fb.className = 'ls10-feedback ' + (correct === rows.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls10-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

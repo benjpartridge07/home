@@ -1,0 +1,294 @@
+<style>
+  #ls3-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --phys: #B5762A; --phys-soft: #F1E3CE;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls3-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls3-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls3-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls3-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls3-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls3-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls3-section { margin-bottom: 26px; }
+  .ls3-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls3-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls3-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls3-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls3-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls3-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls3-card p:last-child { margin-bottom: 0; }
+  .ls3-card ul { margin: 0 0 10px; padding-left: 20px; font-size: 13.5px; line-height: 1.6; }
+  .ls3-term { font-weight: 600; color: var(--phys); }
+  .ls3-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls3-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls3-table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .ls3-table-wrap th, .ls3-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls3-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls3-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls3-atom-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; }
+  .ls3-atom-wrap svg { max-width: 320px; width: 100%; height: auto; }
+
+  .ls3-activity { background: var(--phys-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls3-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls3-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls3-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls3-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls3-blank-row label { font-size: 13px; min-width: 240px; font-weight: 500; }
+  .ls3-blank-row input { flex: 1; min-width: 90px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls3-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls3-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls3-feedback.ok { color: #2E6B45; }
+  .ls3-feedback.no { color: #A34B4B; }
+
+  .ls3-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls3-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls3-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls3-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls3-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--phys); background: none; border: 1.5px solid var(--phys); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls3-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--phys); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls3-answer.show { display: block; }
+
+  .ls3-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls3-root">
+  <p class="ls3-eyebrow">Kick-off lesson &middot; Session 3, Week 2</p>
+  <h1 class="ls3-title">Atomic structure</h1>
+  <div class="ls3-meta">
+    <span><span class="ls3-dot" style="background:var(--phys)"></span>Physics</span>
+    <span><span class="ls3-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>60 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls3-section">
+    <div class="ls3-section-head">
+      <span class="ls3-section-num">01</span>
+      <h2 class="ls3-section-title">What's inside an atom</h2>
+      <span class="ls3-section-time">10 min</span>
+    </div>
+    <div class="ls3-card">
+      <p>Every atom is built from three <span class="ls3-term">sub-atomic particles</span>: protons and neutrons packed into a tiny central <span class="ls3-term">nucleus</span>, with electrons occupying the mostly-empty space around it in shells.</p>
+      <p>The nucleus is incredibly small compared to the whole atom — if the atom were the size of a football stadium, the nucleus would be about the size of a pea, but it holds almost all of the atom's mass.</p>
+    </div>
+    <div class="ls3-atom-wrap">
+      <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="130" r="110" fill="none" stroke="#B7C6D8" stroke-width="1.5" stroke-dasharray="3 4"/>
+        <circle cx="150" cy="130" r="65" fill="none" stroke="#B7C6D8" stroke-width="1.5" stroke-dasharray="3 4"/>
+        <circle cx="150" cy="130" r="22" fill="#F1E3CE" stroke="#B5762A" stroke-width="2"/>
+        <text x="150" y="126" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="#23201A">nucleus</text>
+        <text x="150" y="139" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="8" fill="#6B6355">p+ / n</text>
+        <circle cx="150" cy="20" r="6" fill="#3A5E85"/>
+        <circle cx="215" cy="65" r="6" fill="#3A5E85"/>
+        <circle cx="150" cy="240" r="6" fill="#3A5E85"/>
+        <text x="230" y="130" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="#6B6355">shells (electrons)</text>
+      </svg>
+    </div>
+    <div class="ls3-table-wrap">
+      <table>
+        <tr><th>Particle</th><th>Relative charge</th><th>Relative mass</th><th>Location</th></tr>
+        <tr><td><strong>Proton</strong></td><td>+1</td><td>1</td><td>Nucleus</td></tr>
+        <tr><td><strong>Neutron</strong></td><td>0</td><td>1</td><td>Nucleus</td></tr>
+        <tr><td><strong>Electron</strong></td><td>&minus;1</td><td>very small (about 1/2000 of a proton)</td><td>Shells (energy levels)</td></tr>
+      </table>
+    </div>
+    <div class="ls3-card">
+      <p>An atom on its own has <strong>no overall charge</strong> — the number of electrons always equals the number of protons, so the positive and negative charges cancel out.</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls3-section">
+    <div class="ls3-section-head">
+      <span class="ls3-section-num">02</span>
+      <h2 class="ls3-section-title">Atomic number, mass number, and isotopes</h2>
+      <span class="ls3-section-time">15 min</span>
+    </div>
+    <div class="ls3-card">
+      <p>Two numbers tell you everything about an atom's make-up:</p>
+      <ul>
+        <li><span class="ls3-term">Atomic number</span> — the number of protons. This is what makes an element that element; every atom of a given element has the same atomic number.</li>
+        <li><span class="ls3-term">Mass number</span> — the total number of protons <em>and</em> neutrons added together.</li>
+      </ul>
+      <p>From those two numbers you can work out all three particle counts:</p>
+      <p style="padding-left:14px"><span class="ls3-eq">protons = atomic number</span></p>
+      <p style="padding-left:14px"><span class="ls3-eq">electrons = atomic number</span> (in a neutral atom)</p>
+      <p style="padding-left:14px"><span class="ls3-eq">neutrons = mass number &minus; atomic number</span></p>
+      <p>Worked example: chlorine-35 has atomic number 17 and mass number 35. So it has 17 protons, 17 electrons, and 35 &minus; 17 = <strong>18 neutrons</strong>.</p>
+    </div>
+    <div class="ls3-card">
+      <p><span class="ls3-term">Isotopes</span> are atoms of the <em>same element</em> (same atomic number, same number of protons) that have <em>different numbers of neutrons</em> — and therefore different mass numbers. Because they have the same electron arrangement, isotopes of an element react chemically in the same way, but they can have different physical properties (like mass).</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls3-section">
+    <div class="ls3-section-head">
+      <span class="ls3-section-num">•</span>
+      <h2 class="ls3-section-title">Activity — count the particles</h2>
+      <span class="ls3-section-time">10 min</span>
+    </div>
+    <div class="ls3-activity">
+      <p class="ls3-activity-label">Use protons = atomic number, electrons = atomic number, neutrons = mass number &minus; atomic number</p>
+      <p class="prompt">Type just the number for each blank.</p>
+      <div class="ls3-blank-row"><label>Atomic number 8, mass number 16 &rarr; protons =</label><input type="text" data-answer="8"></div>
+      <div class="ls3-blank-row"><label>Atomic number 8, mass number 16 &rarr; neutrons =</label><input type="text" data-answer="8"></div>
+      <div class="ls3-blank-row"><label>Atomic number 11, mass number 23 &rarr; neutrons =</label><input type="text" data-answer="12"></div>
+      <div class="ls3-blank-row"><label>Atomic number 19, mass number 39 &rarr; electrons =</label><input type="text" data-answer="19"></div>
+      <div class="ls3-blank-row"><label>Atomic number 26, mass number 56 &rarr; neutrons =</label><input type="text" data-answer="30"></div>
+      <button class="ls3-check-btn" id="ls3-check-1">Check answers</button>
+      <p class="ls3-feedback" id="ls3-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls3-section">
+    <div class="ls3-section-head">
+      <span class="ls3-section-num">03</span>
+      <h2 class="ls3-section-title">Electron shells</h2>
+      <span class="ls3-section-time">15 min</span>
+    </div>
+    <div class="ls3-card">
+      <p>Electrons don't sit anywhere they like — they occupy fixed <span class="ls3-term">energy levels</span> (shells) around the nucleus, filling the lowest available shell first before starting the next one out.</p>
+      <p>For the elements you'll meet at GCSE (atomic number 1&ndash;20), the shells fill up in the pattern <strong>2, 8, 8</strong>: 2 electrons in the first shell, up to 8 in the second, up to 8 in the third.</p>
+      <p>Worked example: sodium has atomic number 11, so it has 11 electrons. Fill the shells from the inside out: 2, then 8, then whatever's left &rarr; <strong>2, 8, 1</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls3-section">
+    <div class="ls3-section-head">
+      <span class="ls3-section-num">•</span>
+      <h2 class="ls3-section-title">Activity — fill the shells</h2>
+      <span class="ls3-section-time">10 min</span>
+    </div>
+    <div class="ls3-activity maths">
+      <p class="ls3-activity-label">Write the electronic structure using commas, e.g. 2,8,1</p>
+      <p class="prompt">Number of electrons = atomic number. Fill 2, then 8, then 8.</p>
+      <div class="ls3-blank-row"><label>Carbon, atomic number 6 &rarr;</label><input type="text" data-answer="2,4"></div>
+      <div class="ls3-blank-row"><label>Oxygen, atomic number 8 &rarr;</label><input type="text" data-answer="2,6"></div>
+      <div class="ls3-blank-row"><label>Magnesium, atomic number 12 &rarr;</label><input type="text" data-answer="2,8,2"></div>
+      <div class="ls3-blank-row"><label>Chlorine, atomic number 17 &rarr;</label><input type="text" data-answer="2,8,7"></div>
+      <button class="ls3-check-btn" id="ls3-check-2">Check answers</button>
+      <p class="ls3-feedback" id="ls3-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls3-section">
+    <div class="ls3-section-head">
+      <span class="ls3-section-num">04</span>
+      <h2 class="ls3-section-title">How the model of the atom changed over time</h2>
+      <span class="ls3-section-time">10 min</span>
+    </div>
+    <div class="ls3-card">
+      <p>The atom hasn't always been pictured this way — the model changed as new evidence came in. You don't need to remember dates or names, but you should be able to describe the sequence and explain <em>why</em> each change happened:</p>
+      <ul>
+        <li><strong>Solid sphere</strong> — atoms thought to be tiny solid balls that couldn't be split up.</li>
+        <li><strong>Plum pudding model</strong> — once electrons were discovered, the atom was pictured as a ball of positive charge with electrons embedded in it, like fruit in a pudding.</li>
+        <li><strong>Nuclear model</strong> — an experiment fired particles at thin gold foil. Most passed straight through, but a few bounced almost straight back — which only made sense if the positive charge (and most of the mass) was concentrated in a tiny central nucleus, with mostly empty space around it.</li>
+        <li><strong>Neutrons added</strong> — later experiments showed atomic masses were too big to be explained by protons alone, leading to the discovery of the neutron in the nucleus.</li>
+      </ul>
+      <p>The key skill for exam questions here is explaining <em>how new evidence changed the model</em> — not just reciting the timeline.</p>
+    </div>
+  </div>
+
+  <!-- 5 GCSE questions -->
+  <div class="ls3-section">
+    <div class="ls3-section-head">
+      <span class="ls3-section-num">05</span>
+      <h2 class="ls3-section-title">GCSE-style review questions</h2>
+      <span class="ls3-section-time">15 min</span>
+    </div>
+
+    <div class="ls3-q">
+      <div class="ls3-q-top"><p class="ls3-q-text">1. State the relative charge of a proton, a neutron, and an electron.</p><span class="ls3-q-marks">[3 marks]</span></div>
+      <button class="ls3-reveal-btn" data-reveal="b1">Show mark scheme</button>
+      <div class="ls3-answer" id="b1">Proton +1 (1) &nbsp; Neutron 0 (1) &nbsp; Electron &minus;1 (1)</div>
+    </div>
+
+    <div class="ls3-q">
+      <div class="ls3-q-top"><p class="ls3-q-text">2. An atom of potassium has atomic number 19 and mass number 39. State the number of protons, neutrons and electrons it has.</p><span class="ls3-q-marks">[3 marks]</span></div>
+      <button class="ls3-reveal-btn" data-reveal="b2">Show mark scheme</button>
+      <div class="ls3-answer" id="b2">Protons = 19 (1) &nbsp; Electrons = 19 (1) &nbsp; Neutrons = 39 &minus; 19 = <strong>20</strong> (1)</div>
+    </div>
+
+    <div class="ls3-q">
+      <div class="ls3-q-top"><p class="ls3-q-text">3. Define the term "isotope".</p><span class="ls3-q-marks">[2 marks]</span></div>
+      <button class="ls3-reveal-btn" data-reveal="b3">Show mark scheme</button>
+      <div class="ls3-answer" id="b3">Atoms of the same element (same number of protons) (1) with a different number of neutrons (different mass number) (1).</div>
+    </div>
+
+    <div class="ls3-q">
+      <div class="ls3-q-top"><p class="ls3-q-text">4. Give the electronic structure of an atom with atomic number 13.</p><span class="ls3-q-marks">[2 marks]</span></div>
+      <button class="ls3-reveal-btn" data-reveal="b4">Show mark scheme</button>
+      <div class="ls3-answer" id="b4">13 electrons, filling 2 then 8 then the remainder (1) &nbsp; <strong>2,8,3</strong> (1)</div>
+    </div>
+
+    <div class="ls3-q">
+      <div class="ls3-q-top"><p class="ls3-q-text">5. Describe how the alpha particle scattering experiment changed the plum pudding model of the atom.</p><span class="ls3-q-marks">[3 marks]</span></div>
+      <button class="ls3-reveal-btn" data-reveal="b5">Show mark scheme</button>
+      <div class="ls3-answer" id="b5">Most alpha particles passed straight through the gold foil, showing atoms are mostly empty space (1). A small number bounced back at large angles, showing that a small, dense, positively charged region exists (1). This led to the nuclear model, with a tiny central nucleus containing (almost) all the mass and positive charge (1).</div>
+    </div>
+  </div>
+
+  <p class="ls3-footer-note">Tip: for "describe/explain" questions on the atomic model, always link the observation (what the experiment showed) to the conclusion (what it proved about atomic structure) — marks are usually awarded for that link, not just for naming the model.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls3-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls3-root .ls3-activity:not(.maths) input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls3-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls3-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls3-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls3-root .ls3-activity.maths input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls3-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls3-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls3-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

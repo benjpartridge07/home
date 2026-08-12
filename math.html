@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Eric's Maths Revision</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#7c3aed;
+    --accent-soft:#f2e9fe;
+    --done:#1f9d55;
+    --done-soft:#e7f8ee;
+    --upcoming:#b98900;
+    --upcoming-soft:#fbf1dc;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{
+    padding:2.5rem 1.5rem 1.5rem;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header h1{
+    margin:0 0 .25rem;
+    font-size:1.9rem;
+  }
+  header p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:1rem;
+  }
+  header p a{
+    color:var(--accent);
+    font-weight:600;
+  }
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 1.5rem 3rem;
+  }
+  .subject{
+    margin-top:2rem;
+  }
+  .subject h2{
+    font-size:1.1rem;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--text-dim);
+    margin:0 0 .75rem;
+  }
+  .topic{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:1.25rem 1.5rem;
+    margin-bottom:1rem;
+  }
+  .topic-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .topic-head h3{
+    margin:0;
+    font-size:1.15rem;
+  }
+  .status{
+    font-size:.75rem;
+    font-weight:600;
+    padding:.2rem .6rem;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .status.done{ background:var(--done-soft); color:var(--done); }
+  .status.upcoming{ background:var(--upcoming-soft); color:var(--upcoming); }
+  .topic p.desc{
+    color:var(--text-dim);
+    margin:.5rem 0 1rem;
+    font-size:.95rem;
+  }
+  .files{
+    display:flex;
+    gap:.6rem;
+    flex-wrap:wrap;
+  }
+  .files a{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    padding:.5rem .9rem;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    text-decoration:none;
+    font-size:.9rem;
+    font-weight:600;
+    border:1px solid transparent;
+  }
+  .files a:hover{
+    border-color:var(--accent);
+  }
+  .files .placeholder{
+    display:inline-flex;
+    align-items:center;
+    padding:.5rem .9rem;
+    border-radius:8px;
+    background:#f0f1f4;
+    color:var(--text-dim);
+    font-size:.9rem;
+    font-style:italic;
+  }
+  .files button{
+    font-family:inherit;
+    cursor:pointer;
+  }
+  dialog#video-dialog{
+    border:none;
+    border-radius:12px;
+    padding:1.5rem;
+    width:min(420px, 90vw);
+    color:var(--text);
+  }
+  dialog#video-dialog::backdrop{
+    background:rgba(20,22,26,.45);
+  }
+  dialog#video-dialog h3{
+    margin:0 0 1rem;
+    font-size:1.1rem;
+  }
+  #video-dialog-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:.5rem;
+  }
+  #video-dialog-list a{
+    display:block;
+    padding:.6rem .8rem;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:600;
+    font-size:.92rem;
+  }
+  #video-dialog-list a:hover{
+    text-decoration:underline;
+  }
+  #video-dialog-list .empty{
+    color:var(--text-dim);
+    font-style:italic;
+    font-size:.9rem;
+  }
+  #video-dialog-close{
+    margin-top:1.25rem;
+    padding:.5rem 1rem;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    font-family:inherit;
+    font-size:.9rem;
+    cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="school/math/index.html">&larr; Math</a>
+  <h1>Eric's Maths Revision</h1>
+  <p>GCSE Maths topics ahead for Year 10 &mdash; reference sheets, tests, and answers for each, once built. Not sure he's ready? Check the <a href="ks3_essentials.html">KS3 essentials checklist</a> first.</p>
+</header>
+
+<main>
+
+  <div class="subject">
+    <h2>Number</h2>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Spot Quizzes</h3>
+      </div>
+      <p class="desc">Quick standalone retest on the question types Eric got wrong on a topic test &mdash; from the Fractions, Decimals &amp; Percentages test: converting fractions/decimals (A1, A6, A8), fraction of an amount (C2), percentage of an amount without a calculator (C3), and comparing a fraction to a percentage (D4).</p>
+      <div class="files">
+        <a href="materials/spot_quizzes/fdp_weak_spots_quiz.pdf">📝 FDP Weak Spots</a>
+        <a href="materials/spot_quizzes/fdp_weak_spots_quiz_answers.pdf">✅ FDP Weak Spots Answers</a>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Fractions, Decimals &amp; Percentages</h3>
+        <span class="status done">Done</span>
+      </div>
+      <p class="desc">Converting between the three, ordering, and calculating with them. 26-mark test.</p>
+      <div class="files">
+        <a href="materials/fractions_decimals_percentages/lesson_fractions_decimals_percentages.html">🧪 Interactive lesson</a>
+        <a href="materials/fractions_decimals_percentages/fdp_reference.pdf">📄 Reference sheet</a>
+        <button type="button" class="videos-btn" data-topic="fdp">🎥 Videos</button>
+        <a href="materials/fractions_decimals_percentages/fdp_test.pdf">📝 Test</a>
+        <a href="materials/fractions_decimals_percentages/fdp_test_answers.pdf">✅ Answers</a>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Percentages: Change, Interest &amp; Financial Maths</h3>
+        <span class="status done">Done</span>
+      </div>
+      <p class="desc">Percentage increase/decrease, reverse percentages, and simple &amp; compound interest. 26-mark test.</p>
+      <div class="files">
+        <a href="materials/percentages_change_financial/lesson_percentages_change_financial.html">🧪 Interactive lesson</a>
+        <a href="materials/percentages_change_financial/percentages_change_reference.pdf">📄 Reference sheet</a>
+        <button type="button" class="videos-btn" data-topic="percentages">🎥 Videos</button>
+        <a href="materials/percentages_change_financial/percentages_change_test.pdf">📝 Test</a>
+        <a href="materials/percentages_change_financial/percentages_change_test_answers.pdf">✅ Answers</a>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Standard Form &amp; Indices</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Writing large/small numbers in standard form, and the laws of indices.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="standard_form">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subject">
+    <h2>Algebra</h2>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Expanding, Factorising &amp; Solving Equations</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Expanding brackets, factorising expressions, and solving linear equations.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="algebra_basics">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Straight-Line Graphs</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Plotting linear graphs, y = mx + c, gradient and intercept.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="graphs">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Sequences</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Term-to-term and position-to-term rules; finding the nth term of arithmetic sequences.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="sequences">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subject">
+    <h2>Ratio, Proportion &amp; Rates of Change</h2>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Ratio &amp; Proportion</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Simplifying ratios, sharing in a given ratio, and direct/inverse proportion.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="ratio">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Compound Units (Speed, Density, Pressure)</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Calculating and rearranging compound measures, and converting between units.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="compound_units">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subject">
+    <h2>Geometry &amp; Measures</h2>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Angles, Polygons &amp; Parallel Lines</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Angle facts, angle sums of triangles and polygons, and parallel line angle rules.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="angles">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Area, Perimeter &amp; Volume</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">2D shape area/perimeter (including circles), and volume of prisms and cylinders.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="area_volume">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Pythagoras' Theorem &amp; Trigonometry</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Finding missing sides with Pythagoras, and SOH CAH TOA for right-angled triangles.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="pythagoras_trig">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Transformations &amp; Constructions</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Translation, rotation, reflection, enlargement, and ruler-and-compass constructions.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="transformations">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subject">
+    <h2>Probability &amp; Statistics</h2>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Probability</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">The probability scale, sample spaces, Venn diagrams, and combined events.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="probability">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Averages, Spread &amp; Charts</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Mean, median, mode, range, and reading/constructing bar charts, pie charts &amp; frequency tables.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="averages">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Scatter Graphs</h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Plotting bivariate data, describing correlation, and lines of best fit.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="scatter">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<dialog id="video-dialog">
+  <h3 id="video-dialog-title">Videos</h3>
+  <ul id="video-dialog-list"></ul>
+  <button type="button" id="video-dialog-close">Close</button>
+</dialog>
+
+<script>
+  // One entry per topic. Add more objects to a topic's array as videos come in.
+  const VIDEOS = {
+    fdp: [
+      { name: "Fractions, Decimals and Percentages (Corbettmaths)", url: "https://www.youtube.com/watch?v=Iq-6CjlEUW4" },
+      { name: "Ordering Fractions, Decimals and Percentages (Corbettmaths)", url: "https://www.youtube.com/watch?v=gOmj58JdxL8" },
+      { name: "Important Fractions, Decimals and Percentages (Corbettmaths)", url: "https://www.youtube.com/watch?v=7VAFBHatBJY" }
+    ],
+    percentages: [
+      { name: "Multipliers (Corbettmaths)", url: "https://www.youtube.com/watch?v=uHYywMkaZC8" },
+      { name: "Increasing/Decreasing by a Percentage (Corbettmaths)", url: "https://www.youtube.com/watch?v=tUtgC7ZrsRc" },
+      { name: "Percentage Change (Corbettmaths)", url: "https://www.youtube.com/watch?v=Q2gRAS08fE0" },
+      { name: "Reverse Percentages (Corbettmaths)", url: "https://www.youtube.com/watch?v=aG5zkrCiQpM" },
+      { name: "Compound Interest (Corbettmaths)", url: "https://www.youtube.com/watch?v=FBCs95Co_oU" }
+    ]
+  };
+
+  const dialog = document.getElementById("video-dialog");
+  const dialogTitle = document.getElementById("video-dialog-title");
+  const dialogList = document.getElementById("video-dialog-list");
+
+  document.querySelectorAll(".videos-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const topic = btn.dataset.topic;
+      const videos = VIDEOS[topic] || [];
+      const topicLabel = btn.closest(".topic").querySelector("h3").textContent;
+
+      dialogTitle.textContent = `${topicLabel} — Videos`;
+      dialogList.innerHTML = "";
+
+      if (videos.length === 0) {
+        const li = document.createElement("li");
+        li.className = "empty";
+        li.textContent = "No videos added yet.";
+        dialogList.appendChild(li);
+      } else {
+        videos.forEach(v => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = v.url;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = v.name;
+          li.appendChild(a);
+          dialogList.appendChild(li);
+        });
+      }
+
+      dialog.showModal();
+    });
+  });
+
+  document.getElementById("video-dialog-close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+</script>
+
+</body>
+</html>

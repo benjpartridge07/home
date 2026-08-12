@@ -1,0 +1,273 @@
+<style>
+  #ls12-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --acc: #B5762A; --acc-soft: #F1E3CE;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls12-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls12-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls12-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls12-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls12-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls12-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls12-section { margin-bottom: 26px; }
+  .ls12-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls12-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls12-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls12-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls12-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls12-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls12-card p:last-child { margin-bottom: 0; }
+  .ls12-card ul { margin: 0 0 10px; padding-left: 20px; font-size: 13.5px; line-height: 1.6; }
+  .ls12-term { font-weight: 600; color: var(--maths); }
+  .ls12-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls12-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls12-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls12-table-wrap th, .ls12-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls12-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls12-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls12-activity { background: var(--acc-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls12-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls12-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls12-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls12-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls12-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls12-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls12-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls12-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls12-feedback.ok { color: #2E6B45; }
+  .ls12-feedback.no { color: #A34B4B; }
+
+  .ls12-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls12-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls12-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls12-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls12-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--acc); background: none; border: 1.5px solid var(--acc); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls12-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--acc); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls12-answer.show { display: block; }
+
+  .ls12-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls12-root">
+  <p class="ls12-eyebrow">GCSE Maths &middot; Number</p>
+  <h1 class="ls12-title">Percentages: Change, Interest &amp; Financial Maths</h1>
+  <div class="ls12-meta">
+    <span><span class="ls12-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>55 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls12-section">
+    <div class="ls12-section-head">
+      <span class="ls12-section-num">01</span>
+      <h2 class="ls12-section-title">The multiplier method</h2>
+      <span class="ls12-section-time">12 min</span>
+    </div>
+    <div class="ls12-card">
+      <p>The fast way to increase or decrease by a percentage is to convert the change into a single <span class="ls12-term">decimal multiplier</span>, then multiply once.</p>
+      <ul>
+        <li><span class="ls12-term">Increase by 15%:</span> the new amount is 100% + 15% = 115% of the original &rarr; multiplier <span class="ls12-eq">1.15</span></li>
+        <li><span class="ls12-term">Decrease by 20%:</span> the new amount is 100% &minus; 20% = 80% of the original &rarr; multiplier <span class="ls12-eq">0.80</span></li>
+      </ul>
+      <p>Worked examples: increase &pound;60 by 15% &rarr; 60 &times; 1.15 = <strong>&pound;69</strong>. &nbsp; Decrease &pound;150 by 20% &rarr; 150 &times; 0.8 = <strong>&pound;120</strong>.</p>
+    </div>
+    <div class="ls12-table-wrap">
+      <table>
+        <tr><th>Change</th><th>Multiplier</th></tr>
+        <tr><td>Increase by 8%</td><td>1.08</td></tr>
+        <tr><td>Increase by 50%</td><td>1.50</td></tr>
+        <tr><td>Decrease by 12%</td><td>0.88</td></tr>
+        <tr><td>Decrease by 35%</td><td>0.65</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls12-section">
+    <div class="ls12-section-head">
+      <span class="ls12-section-num">&bull;</span>
+      <h2 class="ls12-section-title">Activity &mdash; find the multiplier, then apply it</h2>
+      <span class="ls12-section-time">10 min</span>
+    </div>
+    <div class="ls12-activity">
+      <p class="ls12-activity-label">Type the number only</p>
+      <div class="ls12-blank-row"><label>Increase by 8% &rarr; multiplier =</label><input type="text" data-answer="1.08"></div>
+      <div class="ls12-blank-row"><label>Decrease by 35% &rarr; multiplier =</label><input type="text" data-answer="0.65"></div>
+      <div class="ls12-blank-row"><label>&pound;80 increased by 25% =</label><input type="text" data-answer="100"></div>
+      <div class="ls12-blank-row"><label>&pound;90 decreased by 10% =</label><input type="text" data-answer="81"></div>
+      <button class="ls12-check-btn" id="ls12-check-1">Check answers</button>
+      <p class="ls12-feedback" id="ls12-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls12-section">
+    <div class="ls12-section-head">
+      <span class="ls12-section-num">02</span>
+      <h2 class="ls12-section-title">Reverse percentages</h2>
+      <span class="ls12-section-time">12 min</span>
+    </div>
+    <div class="ls12-card">
+      <p>Sometimes you're given the amount <em>after</em> a percentage change, and asked to find the <span class="ls12-term">original</span> (100%) amount. The trap: don't just add or subtract the percentage from the final amount — instead, <strong>divide by the multiplier</strong>.</p>
+      <p>Worked example: a jacket costs &pound;69 after a 15% price increase. Find the original price.</p>
+      <p style="padding-left:14px">multiplier = 1.15 &nbsp;&rarr;&nbsp; original = 69 &divide; 1.15 = <strong>&pound;60</strong></p>
+      <p>Another: a sale price is &pound;120 after a 20% decrease. Find the original price.</p>
+      <p style="padding-left:14px">multiplier = 0.80 &nbsp;&rarr;&nbsp; original = 120 &divide; 0.8 = <strong>&pound;150</strong></p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls12-section">
+    <div class="ls12-section-head">
+      <span class="ls12-section-num">03</span>
+      <h2 class="ls12-section-title">Simple interest</h2>
+      <span class="ls12-section-time">10 min</span>
+    </div>
+    <div class="ls12-card">
+      <p><span class="ls12-term">Simple interest</span> adds the <em>same</em> amount every year, always calculated from the original amount (the principal).</p>
+      <p style="padding-left:14px"><span class="ls12-eq">I = P &times; R &times; T &divide; 100</span></p>
+      <p>P &mdash; principal (starting amount) &nbsp;&middot;&nbsp; R &mdash; rate, as a % &nbsp;&middot;&nbsp; T &mdash; time, in years</p>
+      <p>Worked example: &pound;500 at 4% simple interest for 3 years.</p>
+      <p style="padding-left:14px">I = 500 &times; 4 &times; 3 &divide; 100 = <strong>&pound;60</strong> &nbsp;&rarr;&nbsp; total after 3 years = &pound;560</p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls12-section">
+    <div class="ls12-section-head">
+      <span class="ls12-section-num">04</span>
+      <h2 class="ls12-section-title">Compound interest</h2>
+      <span class="ls12-section-time">12 min</span>
+    </div>
+    <div class="ls12-card">
+      <p><span class="ls12-term">Compound interest</span> pays interest on the interest already earned, not just on the original amount — so it grows faster the longer it runs. Use the multiplier, raised to the power of the number of years.</p>
+      <p style="padding-left:14px"><span class="ls12-eq">Amount = P &times; (multiplier)<sup>T</sup></span></p>
+      <p>Worked example: &pound;500 at 4% compound interest for 3 years.</p>
+      <p style="padding-left:14px">Amount = 500 &times; 1.04<sup>3</sup> = 500 &times; 1.124864 = <strong>&pound;562.43</strong> (2 d.p.)</p>
+    </div>
+    <div class="ls12-table-wrap">
+      <table>
+        <tr><th>Year</th><th>Simple interest total (&pound;500 @ 4%)</th><th>Compound interest total (&pound;500 @ 4%)</th></tr>
+        <tr><td>1</td><td>520.00</td><td>520.00</td></tr>
+        <tr><td>2</td><td>540.00</td><td>540.80</td></tr>
+        <tr><td>3</td><td>560.00</td><td>562.43</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls12-section">
+    <div class="ls12-section-head">
+      <span class="ls12-section-num">&bull;</span>
+      <h2 class="ls12-section-title">Activity &mdash; simple vs. compound</h2>
+      <span class="ls12-section-time">8 min</span>
+    </div>
+    <div class="ls12-activity maths">
+      <p class="ls12-activity-label">Type the number only</p>
+      <div class="ls12-blank-row"><label>Simple interest: &pound;400 at 5% for 2 years =</label><input type="text" data-answer="40"></div>
+      <div class="ls12-blank-row"><label>Compound multiplier for 3% growth =</label><input type="text" data-answer="1.03"></div>
+      <div class="ls12-blank-row"><label>&pound;300 compound interest at 10% for 2 years, total amount =</label><input type="text" data-answer="363"></div>
+      <button class="ls12-check-btn" id="ls12-check-2">Check answers</button>
+      <p class="ls12-feedback" id="ls12-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 5 GCSE questions -->
+  <div class="ls12-section">
+    <div class="ls12-section-head">
+      <span class="ls12-section-num">05</span>
+      <h2 class="ls12-section-title">GCSE-style review questions</h2>
+      <span class="ls12-section-time">13 min</span>
+    </div>
+
+    <div class="ls12-q">
+      <div class="ls12-q-top"><p class="ls12-q-text">1. Write the multiplier for a 12% increase.</p><span class="ls12-q-marks">[1 mark]</span></div>
+      <button class="ls12-reveal-btn" data-reveal="p1">Show mark scheme</button>
+      <div class="ls12-answer" id="p1"><strong>1.12</strong> (1)</div>
+    </div>
+
+    <div class="ls12-q">
+      <div class="ls12-q-top"><p class="ls12-q-text">2. A shop increases a &pound;40 item by 25%. Find the new price.</p><span class="ls12-q-marks">[2 marks]</span></div>
+      <button class="ls12-reveal-btn" data-reveal="p2">Show mark scheme</button>
+      <div class="ls12-answer" id="p2">40 &times; 1.25 (1) &nbsp; = <strong>&pound;50</strong> (1)</div>
+    </div>
+
+    <div class="ls12-q">
+      <div class="ls12-q-top"><p class="ls12-q-text">3. After a 30% decrease, a laptop costs &pound;280. Find the original price.</p><span class="ls12-q-marks">[2 marks]</span></div>
+      <button class="ls12-reveal-btn" data-reveal="p3">Show mark scheme</button>
+      <div class="ls12-answer" id="p3">280 &divide; 0.7 (1) &nbsp; = <strong>&pound;400</strong> (1)</div>
+    </div>
+
+    <div class="ls12-q">
+      <div class="ls12-q-top"><p class="ls12-q-text">4. Calculate the simple interest earned on &pound;600 at 3% per year for 4 years.</p><span class="ls12-q-marks">[3 marks]</span></div>
+      <button class="ls12-reveal-btn" data-reveal="p4">Show mark scheme</button>
+      <div class="ls12-answer" id="p4">I = 600 &times; 3 &times; 4 &divide; 100 (1) &nbsp; = 7200 &divide; 100 (1) &nbsp; = <strong>&pound;72</strong> (1)</div>
+    </div>
+
+    <div class="ls12-q">
+      <div class="ls12-q-top"><p class="ls12-q-text">5. &pound;1000 is invested at 2% compound interest for 3 years. Calculate the total amount after 3 years, to the nearest penny.</p><span class="ls12-q-marks">[3 marks]</span></div>
+      <button class="ls12-reveal-btn" data-reveal="p5">Show mark scheme</button>
+      <div class="ls12-answer" id="p5">Amount = 1000 &times; 1.02<sup>3</sup> (1) &nbsp; = 1000 &times; 1.061208 (1) &nbsp; = <strong>&pound;1061.21</strong> (1)</div>
+    </div>
+  </div>
+
+  <p class="ls12-footer-note">Tip: before doing anything, decide what 100% represents. For "increase/decrease by X%" questions, 100% is the original amount. For reverse percentage questions, the amount you've been given is <em>not</em> 100% — it's the multiplier percentage, so you divide by the multiplier to get back to 100%.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls12-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls12-root .ls12-activity:not(.maths) input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls12-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls12-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls12-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls12-root .ls12-activity.maths input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls12-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls12-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls12-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

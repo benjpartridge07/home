@@ -1,0 +1,335 @@
+<style>
+  #ls7-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --bio: #2F8B57; --bio-soft: #DFF0E5;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls7-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls7-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls7-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls7-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls7-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls7-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls7-section { margin-bottom: 26px; }
+  .ls7-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls7-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls7-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls7-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls7-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls7-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls7-card p:last-child { margin-bottom: 0; }
+  .ls7-term { font-weight: 600; color: var(--bio); }
+  .ls7-eq { font-family: 'IBM Plex Mono', monospace; background: #E5F0E9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls7-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls7-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls7-table-wrap th, .ls7-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls7-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls7-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls7-diagram-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; }
+  .ls7-diagram-wrap svg { max-width: 460px; width: 100%; height: auto; }
+
+  .ls7-activity { background: var(--maths-soft); border: 1px solid #B7C6D8; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls7-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls7-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls7-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls7-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls7-blank-row input { flex: 1; min-width: 90px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls7-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls7-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls7-feedback.ok { color: #2E6B45; }
+  .ls7-feedback.no { color: #A34B4B; }
+
+  .ls7-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls7-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls7-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls7-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls7-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--bio); background: none; border: 1.5px solid var(--bio); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls7-answer { display: none; font-size: 13px; line-height: 1.55; background: #EEF6F0; border-left: 3px solid var(--bio); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls7-answer.show { display: block; }
+
+  .ls7-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls7-root">
+  <p class="ls7-eyebrow">Kick-off lesson &middot; Session 7, Week 4</p>
+  <h1 class="ls7-title">Eukaryotes, prokaryotes &amp; the scale of cells</h1>
+  <div class="ls7-meta">
+    <span><span class="ls7-dot" style="background:var(--bio)"></span>Biology</span>
+    <span><span class="ls7-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>55 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls7-section">
+    <div class="ls7-section-head">
+      <span class="ls7-section-num">01</span>
+      <h2 class="ls7-section-title">Eukaryotic cells</h2>
+      <span class="ls7-section-time">8 min</span>
+    </div>
+    <div class="ls7-card">
+      <p>Animal and plant cells are called <span class="ls7-term">eukaryotic</span> cells. Every eukaryotic cell has a cell membrane, cytoplasm, and genetic material <strong>enclosed in a nucleus</strong>. You already know the individual parts from the Animal &amp; Plant Cells lesson &mdash; the key new word here is just the category name: <span class="ls7-term">eukaryotic</span> means "has a nucleus."</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls7-section">
+    <div class="ls7-section-head">
+      <span class="ls7-section-num">02</span>
+      <h2 class="ls7-section-title">Prokaryotic cells (bacteria)</h2>
+      <span class="ls7-section-time">10 min</span>
+    </div>
+    <div class="ls7-card">
+      <p>Bacterial cells are called <span class="ls7-term">prokaryotic</span> cells. They are much <strong>smaller</strong> than animal or plant cells, and simpler:</p>
+      <ul>
+        <li>They have cytoplasm and a cell membrane, surrounded by a <strong>cell wall</strong>.</li>
+        <li>Their genetic material is <strong>not</strong> enclosed in a nucleus &mdash; it's a single loop of DNA floating free in the cytoplasm.</li>
+        <li>They may also have one or more small rings of DNA called <span class="ls7-term">plasmids</span>.</li>
+      </ul>
+    </div>
+    <div class="ls7-card">
+      <p><strong>Where the names come from:</strong> <span class="ls7-term">eukaryotic</span> means "true nucleus" and <span class="ls7-term">prokaryotic</span> means "before nucleus." That's the whole distinction in a nutshell &mdash; animal and plant cells keep their DNA sealed inside a nuclear membrane, while a bacterial cell's DNA is just one circular strand sitting loose in the cytoplasm, with no membrane around it at all.</p>
+    </div>
+    <div class="ls7-card">
+      <p><strong>Plasmids</strong> are small circular pieces of DNA, separate from the main DNA loop:</p>
+      <ul>
+        <li>They're much smaller than the main loop and usually carry only a <strong>few genes</strong>, not the bacterium's full genetic blueprint.</li>
+        <li>They often carry genes that give the bacterium an <strong>advantage</strong> in certain conditions &mdash; the classic example is antibiotic resistance.</li>
+        <li>Plasmids can be copied and passed between bacteria independently of the main DNA loop, which is part of why antibiotic resistance can spread between bacteria.</li>
+        <li>This is also why bacteria are so useful in <strong>genetic engineering</strong>: a plasmid can be removed, cut open with enzymes, have a foreign gene inserted, and put back into a bacterium so it produces something useful &mdash; e.g. human insulin.</li>
+      </ul>
+    </div>
+    <div class="ls7-table-wrap">
+      <table>
+        <tr><th>Feature</th><th>Eukaryotic (animal/plant)</th><th>Prokaryotic (bacteria)</th></tr>
+        <tr><td>Size</td><td>Larger</td><td>Much smaller</td></tr>
+        <tr><td>Genetic material</td><td>Enclosed in a nucleus</td><td>Single DNA loop, free in cytoplasm</td></tr>
+        <tr><td>Plasmids</td><td>None</td><td>May have one or more</td></tr>
+        <tr><td>Cytoplasm &amp; cell membrane</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>Cell wall</td><td>Plants only (cellulose)</td><td>&check;</td></tr>
+      </table>
+    </div>
+    <div class="ls7-card">
+      <p><strong>The one thing to remember:</strong> nucleus present &rarr; eukaryotic. No nucleus (DNA loop instead) &rarr; prokaryotic.</p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls7-section">
+    <div class="ls7-section-head">
+      <span class="ls7-section-num">03</span>
+      <h2 class="ls7-section-title">The scale of cells</h2>
+      <span class="ls7-section-time">15 min</span>
+    </div>
+    <div class="ls7-card">
+      <p>Cells are measured in units far smaller than a metre. Each step down this ladder is <strong>&times;1000</strong> smaller (and each step up is &divide;1000):</p>
+    </div>
+    <div class="ls7-diagram-wrap">
+      <svg viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg">
+        <line x1="150" y1="30" x2="150" y2="270" stroke="#6B6355" stroke-width="1.5" stroke-dasharray="3 4"/>
+        <!-- m -->
+        <rect x="60" y="15" width="180" height="40" rx="8" fill="#DDE6EF" stroke="#3A5E85" stroke-width="1.3"/>
+        <text x="150" y="40" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#23201A">metre (m)</text>
+        <text x="255" y="40" text-anchor="start" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">e.g. a doorway</text>
+        <!-- arrows -->
+        <text x="90" y="80" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#3A5E85">&times;1000 &darr;</text>
+        <text x="210" y="80" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#B5762A">&uarr; &divide;1000</text>
+        <!-- mm -->
+        <rect x="60" y="90" width="180" height="40" rx="8" fill="#DDE6EF" stroke="#3A5E85" stroke-width="1.3"/>
+        <text x="150" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#23201A">millimetre (mm)</text>
+        <text x="255" y="115" text-anchor="start" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">e.g. a grain of rice</text>
+        <text x="90" y="155" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#3A5E85">&times;1000 &darr;</text>
+        <text x="210" y="155" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#B5762A">&uarr; &divide;1000</text>
+        <!-- micrometre -->
+        <rect x="60" y="165" width="180" height="40" rx="8" fill="#DFF0E5" stroke="#2F8B57" stroke-width="1.6"/>
+        <text x="150" y="190" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#23201A">micrometre (&micro;m)</text>
+        <text x="255" y="184" text-anchor="start" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#2F8B57">bacteria: 1&ndash;5 &micro;m</text>
+        <text x="255" y="199" text-anchor="start" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#2F8B57">cells: 10&ndash;100 &micro;m</text>
+        <text x="90" y="230" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#3A5E85">&times;1000 &darr;</text>
+        <text x="210" y="230" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#B5762A">&uarr; &divide;1000</text>
+        <!-- nm -->
+        <rect x="60" y="240" width="180" height="40" rx="8" fill="#DDE6EF" stroke="#3A5E85" stroke-width="1.3"/>
+        <text x="150" y="265" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700" fill="#23201A">nanometre (nm)</text>
+        <text x="255" y="265" text-anchor="start" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">inside cells</text>
+      </svg>
+    </div>
+    <div class="ls7-card">
+      <p><strong>This is the zone that matters for cells:</strong> bacteria are about 1&ndash;5 &micro;m across; animal and plant cells are about 10&ndash;100 &micro;m across. That's why bacteria count as "much smaller" &mdash; they're roughly 10&times; smaller than a typical body cell.</p>
+      <p><strong>Worked conversion:</strong> a cell is 0.02 mm wide. To convert mm &rarr; &micro;m, multiply by 1000: 0.02 &times; 1000 = <strong>20 &micro;m</strong>. Going back the other way, &micro;m &rarr; mm, divide by 1000.</p>
+      <p>You'll also sometimes see <span class="ls7-term">centimetres (cm)</span> &mdash; 1 cm = 10 mm. Cells are never measured in cm; it's only mentioned here because the exam skill list includes it.</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls7-section">
+    <div class="ls7-section-head">
+      <span class="ls7-section-num">&bull;</span>
+      <h2 class="ls7-section-title">Activity &mdash; convert units</h2>
+      <span class="ls7-section-time">8 min</span>
+    </div>
+    <div class="ls7-activity">
+      <p class="ls7-activity-label">Multiply by 1000 going down the ladder (m&rarr;mm&rarr;&micro;m&rarr;nm); divide by 1000 going up</p>
+      <p class="prompt">Type just the number for each blank.</p>
+      <div class="ls7-blank-row"><label>0.05 mm = ____ &micro;m</label><input type="text" data-answer="50"></div>
+      <div class="ls7-blank-row"><label>3000 nm = ____ &micro;m</label><input type="text" data-answer="3"></div>
+      <div class="ls7-blank-row"><label>2 &micro;m = ____ mm</label><input type="text" data-answer="0.002"></div>
+      <div class="ls7-blank-row"><label>0.004 m = ____ mm</label><input type="text" data-answer="4"></div>
+      <div class="ls7-blank-row"><label>15 &micro;m = ____ nm</label><input type="text" data-answer="15000"></div>
+      <button class="ls7-check-btn" id="ls7-check-1">Check answers</button>
+      <p class="ls7-feedback" id="ls7-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls7-section">
+    <div class="ls7-section-head">
+      <span class="ls7-section-num">04</span>
+      <h2 class="ls7-section-title">Standard form for tiny numbers</h2>
+      <span class="ls7-section-time">10 min</span>
+    </div>
+    <div class="ls7-card">
+      <p>Cell sizes in metres are awkward decimals, so exam questions often ask for them in <span class="ls7-term">standard form</span>: <span class="ls7-eq">A &times; 10<sup>n</sup></span>, where A is between 1 and 10.</p>
+      <p><strong>Worked example:</strong> a bacterium is 2 &micro;m across. In metres, 2 &micro;m = 0.000002 m. Counting the places, that's <strong>2 &times; 10<sup>&minus;6</sup> m</strong>.</p>
+      <p><strong>Worked example:</strong> an animal cell is 25 &micro;m across. 25 &micro;m = 0.000025 m = 2.5 &times; 10<sup>&minus;5</sup> m.</p>
+      <p>Shortcut: 1 &micro;m = 10<sup>&minus;6</sup> m, so to convert a &micro;m value straight to standard form metres, just attach &times;10<sup>&minus;6</sup> and adjust so the first digit is between 1 and 10.</p>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="ls7-section">
+    <div class="ls7-section-head">
+      <span class="ls7-section-num">05</span>
+      <h2 class="ls7-section-title">Order of magnitude calculations</h2>
+      <span class="ls7-section-time">10 min</span>
+    </div>
+    <div class="ls7-card">
+      <p>An "order of magnitude" just means a <span class="ls7-term">factor of 10</span>. If one thing is roughly 10 times bigger than another, they differ by one order of magnitude.</p>
+      <p><strong>Worked example:</strong> a bacterium is about 2 &micro;m across. An animal cell is about 20 &micro;m across.</p>
+      <p style="padding-left:14px">20 &micro;m &divide; 2 &micro;m = <strong>10</strong> &mdash; the animal cell is 10 times bigger, i.e. <strong>one order of magnitude</strong> bigger than the bacterium.</p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls7-section">
+    <div class="ls7-section-head">
+      <span class="ls7-section-num">&bull;</span>
+      <h2 class="ls7-section-title">Activity &mdash; standard form &amp; order of magnitude</h2>
+      <span class="ls7-section-time">8 min</span>
+    </div>
+    <div class="ls7-activity">
+      <p class="ls7-activity-label">Fill in both boxes for the standard form questions: A &times; 10^n</p>
+      <div class="ls7-blank-row" style="min-width:280px">
+        <label style="min-width:220px">Write 3 &micro;m in metres, standard form &rarr;</label>
+        <input type="text" data-answer="3" style="max-width:60px">
+        <span style="font-family:'IBM Plex Mono',monospace">&times; 10^</span>
+        <input type="text" data-answer="-6" style="max-width:60px">
+      </div>
+      <div class="ls7-blank-row" style="min-width:280px">
+        <label style="min-width:220px">Write 40 &micro;m in metres, standard form &rarr;</label>
+        <input type="text" data-answer="4" style="max-width:60px">
+        <span style="font-family:'IBM Plex Mono',monospace">&times; 10^</span>
+        <input type="text" data-answer="-5" style="max-width:60px">
+      </div>
+      <div class="ls7-blank-row"><label>A cell is 40 &micro;m and a bacterium is 4 &micro;m. How many times bigger is the cell?</label><input type="text" data-answer="10"></div>
+      <button class="ls7-check-btn" id="ls7-check-2">Check answers</button>
+      <p class="ls7-feedback" id="ls7-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 6 GCSE questions -->
+  <div class="ls7-section">
+    <div class="ls7-section-head">
+      <span class="ls7-section-num">06</span>
+      <h2 class="ls7-section-title">GCSE-style review questions</h2>
+      <span class="ls7-section-time">15 min</span>
+    </div>
+
+    <div class="ls7-q">
+      <div class="ls7-q-top"><p class="ls7-q-text">1. State two ways a prokaryotic (bacterial) cell is different from a eukaryotic (animal) cell.</p><span class="ls7-q-marks">[2 marks]</span></div>
+      <button class="ls7-reveal-btn" data-reveal="e1">Show mark scheme</button>
+      <div class="ls7-answer" id="e1">Any two of: bacterial cells are much smaller (1); genetic material is a single DNA loop, not enclosed in a nucleus (1); bacterial cells may have plasmids (1).</div>
+    </div>
+
+    <div class="ls7-q">
+      <div class="ls7-q-top"><p class="ls7-q-text">2. A plant cell is 0.03 mm wide. Convert this to micrometres.</p><span class="ls7-q-marks">[2 marks]</span></div>
+      <button class="ls7-reveal-btn" data-reveal="e2">Show mark scheme</button>
+      <div class="ls7-answer" id="e2">0.03 &times; 1000 (1) &nbsp; = <strong>30 &micro;m</strong> (1)</div>
+    </div>
+
+    <div class="ls7-q">
+      <div class="ls7-q-top"><p class="ls7-q-text">3. A bacterium has a diameter of 5 &micro;m. Write this diameter in metres, using standard form.</p><span class="ls7-q-marks">[2 marks]</span></div>
+      <button class="ls7-reveal-btn" data-reveal="e3">Show mark scheme</button>
+      <div class="ls7-answer" id="e3">5 &micro;m = 0.000005 m (1) &nbsp; = <strong>5 &times; 10<sup>&minus;6</sup> m</strong> (1)</div>
+    </div>
+
+    <div class="ls7-q">
+      <div class="ls7-q-top"><p class="ls7-q-text">4. A red blood cell is about 7 &micro;m across and a certain virus is about 0.07 &micro;m across. How many times bigger is the red blood cell, and what is this as an order of magnitude?</p><span class="ls7-q-marks">[2 marks]</span></div>
+      <button class="ls7-reveal-btn" data-reveal="e4">Show mark scheme</button>
+      <div class="ls7-answer" id="e4">7 &divide; 0.07 = 100 times bigger (1) &nbsp; two orders of magnitude (1)</div>
+    </div>
+
+    <div class="ls7-q">
+      <div class="ls7-q-top"><p class="ls7-q-text">5. Explain why a bacterial cell is described as prokaryotic rather than eukaryotic.</p><span class="ls7-q-marks">[1 mark]</span></div>
+      <button class="ls7-reveal-btn" data-reveal="e5">Show mark scheme</button>
+      <div class="ls7-answer" id="e5">Its genetic material is not enclosed in a nucleus (it's a single DNA loop) (1).</div>
+    </div>
+  </div>
+
+  <p class="ls7-footer-note">Tip: whenever you see &micro;m in a question, the safe first move is to convert it to metres in standard form (&times;10<sup>&minus;6</sup>) before doing anything else &mdash; most marks are lost from mixing up units, not from the maths itself.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls7-check-1').addEventListener('click', () => {
+    const rows = document.getElementById('ls7-check-1').closest('.ls7-activity').querySelectorAll('input[data-answer]');
+    let correct = 0;
+    rows.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls7-feedback-1');
+    fb.textContent = `${correct} of ${rows.length} correct.`;
+    fb.className = 'ls7-feedback ' + (correct === rows.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls7-check-2').addEventListener('click', () => {
+    const rows = document.getElementById('ls7-check-2').closest('.ls7-activity').querySelectorAll('input[data-answer]');
+    let correct = 0;
+    rows.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls7-feedback-2');
+    fb.textContent = `${correct} of ${rows.length} correct.`;
+    fb.className = 'ls7-feedback ' + (correct === rows.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls7-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>
