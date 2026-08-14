@@ -8,7 +8,7 @@ answers on the FDP topic test."""
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, HRFlowable
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, HRFlowable, KeepTogether
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_LEFT
 
@@ -232,6 +232,82 @@ def build_fdp_weak_spots_answers():
     doc.build(s)
 
 
+# ---------------------------------------------------------------- PERCENTAGES: CHANGE & FINANCIAL MATHS
+
+def build_percentages_change_quiz():
+    doc = SimpleDocTemplate('percentages_change_spot_quiz.pdf', pagesize=A4,
+                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
+    s = []
+    s += header('Percentages: Change &amp; Financial Maths',
+                 'Spot quiz &middot; 21 marks total &middot; worded increase / decrease / reverse percentage practice')
+    s.append(name_row())
+    s.append(Spacer(1, 10))
+
+    s.append(Paragraph('Section A &mdash; Percentage increase &amp; decrease', styles['h2m']))
+    s += q('A1', 'A caf&eacute; increases the price of a coffee, originally &pound;2.80, by 15%. Find the new price.', 2)
+    s.append(Spacer(1, 8))
+    s += q('A2', 'A shop reduces a &pound;64 jumper by 30% in a sale. Find the sale price.', 2)
+    s.append(Spacer(1, 8))
+    s += q('A3', "Ben's savings balance of &pound;540 grows by 4% in a year. Find the new balance.", 2)
+    s.append(Spacer(1, 8))
+    s += q('A4', 'A car valued at &pound;9,000 depreciates (reduces in value) by 18% in its first year. Find its new value.', 2)
+    s.append(Spacer(1, 12))
+
+    s.append(Paragraph('Section B &mdash; Reverse percentages', styles['h2m']))
+    s += q('B1', 'After a price rise of 8%, a bike costs &pound;270. Find the price before the increase.', 2)
+    s.append(Spacer(1, 8))
+    s += q('B2', 'A sale cuts prices by 25%. A jacket now costs &pound;45. What was its original price?', 2)
+    s.append(Spacer(1, 12))
+
+    s.append(Paragraph('Section C &mdash; Simple &amp; compound interest', styles['h2m']))
+    s += q('C1', '&pound;250 is invested at 6% simple interest per year. Calculate the total interest earned after 4 years.', 3)
+    s.append(Spacer(1, 8))
+    s += q('C2', '&pound;350 is invested at 5% compound interest per year for 2 years. Calculate the total amount in the account, to the nearest penny.', 3)
+    s.append(Spacer(1, 12))
+
+    s.append(Paragraph('Section D &mdash; Spot the operation (no calculation)', styles['h2m']))
+    s.append(KeepTogether([
+        Paragraph('D1. For each statement, write whether you would use an <b>increase multiplier</b>, a <b>decrease multiplier</b>, or a <b>reverse percentage</b> calculation:', styles['qtext']),
+        Paragraph('(a) "A salary <i>increases</i> by 3%"', styles['qtext']),
+        Paragraph('(b) "After a 20% discount, trainers cost &pound;56 &mdash; find the original price"', styles['qtext']),
+        Paragraph('(c) "Rent <i>reduces</i> by 5% for one year"', styles['qtext']),
+        Paragraph('[3 marks]', styles['marks']),
+    ]))
+
+    doc.build(s)
+
+
+def build_percentages_change_answers():
+    doc = SimpleDocTemplate('percentages_change_spot_quiz_answers.pdf', pagesize=A4,
+                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
+    s = []
+    s += header('Percentages: Change &amp; Financial Maths', 'Answer key &middot; 21 marks total')
+
+    s.append(Paragraph('Section A &mdash; Percentage increase &amp; decrease', styles['h2m']))
+    s.append(Paragraph('<b>A1.</b> 2.80 &times; 1.15 (1) &nbsp; = <b>&pound;3.22</b> (1)', styles['ans']))
+    s.append(Paragraph('<b>A2.</b> 64 &times; 0.70 (1) &nbsp; = <b>&pound;44.80</b> (1)', styles['ans']))
+    s.append(Paragraph('<b>A3.</b> 540 &times; 1.04 (1) &nbsp; = <b>&pound;561.60</b> (1)', styles['ans']))
+    s.append(Paragraph('<b>A4.</b> 9000 &times; 0.82 (1) &nbsp; = <b>&pound;7,380</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section B &mdash; Reverse percentages', styles['h2m']))
+    s.append(Paragraph('<b>B1.</b> 270 &divide; 1.08 (1) &nbsp; = <b>&pound;250</b> (1)', styles['ans']))
+    s.append(Paragraph('<b>B2.</b> 45 &divide; 0.75 (1) &nbsp; = <b>&pound;60</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section C &mdash; Simple &amp; compound interest', styles['h2m']))
+    s.append(Paragraph('<b>C1.</b> I = 250 &times; 6 &times; 4 &divide; 100 (1) &nbsp; = 6000 &divide; 100 (1) &nbsp; = <b>&pound;60</b> (1)', styles['ans']))
+    s.append(Paragraph('<b>C2.</b> Amount = 350 &times; 1.05<super>2</super> (1) &nbsp; = 350 &times; 1.1025 (1) &nbsp; = <b>&pound;385.88</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section D &mdash; Spot the operation', styles['h2m']))
+    s.append(Paragraph('<b>D1.</b> (a) <b>Increase multiplier</b> (1) &nbsp; (b) <b>Reverse percentage</b> (1) &nbsp; (c) <b>Decrease multiplier</b> (1)', styles['ans']))
+
+    s.append(Paragraph(
+        'Marking note: award method marks for a correct multiplier or correctly substituted formula even if the '
+        'final answer contains an arithmetic error. In Section D, no calculation is required &mdash; award the mark '
+        'for correctly identifying the operation only.', styles['note']))
+
+    doc.build(s)
+
+
 if __name__ == '__main__':
     build_standard_form_quiz()
     build_standard_form_answers()
@@ -239,4 +315,6 @@ if __name__ == '__main__':
     build_order_of_magnitude_answers()
     build_fdp_weak_spots_quiz()
     build_fdp_weak_spots_answers()
+    build_percentages_change_quiz()
+    build_percentages_change_answers()
     print('done')

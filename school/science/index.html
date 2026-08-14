@@ -112,6 +112,31 @@
   .subject-card.chem .count{ background:var(--chem-soft); color:var(--chem); }
   .subject-card.phys .count{ background:var(--phys-soft); color:var(--phys); }
   .subject-card.quiz .count{ background:var(--quiz-soft); color:var(--quiz); }
+  .subject-card.quiz{ cursor:default; }
+  .subject-card.quiz:hover{ transform:none; box-shadow:none; }
+  .quiz-links{
+    display:flex;
+    gap:.5rem;
+    margin-top:1rem;
+    justify-content:center;
+  }
+  .quiz-links a{
+    font-size:.82rem;
+    font-weight:600;
+    padding:.5rem .85rem;
+    border-radius:8px;
+    text-decoration:none;
+    border:1px solid var(--border);
+    color:var(--text);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .quiz-links a:hover{ border-color:var(--quiz); color:var(--quiz); }
+  .quiz-links a.primary{
+    background:var(--quiz);
+    border-color:var(--quiz);
+    color:#fff;
+  }
+  .quiz-links a.primary:hover{ background:#93450a; color:#fff; }
 </style>
 </head>
 <body>
@@ -145,12 +170,16 @@
     <span class="count">4 topics done</span>
   </a>
 
-  <a class="subject-card quiz" href="../../science_hotshot.html">
+  <div class="subject-card quiz">
     <div class="icon">🎯</div>
     <h2>Science Hotshot</h2>
     <p>Random quiz questions across Biology, Chemistry &amp; Physics &mdash; reveal the answer, mark right or wrong.</p>
     <span class="count">Quick quiz</span>
-  </a>
+    <div class="quiz-links">
+      <a class="primary" href="../../science_hotshot.html">▶ Start Quiz</a>
+      <a href="../../science_hotshot_topics.html">🎯 Choose Topics</a>
+    </div>
+  </div>
 
 </main>
 

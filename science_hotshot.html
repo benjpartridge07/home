@@ -54,6 +54,33 @@
     color:var(--text-dim);
     font-size:1rem;
   }
+  .topic-summary{
+    margin-top:.6rem !important;
+    font-size:.85rem !important;
+  }
+  .topic-summary a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:600;
+  }
+  .topic-summary a:hover{ text-decoration:underline; }
+  .empty-state{
+    text-align:center;
+    padding:1.5rem 0;
+  }
+  .empty-state p{
+    color:var(--text-dim);
+    margin:0 0 1.25rem;
+  }
+  .empty-state a.choose-btn{
+    display:inline-block;
+    background:var(--accent);
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    padding:.75rem 1.5rem;
+    border-radius:10px;
+  }
   main{
     max-width:700px;
     margin:0 auto;
@@ -212,6 +239,7 @@
   <a class="back-link" href="school/science/index.html">&larr; All subjects</a>
   <h1>🎯 Science Hotshot</h1>
   <p>Random quiz questions across Biology, Chemistry &amp; Physics. Have a go, reveal the answer, and mark yourself right or wrong.</p>
+  <p id="topic-summary" class="topic-summary"></p>
 </header>
 
 <main>
@@ -251,73 +279,46 @@
     </div>
 
     <button type="button" id="next-btn">Next Question &rarr;</button>
+
+    <div class="empty-state" id="empty-state" style="display:none">
+      <p>No topics are selected, so there are no questions to ask. Choose at least one topic you've revised to get started.</p>
+      <a class="choose-btn" href="science_hotshot_topics.html">🎯 Choose Topics</a>
+    </div>
   </div>
 
 </main>
 
+<script src="science_hotshot_data.js"></script>
 <script>
-  const QUESTIONS = [
-    // Biology
-    { s:"bio", q:"What is the function of the nucleus in a cell?", a:"It contains the genetic material (DNA) and controls the cell's activities." },
-    { s:"bio", q:"Name two structures found in a plant cell but NOT in an animal cell.", a:"Cell wall and chloroplasts (a permanent vacuole also counts)." },
-    { s:"bio", q:"What is the function of mitochondria?", a:"They are the site of (aerobic) respiration, releasing energy for the cell." },
-    { s:"bio", q:"What is the main difference between a eukaryotic cell and a prokaryotic cell?", a:"Eukaryotic cells have a nucleus and membrane-bound organelles; prokaryotic cells don't — their DNA is free in the cytoplasm." },
-    { s:"bio", q:"Give an example of a prokaryotic organism.", a:"A bacterium." },
-    { s:"bio", q:"Roughly how much bigger is a eukaryotic cell than a bacterial cell?", a:"About 10 times bigger (eukaryotic cells are roughly 10-100 micrometres, bacteria around 1 micrometre)." },
-    { s:"bio", q:"What process do cells use to divide and produce new body cells for growth and repair?", a:"Mitosis." },
-    { s:"bio", q:"What is diffusion?", a:"The net movement of particles from an area of higher concentration to an area of lower concentration." },
-    { s:"bio", q:"What is the name for the movement of water across a partially permeable membrane?", a:"Osmosis." },
-    { s:"bio", q:"What does it mean for a cell to be 'specialised'?", a:"It has differentiated (changed) to have a structure suited to its particular job." },
-    { s:"bio", q:"Give an example of a specialised cell and describe how its structure suits its function.", a:"E.g. a red blood cell — it's a biconcave disc with no nucleus, giving it a large surface area to carry oxygen efficiently." },
-    { s:"bio", q:"What is the function of the alveoli in the lungs?", a:"They provide a large surface area for gas exchange between air and blood (oxygen in, carbon dioxide out)." },
-    { s:"bio", q:"Name two features that make the alveoli efficient for gas exchange.", a:"Large surface area, thin walls (one cell thick), good blood supply, and a moist lining (any two)." },
-    { s:"bio", q:"What is the function of red blood cells?", a:"To carry oxygen around the body, using haemoglobin." },
-    { s:"bio", q:"What are the four chambers of the heart called?", a:"Left atrium, right atrium, left ventricle, right ventricle." },
-    { s:"bio", q:"What does the digestive enzyme amylase do?", a:"It breaks down starch into sugars (maltose/glucose)." },
-    { s:"bio", q:"Where is bile produced, and what is its job?", a:"Produced in the liver (stored in the gall bladder); it emulsifies fats and neutralises stomach acid to help enzymes digest food." },
-    { s:"bio", q:"What is the main role of the small intestine?", a:"It absorbs digested food (nutrients) into the blood." },
-    { s:"bio", q:"Which hormone controls blood glucose by letting cells take up glucose?", a:"Insulin." },
-    { s:"bio", q:"Which gland produces insulin?", a:"The pancreas." },
-
-    // Chemistry
-    { s:"chem", q:"What are the three states of matter?", a:"Solid, liquid, and gas." },
-    { s:"chem", q:"What happens to the particles in a solid as it's heated until it melts?", a:"They gain energy and vibrate more, until they have enough energy to break free of fixed positions and move past each other — becoming a liquid." },
-    { s:"chem", q:"What is an element?", a:"A substance made of only one type of atom." },
-    { s:"chem", q:"What is a compound?", a:"A substance made of two or more different elements chemically bonded together." },
-    { s:"chem", q:"What is a mixture?", a:"Two or more substances combined together but not chemically bonded, so they can be separated by physical methods." },
-    { s:"chem", q:"Which separation method would you use to separate an insoluble solid from a liquid?", a:"Filtration." },
-    { s:"chem", q:"Which separation method would you use to get a soluble solid back out of a solution?", a:"Evaporation (or crystallisation)." },
-    { s:"chem", q:"What are the rows in the periodic table called?", a:"Periods." },
-    { s:"chem", q:"What are the columns in the periodic table called?", a:"Groups." },
-    { s:"chem", q:"Whereabouts on the periodic table are most metals found?", a:"On the left and in the middle of the table (non-metals are on the right)." },
-    { s:"chem", q:"What is the name given to the Group 0 elements?", a:"The noble gases." },
-    { s:"chem", q:"Are noble gases reactive or unreactive, and why?", a:"Unreactive (inert) — they already have a full outer shell of electrons." },
-    { s:"chem", q:"What is the name given to the Group 1 elements?", a:"The alkali metals." },
-    { s:"chem", q:"What happens to reactivity as you go down Group 1?", a:"Reactivity increases." },
-    { s:"chem", q:"What is the smallest part of an element that can still exist?", a:"An atom." },
-
-    // Physics
-    { s:"phys", q:"What is the equation linking wave speed, frequency and wavelength?", a:"Wave speed = frequency × wavelength (v = fλ)." },
-    { s:"phys", q:"What is frequency measured in?", a:"Hertz (Hz)." },
-    { s:"phys", q:"What's the difference between a transverse wave and a longitudinal wave?", a:"In transverse waves the vibrations are at right angles to the direction of energy transfer; in longitudinal waves they're parallel to it." },
-    { s:"phys", q:"Give an example of a longitudinal wave.", a:"Sound waves (or the compressions in a slinky spring)." },
-    { s:"phys", q:"What is the equation for density?", a:"Density = mass ÷ volume (ρ = m/V)." },
-    { s:"phys", q:"What are the units of density?", a:"kg/m³ (or g/cm³)." },
-    { s:"phys", q:"An object has a mass of 20 kg and a volume of 4 m³. What is its density?", a:"5 kg/m³ (20 ÷ 4)." },
-    { s:"phys", q:"What are the three subatomic particles found in an atom?", a:"Protons, neutrons, and electrons." },
-    { s:"phys", q:"Where are protons and neutrons located in an atom?", a:"In the nucleus." },
-    { s:"phys", q:"What is the charge of an electron?", a:"Negative (-1)." },
-    { s:"phys", q:"What does an element's atomic number tell you?", a:"The number of protons (which equals the number of electrons) in an atom." },
-    { s:"phys", q:"What is an isotope?", a:"An atom of the same element with the same number of protons but a different number of neutrons." },
-    { s:"phys", q:"What is the equation for speed?", a:"Speed = distance ÷ time." },
-    { s:"phys", q:"What are the units of speed, if distance is in metres and time is in seconds?", a:"Metres per second (m/s)." },
-    { s:"phys", q:"What is acceleration?", a:"The rate of change of velocity — how quickly speed changes." },
-    { s:"phys", q:"What is the equation for acceleration?", a:"Acceleration = change in velocity ÷ time taken (a = Δv/t)." },
-    { s:"phys", q:"A car travels 100 metres in 20 seconds. What is its average speed?", a:"5 m/s (100 ÷ 20)." },
-  ];
-
-  const SUBJECT_LABELS = { bio:"🧬 Biology", chem:"⚗️ Chemistry", phys:"🌀 Physics" };
+  const TOPICS_KEY = "eric_science_hotshot_topics";
   const STATS_KEY = "eric_science_hotshot_stats";
+  const SUBJECT_LABELS = { bio:"🧬 Biology", chem:"⚗️ Chemistry", phys:"🌀 Physics" };
+
+  function loadTopicSelection() {
+    try {
+      return JSON.parse(localStorage.getItem(TOPICS_KEY)) || {};
+    } catch {
+      return {};
+    }
+  }
+
+  // A topic counts as selected if it's built ("done") and hasn't been explicitly
+  // unchecked — so newly-added done topics default to included for existing users.
+  function getSelectedTopicIds() {
+    const saved = loadTopicSelection();
+    return SCIENCE_TOPICS
+      .filter(t => t.status === "done")
+      .filter(t => saved[t.id] !== false)
+      .map(t => t.id);
+  }
+
+  const doneTopicCount = SCIENCE_TOPICS.filter(t => t.status === "done").length;
+  const selectedTopicIds = getSelectedTopicIds();
+  const selectedSet = new Set(selectedTopicIds);
+  const QUESTIONS = SCIENCE_QUESTIONS.filter(item => selectedSet.has(item.t));
+
+  const topicSummaryEl = document.getElementById("topic-summary");
+  topicSummaryEl.innerHTML = `Testing you on ${selectedTopicIds.length} of ${doneTopicCount} built topics &mdash; <a href="science_hotshot_topics.html">choose topics</a>`;
 
   const subjectBadge = document.getElementById("subject-badge");
   const questionEl = document.getElementById("question");
@@ -332,6 +333,7 @@
   const statWrong = document.getElementById("stat-wrong");
   const statAccuracy = document.getElementById("stat-accuracy");
   const resetStatsBtn = document.getElementById("reset-stats");
+  const emptyState = document.getElementById("empty-state");
 
   let currentIndex = -1;
   let marked = false;
@@ -419,7 +421,15 @@
   });
 
   renderStats();
-  showQuestion();
+
+  if (QUESTIONS.length === 0) {
+    subjectBadge.style.display = "none";
+    questionEl.style.display = "none";
+    revealBtn.style.display = "none";
+    emptyState.style.display = "block";
+  } else {
+    showQuestion();
+  }
 </script>
 
 </body>

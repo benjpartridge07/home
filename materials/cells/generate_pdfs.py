@@ -152,15 +152,22 @@ def build_reference():
     ], col_widths=[34 * mm, 15 * mm, 20 * mm, 18 * mm, 47 * mm]))
 
     s.append(Paragraph('3. Transport across membranes', styles['h2']))
+    s.append(Paragraph('All three processes move particles across the cell membrane &mdash; the difference is <b>what</b> moves, <b>which way</b>, and whether <b>energy</b> is needed. A "concentration gradient" just means one side has more particles of something than the other.', styles['body']))
     s.append(table([
         [headcell('Process'), headcell('What moves'), headcell('Direction'), headcell('Energy'), headcell('Example')],
         [cell('<b>Diffusion</b>'), cell('Particles'), cell('High &rarr; low conc.'), cell('No'), cell('O<sub>2</sub> alveoli &rarr; blood')],
         [cell('<b>Osmosis</b>'), cell('Water only'), cell('High &rarr; low water conc., partially permeable membrane'), cell('No'), cell('Water into root hairs')],
         [cell('<b>Active transport</b>'), cell('Dissolved substances'), cell('Low &rarr; high conc. (against gradient)'), cell('<b>Yes</b>'), cell('Mineral ions into root hairs')],
     ], col_widths=[27 * mm, 23 * mm, 38 * mm, 16 * mm, 30 * mm]))
+    s.append(Paragraph('<b>Diffusion</b> &mdash; the <b>net</b> movement of particles from an area of <b>higher concentration</b> to an area of <b>lower concentration</b>, until the particles are evenly spread out. It happens because particles are always randomly moving, and needs <b>no energy</b> from the cell. Example: oxygen diffuses from the air in the alveoli (high O<sub>2</sub>) into the blood (lower O<sub>2</sub>); carbon dioxide diffuses the opposite way.', styles['body']))
+    s.append(Paragraph('<b>Osmosis</b> &mdash; a <b>special case of diffusion for water only</b>: the net movement of water from a region of <b>higher water concentration</b> to a region of <b>lower water concentration</b>, through a <b>partially permeable membrane</b> (one that lets small water molecules through but not larger dissolved particles). No energy is needed. Example: water moves from the soil (dilute, lots of water) into root hair cells (more concentrated cell sap, less water).', styles['body']))
+    s.append(Paragraph('<b>Active transport</b> &mdash; the movement of dissolved substances from a <b>lower</b> to a <b>higher</b> concentration &mdash; i.e. <b>against</b> the concentration gradient, the opposite way to diffusion. Because this doesn\'t happen naturally, the cell must supply <b>energy from respiration</b> to make it happen. Example: mineral ions (e.g. nitrate) are often more concentrated <i>inside</i> root hair cells than in the soil, so they can only get in via active transport &mdash; diffusion alone couldn\'t move them "uphill".', styles['body']))
+    s.append(Paragraph('<b>Exam tip:</b> for an "explain" question (like E3), always give the <b>direction</b> of movement first, say whether that is <b>with</b> or <b>against</b> the gradient, then link to <b>energy from respiration</b> if it\'s against the gradient. For a "define" question (E1/E2), state <b>what moves</b> and the <b>direction</b> &mdash; for osmosis, also mention "partially permeable membrane".', styles['note']))
 
     s.append(Paragraph('4. Cell division: mitosis &amp; meiosis', styles['h2']))
-    s.append(Paragraph('Human body cells have <b>46 chromosomes</b> (23 pairs). <b>Mitosis</b> makes 2 identical cells for growth &amp; repair. <b>Meiosis</b> makes 4 genetically different gametes, each with half the chromosome number (23). Fertilisation restores the full number.', styles['body']))
+    s.append(Paragraph('Human body cells have <b>46 chromosomes</b> (23 pairs) &mdash; thread-like structures made of DNA that carry genes. Before any division, the cell first copies (replicates) all its chromosomes and organelles, so it has everything needed to make new complete cells.', styles['body']))
+    s.append(Paragraph('<b>Mitosis</b> produces <b>2 genetically identical</b> cells, each with the full 46 chromosomes &mdash; used for two reasons: <b>growth</b> (making an organism bigger by adding new cells) and <b>repair</b> (replacing damaged or worn-out cells, e.g. healing skin). This is the only type of division most body cells ever use.', styles['body']))
+    s.append(Paragraph('<b>Meiosis</b> only happens in reproductive organs (ovaries/testes), to make <b>gametes</b> (sex cells: eggs and sperm). The cell divides <b>twice</b>, producing <b>4 cells</b>, each with <b>half</b> the chromosome number (23, one from each pair) &mdash; and each gamete is <b>genetically different</b> from the others because the chromosome pairs are shuffled before splitting. At <b>fertilisation</b>, an egg (23) and sperm (23) fuse to restore the full number (46) in the new cell, which then divides by mitosis to grow into an embryo.', styles['body']))
     s.append(table([
         [headcell(''), headcell('Mitosis'), headcell('Meiosis')],
         [cell('Purpose'), cell('Growth &amp; repair'), cell('Making gametes')],
@@ -169,9 +176,12 @@ def build_reference():
         [cell('Chromosome no.'), cell('Same as parent (46)'), cell('Half the parent (23)')],
         [cell('Genetically identical?'), cell('Yes'), cell('No &mdash; all different')],
     ], col_widths=[38 * mm, 60 * mm, 60 * mm]))
+    s.append(Paragraph('<b>Exam tip:</b> "state the number of chromosomes and explain why" (like F2) needs three things &mdash; the body-cell number (46), the gamete number (23), <b>and</b> the reason: meiosis halves the number so that fertilisation (joining two gametes) can restore 46 without doubling it every generation.', styles['note']))
 
     s.append(Paragraph('5. Cell differentiation &amp; stem cells', styles['h2']))
-    s.append(Paragraph('Early embryo cells are unspecialised <b>stem cells</b> that can become any cell type. As development continues, most cells <b>differentiate</b> into specialised cells (e.g. nerve, muscle, red blood cell) and cannot change type again. Most adult tissues still keep some stem cells to replace damaged cells.', styles['body']))
+    s.append(Paragraph('Early embryo cells are unspecialised <b>stem cells</b> &mdash; they can divide repeatedly and become almost any type of cell in the body. As the embryo develops, most cells <b>differentiate</b>: they change to become <b>specialised</b> for one particular job, developing a shape and sub-cellular structures suited to that function &mdash; e.g. a red blood cell loses its nucleus to carry more oxygen, a nerve cell grows a long fibre to carry electrical signals, a sperm cell grows a tail and packs in mitochondria for energy.', styles['body']))
+    s.append(Paragraph('Differentiation is normally a <b>one-way process</b>: once a cell has specialised, it <b>cannot</b> change into a different cell type. This is why a nerve cell can never become a muscle cell, even though both came from the same original stem cell.', styles['body']))
+    s.append(Paragraph('Most adult tissues keep a small number of <b>adult stem cells</b> (e.g. in bone marrow), which stay unspecialised and can divide to replace damaged or worn-out cells &mdash; but adult stem cells can usually only become a <b>limited range</b> of cell types (e.g. bone marrow stem cells make different blood cells). <b>Embryonic</b> stem cells are more versatile and can become <b>any</b> cell type, which is why scientists research them for treating diseases (e.g. repairing damaged nerves or growing new tissue) &mdash; though this raises ethical questions since it involves using embryos.', styles['body']))
 
     doc.build(s)
 
