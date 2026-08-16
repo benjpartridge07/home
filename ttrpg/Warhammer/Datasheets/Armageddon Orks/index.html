@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Armageddon Orks</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#d6336c;
+    --accent-soft:#fbe4ec;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{
+    padding:2.5rem 1.5rem 1.5rem;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header h1{
+    margin:0 0 .25rem;
+    font-size:1.9rem;
+  }
+  header p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:1rem;
+  }
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:1.5rem 1.5rem 3rem;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.25rem;
+  }
+  @media (max-width:700px){
+    main{ grid-template-columns:1fr; }
+  }
+  .cat-card{
+    display:block;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:2rem 1.5rem;
+    text-align:center;
+    text-decoration:none;
+    color:var(--text);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .cat-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(20,22,26,.08);
+  }
+  .cat-card .icon{
+    width:56px;
+    height:56px;
+    border-radius:14px;
+    background:var(--accent-soft);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.6rem;
+    margin:0 auto 1rem;
+  }
+  .cat-card h2{
+    margin:0 0 .4rem;
+    font-size:1.25rem;
+  }
+  .cat-card p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:.9rem;
+    line-height:1.5;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="../index.html">&larr; Datasheets</a>
+  <h1>Armageddon Orks</h1>
+  <p>The 9 Ork datasheets from the 11th Edition Armageddon launch box, linked to Wahapedia.</p>
+</header>
+
+<main>
+
+  <a class="cat-card" href="https://wahapedia.ru/wh40k11ed/factions/orks/Warboss" target="_blank" rel="noopener">
+    <div class="icon">👑</div>
+    <h2>Warboss</h2>
+    <p>Character &ndash; Infantry</p>
+  </a>
+
+  <a class="cat-card" href="https://wahapedia.ru/wh40k11ed/factions/orks/Bigboss" target="_blank" rel="noopener">
+    <div class="icon">🪓</div>
+    <h2>Bigboss</h2>
+    <p>Character &ndash; Infantry</p>
+  </a>
+
+  <a class="cat-card" href="https://wahapedia.ru/wh40k11ed/factions/orks/Bannernob" target="_blank" rel="noopener">
+    <div class="icon">🚩</div>
+    <h2>Bannernob</h2>
+    <p>Character &ndash; Infantry</p>
+  </a>
+
+  <a class="cat-card" href="https://wahapedia.ru/wh40k11ed/factions/orks/Painboy" target="_blank" rel="noopener">
+    <div class="icon">💉</div>
+    <h2>Painboy</h2>
+    <p>Character &ndash; Infantry</p>
+  </a>
+
+  <a class="cat-card" href="https://wahapedia.ru/wh40k11ed/factions/orks/Weirdboy" target="_blank" rel="noopener">
+    <div class="icon">🔮</div>
+    <h2>Weirdboy</h2>
+    <p>Character &ndash; Infantry</p>
+  </a>
+
+  <a class="cat-card" href="https://wahapedia.ru/wh40k11ed/factions/orks/Boyz" target="_blank" rel="noopener">
+    <div class="icon">🪖</div>
+    <h2>Boyz</h2>
+    <p>Battleline</p>
+  </a>
+
+  <a class="cat-card" href="https://wahapedia.ru/wh40k11ed/factions/orks/Gretchin" target="_blank" rel="noopener">
+    <div class="icon">👺</div>
+    <h2>Gretchin</h2>
+    <p>Infantry</p>
+  </a>
+
+  <a class="cat-card" href="https://wahapedia.ru/wh40k11ed/factions/orks/Wartrakk" target="_blank" rel="noopener">
+    <div class="icon">🏍️</div>
+    <h2>Wartrakk</h2>
+    <p>Mounted Unit</p>
+  </a>
+
+  <a class="cat-card" href="https://wahapedia.ru/wh40k11ed/factions/orks/Big-Mek-Dakkarig" target="_blank" rel="noopener">
+    <div class="icon">🤖</div>
+    <h2>Big Mek Dakkarig</h2>
+    <p>Walker</p>
+  </a>
+
+</main>
+
+</body>
+</html>

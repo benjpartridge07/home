@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>Warhammer</title>
 <style>
   :root{
     --bg:#f5f6f8;
@@ -10,10 +10,8 @@
     --border:#e2e4e9;
     --text:#1b1e24;
     --text-dim:#5b616e;
-    --eric:#2f6fed;
-    --eric-soft:#eaf0fe;
-    --ttrpg:#d6336c;
-    --ttrpg-soft:#fbe4ec;
+    --accent:#d6336c;
+    --accent-soft:#fbe4ec;
   }
   *{box-sizing:border-box;}
   body{
@@ -23,32 +21,41 @@
     color:var(--text);
   }
   header{
-    padding:3rem 1.5rem 1rem;
-    max-width:700px;
+    padding:2.5rem 1.5rem 1.5rem;
+    max-width:900px;
     margin:0 auto;
-    text-align:center;
   }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
   header h1{
-    margin:0 0 .4rem;
-    font-size:2.1rem;
+    margin:0 0 .25rem;
+    font-size:1.9rem;
   }
   header p{
     margin:0;
     color:var(--text-dim);
-    font-size:1.05rem;
+    font-size:1rem;
   }
   main{
-    max-width:700px;
+    max-width:900px;
     margin:0 auto;
-    padding:2rem 1.5rem 3rem;
+    padding:1.5rem 1.5rem 3rem;
     display:grid;
-    grid-template-columns:repeat(2, 1fr);
+    grid-template-columns:repeat(3, 1fr);
     gap:1.25rem;
   }
-  @media (max-width:520px){
+  @media (max-width:700px){
     main{ grid-template-columns:1fr; }
   }
-  .person-card{
+  .cat-card{
     display:block;
     background:var(--card);
     border:1px solid var(--border);
@@ -59,27 +66,26 @@
     color:var(--text);
     transition:transform .12s ease, box-shadow .12s ease;
   }
-  .person-card:hover{
+  .cat-card:hover{
     transform:translateY(-3px);
     box-shadow:0 8px 20px rgba(20,22,26,.08);
   }
-  .person-card .icon{
+  .cat-card .icon{
     width:56px;
     height:56px;
     border-radius:14px;
+    background:var(--accent-soft);
     display:flex;
     align-items:center;
     justify-content:center;
     font-size:1.6rem;
     margin:0 auto 1rem;
   }
-  .person-card.eric .icon{ background:var(--eric-soft); }
-  .person-card.ttrpg .icon{ background:var(--ttrpg-soft); }
-  .person-card h2{
+  .cat-card h2{
     margin:0 0 .4rem;
     font-size:1.25rem;
   }
-  .person-card p{
+  .cat-card p{
     margin:0;
     color:var(--text-dim);
     font-size:.9rem;
@@ -90,22 +96,17 @@
 <body>
 
 <header>
-  <h1>Home</h1>
-  <p>Pick a project to see what's inside.</p>
+  <a class="back-link" href="../index.html">&larr; TTRPG</a>
+  <h1>Warhammer</h1>
+  <p>Nothing here yet.</p>
 </header>
 
 <main>
 
-  <a class="person-card eric" href="eric-school/index.html">
-    <div class="icon">🎓</div>
-    <h2>Eric School</h2>
-    <p>GCSE revision materials.</p>
-  </a>
-
-  <a class="person-card ttrpg" href="ttrpg/index.html">
-    <div class="icon">🎲</div>
-    <h2>TTRPG</h2>
-    <p>Tabletop RPG notes &amp; campaigns.</p>
+  <a class="cat-card" href="Datasheets/index.html">
+    <div class="icon">📋</div>
+    <h2>Datasheets</h2>
+    <p>Unit datasheets &amp; stats.</p>
   </a>
 
 </main>
