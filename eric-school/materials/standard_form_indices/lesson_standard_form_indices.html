@@ -1,0 +1,279 @@
+<style>
+  #ls13-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --acc: #B5762A; --acc-soft: #F1E3CE;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls13-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls13-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls13-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls13-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls13-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls13-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls13-section { margin-bottom: 26px; }
+  .ls13-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls13-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls13-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls13-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls13-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls13-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls13-card p:last-child { margin-bottom: 0; }
+  .ls13-card ul { margin: 0 0 10px; padding-left: 20px; font-size: 13.5px; line-height: 1.6; }
+  .ls13-term { font-weight: 600; color: var(--maths); }
+  .ls13-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls13-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls13-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls13-table-wrap th, .ls13-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls13-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls13-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls13-activity { background: var(--acc-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls13-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls13-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls13-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls13-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls13-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls13-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls13-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls13-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls13-feedback.ok { color: #2E6B45; }
+  .ls13-feedback.no { color: #A34B4B; }
+
+  .ls13-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls13-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls13-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls13-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls13-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--acc); background: none; border: 1.5px solid var(--acc); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls13-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--acc); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls13-answer.show { display: block; }
+
+  .ls13-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls13-root">
+  <p class="ls13-eyebrow">GCSE Maths &middot; Number</p>
+  <h1 class="ls13-title">Standard Form &amp; Indices</h1>
+  <div class="ls13-meta">
+    <span><span class="ls13-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>60 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls13-section">
+    <div class="ls13-section-head">
+      <span class="ls13-section-num">01</span>
+      <h2 class="ls13-section-title">Laws of indices</h2>
+      <span class="ls13-section-time">12 min</span>
+    </div>
+    <div class="ls13-card">
+      <p>An <span class="ls13-term">index</span> (or power) tells you how many times to multiply a number by itself. In <span class="ls13-eq">3<sup>4</sup></span>, 3 is the <em>base</em> and 4 is the <em>index</em>.</p>
+      <ul>
+        <li><span class="ls13-term">Multiplying</span> (same base): <span class="ls13-eq">a<sup>m</sup> &times; a<sup>n</sup> = a<sup>m+n</sup></span> &mdash; add the powers</li>
+        <li><span class="ls13-term">Dividing</span> (same base): <span class="ls13-eq">a<sup>m</sup> &divide; a<sup>n</sup> = a<sup>m&minus;n</sup></span> &mdash; subtract the powers</li>
+        <li><span class="ls13-term">Power of a power</span>: <span class="ls13-eq">(a<sup>m</sup>)<sup>n</sup> = a<sup>m&times;n</sup></span> &mdash; multiply the powers</li>
+      </ul>
+      <p>Worked examples: 3<sup>4</sup> &times; 3<sup>2</sup> = 3<sup>6</sup>. &nbsp; 5<sup>7</sup> &divide; 5<sup>3</sup> = 5<sup>4</sup>. &nbsp; (2<sup>3</sup>)<sup>2</sup> = 2<sup>6</sup> = <strong>64</strong>.</p>
+      <p><strong>These laws only work when the base is the same on both sides</strong> &mdash; you can't combine 3<sup>4</sup> &times; 2<sup>2</sup> this way.</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls13-section">
+    <div class="ls13-section-head">
+      <span class="ls13-section-num">&bull;</span>
+      <h2 class="ls13-section-title">Activity &mdash; apply the laws of indices</h2>
+      <span class="ls13-section-time">8 min</span>
+    </div>
+    <div class="ls13-activity">
+      <p class="ls13-activity-label">Type the missing power (just the number)</p>
+      <div class="ls13-blank-row"><label>6<sup>3</sup> &times; 6<sup>4</sup> = 6<sup>?</sup> &nbsp; power =</label><input type="text" data-answer="7"></div>
+      <div class="ls13-blank-row"><label>8<sup>9</sup> &divide; 8<sup>5</sup> = 8<sup>?</sup> &nbsp; power =</label><input type="text" data-answer="4"></div>
+      <div class="ls13-blank-row"><label>(4<sup>2</sup>)<sup>3</sup> = 4<sup>?</sup> &nbsp; power =</label><input type="text" data-answer="6"></div>
+      <div class="ls13-blank-row"><label>2<sup>3</sup> &times; 2<sup>5</sup> written as a single power of 2, evaluated =</label><input type="text" data-answer="256"></div>
+      <button class="ls13-check-btn" id="ls13-check-1">Check answers</button>
+      <p class="ls13-feedback" id="ls13-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls13-section">
+    <div class="ls13-section-head">
+      <span class="ls13-section-num">02</span>
+      <h2 class="ls13-section-title">Zero and negative indices</h2>
+      <span class="ls13-section-time">10 min</span>
+    </div>
+    <div class="ls13-card">
+      <p><span class="ls13-term">Anything to the power 0 is 1</span>: <span class="ls13-eq">a<sup>0</sup> = 1</span> (as long as a &ne; 0). e.g. 9<sup>0</sup> = 1, 100<sup>0</sup> = 1.</p>
+      <p><span class="ls13-term">A negative index means "reciprocal"</span>: <span class="ls13-eq">a<sup>&minus;n</sup> = 1 &divide; a<sup>n</sup></span>. The negative sign does <em>not</em> make the answer negative &mdash; it flips it into a fraction.</p>
+      <p>Worked examples: 2<sup>&minus;1</sup> = 1&divide;2 = <strong>0.5</strong>. &nbsp; 5<sup>&minus;2</sup> = 1&divide;5<sup>2</sup> = 1&divide;25 = <strong>1/25</strong>. &nbsp; 10<sup>&minus;3</sup> = 1&divide;1000 = <strong>0.001</strong>.</p>
+    </div>
+    <div class="ls13-table-wrap">
+      <table>
+        <tr><th>Expression</th><th>Value</th></tr>
+        <tr><td>7<sup>0</sup></td><td>1</td></tr>
+        <tr><td>3<sup>&minus;1</sup></td><td>1/3</td></tr>
+        <tr><td>4<sup>&minus;2</sup></td><td>1/16</td></tr>
+        <tr><td>10<sup>&minus;2</sup></td><td>0.01</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls13-section">
+    <div class="ls13-section-head">
+      <span class="ls13-section-num">03</span>
+      <h2 class="ls13-section-title">Standard form: writing large and small numbers</h2>
+      <span class="ls13-section-time">12 min</span>
+    </div>
+    <div class="ls13-card">
+      <p><span class="ls13-term">Standard form</span> writes any number as <span class="ls13-eq">A &times; 10<sup>n</sup></span>, where <strong>1 &le; A &lt; 10</strong> and n is an integer (positive, negative, or zero).</p>
+      <ul>
+        <li><span class="ls13-term">Large numbers</span> (10 or more) use a <em>positive</em> power &mdash; n counts how many places the decimal point moves left.</li>
+        <li><span class="ls13-term">Small numbers</span> (less than 1) use a <em>negative</em> power &mdash; n counts how many places the decimal point moves right.</li>
+      </ul>
+      <p>Worked examples: 5,700,000 = <strong>5.7 &times; 10<sup>6</sup></strong>. &nbsp; 0.0032 = <strong>3.2 &times; 10<sup>&minus;3</sup></strong>.</p>
+    </div>
+    <div class="ls13-table-wrap">
+      <table>
+        <tr><th>Ordinary number</th><th>Standard form</th></tr>
+        <tr><td>8,000</td><td>8 &times; 10<sup>3</sup></td></tr>
+        <tr><td>450,000</td><td>4.5 &times; 10<sup>5</sup></td></tr>
+        <tr><td>0.006</td><td>6 &times; 10<sup>&minus;3</sup></td></tr>
+        <tr><td>0.00072</td><td>7.2 &times; 10<sup>&minus;4</sup></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls13-section">
+    <div class="ls13-section-head">
+      <span class="ls13-section-num">04</span>
+      <h2 class="ls13-section-title">Calculating with standard form</h2>
+      <span class="ls13-section-time">12 min</span>
+    </div>
+    <div class="ls13-card">
+      <p>To <span class="ls13-term">multiply</span>: multiply the two front numbers, and add the powers of 10.</p>
+      <p style="padding-left:14px"><span class="ls13-eq">(A &times; 10<sup>m</sup>) &times; (B &times; 10<sup>n</sup>) = (A &times; B) &times; 10<sup>m+n</sup></span></p>
+      <p>To <span class="ls13-term">divide</span>: divide the front numbers, and subtract the powers of 10.</p>
+      <p style="padding-left:14px"><span class="ls13-eq">(A &times; 10<sup>m</sup>) &divide; (B &times; 10<sup>n</sup>) = (A &divide; B) &times; 10<sup>m&minus;n</sup></span></p>
+      <p>Worked example: (3 &times; 10<sup>4</sup>) &times; (2 &times; 10<sup>3</sup>) = 6 &times; 10<sup>7</sup> (already in standard form &mdash; done).</p>
+      <p>Watch out: if the front numbers multiply to <strong>10 or more</strong>, it's no longer in standard form &mdash; adjust it. e.g. (5 &times; 10<sup>6</sup>) &times; (4 &times; 10<sup>3</sup>) = 20 &times; 10<sup>9</sup> = <strong>2 &times; 10<sup>10</sup></strong> (moved the point, so the power went up by 1).</p>
+      <p>Worked example: (8 &times; 10<sup>7</sup>) &divide; (2 &times; 10<sup>3</sup>) = <strong>4 &times; 10<sup>4</sup></strong>.</p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls13-section">
+    <div class="ls13-section-head">
+      <span class="ls13-section-num">&bull;</span>
+      <h2 class="ls13-section-title">Activity &mdash; convert and calculate</h2>
+      <span class="ls13-section-time">10 min</span>
+    </div>
+    <div class="ls13-activity maths">
+      <p class="ls13-activity-label">For standard form answers, type it like 6.2x10^4 (use x and ^)</p>
+      <div class="ls13-blank-row"><label>62,000 in standard form =</label><input type="text" data-answer="6.2x10^4"></div>
+      <div class="ls13-blank-row"><label>0.0091 in standard form =</label><input type="text" data-answer="9.1x10^-3"></div>
+      <div class="ls13-blank-row"><label>3.4 &times; 10<sup>5</sup> as an ordinary number =</label><input type="text" data-answer="340000"></div>
+      <div class="ls13-blank-row"><label>(2 &times; 10<sup>3</sup>) &times; (3 &times; 10<sup>2</sup>) =</label><input type="text" data-answer="6x10^5"></div>
+      <button class="ls13-check-btn" id="ls13-check-2">Check answers</button>
+      <p class="ls13-feedback" id="ls13-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 5 GCSE questions -->
+  <div class="ls13-section">
+    <div class="ls13-section-head">
+      <span class="ls13-section-num">05</span>
+      <h2 class="ls13-section-title">GCSE-style review questions</h2>
+      <span class="ls13-section-time">13 min</span>
+    </div>
+
+    <div class="ls13-q">
+      <div class="ls13-q-top"><p class="ls13-q-text">1. Write 5<sup>3</sup> &times; 5<sup>6</sup> as a single power of 5.</p><span class="ls13-q-marks">[1 mark]</span></div>
+      <button class="ls13-reveal-btn" data-reveal="p1">Show mark scheme</button>
+      <div class="ls13-answer" id="p1"><strong>5<sup>9</sup></strong> (1)</div>
+    </div>
+
+    <div class="ls13-q">
+      <div class="ls13-q-top"><p class="ls13-q-text">2. Work out the value of 6<sup>0</sup> and the value of 2<sup>&minus;3</sup>.</p><span class="ls13-q-marks">[2 marks]</span></div>
+      <button class="ls13-reveal-btn" data-reveal="p2">Show mark scheme</button>
+      <div class="ls13-answer" id="p2">6<sup>0</sup> = <strong>1</strong> (1) &nbsp; 2<sup>&minus;3</sup> = 1&divide;8 = <strong>1/8 (0.125)</strong> (1)</div>
+    </div>
+
+    <div class="ls13-q">
+      <div class="ls13-q-top"><p class="ls13-q-text">3. Write 386,000 in standard form.</p><span class="ls13-q-marks">[2 marks]</span></div>
+      <button class="ls13-reveal-btn" data-reveal="p3">Show mark scheme</button>
+      <div class="ls13-answer" id="p3">Front number between 1 and 10: 3.86 (1) &nbsp; = <strong>3.86 &times; 10<sup>5</sup></strong> (1)</div>
+    </div>
+
+    <div class="ls13-q">
+      <div class="ls13-q-top"><p class="ls13-q-text">4. Write 4.1 &times; 10<sup>&minus;5</sup> as an ordinary number.</p><span class="ls13-q-marks">[1 mark]</span></div>
+      <button class="ls13-reveal-btn" data-reveal="p4">Show mark scheme</button>
+      <div class="ls13-answer" id="p4"><strong>0.000041</strong> (1)</div>
+    </div>
+
+    <div class="ls13-q">
+      <div class="ls13-q-top"><p class="ls13-q-text">5. Work out (7 &times; 10<sup>4</sup>) &times; (6 &times; 10<sup>3</sup>). Give your answer in standard form.</p><span class="ls13-q-marks">[3 marks]</span></div>
+      <button class="ls13-reveal-btn" data-reveal="p5">Show mark scheme</button>
+      <div class="ls13-answer" id="p5">7 &times; 6 = 42, 10<sup>4</sup> &times; 10<sup>3</sup> = 10<sup>7</sup> (1) &nbsp; = 42 &times; 10<sup>7</sup> (1) &nbsp; = <strong>4.2 &times; 10<sup>8</sup></strong> (1)</div>
+    </div>
+  </div>
+
+  <p class="ls13-footer-note">Tip: after any standard form calculation, always check the front number is still between 1 and 10 &mdash; if it isn't, move the decimal point and adjust the power to compensate.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls13-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls13-root .ls13-activity:not(.maths) input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls13-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls13-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls13-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls13-root .ls13-activity.maths input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls13-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls13-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls13-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>
