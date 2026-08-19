@@ -1,0 +1,294 @@
+<style>
+  #ls14-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --acc: #B5762A; --acc-soft: #F1E3CE;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls14-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls14-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls14-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls14-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls14-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls14-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls14-section { margin-bottom: 26px; }
+  .ls14-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls14-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls14-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls14-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls14-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls14-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls14-card p:last-child { margin-bottom: 0; }
+  .ls14-card ul { margin: 0 0 10px; padding-left: 20px; font-size: 13.5px; line-height: 1.6; }
+  .ls14-term { font-weight: 600; color: var(--maths); }
+  .ls14-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls14-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls14-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls14-table-wrap th, .ls14-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls14-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls14-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls14-activity { background: var(--acc-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls14-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls14-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls14-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls14-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls14-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls14-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls14-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls14-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls14-feedback.ok { color: #2E6B45; }
+  .ls14-feedback.no { color: #A34B4B; }
+
+  .ls14-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls14-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls14-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls14-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls14-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--acc); background: none; border: 1.5px solid var(--acc); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls14-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--acc); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls14-answer.show { display: block; }
+
+  .ls14-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls14-root">
+  <p class="ls14-eyebrow">GCSE Maths &middot; Algebra</p>
+  <h1 class="ls14-title">Expanding, Factorising &amp; Solving Equations</h1>
+  <div class="ls14-meta">
+    <span><span class="ls14-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>65 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls14-section">
+    <div class="ls14-section-head">
+      <span class="ls14-section-num">01</span>
+      <h2 class="ls14-section-title">Expanding single brackets</h2>
+      <span class="ls14-section-time">10 min</span>
+    </div>
+    <div class="ls14-card">
+      <p><span class="ls14-term">Expanding</span> a bracket means multiplying everything inside it by whatever is outside: <span class="ls14-eq">a(b + c) = ab + ac</span>.</p>
+      <p>Watch the sign carefully when the number outside is negative &mdash; it flips the sign of everything inside.</p>
+      <p>Worked examples: 3(x + 4) = <strong>3x + 12</strong>. &nbsp; 5(2x &minus; 3) = <strong>10x &minus; 15</strong>. &nbsp; &minus;2(x + 6) = <strong>&minus;2x &minus; 12</strong>. &nbsp; &minus;(3x &minus; 5) = <strong>&minus;3x + 5</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls14-section">
+    <div class="ls14-section-head">
+      <span class="ls14-section-num">&bull;</span>
+      <h2 class="ls14-section-title">Activity &mdash; expand single brackets</h2>
+      <span class="ls14-section-time">8 min</span>
+    </div>
+    <div class="ls14-activity" data-activity="1">
+      <p class="ls14-activity-label">Type it like 4x+12 (no spaces)</p>
+      <div class="ls14-blank-row"><label>4(x + 3) =</label><input type="text" data-answer="4x+12"></div>
+      <div class="ls14-blank-row"><label>6(2x &minus; 1) =</label><input type="text" data-answer="12x-6"></div>
+      <div class="ls14-blank-row"><label>&minus;3(x + 5) =</label><input type="text" data-answer="-3x-15"></div>
+      <div class="ls14-blank-row"><label>2(3x + 4) &minus; 5 = &nbsp;<em>(expand, then simplify)</em></label><input type="text" data-answer="6x+3"></div>
+      <button class="ls14-check-btn" id="ls14-check-1">Check answers</button>
+      <p class="ls14-feedback" id="ls14-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls14-section">
+    <div class="ls14-section-head">
+      <span class="ls14-section-num">02</span>
+      <h2 class="ls14-section-title">Expanding double brackets</h2>
+      <span class="ls14-section-time">12 min</span>
+    </div>
+    <div class="ls14-card">
+      <p>Two brackets multiplied together need <span class="ls14-term">every term in the first</span> multiplied by <span class="ls14-term">every term in the second</span> &mdash; often remembered as <span class="ls14-eq">FOIL</span>: First, Outer, Inner, Last.</p>
+      <p>Worked example: (x + 3)(x + 5)</p>
+      <p style="padding-left:14px">First: x&times;x = x&sup2; &nbsp;&middot;&nbsp; Outer: x&times;5 = 5x &nbsp;&middot;&nbsp; Inner: 3&times;x = 3x &nbsp;&middot;&nbsp; Last: 3&times;5 = 15</p>
+      <p style="padding-left:14px">= x&sup2; + 5x + 3x + 15 = <strong>x&sup2; + 8x + 15</strong></p>
+    </div>
+    <div class="ls14-table-wrap">
+      <table>
+        <tr><th>Brackets</th><th>Expanded &amp; simplified</th></tr>
+        <tr><td>(x + 2)(x + 6)</td><td>x&sup2; + 8x + 12</td></tr>
+        <tr><td>(x &minus; 2)(x + 7)</td><td>x&sup2; + 5x &minus; 14</td></tr>
+        <tr><td>(x &minus; 4)(x &minus; 3)</td><td>x&sup2; &minus; 7x + 12</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls14-section">
+    <div class="ls14-section-head">
+      <span class="ls14-section-num">03</span>
+      <h2 class="ls14-section-title">Factorising</h2>
+      <span class="ls14-section-time">14 min</span>
+    </div>
+    <div class="ls14-card">
+      <p><span class="ls14-term">Factorising</span> is the reverse of expanding &mdash; writing an expression as brackets multiplied together.</p>
+      <p><span class="ls14-term">Common factor:</span> take out the highest common factor (HCF) of every term.</p>
+      <p style="padding-left:14px">6x + 9 = <strong>3(2x + 3)</strong> &nbsp;&middot;&nbsp; 10x&sup2; &minus; 15x = <strong>5x(2x &minus; 3)</strong></p>
+      <p><span class="ls14-term">Factorising a quadratic</span> x&sup2; + bx + c: find two numbers that <em>multiply</em> to c and <em>add</em> to b.</p>
+      <p style="padding-left:14px">x&sup2; + 7x + 12 &mdash; need two numbers that multiply to 12, add to 7 &rarr; 3 and 4 &rarr; <strong>(x + 3)(x + 4)</strong></p>
+      <p style="padding-left:14px">x&sup2; + 2x &minus; 15 &mdash; need two numbers that multiply to &minus;15, add to 2 &rarr; 5 and &minus;3 &rarr; <strong>(x + 5)(x &minus; 3)</strong></p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls14-section">
+    <div class="ls14-section-head">
+      <span class="ls14-section-num">&bull;</span>
+      <h2 class="ls14-section-title">Activity &mdash; factorise</h2>
+      <span class="ls14-section-time">10 min</span>
+    </div>
+    <div class="ls14-activity maths" data-activity="2">
+      <p class="ls14-activity-label">Type it like 4(2x+3) or (x+4)(x+5) &mdash; no spaces</p>
+      <div class="ls14-blank-row"><label>8x + 12 =</label><input type="text" data-answer="4(2x+3)"></div>
+      <div class="ls14-blank-row"><label>x&sup2; + 9x + 20 =</label><input type="text" data-answer="(x+4)(x+5)"></div>
+      <div class="ls14-blank-row"><label>x&sup2; &minus; 5x &minus; 14 =</label><input type="text" data-answer="(x-7)(x+2)"></div>
+      <div class="ls14-blank-row"><label>x&sup2; &minus; 11x + 30 =</label><input type="text" data-answer="(x-5)(x-6)"></div>
+      <button class="ls14-check-btn" id="ls14-check-2">Check answers</button>
+      <p class="ls14-feedback" id="ls14-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls14-section">
+    <div class="ls14-section-head">
+      <span class="ls14-section-num">04</span>
+      <h2 class="ls14-section-title">Solving linear equations</h2>
+      <span class="ls14-section-time">14 min</span>
+    </div>
+    <div class="ls14-card">
+      <p>Use the <span class="ls14-term">balance method</span>: whatever you do to one side, do exactly the same to the other side, until x is on its own.</p>
+      <p>Worked example: 3x + 7 = 22</p>
+      <p style="padding-left:14px">&minus;7 both sides: 3x = 15 &nbsp;&rarr;&nbsp; &divide;3 both sides: <strong>x = 5</strong></p>
+      <p>With brackets, expand first: 2(x + 3) = 16 &nbsp;&rarr;&nbsp; 2x + 6 = 16 &nbsp;&rarr;&nbsp; 2x = 10 &nbsp;&rarr;&nbsp; <strong>x = 5</strong></p>
+      <p>With x on both sides, collect the x terms onto one side first: 5x &minus; 3 = 2x + 9 &nbsp;&rarr;&nbsp; 3x &minus; 3 = 9 &nbsp;&rarr;&nbsp; 3x = 12 &nbsp;&rarr;&nbsp; <strong>x = 4</strong></p>
+    </div>
+  </div>
+
+  <!-- Activity 3 -->
+  <div class="ls14-section">
+    <div class="ls14-section-head">
+      <span class="ls14-section-num">&bull;</span>
+      <h2 class="ls14-section-title">Activity &mdash; solve for x</h2>
+      <span class="ls14-section-time">9 min</span>
+    </div>
+    <div class="ls14-activity" data-activity="3">
+      <p class="ls14-activity-label">Type it like x=5</p>
+      <div class="ls14-blank-row"><label>3x + 7 = 22 &rarr;</label><input type="text" data-answer="x=5"></div>
+      <div class="ls14-blank-row"><label>4(x &minus; 1) = 20 &rarr;</label><input type="text" data-answer="x=6"></div>
+      <div class="ls14-blank-row"><label>5x &minus; 3 = 2x + 9 &rarr;</label><input type="text" data-answer="x=4"></div>
+      <div class="ls14-blank-row"><label>7 &minus; 2x = 1 &rarr;</label><input type="text" data-answer="x=3"></div>
+      <button class="ls14-check-btn" id="ls14-check-3">Check answers</button>
+      <p class="ls14-feedback" id="ls14-feedback-3"></p>
+    </div>
+  </div>
+
+  <!-- 5 GCSE questions -->
+  <div class="ls14-section">
+    <div class="ls14-section-head">
+      <span class="ls14-section-num">05</span>
+      <h2 class="ls14-section-title">GCSE-style review questions</h2>
+      <span class="ls14-section-time">13 min</span>
+    </div>
+
+    <div class="ls14-q">
+      <div class="ls14-q-top"><p class="ls14-q-text">1. Expand 4(2x &minus; 3).</p><span class="ls14-q-marks">[1 mark]</span></div>
+      <button class="ls14-reveal-btn" data-reveal="p1">Show mark scheme</button>
+      <div class="ls14-answer" id="p1"><strong>8x &minus; 12</strong> (1)</div>
+    </div>
+
+    <div class="ls14-q">
+      <div class="ls14-q-top"><p class="ls14-q-text">2. Expand and simplify (x + 4)(x + 2).</p><span class="ls14-q-marks">[2 marks]</span></div>
+      <button class="ls14-reveal-btn" data-reveal="p2">Show mark scheme</button>
+      <div class="ls14-answer" id="p2">x&sup2; + 2x + 4x + 8 (1) &nbsp; = <strong>x&sup2; + 6x + 8</strong> (1)</div>
+    </div>
+
+    <div class="ls14-q">
+      <div class="ls14-q-top"><p class="ls14-q-text">3. Factorise 12x &minus; 8.</p><span class="ls14-q-marks">[1 mark]</span></div>
+      <button class="ls14-reveal-btn" data-reveal="p3">Show mark scheme</button>
+      <div class="ls14-answer" id="p3"><strong>4(3x &minus; 2)</strong> (1)</div>
+    </div>
+
+    <div class="ls14-q">
+      <div class="ls14-q-top"><p class="ls14-q-text">4. Factorise x&sup2; + 3x &minus; 10.</p><span class="ls14-q-marks">[2 marks]</span></div>
+      <button class="ls14-reveal-btn" data-reveal="p4">Show mark scheme</button>
+      <div class="ls14-answer" id="p4">Numbers that multiply to &minus;10, add to 3: 5 and &minus;2 (1) &nbsp; = <strong>(x + 5)(x &minus; 2)</strong> (1)</div>
+    </div>
+
+    <div class="ls14-q">
+      <div class="ls14-q-top"><p class="ls14-q-text">5. Solve 5(x &minus; 2) = 3x + 8.</p><span class="ls14-q-marks">[3 marks]</span></div>
+      <button class="ls14-reveal-btn" data-reveal="p5">Show mark scheme</button>
+      <div class="ls14-answer" id="p5">5x &minus; 10 = 3x + 8 (1) &nbsp; 2x &minus; 10 = 8 &rarr; 2x = 18 (1) &nbsp; = <strong>x = 9</strong> (1)</div>
+    </div>
+  </div>
+
+  <p class="ls14-footer-note">Tip: always expand brackets fully before you try to simplify or solve &mdash; and when factorising a quadratic, check your answer by expanding it back out to make sure you get the original expression.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls14-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls14-root .ls14-activity[data-activity="1"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls14-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls14-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls14-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls14-root .ls14-activity[data-activity="2"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls14-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls14-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls14-check-3').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls14-root .ls14-activity[data-activity="3"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls14-feedback-3');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls14-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls14-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>
