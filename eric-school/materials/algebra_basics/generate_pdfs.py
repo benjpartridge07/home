@@ -96,7 +96,24 @@ def build_reference():
     s.append(Paragraph('3(x + 4) = <b>3x + 12</b> &nbsp;&middot;&nbsp; &minus;2(x + 6) = <b>&minus;2x &minus; 12</b> &nbsp;&middot;&nbsp; &minus;(3x &minus; 5) = <b>&minus;3x + 5</b>', styles['body']))
 
     s.append(Paragraph('2. Expanding double brackets (FOIL)', styles['h2']))
-    s.append(Paragraph('Multiply every term in the first bracket by every term in the second: <b>First, Outer, Inner, Last</b>.', styles['body']))
+    s.append(Paragraph(
+        'Two brackets multiplied together, e.g. (x + a)(x + b), need <b>every term in the first bracket</b> '
+        'multiplied by <b>every term in the second bracket</b> &mdash; that is 4 separate multiplications in total. '
+        '<b>FOIL</b> is just a way to remember all 4 of them:', styles['body']))
+    s.append(Paragraph('<b>F</b>irst &mdash; multiply the first term in each bracket', styles['bullet']))
+    s.append(Paragraph('<b>O</b>uter &mdash; multiply the two outer terms (first bracket&rsquo;s first term, second bracket&rsquo;s last term)', styles['bullet']))
+    s.append(Paragraph('<b>I</b>nner &mdash; multiply the two inner terms (first bracket&rsquo;s last term, second bracket&rsquo;s first term)', styles['bullet']))
+    s.append(Paragraph('<b>L</b>ast &mdash; multiply the last term in each bracket', styles['bullet']))
+    s.append(Paragraph('Then add all 4 results together and simplify by collecting like terms.', styles['body']))
+    s.append(Paragraph('Worked example, step by step: (x + 3)(x + 5)', styles['bodyb']))
+    s.append(Paragraph('F: x &times; x = x&sup2;', styles['bullet']))
+    s.append(Paragraph('O: x &times; 5 = 5x', styles['bullet']))
+    s.append(Paragraph('I: 3 &times; x = 3x', styles['bullet']))
+    s.append(Paragraph('L: 3 &times; 5 = 15', styles['bullet']))
+    s.append(Paragraph('Add them together: x&sup2; + 5x + 3x + 15 &nbsp;&rarr;&nbsp; collect the two x-terms &nbsp;&rarr;&nbsp; <b>x&sup2; + 8x + 15</b>', styles['body']))
+    s.append(Paragraph(
+        'Watch the signs when a bracket has a minus in it &mdash; e.g. in (x &minus; 2)(x + 7), the &ldquo;3&rdquo; slot above becomes '
+        '&minus;2, so Inner is &minus;2 &times; x = &minus;2x, and Last is &minus;2 &times; 7 = &minus;14.', styles['body']))
     s.append(table([
         [headcell('Brackets'), headcell('Expanded &amp; simplified')],
         [cell('(x + 2)(x + 6)'), cell('x&sup2; + 8x + 12')],
@@ -105,10 +122,31 @@ def build_reference():
     ], col_widths=[65 * mm, 65 * mm]))
 
     s.append(Paragraph('3. Factorising', styles['h2']))
-    s.append(Paragraph('<b>Common factor</b>: take out the highest common factor of every term. e.g. 6x + 9 = <b>3(2x + 3)</b>', styles['bullet']))
-    s.append(Paragraph('<b>Quadratic x&sup2; + bx + c</b>: find two numbers that multiply to c and add to b.', styles['bullet']))
-    s.append(Paragraph('x&sup2; + 7x + 12 &mdash; 3 and 4 multiply to 12, add to 7 &rarr; <b>(x + 3)(x + 4)</b>', styles['body']))
-    s.append(Paragraph('x&sup2; + 2x &minus; 15 &mdash; 5 and &minus;3 multiply to &minus;15, add to 2 &rarr; <b>(x + 5)(x &minus; 3)</b>', styles['body']))
+    s.append(Paragraph('Factorising is the <b>reverse</b> of expanding &mdash; you start with an expanded expression and write it as brackets multiplied together.', styles['body']))
+    s.append(Paragraph('3a. Common factor', styles['bodyb']))
+    s.append(Paragraph(
+        'Find the highest common factor (HCF) of every term &mdash; the biggest number (and/or letter) that divides '
+        'into all of them &mdash; then write it outside a bracket containing what is left of each term.', styles['body']))
+    s.append(Paragraph('Worked example: 6x + 9', styles['body']))
+    s.append(Paragraph('HCF of 6 and 9 is 3 (both divide by 3, and nothing bigger does)', styles['bullet']))
+    s.append(Paragraph('6x &divide; 3 = 2x, &nbsp; 9 &divide; 3 = 3 &nbsp;&rarr;&nbsp; write these inside the bracket', styles['bullet']))
+    s.append(Paragraph('Answer: <b>3(2x + 3)</b> &nbsp;&mdash;&nbsp; check by expanding back: 3 &times; 2x + 3 &times; 3 = 6x + 9 &#10003;', styles['body']))
+    s.append(Paragraph('Another: 10x&sup2; &minus; 15x &nbsp;&rarr;&nbsp; HCF is 5x &nbsp;&rarr;&nbsp; <b>5x(2x &minus; 3)</b>', styles['body']))
+    s.append(Paragraph('3b. Factorising a quadratic x&sup2; + bx + c', styles['bodyb']))
+    s.append(Paragraph(
+        'A quadratic like x&sup2; + bx + c factorises into two brackets, (x + p)(x + q). Because expanding those '
+        'brackets gives x&sup2; + (p+q)x + pq (compare to FOIL above), you need to find two numbers p and q that:', styles['body']))
+    s.append(Paragraph('<b>multiply together to give c</b> (the number on its own), <b>and</b>', styles['bullet']))
+    s.append(Paragraph('<b>add together to give b</b> (the number of x&rsquo;s)', styles['bullet']))
+    s.append(Paragraph('Worked example, step by step: x&sup2; + 7x + 12', styles['body']))
+    s.append(Paragraph('Need two numbers that multiply to 12 and add to 7', styles['bullet']))
+    s.append(Paragraph('Try factor pairs of 12: (1,12) add to 13 &#10007; &nbsp; (2,6) add to 8 &#10007; &nbsp; (3,4) add to 7 &#10003;', styles['bullet']))
+    s.append(Paragraph('Answer: <b>(x + 3)(x + 4)</b> &nbsp;&mdash;&nbsp; check by expanding back (FOIL): x&sup2; + 4x + 3x + 12 = x&sup2; + 7x + 12 &#10003;', styles['body']))
+    s.append(Paragraph(
+        'If c is negative, one of your two numbers must be negative. If b is also negative, the bigger number '
+        '(by size) must be the negative one.', styles['body']))
+    s.append(Paragraph('x&sup2; + 2x &minus; 15 &mdash; need two numbers multiplying to &minus;15, adding to 2 &rarr; 5 and &minus;3 &rarr; <b>(x + 5)(x &minus; 3)</b>', styles['body']))
+    s.append(Paragraph('x&sup2; &minus; 9x + 20 &mdash; need two numbers multiplying to 20, adding to &minus;9 &rarr; &minus;4 and &minus;5 &rarr; <b>(x &minus; 4)(x &minus; 5)</b>', styles['body']))
 
     s.append(Paragraph('4. Solving linear equations', styles['h2']))
     s.append(Paragraph('<b>Balance method</b>: do the same operation to both sides until x is alone. Expand any brackets first; collect x terms onto one side if x appears twice.', styles['bodyb']))
