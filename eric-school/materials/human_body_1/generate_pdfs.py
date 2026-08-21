@@ -120,7 +120,7 @@ def build_reference():
         [cell('<b>Red blood cell</b>'), cell('Biconcave disc, no nucleus, full of haemoglobin'), cell('Carries oxygen around the body')],
         [cell('<b>White blood cell</b>'), cell('Larger, has a nucleus'), cell('Fights infection (engulfs pathogens / makes antibodies)')],
         [cell('<b>Platelet</b>'), cell('Small cell fragment, no nucleus'), cell('Helps blood clot at a wound')],
-        [cell('<b>Plasma</b>'), cell('Pale yellow liquid'), cell('Transports blood cells, dissolved food, CO&#8322;, urea &amp; hormones')],
+        [cell('<b>Plasma</b>'), cell('Pale yellow liquid'), cell('Transports blood cells, dissolved food, CO<sub>2</sub>, urea &amp; hormones')],
     ], col_widths=[28 * mm, 55 * mm, 60 * mm]))
 
     doc.build(s)

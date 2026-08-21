@@ -97,7 +97,7 @@ def build_reference():
     s.append(Paragraph('e.g. y = 2x + 1 &rarr; gradient <b>2</b>, y-intercept <b>1</b>.', styles['body']))
 
     s.append(Paragraph('2. Finding the gradient from two points', styles['h2']))
-    s.append(Paragraph('<b>m = (y&#8322; &minus; y&#8321;) &divide; (x&#8322; &minus; x&#8321;)</b> &mdash; change in y over change in x.', styles['bodyb']))
+    s.append(Paragraph('<b>m = (y<sub>2</sub> &minus; y<sub>1</sub>) &divide; (x<sub>2</sub> &minus; x<sub>1</sub>)</b> &mdash; change in y over change in x.', styles['bodyb']))
     s.append(Paragraph('(1, 3) and (4, 9) &nbsp;&rarr;&nbsp; m = (9&minus;3) &divide; (4&minus;1) = 6&divide;3 = <b>2</b>', styles['body']))
 
     s.append(Paragraph('3. Plotting from a table, and parallel lines', styles['h2']))
