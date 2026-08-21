@@ -1,0 +1,329 @@
+<style>
+  #ls17-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --bio: #2F8B57; --bio-soft: #DFF0E5;
+    --water: #3A5E85; --water-soft: #DDE6EF;
+    --soil: #8B6B4A; --soil-soft: #ECE2D4;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls17-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls17-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls17-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls17-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls17-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls17-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls17-section { margin-bottom: 26px; }
+  .ls17-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls17-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls17-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls17-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls17-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls17-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls17-card p:last-child { margin-bottom: 0; }
+  .ls17-card ul { margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 1.6; }
+  .ls17-term { font-weight: 600; color: var(--bio); }
+
+  .ls17-cellgrid { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+  .ls17-cellcard { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 12px; box-shadow: 0 1px 4px var(--shadow); flex: 1; min-width: 210px; }
+  .ls17-cellcard svg { width: 100%; height: auto; display: block; margin-bottom: 8px; }
+  .ls17-cellcard h4 { margin: 0 0 6px; font-size: 13.5px; color: var(--bio); }
+  .ls17-cellcard ul { margin: 0; padding-left: 16px; font-size: 12px; line-height: 1.55; }
+
+  .ls17-wide-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls17-wide-card svg { width: 100%; max-width: 420px; height: auto; display: block; margin: 0 auto 10px; }
+  .ls17-wide-card ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.6; }
+  .ls17-caption { text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--ink-soft); margin: -4px 0 10px; }
+
+  .ls17-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls17-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls17-table-wrap th, .ls17-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls17-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls17-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls17-activity { background: var(--bio-soft); border: 1px solid #B7D9C4; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls17-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls17-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls17-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls17-blank-row input { flex: 1; min-width: 90px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls17-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls17-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls17-feedback.ok { color: #2E6B45; }
+  .ls17-feedback.no { color: #A34B4B; }
+
+  .ls17-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls17-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls17-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls17-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls17-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--bio); background: none; border: 1.5px solid var(--bio); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls17-answer { display: none; font-size: 13px; line-height: 1.55; background: #EEF6F0; border-left: 3px solid var(--bio); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls17-answer.show { display: block; }
+
+  .ls17-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls17-root">
+  <p class="ls17-eyebrow">GCSE Biology &middot; 4.2.2</p>
+  <h1 class="ls17-title">Plants, Part 1: Structure &amp; Transpiration</h1>
+  <div class="ls17-meta">
+    <span><span class="ls17-dot" style="background:var(--bio)"></span>Biology</span>
+    <span>60 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls17-section">
+    <div class="ls17-section-head">
+      <span class="ls17-section-num">01</span>
+      <h2 class="ls17-section-title">Plant organs &amp; meristem tissue</h2>
+      <span class="ls17-section-time">10 min</span>
+    </div>
+    <div class="ls17-card">
+      <ul>
+        <li><span class="ls17-term">Root</span> &mdash; anchors the plant in the soil, and absorbs water and mineral ions (root hair cells give a large surface area for this)</li>
+        <li><span class="ls17-term">Stem</span> &mdash; supports the plant and holds the leaves up towards the light; also carries substances between roots and leaves</li>
+        <li><span class="ls17-term">Leaf</span> &mdash; the main site of photosynthesis, and has pores (stomata) for gas exchange and water loss</li>
+      </ul>
+    </div>
+    <div class="ls17-card">
+      <p><span class="ls17-term">Meristem tissue</span> is found at the tips of roots and shoots. It is made of <span class="ls17-term">unspecialised cells</span> that keep dividing by mitosis, producing new cells throughout the plant's life. These new cells then <span class="ls17-term">differentiate</span> into specialised cells &mdash; like root hair cells, xylem, or phloem &mdash; which is how a plant is able to keep growing.</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls17-section">
+    <div class="ls17-section-head">
+      <span class="ls17-section-num">02</span>
+      <h2 class="ls17-section-title">Xylem &amp; phloem: the transport tissues</h2>
+      <span class="ls17-section-time">12 min</span>
+    </div>
+    <div class="ls17-card">
+      <p>Two types of transport tissue run all the way through the root, stem and leaves, forming a continuous network.</p>
+    </div>
+    <div class="ls17-cellgrid">
+      <div class="ls17-cellcard">
+        <svg viewBox="0 0 200 90" xmlns="http://www.w3.org/2000/svg">
+          <rect x="70" y="8" width="60" height="74" fill="none" stroke="#3A5E85" stroke-width="3"/>
+          <line x1="70" y1="26" x2="130" y2="26" stroke="#3A5E85" stroke-width="2"/>
+          <line x1="70" y1="45" x2="130" y2="45" stroke="#3A5E85" stroke-width="2"/>
+          <line x1="70" y1="64" x2="130" y2="64" stroke="#3A5E85" stroke-width="2"/>
+          <line x1="100" y1="14" x2="100" y2="76" stroke="#DDE6EF" stroke-width="10"/>
+        </svg>
+        <h4>Xylem</h4>
+        <ul>
+          <li>Transports <b>water &amp; dissolved mineral ions</b></li>
+          <li>One direction only: <b>up</b>, from roots to leaves</li>
+          <li>Made of <b>dead</b> cells joined into hollow tubes, no cytoplasm</li>
+          <li>Walls strengthened with <b>lignin</b></li>
+        </ul>
+      </div>
+      <div class="ls17-cellcard">
+        <svg viewBox="0 0 200 90" xmlns="http://www.w3.org/2000/svg">
+          <rect x="70" y="8" width="60" height="74" fill="none" stroke="#2F8B57" stroke-width="3"/>
+          <circle cx="100" cy="24" r="9" fill="#DFF0E5" stroke="#2F8B57" stroke-width="1.5"/>
+          <circle cx="100" cy="45" r="9" fill="#DFF0E5" stroke="#2F8B57" stroke-width="1.5"/>
+          <circle cx="100" cy="66" r="9" fill="#DFF0E5" stroke="#2F8B57" stroke-width="1.5"/>
+        </svg>
+        <h4>Phloem</h4>
+        <ul>
+          <li>Transports <b>dissolved sugars</b> (mainly sucrose)</li>
+          <li><b>Both directions</b> &mdash; up and down the plant</li>
+          <li>Made of <b>living</b> cells</li>
+          <li>Moving sugars this way is called <b>translocation</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls17-section">
+    <div class="ls17-section-head">
+      <span class="ls17-section-num">03</span>
+      <h2 class="ls17-section-title">Transpiration: what it is &amp; the pathway</h2>
+      <span class="ls17-section-time">14 min</span>
+    </div>
+    <div class="ls17-card">
+      <p><span class="ls17-term">Transpiration</span> is the loss of water vapour from a plant's leaves, mainly through the stomata, by evaporation and diffusion. As water is lost from the top of the plant, more is drawn up from the roots to replace it &mdash; this continuous movement is called the <span class="ls17-term">transpiration stream</span>.</p>
+    </div>
+    <div class="ls17-wide-card">
+      <svg viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="120" width="260" height="30" fill="#ECE2D4"/>
+        <ellipse cx="60" cy="128" rx="10" ry="5" fill="#8B6B4A"/>
+        <text x="72" y="132" font-size="9" fill="#6B6355" font-family="IBM Plex Mono, monospace">root hair cell</text>
+        <line x1="60" y1="123" x2="130" y2="30" stroke="#3A5E85" stroke-width="5"/>
+        <text x="135" y="80" font-size="9" fill="#3A5E85" font-family="IBM Plex Mono, monospace">xylem (water up the stem)</text>
+        <ellipse cx="130" cy="22" rx="42" ry="20" fill="#DFF0E5" stroke="#2F8B57" stroke-width="2"/>
+        <text x="108" y="27" font-size="9" fill="#2F8B57" font-family="IBM Plex Mono, monospace">leaf</text>
+        <line x1="150" y1="14" x2="172" y2="4" stroke="#6B6355" stroke-width="1.2"/>
+        <line x1="150" y1="22" x2="176" y2="18" stroke="#6B6355" stroke-width="1.2"/>
+        <line x1="148" y1="30" x2="172" y2="34" stroke="#6B6355" stroke-width="1.2"/>
+        <text x="178" y="10" font-size="9" fill="#6B6355" font-family="IBM Plex Mono, monospace">water vapour out</text>
+        <text x="178" y="38" font-size="9" fill="#6B6355" font-family="IBM Plex Mono, monospace">via stomata</text>
+      </svg>
+      <p class="ls17-caption">soil &rarr; root hair cell &rarr; root &rarr; xylem &rarr; stem &rarr; leaf &rarr; evaporates inside leaf &rarr; diffuses out through stomata</p>
+      <ul>
+        <li>Water is absorbed from the soil by <b>root hair cells</b>, by osmosis</li>
+        <li>It moves across the root and into the <b>xylem</b></li>
+        <li>It travels up the xylem, through the stem, into the leaves</li>
+        <li>It evaporates from cells inside the leaf into the air spaces, then diffuses out through tiny pores called <b>stomata</b></li>
+        <li>Each stoma is surrounded by a pair of <b>guard cells</b>, which control whether it is open or closed</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls17-section">
+    <div class="ls17-section-head">
+      <span class="ls17-section-num">&bull;</span>
+      <h2 class="ls17-section-title">Activity &mdash; the transpiration pathway</h2>
+      <span class="ls17-section-time">8 min</span>
+    </div>
+    <div class="ls17-activity" id="ls17-activity-1">
+      <p class="ls17-activity-label">root hair cell / xylem / phloem / stomata / guard cells</p>
+      <div class="ls17-blank-row"><label>Water enters the plant through these cells &rarr;</label><input type="text" data-answer="roothaircell"></div>
+      <div class="ls17-blank-row"><label>Tissue that carries water up the stem &rarr;</label><input type="text" data-answer="xylem"></div>
+      <div class="ls17-blank-row"><label>Tiny pores water vapour diffuses out through &rarr;</label><input type="text" data-answer="stomata"></div>
+      <div class="ls17-blank-row"><label>Cells that control whether a pore is open or closed &rarr;</label><input type="text" data-answer="guardcells"></div>
+      <div class="ls17-blank-row"><label>Tissue that transports sugars, not water &rarr;</label><input type="text" data-answer="phloem"></div>
+      <button class="ls17-check-btn" id="ls17-check-1">Check answers</button>
+      <p class="ls17-feedback" id="ls17-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls17-section">
+    <div class="ls17-section-head">
+      <span class="ls17-section-num">04</span>
+      <h2 class="ls17-section-title">Factors affecting the rate of transpiration</h2>
+      <span class="ls17-section-time">12 min</span>
+    </div>
+    <div class="ls17-table-wrap">
+      <table>
+        <tr><th>Factor</th><th>Increases the rate when...</th><th>Why</th></tr>
+        <tr><td>Temperature</td><td>higher</td><td>water molecules have more energy, so evaporate &amp; diffuse faster</td></tr>
+        <tr><td>Humidity</td><td>lower</td><td>bigger difference in water vapour concentration inside/outside the leaf, so a steeper gradient for diffusion</td></tr>
+        <tr><td>Air movement (wind)</td><td>higher</td><td>removes water vapour from around the leaf, keeping the concentration gradient steep</td></tr>
+        <tr><td>Light intensity</td><td>higher</td><td>more stomata open (for gas exchange during photosynthesis), so more water can escape</td></tr>
+      </table>
+    </div>
+    <div class="ls17-card">
+      <p>A <span class="ls17-term">potometer</span> is a piece of apparatus used to measure the rate of water uptake by a cut shoot, as an estimate of its transpiration rate &mdash; it works by timing how far an air bubble moves along a capillary tube.</p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls17-section">
+    <div class="ls17-section-head">
+      <span class="ls17-section-num">&bull;</span>
+      <h2 class="ls17-section-title">Activity &mdash; predict the effect</h2>
+      <span class="ls17-section-time">6 min</span>
+    </div>
+    <div class="ls17-activity" id="ls17-activity-2">
+      <p class="ls17-activity-label">Type "increase" or "decrease"</p>
+      <div class="ls17-blank-row"><label>Moving a plant to a warmer room &rarr; transpiration rate will</label><input type="text" data-answer="increase"></div>
+      <div class="ls17-blank-row"><label>Putting a plastic bag over the leaves (traps humidity) &rarr; transpiration rate will</label><input type="text" data-answer="decrease"></div>
+      <div class="ls17-blank-row"><label>Placing a plant in front of a fan &rarr; transpiration rate will</label><input type="text" data-answer="increase"></div>
+      <div class="ls17-blank-row"><label>Moving a plant into the dark &rarr; transpiration rate will</label><input type="text" data-answer="decrease"></div>
+      <button class="ls17-check-btn" id="ls17-check-2">Check answers</button>
+      <p class="ls17-feedback" id="ls17-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 5 GCSE questions -->
+  <div class="ls17-section">
+    <div class="ls17-section-head">
+      <span class="ls17-section-num">05</span>
+      <h2 class="ls17-section-title">GCSE-style review questions</h2>
+      <span class="ls17-section-time">12 min</span>
+    </div>
+
+    <div class="ls17-q">
+      <div class="ls17-q-top"><p class="ls17-q-text">1. State one function each of the root, the stem, and the leaf.</p><span class="ls17-q-marks">[3 marks]</span></div>
+      <button class="ls17-reveal-btn" data-reveal="g1">Show mark scheme</button>
+      <div class="ls17-answer" id="g1">Root: anchors the plant / absorbs water and mineral ions (1). Stem: supports the plant / holds leaves up to the light / transports substances (1). Leaf: main site of photosynthesis / gas exchange (1).</div>
+    </div>
+
+    <div class="ls17-q">
+      <div class="ls17-q-top"><p class="ls17-q-text">2. What is meristem tissue, and why is it important for plant growth?</p><span class="ls17-q-marks">[3 marks]</span></div>
+      <button class="ls17-reveal-btn" data-reveal="g2">Show mark scheme</button>
+      <div class="ls17-answer" id="g2">Unspecialised cells found at root/shoot tips (1) that divide continuously by mitosis (1); the new cells can differentiate into specialised cells, allowing the plant to keep growing throughout its life (1).</div>
+    </div>
+
+    <div class="ls17-q">
+      <div class="ls17-q-top"><p class="ls17-q-text">3. Xylem cells are dead, with no cytoplasm, and have walls strengthened with lignin. Explain how this helps xylem carry out its function.</p><span class="ls17-q-marks">[2 marks]</span></div>
+      <button class="ls17-reveal-btn" data-reveal="g3">Show mark scheme</button>
+      <div class="ls17-answer" id="g3">Being dead/having no cytoplasm leaves a hollow tube, so water can flow through with little resistance (1); lignin strengthens the walls, helping xylem withstand the pressure of water movement and support the plant (1).</div>
+    </div>
+
+    <div class="ls17-q">
+      <div class="ls17-q-top"><p class="ls17-q-text">4. Describe the pathway water takes from the soil to the air, starting at the root hair cell.</p><span class="ls17-q-marks">[4 marks]</span></div>
+      <button class="ls17-reveal-btn" data-reveal="g4">Show mark scheme</button>
+      <div class="ls17-answer" id="g4">Absorbed from the soil by root hair cells, by osmosis (1); moves across the root into the xylem (1); travels up the xylem through the stem to the leaves (1); evaporates from cells inside the leaf and diffuses out through the stomata (1).</div>
+    </div>
+
+    <div class="ls17-q">
+      <div class="ls17-q-top"><p class="ls17-q-text">5. Explain why increasing wind speed around a plant increases its rate of transpiration.</p><span class="ls17-q-marks">[2 marks]</span></div>
+      <button class="ls17-reveal-btn" data-reveal="g5">Show mark scheme</button>
+      <div class="ls17-answer" id="g5">Wind removes water vapour from around the leaf (1), maintaining a steeper concentration gradient between the inside and outside of the leaf, so diffusion (and evaporation) happens faster (1).</div>
+    </div>
+
+    <div class="ls17-q">
+      <div class="ls17-q-top"><p class="ls17-q-text">6. A gardener wants to reduce how much water their houseplants lose. Suggest two things they could do, using ideas about the factors affecting transpiration.</p><span class="ls17-q-marks">[2 marks]</span></div>
+      <button class="ls17-reveal-btn" data-reveal="g6">Show mark scheme</button>
+      <div class="ls17-answer" id="g6">Any two: move to a cooler spot / reduce temperature (1); increase humidity around the plant, e.g. group plants together or mist them (1); move away from draughts/fans, reducing air movement (1); reduce light intensity, e.g. move away from a bright window (1).</div>
+    </div>
+  </div>
+
+  <p class="ls17-footer-note">Tip: for "explain why the rate increases/decreases" questions, always link back to either evaporation (how fast water turns to vapour) or the concentration gradient of water vapour between the inside and outside of the leaf.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls17-check-1').addEventListener('click', () => {
+    const rows = document.getElementById('ls17-activity-1').querySelectorAll('input[data-answer]');
+    let correct = 0;
+    rows.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7D9C4');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls17-feedback-1');
+    fb.textContent = `${correct} of ${rows.length} correct.`;
+    fb.className = 'ls17-feedback ' + (correct === rows.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls17-check-2').addEventListener('click', () => {
+    const rows = document.getElementById('ls17-activity-2').querySelectorAll('input[data-answer]');
+    let correct = 0;
+    rows.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7D9C4');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls17-feedback-2');
+    fb.textContent = `${correct} of ${rows.length} correct.`;
+    fb.className = 'ls17-feedback ' + (correct === rows.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls17-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>
