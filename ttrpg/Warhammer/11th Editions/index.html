@@ -2,16 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>11th Editions</title>
+<title>11th Edition Guide</title>
 <style>
   :root{
     --bg:#f5f6f8;
-    --card:#ffffff;
+    --paper:#F4F1EA; --paper-line:#E4DDCE;
+    --card:#FFFEFB;
     --border:#e2e4e9;
-    --text:#1b1e24;
-    --text-dim:#5b616e;
-    --accent:#d6336c;
-    --accent-soft:#fbe4ec;
+    --ink:#23201A; --ink-soft:#6B6355;
+    --text:#1b1e24; --text-dim:#5b616e;
+    --accent:#d6336c; --accent-soft:#fbe4ec;
+    --ork:#2F8B57; --ork-soft:#DFF0E5;
+    --nid:#6D3FA0; --nid-soft:#EAE0F5;
+    --tau:#B5762A; --tau-soft:#F1E3CE;
+    --sm:#3A5E85; --sm-soft:#DDE6EF;
+    --shadow: rgba(35,32,26,.10);
   }
   *{box-sizing:border-box;}
   body{
@@ -20,8 +25,10 @@
     background:var(--bg);
     color:var(--text);
   }
-  header{
-    padding:2.5rem 1.5rem 1.5rem;
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  header.page-head{
+    padding:2.5rem 1.5rem 1rem;
     max-width:900px;
     margin:0 auto;
   }
@@ -35,74 +42,489 @@
     margin-bottom:.75rem;
   }
   .back-link:hover{ color:var(--accent); }
-  header h1{
-    margin:0 0 .25rem;
+  header.page-head h1{
+    margin:0 0 .4rem;
     font-size:1.9rem;
   }
-  header p{
+  header.page-head p{
     margin:0;
     color:var(--text-dim);
     font-size:1rem;
+    max-width:640px;
   }
-  main{
-    max-width:900px;
-    margin:0 auto;
-    padding:1.5rem 1.5rem 3rem;
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:1.25rem;
+
+  .doc{
+    font-family:'IBM Plex Sans', -apple-system, sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    max-width:820px;
+    margin:1.5rem auto 3rem;
+    padding:32px 26px 46px;
+    border-radius:18px;
   }
-  @media (max-width:700px){
-    main{ grid-template-columns:1fr; }
-  }
-  .cat-card{
-    display:block;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:2rem 1.5rem;
-    text-align:center;
-    text-decoration:none;
-    color:var(--text);
-    transition:transform .12s ease, box-shadow .12s ease;
-  }
-  .cat-card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 8px 20px rgba(20,22,26,.08);
-  }
-  .cat-card .icon{
-    width:56px;
-    height:56px;
-    border-radius:14px;
-    background:var(--accent-soft);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:1.6rem;
-    margin:0 auto 1rem;
-  }
-  .cat-card h2{
-    margin:0 0 .4rem;
-    font-size:1.25rem;
-  }
-  .cat-card p{
-    margin:0;
-    color:var(--text-dim);
-    font-size:.9rem;
-    line-height:1.5;
+  .doc * { box-sizing:border-box; }
+
+  .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 6px; }
+  .doc-title{ font-family:'Instrument Serif', serif; font-style:italic; font-size:34px; margin:0 0 10px; line-height:1.1; }
+  .doc-intro{ font-size:14px; line-height:1.65; color:var(--ink); margin:0 0 22px; }
+  .doc-intro b{ color:var(--accent); }
+
+  .toc{ background:var(--card); border:1px solid var(--paper-line); border-radius:12px; padding:18px 20px; margin-bottom:30px; box-shadow:0 1px 4px var(--shadow); }
+  .toc h2{ font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin:0 0 10px; }
+  .toc ol{ margin:0; padding-left:20px; font-size:13.5px; line-height:1.9; columns:2; column-gap:24px; }
+  .toc a{ color:var(--ink); text-decoration:none; }
+  .toc a:hover{ color:var(--accent); text-decoration:underline; }
+
+  section.sec{ margin-bottom:34px; scroll-margin-top:16px; }
+  .sec-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:12px; border-bottom:2px solid var(--paper-line); padding-bottom:8px; }
+  .sec-num{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--accent); font-weight:600; }
+  .sec-title{ font-size:19px; font-weight:600; margin:0; }
+
+  .card{ background:var(--card); border:1px solid var(--paper-line); border-radius:12px; padding:15px 18px; box-shadow:0 1px 4px var(--shadow); margin-bottom:12px; }
+  .card p{ font-size:13.5px; line-height:1.65; margin:0 0 9px; }
+  .card p:last-child{ margin-bottom:0; }
+  .card ul, .card ol{ margin:0 0 9px; padding-left:20px; font-size:13.5px; line-height:1.65; }
+  .card ul:last-child, .card ol:last-child{ margin-bottom:0; }
+  .term{ font-weight:600; color:var(--accent); }
+  .eq{ font-family:'IBM Plex Mono', monospace; background:#F1EAD9; padding:1px 6px; border-radius:5px; font-size:12.5px; }
+
+  h3.sub{ font-size:14.5px; font-weight:600; margin:16px 0 8px; color:var(--ink); }
+
+  .callout{ background:var(--accent-soft); border-left:4px solid var(--accent); border-radius:0 10px 10px 0; padding:12px 16px; margin:10px 0 14px; }
+  .callout .cal-label{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); font-weight:600; margin:0 0 5px; }
+  .callout p{ font-size:13px; line-height:1.6; margin:0; color:var(--ink); }
+
+  .table-wrap{ background:var(--card); border:1px solid var(--paper-line); border-radius:12px; padding:4px; box-shadow:0 1px 4px var(--shadow); margin-bottom:12px; overflow-x:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:12.5px; }
+  th, td{ text-align:left; padding:8px 11px; border-bottom:1px solid var(--paper-line); vertical-align:top; }
+  th{ font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); }
+  tr:last-child td{ border-bottom:none; }
+
+  .faction{ border-radius:14px; padding:18px 20px; margin-bottom:14px; }
+  .faction.ork{ background:var(--ork-soft); border:1px solid #B7D9C4; }
+  .faction.nid{ background:var(--nid-soft); border:1px solid #CBB6E3; }
+  .faction.tau{ background:var(--tau-soft); border:1px solid #DDBF8E; }
+  .faction.sm{ background:var(--sm-soft); border:1px solid #B7C6D8; }
+  .faction h4{ margin:0 0 8px; font-size:15px; }
+  .faction.ork h4{ color:var(--ork); }
+  .faction.nid h4{ color:var(--nid); }
+  .faction.tau h4{ color:var(--tau); }
+  .faction.sm h4{ color:var(--sm); }
+  .faction p{ font-size:13.3px; line-height:1.6; margin:0 0 8px; }
+  .faction p:last-child{ margin-bottom:0; }
+  .faction ul{ margin:0 0 8px; padding-left:18px; font-size:12.8px; line-height:1.6; }
+  .faction-callout{ background:#FFFEFB; border-left:4px solid; border-radius:0 8px 8px 0; padding:9px 13px; margin:8px 0; }
+  .faction.ork .faction-callout{ border-color:var(--ork); }
+  .faction.nid .faction-callout{ border-color:var(--nid); }
+  .faction.tau .faction-callout{ border-color:var(--tau); }
+  .faction-callout .cal-label{ font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:.05em; font-weight:600; margin:0 0 4px; }
+  .faction.ork .faction-callout .cal-label{ color:var(--ork); }
+  .faction.nid .faction-callout .cal-label{ color:var(--nid); }
+  .faction.tau .faction-callout .cal-label{ color:var(--tau); }
+  .faction-callout p{ font-size:12.5px; margin:0; }
+
+  .cheatsheet{ background:var(--ink); color:var(--paper); border-radius:14px; padding:20px 22px; }
+  .cheatsheet h4{ margin:0 0 8px; font-size:13px; font-family:'IBM Plex Mono', monospace; text-transform:uppercase; letter-spacing:.06em; color:#E8C9D8; }
+  .cheatsheet ol, .cheatsheet ul{ margin:0 0 16px; padding-left:20px; font-size:12.8px; line-height:1.7; }
+  .cheatsheet ol:last-child, .cheatsheet ul:last-child{ margin-bottom:0; }
+  .cheatsheet b{ color:#fff; }
+
+  .footnote{ font-size:12px; color:var(--ink-soft); font-style:italic; margin-top:8px; }
+  a.src{ color:var(--accent); }
+
+  @media (max-width:600px){
+    .toc ol{ columns:1; }
+    .doc{ padding:22px 16px 34px; }
   }
 </style>
 </head>
 <body>
 
-<header>
+<header class="page-head">
   <a class="back-link" href="../index.html">&larr; Warhammer</a>
-  <h1>11th Editions</h1>
-  <p>Nothing here yet.</p>
+  <h1>11th Edition Guide</h1>
+  <p>Everything you and Eric need to sit down and play Warhammer 40,000 11th Edition &mdash; army building through to winning the game, with Ork, Tyranid and T&rsquo;au Empire sections, and callouts wherever 11th differs from the 10th edition you already know.</p>
 </header>
 
-<main>
-</main>
+<div class="doc">
+
+  <p class="eyebrow">Warhammer 40,000 &middot; 11th Edition</p>
+  <h1 class="doc-title">Playing 11th Edition</h1>
+  <p class="doc-intro">This is written for two people who already know 10th edition, so it moves at a decent pace and doesn't over-explain the basics &mdash; but every phase and mechanic is still spelled out in full. Wherever 11th edition works differently to 10th, you'll see a <b>🔄 Changed from 10th Edition</b> box right at that spot, so you catch the difference exactly where it matters at the table.</p>
+
+  <div class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#need">What you need to play</a></li>
+      <li><a href="#army">Building an army</a></li>
+      <li><a href="#setup">Setting up a game</a></li>
+      <li><a href="#turn">The battle round &amp; turn sequence</a></li>
+      <li><a href="#cp">Stratagems &amp; Command Points</a></li>
+      <li><a href="#scoring">Scoring &amp; winning</a></li>
+      <li><a href="#orks">Orks</a></li>
+      <li><a href="#tyranids">Tyranids</a></li>
+      <li><a href="#tau">T&rsquo;au Empire</a></li>
+      <li><a href="#marines">Space Marines (a quick note for Eric)</a></li>
+      <li><a href="#cheatsheet">Quick-reference cheat sheet</a></li>
+    </ol>
+  </div>
+
+  <!-- 1 -->
+  <section class="sec" id="need">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">What you need to play</h2></div>
+    <div class="card">
+      <ul>
+        <li>Your models (built and based &mdash; painted isn't required to play, just to look good)</li>
+        <li>A tape measure or ruler, marked in inches</li>
+        <li>A handful of six-sided dice, ideally 15&ndash;20+ each</li>
+        <li>Your army's datasheets and points values &mdash; free on <a class="src" href="https://wahapedia.ru/wh40k11ed/" target="_blank" rel="noopener">Wahapedia</a>, which stays current as rules get FAQ'd/errata'd</li>
+        <li>The free Core Rules and Rules Appendix, downloadable from the official <a class="src" href="https://www.warhammer-community.com/en-gb/downloads/warhammer-40000/" target="_blank" rel="noopener">Warhammer 40,000 downloads page</a></li>
+        <li>Some terrain, and a table roughly 44"&times;60" (a 4'&times;6' board) for a standard-size game &mdash; smaller boards work fine for Combat Patrol-size games</li>
+        <li>A way to track Command Points and Victory Points (dice, tokens, or just a notepad)</li>
+      </ul>
+      <p>Everything you need to actually build and play a legal army &mdash; core rules, faction rules, points, missions &mdash; is free. You never need to buy a codex just to play; Wahapedia keeps it all in one place.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="sec" id="army">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Building an army</h2></div>
+    <div class="card">
+      <p>You build a list within a <span class="term">points limit</span> (a battle size), choosing units from your faction's datasheets, each with a points cost. Your list is organised into one or more <span class="term">Detachments</span> &mdash; and this is the biggest structural change from 10th edition.</p>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>In 10th edition your whole army used <b>one</b> Detachment Rule for the entire game. In 11th, every detachment costs 1&ndash;3 <span class="term">Detachment Points (DP)</span>, and your battle size gives you a DP budget to spend across <b>multiple</b> detachments at once &mdash; e.g. one 3DP detachment, or a 2DP + 1DP combo, or three 1DP detachments. You can genuinely mix and match army rules within one list now, rather than committing to a single detachment's theme for the whole army.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>Battle size</th><th>Points</th><th>DP budget</th></tr>
+        <tr><td>Incursion</td><td>500&ndash;1,000</td><td>2 DP (or a single 3DP detachment alone)</td></tr>
+        <tr><td>Strike Force</td><td>1,001&ndash;2,000</td><td>3 DP</td></tr>
+        <tr><td>Onslaught</td><td>2,001&ndash;3,000</td><td>Check current Munitorum Field Manual &mdash; still being finalised as of writing</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <p><span class="term">Strike Force</span> (roughly 2,000pts) is the standard competitive size and the one most casual games settle on too. Combat Patrol (small, ~500pts, box-set-sized armies) also exists as an even more restricted starter format &mdash; good for Eric's first few games with just the Armageddon box contents.</p>
+      <p>Within each detachment you pick <span class="term">Enhancements</span> (upgrades for named characters) and get access to that detachment's specific <span class="term">Stratagems</span>, on top of the generic Core Stratagems every army can use.</p>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>Leader attachment is more flexible now. In 10th, a Leader unit (a character) could attach to one Bodyguard unit, full stop. In 11th, a unit can have <b>both</b> a Leader <i>and</i> a Support unit attached at once, and a Leader's abilities keep working for the rest of the unit even after the Leader model itself is killed &mdash; in 10th, losing the attached character often meant losing its buffs immediately too.</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="sec" id="setup">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Setting up a game</h2></div>
+    <div class="card">
+      <ol>
+        <li><span class="term">Muster your armies</span> &mdash; both players bring a list built to the agreed points limit</li>
+        <li><span class="term">Generate the mission</span> &mdash; determine deployment map, objectives, and each player's primary objective</li>
+        <li><span class="term">Set up terrain</span> &mdash; using the deployment map's suggested terrain layout where possible</li>
+        <li><span class="term">Deploy</span> &mdash; place units into your deployment zone, following the mission's deployment type</li>
+        <li><span class="term">Decide who goes first</span> &mdash; usually a roll-off, unless the mission says otherwise</li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>Missions no longer hand both players the same primary objective by default. Each army has a <span class="term">Force Disposition</span> (e.g. Take and Hold, Purge the Foe, Disruption, Reconnaissance, Priority Assets), and your primary objective is generated from that. If you and your opponent pick different dispositions, you can genuinely be playing toward different win conditions in the same game &mdash; worth agreeing/checking dispositions before you deploy, not after.</p>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>Objective markers themselves have changed shape. The plain 40mm token from 10th edition is gone &mdash; objectives now live <i>inside</i> specific terrain features, so you have to actually manoeuvre units into that terrain to contest/control them, rather than just sitting within range of a small marker on open ground.</p>
+    </div>
+
+    <div class="card">
+      <p>Terrain also affects visibility more strongly now &mdash; see the <span class="term">HIDDEN</span> keyword in the Shooting Phase section below, which is a genuinely new mechanic (not just a changed one) for how units in terrain can avoid being targeted at range.</p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="sec" id="turn">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">The battle round &amp; turn sequence</h2></div>
+    <div class="card">
+      <p>A standard game is <span class="term">5 battle rounds</span>. Each round, both players take a full turn (you first, then your opponent, or vice versa) &mdash; each turn runs through five phases in order: <span class="term">Command &rarr; Movement &rarr; Shooting &rarr; Charge &rarr; Fight</span>. This overall shape is the same as 10th edition; what happens inside a few of the phases has changed.</p>
+    </div>
+
+    <h3 class="sub">Command Phase</h3>
+    <div class="card">
+      <ol>
+        <li>Both players gain <b>1 Command Point</b> ("Core CP") &mdash; you get this every turn, including your opponent's turns, so 5 CP minimum over a 5-round game just from this</li>
+        <li><span class="term">Battle-shock step</span>: any unit that is currently battle-shocked, <i>or</i> is at/below half its starting models/wounds, takes a Battle-shock test (2D6 vs. its Leadership)</li>
+        <li>Resolve any Command-phase abilities (army rule triggers, etc.)</li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>Removing Battle-shock now requires actively passing a test in your Command phase, even for a unit that's back above half-strength (e.g. after healing). In 10th, a battle-shocked unit generally just stopped being battle-shocked at the start of your next Command phase without needing to test for it. This makes abilities that help you pass Battle-shock tests, or that punish enemy battle-shocked units, more valuable to plan around.</p>
+    </div>
+
+    <h3 class="sub">Movement Phase</h3>
+    <div class="card">
+      <p>Go through your units one at a time; each makes exactly one of these moves:</p>
+      <ul>
+        <li><span class="term">Remain Stationary</span> &mdash; no move</li>
+        <li><span class="term">Normal Move</span> &mdash; up to its Movement (M) characteristic; only if unengaged</li>
+        <li><span class="term">Advance</span> &mdash; roll 1D6, add to M; the unit can't shoot normally or charge this turn (though see Assault weapons below) and can't start Actions</li>
+        <li><span class="term">Fall Back</span> &mdash; only if currently engaged; either an Ordered Retreat (if not battle-shocked) or a riskier Desperate Escape (hazard rolls, if battle-shocked); afterwards the unit can't shoot, charge, or start Actions this turn</li>
+        <li><span class="term">Disembark / Ingress</span> &mdash; for units leaving transports, or arriving from Strategic Reserves</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>Reserve/Deep Strike units now only need to arrive more than <b>8"</b> away from any enemy unit, down from the 9" minimum in 10th edition &mdash; reserves can land noticeably closer to the action.</p>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>Unit coherency is tighter. As before, each model must be within 2" of at least one other model in its unit &mdash; but 11th adds an overall cap: <b>every</b> model in the unit must also be within 9" (horizontally) of every other model in that unit. In 10th, only the 2"-to-nearest-model rule applied (with a looser 6" rule for big units), so units could legally stretch out much further than they can now.</p>
+    </div>
+
+    <h3 class="sub">Shooting Phase</h3>
+    <div class="card">
+      <p>Each eligible unit resolves one shooting type: <span class="term">Normal Shooting</span> (didn't Advance, unengaged), <span class="term">Assault Shooting</span> (Advanced, but has [ASSAULT] weapons it can still fire), <span class="term">Close-quarters Shooting</span> (engaged units, targeting engaged enemies &mdash; MONSTER/VEHICLE units take a &minus;1 to hit unless the weapon has [CLOSE-QUARTERS]), or <span class="term">Indirect Shooting</span> (unengaged, stationary or moved-only units firing at unseen targets, with accuracy penalties).</p>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>The weapon keyword used while engaged (fighting at close range with a shooting weapon) has been renamed from <span class="eq">[PISTOL]</span> in 10th edition to <span class="eq">[POINT-BLANK]</span> in 11th &mdash; same idea, new name, so don't go hunting your datasheets for "Pistol" and assume it's missing.</p>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>Cover works differently. In 10th, being in cover generally improved your armour save. In 11th, cover instead applies a <b>&minus;1 penalty to the enemy's hit roll</b> against you. That's a meaningful shift &mdash; old-style cover did nothing against invulnerable saves, but a hit-roll penalty makes cover useful even for units relying on an invulnerable save.</p>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 New in 11th Edition</p>
+      <p>The <span class="eq">HIDDEN</span> keyword is new: INFANTRY, SWARM and BEAST units inside terrain that didn't shoot this turn become untargetable by anything more than 15" away. There wasn't a direct 10th-edition equivalent &mdash; it makes holding still inside terrain a genuinely strong defensive option, not just a minor cover bonus.</p>
+    </div>
+
+    <h3 class="sub">Charge Phase</h3>
+    <div class="card">
+      <ol>
+        <li>Declare a charge with a unit that's on the battlefield, unengaged, within 12" of an enemy, and didn't Advance or Fall Back this turn</li>
+        <li>Roll 2D6 for your charge distance</li>
+        <li>Move the charging models so each one ends up closer to its target(s), ending in base-to-base contact where possible, and the unit must end <span class="term">Engaged</span> with everything it charged</li>
+        <li>A unit that successfully charges gets <span class="term">Fights First</span> in the upcoming Fight phase</li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p><span class="term">Engagement Range</span> &mdash; how close you need to be to count as "in combat" &mdash; has increased from <b>1"</b> in 10th edition to <b>2"</b> in 11th. Charges only need to bring you within that 2" range (base-to-base if possible), which also means it's slightly easier to end a charge move engaged with a target than it was in 10th.</p>
+    </div>
+
+    <h3 class="sub">Fight Phase</h3>
+    <div class="card">
+      <ol>
+        <li><span class="term">Pile In</span>: all eligible units make their pile-in move (up to 3") at the start of the phase</li>
+        <li><span class="term">Fight</span>: players alternate picking units to fight &mdash; all "Fights First" units go first (active player choosing first among them), then all remaining units (again active player first)</li>
+        <li><span class="term">Consolidate</span>: at the <i>end</i> of the phase, eligible units make a consolidation move (up to 3"), following a priority order &mdash; move to stay engaged if already engaged, move to engage a nearby enemy if you can, or move onto an objective if neither applies</li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>Pile-in and consolidate timing has been restructured. In 10th, each unit piled in, fought, then consolidated before moving on to the next unit, one at a time. In 11th, <b>all</b> pile-in moves happen together at the start of the phase, fighting happens in Fights-First-then-normal order, and <b>all</b> consolidation moves happen together at the end &mdash; resolved player-by-player rather than unit-by-unit. It changes the tactical read of "who acts when" quite a bit, especially around multi-charges.</p>
+    </div>
+
+    <div class="card">
+      <p>If a charging unit's target is destroyed before it gets to fight, it gets a bonus 3" pile-in to try to reach another nearby enemy (an "overrun" fight) instead of whiffing entirely.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="sec" id="cp">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Stratagems &amp; Command Points</h2></div>
+    <div class="card">
+      <p>Stratagems are one-off rules you activate by spending Command Points (CP), usually at a specific trigger window (e.g. "when a unit is targeted", "at the start of the Fight phase"). Every army has access to the generic <span class="term">Core Stratagems</span> plus whatever stratagems come with the detachment(s) it's using. You get 1 CP every Command phase (yours and your opponent's), so CP builds up steadily across the game &mdash; spend it, don't hoard it past the point it's useful.</p>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>You can now only use <b>one stratagem on a given unit per phase</b>. In 10th, it was often possible to stack multiple different stratagems onto the same unit in one phase for a huge combined effect; 11th shuts that down, spreading stratagem use out rather than concentrating it.</p>
+    </div>
+
+    <div class="callout">
+      <p class="cal-label">🔄 Changed from 10th Edition</p>
+      <p>Heroic Intervention (letting a unit "charge" during the enemy's Charge phase to protect a nearby unit) is reportedly down to a flat <b>1 CP</b> (from 2 CP in 10th), with a choice between a defensive "Forward Defense" mode or a more aggressive "Aggressive Charge" mode for a further +1 CP. Worth double-checking the exact current wording/cost on Wahapedia before relying on it in a close game, since stratagem text does get FAQ'd.</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="sec" id="scoring">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Scoring &amp; winning</h2></div>
+    <div class="card">
+      <p>You score Victory Points from your <span class="term">primary objective</span> (generated from your Force Disposition &mdash; see Setting Up a Game) and from <span class="term">secondary objectives</span> you select or draw before/during the game. Whoever has the most Victory Points at the end of round 5 (or when the game otherwise ends) wins.</p>
+      <p>Controlling an objective comes down to <span class="term">Objective Control (OC)</span>: every model has an OC value, and you compare the total OC of your models within an objective's terrain feature against your opponent's. Whoever has more OC there "secures" it &mdash; and a unit currently battle-shocked contributes <b>zero</b> OC, so a battle-shocked unit can be squatting right on an objective and still not hold it.</p>
+    </div>
+    <div class="card">
+      <p>Most groups also agree on <span class="term">soft-scoring</span> concessions (e.g. calling the game early if one side is clearly beaten) &mdash; totally optional, just good etiquette for casual games with Eric.</p>
+    </div>
+  </section>
+
+  <!-- 7: Orks -->
+  <section class="sec" id="orks">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Orks</h2></div>
+    <div class="faction ork">
+      <h4>Army rule: Waaagh!</h4>
+      <p>Once per battle, at the start of a Command phase, you can call a <span class="term">Waaagh!</span>. Until the start of your next Command phase:</p>
+      <ul>
+        <li>Units that Advanced this turn are still eligible to declare a charge</li>
+        <li>+1 Strength and +1 Attacks on melee weapons</li>
+        <li>Your units gain a 5+ invulnerable save</li>
+      </ul>
+      <p>Timing the Waaagh! is the single biggest tactical decision in an Ork game &mdash; call it too early and you waste the buff on a quiet turn, too late and you might not get the charge/melee swing you needed.</p>
+
+      <h4>Detachments (13 available)</h4>
+      <ul>
+        <li><b>War Horde</b> (3DP) &mdash; melee-focused, Sustained Hits 1 on melee weapons</li>
+        <li><b>Green Tide</b> (3DP) &mdash; big infantry mobs with invulnerable saves</li>
+        <li><b>Kult of Speed</b> (2DP) &mdash; shoot/charge after Advancing or Falling Back &mdash; good with the Wartrakk from the Armageddon box</li>
+        <li><b>Dread Mob</b> (2DP) &mdash; random bonus effects for Walkers and Meks, fits the Big Mek Dakkarig</li>
+        <li><b>Bully Boyz</b> (2DP) &mdash; a second Waaagh! for elite units, Nobz/Meganobz focused</li>
+        <li><b>Da Big Hunt</b> (2DP) &mdash; Beast Snagga hunting mechanics</li>
+        <li><b>Freebooter Krew</b> (2DP) &mdash; objective control bonuses tied to "loot"</li>
+        <li><b>Speedwaaagh!</b> (2DP) &mdash; vehicle turbo-boost mechanics</li>
+        <li><b>Blitz Brigade</b> (2DP) &mdash; transport-focused, bonus charges after disembarking</li>
+        <li><b>More Dakka!</b> (1DP) &mdash; Assault weapons on infantry, Sustained Hits during a Waaagh!</li>
+        <li><b>Rollin' Deff</b> (1DP) &mdash; heavy wagon vehicles, reroll charges</li>
+        <li><b>Taktikal Brigade</b> (1DP) &mdash; Blood Axe-flavoured tactical retreats/reserves</li>
+        <li><b>Equatorial Hordes</b> (1DP) &mdash; jungle-themed Scout/healing mechanics</li>
+      </ul>
+
+      <div class="faction-callout">
+        <p class="cal-label">🔄 Changed from 10th Edition</p>
+        <p>Waaagh! itself is a similar idea to 10th edition's version, but now it also grants a straight-up 5+ invulnerable save army-wide for its duration, on top of the melee buffs &mdash; a bigger, more universally useful boost than the 10th-edition version.</p>
+      </div>
+      <div class="faction-callout">
+        <p class="cal-label">🔄 Changed from 10th Edition</p>
+        <p>10th edition Orks had a smaller, fixed set of detachments. 11th's 13-detachment spread means you're not locked into one Ork "playstyle" for the whole army the way you were &mdash; and since you can combine multiple detachments now (see Building an Army), you could realistically run, say, a Kult of Speed vehicle spearhead alongside a Green Tide infantry block in the same list.</p>
+      </div>
+      <div class="faction-callout">
+        <p class="cal-label">🔄 Changed from 10th Edition</p>
+        <p>Ork Boyz now carry a Shoota <i>and</i> a Slugga/Choppa combo simultaneously on the updated datasheet from the Armageddon box, rather than the player choosing a Shoota-armed or Slugga/Choppa-armed loadout as in 10th &mdash; check the current Boyz datasheet on Wahapedia for the exact current wargear options.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8: Tyranids -->
+  <section class="sec" id="tyranids">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Tyranids</h2></div>
+    <div class="faction nid">
+      <h4>Army rules: Synapse &amp; Shadow in the Warp</h4>
+      <p><span class="term">Synapse</span>: units within 6" of a friendly SYNAPSE model get two benefits &mdash; they take Battle-shock tests on <b>3D6</b> instead of 2D6 (much less likely to fail), and their melee attacks get <b>+1 Strength</b>.</p>
+      <p><span class="term">Shadow in the Warp</span>: once per battle, during either player's Command phase, force <i>all</i> enemy units to take a Battle-shock test &mdash; enemy units within 6" of your Synapse models take that test at &minus;1.</p>
+
+      <h4>Detachments (10 available)</h4>
+      <ul>
+        <li><b>Invasion Fleet</b> (3DP) &mdash; "Hyper-adaptations" giving rerolls/critical hit bonuses vs. specific target types</li>
+        <li><b>Crusher Stampede</b> (2DP) &mdash; big Monsters get stronger when damaged, and higher OC while healthy</li>
+        <li><b>Unending Swarm</b> (2DP) &mdash; ENDLESS MULTITUDE units surge forward after taking casualties</li>
+        <li><b>Assimilation Swarm</b> (2DP) &mdash; HARVESTER units regenerate nearby friendly units each Command phase</li>
+        <li><b>Vanguard Onslaught</b> (2DP) &mdash; VANGUARD INVADER units can charge after Advancing/Falling Back</li>
+        <li><b>Synaptic Nexus</b> (2DP) &mdash; rotating "Synaptic Imperatives" granting different bonuses each turn</li>
+        <li><b>Subterranean Assault</b> (3DP) &mdash; BURROWER units place tunnel markers to reposition/reinforce</li>
+        <li><b>Ambush Predators</b> (1DP) &mdash; Lictor-type units get Deep Strike and bonuses vs. enemy characters</li>
+        <li><b>Talons of the Norn Queen</b> (1DP) &mdash; Norn Emissary/Assimilator get a "Protean Purpose" ability</li>
+        <li><b>Warrior Bioform Onslaught</b> (1DP) &mdash; Tyranid Warriors gain BATTLELINE and an invulnerable save</li>
+      </ul>
+
+      <div class="faction-callout">
+        <p class="cal-label">🔄 Changed from 10th Edition</p>
+        <p>Synapse's Battle-shock benefit is now specifically "test on 3D6 instead of 2D6" &mdash; a cleaner, more universally strong version of the resilience Synapse gave in 10th, and it stacks nicely with 11th's stricter Battle-shock-removal rule (see the Command Phase section) since your Synapse'd units are much less likely to become battle-shocked in the first place.</p>
+      </div>
+      <div class="faction-callout">
+        <p class="cal-label">🔄 Changed from 10th Edition</p>
+        <p>Like Orks, Tyranids go from a handful of 10th-edition detachments to 10 in 11th, each built around a specific playstyle (burrowing ambush, big Monster stampedes, endless chaff swarms, etc.) &mdash; and since detachments can be combined via the DP system, a Crusher Stampede of big Monsters alongside an Unending Swarm chaff screen is a realistic single-list combo now.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9: Tau -->
+  <section class="sec" id="tau">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">T&rsquo;au Empire</h2></div>
+    <div class="faction tau">
+      <h4>Army rule: For the Greater Good</h4>
+      <p>Some units can act as <span class="term">Observers</span>, marking a visible enemy unit as <span class="term">Spotted</span>. Any other T'au unit shooting a Spotted target gets <b>+1 to hit</b>, and if the Observer was a MARKERLIGHT unit, the shot also gets <span class="eq">[IGNORES COVER]</span>. Coordinating who spots what before you commit to shooting is the core T'au skill.</p>
+
+      <h4>Detachments (7 available)</h4>
+      <ul>
+        <li><b>Kauyon</b> (2DP) &mdash; "Patient Hunter": ranged weapons gain Sustained Hits 1 in rounds 3&ndash;5, and Guided (Spotted-targeting) units ignore hit-roll penalties in that window</li>
+        <li><b>Mont'ka</b> (3DP) &mdash; "Killing Blow": ranged weapons gain [ASSAULT] in rounds 1&ndash;3, and Guided units' weapons gain [LETHAL HITS] in that window &mdash; the aggressive, front-load-the-damage option</li>
+        <li><b>Retaliation Cadre</b> (3DP) &mdash; Battlesuit-focused: +1 Strength within 12" of a target, +1 AP within 8"</li>
+        <li><b>Kroot Hunting Pack</b> (2DP) &mdash; Kroot-focused: bonus hit/wound rolls against weakened targets, and Kroot get a small invulnerable save</li>
+        <li><b>Advanced Acquisition Cadre</b> (1DP) &mdash; Pathfinder/Stealth units stay hidden after shooting</li>
+        <li><b>Auxiliary Cadre</b> (1DP) &mdash; Kroot/Vespid mark prey at extra range; Ghostkeel/Stealth let nearby aliens shoot while hidden</li>
+        <li><b>Experimental Prototype Cadre</b> (1DP) &mdash; Battlesuit characters get +6" weapon range and prototype systems</li>
+      </ul>
+
+      <div class="faction-callout">
+        <p class="cal-label">🔄 Changed from 10th Edition</p>
+        <p>Kauyon and Mont'ka were both familiar 10th-edition Tau detachments and carry over conceptually (patient/defensive vs. aggressive/alpha-strike), but the exact mechanical implementation &mdash; Sustained Hits/removing hit penalties for Kauyon, [ASSAULT]/[LETHAL HITS] for Mont'ka, both tied to specific battle rounds &mdash; is new for 11th. Re-read both detachments rather than assuming they play identically to how you remember them.</p>
+      </div>
+      <div class="faction-callout">
+        <p class="cal-label">🔄 Changed from 10th Edition</p>
+        <p>For the Greater Good's core Spot/Guided loop is the same idea as 10th's markerlight-and-guided-weapons system, but now folds in more cleanly with the general +1 BS-and-cover-ignoring bonus rather than needing separate markerlight counters tracked per model &mdash; check the current exact wording on Wahapedia, since the streamlining changed some of the fiddly bookkeeping from 10th.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10: Space Marines -->
+  <section class="sec" id="marines">
+    <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">Space Marines &mdash; a quick note for Eric</h2></div>
+    <div class="faction sm">
+      <p>Since Eric wants to try the Marines that came in the Armageddon box at least once, here's the gist rather than the full depth given to Orks/Tyranids/Tau above.</p>
+      <h4>Army rule: Oath of Moment</h4>
+      <p>At the start of your Command phase, pick one enemy unit as your <span class="term">Oath of Moment</span> target until your next Command phase. Your units can re-roll hit rolls against it, and (if you're not running a specialist Chapter's detachment) also get +1 to wound rolls against it. Simple, but picking the right target each turn matters a lot.</p>
+      <h4>Detachments (12 available)</h4>
+      <p>Gladius Task Force (flexible, rotating doctrine bonuses), Anvil Siege Force (defensive firepower), Ironstorm Spearhead (vehicles), Firestorm Assault Force (close-range assault), Stormlance Task Force (fast mounted charges), Vanguard Spearhead (infiltration/stealth), 1st Company Task Force (Terminator-elite), plus several Indomitus-era options (Bastion Task Force, Orbital Assault Force, Ceramite Sentinels, Armoured Speartip, Headhunter Task Force).</p>
+      <p>For a first game, <b>Gladius Task Force</b> is the most forgiving all-rounder &mdash; it doesn't lock you into one narrow playstyle while you're still learning the models from the box.</p>
+    </div>
+  </section>
+
+  <!-- 11: Cheat sheet -->
+  <section class="sec" id="cheatsheet">
+    <div class="sec-head"><span class="sec-num">11</span><h2 class="sec-title">Quick-reference cheat sheet</h2></div>
+    <div class="cheatsheet">
+      <h4>Turn sequence</h4>
+      <ol>
+        <li><b>Command</b> &mdash; gain 1 CP each; Battle-shock tests; army-rule triggers</li>
+        <li><b>Movement</b> &mdash; every unit: Stationary / Normal / Advance / Fall Back / Disembark-Ingress</li>
+        <li><b>Shooting</b> &mdash; Normal / Assault / Close-quarters / Indirect</li>
+        <li><b>Charge</b> &mdash; declare (within 12"), roll 2D6, move into Engagement Range (2"), gain Fights First</li>
+        <li><b>Fight</b> &mdash; pile in (all) &rarr; fight (Fights First, then rest, alternating) &rarr; consolidate (all)</li>
+      </ol>
+      <h4>Key numbers to remember</h4>
+      <ul>
+        <li>Engagement Range: <b>2"</b> (was 1" in 10th)</li>
+        <li>Reserves/Deep Strike arrival: more than <b>8"</b> from any enemy unit (was 9" in 10th)</li>
+        <li>Unit coherency: 2" to nearest model, <b>and</b> everyone within 9" of everyone else</li>
+        <li>1 stratagem per unit, per phase, maximum</li>
+        <li>Battle-shocked units score <b>zero</b> OC and must actively pass a test to stop being battle-shocked</li>
+        <li>Cover: &minus;1 to the enemy's hit roll against you (not a save bonus)</li>
+      </ul>
+      <h4>Before you play</h4>
+      <ul>
+        <li>Confirm current points &amp; any FAQ/errata on <a class="src" href="https://wahapedia.ru/wh40k11ed/" target="_blank" rel="noopener" style="color:#F3A6C4;">Wahapedia</a> &mdash; rules get tweaked after launch</li>
+        <li>Agree your battle size and each player's Force Disposition before deploying</li>
+        <li>Double-check any exact CP costs/stratagem wording quoted above at the table &mdash; a few numbers here are drawn from early post-launch coverage and could shift with errata</li>
+      </ul>
+    </div>
+    <p class="footnote">Sources: Wahapedia 11th Edition core rules &amp; faction pages (wahapedia.ru/wh40k11ed), Warhammer Community's 11th Edition core rules announcement, and 11th-edition rules-change roundups from Wargamer and GrimSlate. Where a specific number couldn't be confirmed from a primary source, this guide says so rather than guessing &mdash; check Wahapedia for the current official value.</p>
+  </section>
+
+</div>
 
 </body>
 </html>
