@@ -1,0 +1,270 @@
+<style>
+  #ls18-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --acc: #B5762A; --acc-soft: #F1E3CE;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls18-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls18-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls18-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls18-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls18-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls18-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls18-section { margin-bottom: 26px; }
+  .ls18-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls18-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls18-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls18-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls18-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls18-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls18-card p:last-child { margin-bottom: 0; }
+  .ls18-card ul { margin: 0 0 10px; padding-left: 20px; font-size: 13.5px; line-height: 1.6; }
+  .ls18-term { font-weight: 600; color: var(--maths); }
+  .ls18-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls18-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls18-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls18-table-wrap th, .ls18-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls18-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls18-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls18-activity { background: var(--acc-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls18-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls18-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls18-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls18-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls18-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls18-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls18-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls18-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls18-feedback.ok { color: #2E6B45; }
+  .ls18-feedback.no { color: #A34B4B; }
+
+  .ls18-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls18-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls18-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls18-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls18-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--acc); background: none; border: 1.5px solid var(--acc); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls18-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--acc); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls18-answer.show { display: block; }
+
+  .ls18-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls18-root">
+  <p class="ls18-eyebrow">GCSE Maths &middot; Ratio, Proportion &amp; Rates of Change</p>
+  <h1 class="ls18-title">Ratio &amp; Proportion</h1>
+  <div class="ls18-meta">
+    <span><span class="ls18-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>60 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls18-section">
+    <div class="ls18-section-head">
+      <span class="ls18-section-num">01</span>
+      <h2 class="ls18-section-title">Simplifying ratios</h2>
+      <span class="ls18-section-time">10 min</span>
+    </div>
+    <div class="ls18-card">
+      <p>A <span class="ls18-term">ratio</span> compares two or more quantities. It's written with a colon, e.g. 3:5.</p>
+      <p>To <span class="ls18-term">simplify</span> a ratio, divide every part by the same number &mdash; their <strong>highest common factor</strong> &mdash; just like simplifying a fraction.</p>
+      <p>15:20 &nbsp;&rarr;&nbsp; divide both by 5 &nbsp;&rarr;&nbsp; <strong>3:4</strong></p>
+      <p>If the quantities have <span class="ls18-term">different units</span>, convert to the same unit first, then simplify.</p>
+      <p>2 kg : 500 g &nbsp;&rarr;&nbsp; 2000 g : 500 g &nbsp;&rarr;&nbsp; divide both by 500 &nbsp;&rarr;&nbsp; <strong>4:1</strong></p>
+      <p>A ratio can also be written in the form <span class="ls18-eq">1 : n</span> (or <span class="ls18-eq">n : 1</span>) by dividing both sides by one of the parts &mdash; useful for comparing ratios quickly.</p>
+      <p>8:20 &nbsp;&rarr;&nbsp; divide both by 8 &nbsp;&rarr;&nbsp; <strong>1 : 2.5</strong></p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls18-section">
+    <div class="ls18-section-head">
+      <span class="ls18-section-num">&bull;</span>
+      <h2 class="ls18-section-title">Activity &mdash; simplify the ratio</h2>
+      <span class="ls18-section-time">8 min</span>
+    </div>
+    <div class="ls18-activity" data-activity="1">
+      <p class="ls18-activity-label">Type like 3:4 (no spaces)</p>
+      <div class="ls18-blank-row"><label>Simplify 12:16</label><input type="text" data-answer="3:4"></div>
+      <div class="ls18-blank-row"><label>Simplify 45:18</label><input type="text" data-answer="5:2"></div>
+      <div class="ls18-blank-row"><label>Simplify 3 kg : 750 g</label><input type="text" data-answer="4:1"></div>
+      <div class="ls18-blank-row"><label>Write 8:12 in the form 1:n</label><input type="text" data-answer="1:1.5"></div>
+      <button class="ls18-check-btn" id="ls18-check-1">Check answers</button>
+      <p class="ls18-feedback" id="ls18-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls18-section">
+    <div class="ls18-section-head">
+      <span class="ls18-section-num">02</span>
+      <h2 class="ls18-section-title">Sharing in a given ratio</h2>
+      <span class="ls18-section-time">12 min</span>
+    </div>
+    <div class="ls18-card">
+      <p>To split an amount in a given ratio:</p>
+      <p style="padding-left:14px">1. Add up the ratio parts to find the <strong>total number of parts</strong>.</p>
+      <p style="padding-left:14px">2. Divide the amount by the total parts to find <strong>what one part is worth</strong>.</p>
+      <p style="padding-left:14px">3. Multiply that back up for each share.</p>
+      <p>Worked example: share &pound;60 in the ratio 2:3:5</p>
+      <p style="padding-left:14px">Total parts = 2 + 3 + 5 = 10</p>
+      <p style="padding-left:14px">1 part = &pound;60 &divide; 10 = &pound;6</p>
+      <p style="padding-left:14px">Shares: 2 &times; &pound;6 = <strong>&pound;12</strong>, 3 &times; &pound;6 = <strong>&pound;18</strong>, 5 &times; &pound;6 = <strong>&pound;30</strong></p>
+      <p style="padding-left:14px">Check: &pound;12 + &pound;18 + &pound;30 = &pound;60 &#10003;</p>
+      <p><span class="ls18-term">Working backwards</span>: if you're told one share, divide it by its number of parts to find the value of 1 part, then use that to find the total.</p>
+      <p>Two amounts are shared in the ratio 3:4. The larger share is &pound;48. &nbsp;&rarr;&nbsp; 4 parts = &pound;48 &nbsp;&rarr;&nbsp; 1 part = &pound;12 &nbsp;&rarr;&nbsp; total (7 parts) = <strong>&pound;84</strong></p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls18-section">
+    <div class="ls18-section-head">
+      <span class="ls18-section-num">&bull;</span>
+      <h2 class="ls18-section-title">Activity &mdash; share the amount</h2>
+      <span class="ls18-section-time">10 min</span>
+    </div>
+    <div class="ls18-activity maths" data-activity="2">
+      <p class="ls18-activity-label">Type the number only (no &pound; sign)</p>
+      <div class="ls18-blank-row"><label>Share &pound;40 in the ratio 1:3 &nbsp;&mdash;&nbsp; smaller share =</label><input type="text" data-answer="10"></div>
+      <div class="ls18-blank-row"><label>Share &pound;90 in the ratio 2:3:4 &nbsp;&mdash;&nbsp; middle share =</label><input type="text" data-answer="30"></div>
+      <div class="ls18-blank-row"><label>Share 120 sweets in the ratio 1:2:3 &nbsp;&mdash;&nbsp; largest share =</label><input type="text" data-answer="60"></div>
+      <button class="ls18-check-btn" id="ls18-check-2">Check answers</button>
+      <p class="ls18-feedback" id="ls18-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls18-section">
+    <div class="ls18-section-head">
+      <span class="ls18-section-num">03</span>
+      <h2 class="ls18-section-title">Direct proportion</h2>
+      <span class="ls18-section-time">12 min</span>
+    </div>
+    <div class="ls18-card">
+      <p>Two quantities are in <span class="ls18-term">direct proportion</span> when they increase (or decrease) at the same rate &mdash; double one, and the other doubles too. This is written <span class="ls18-eq">y = kx</span>, where k is a fixed number.</p>
+      <p>Most GCSE direct proportion problems use the <span class="ls18-term">unitary method</span>: find the value of <strong>1 unit</strong>, then scale up to whatever you need.</p>
+      <p>5 pens cost &pound;3.50. Find the cost of 8 pens.</p>
+      <p style="padding-left:14px">1 pen = &pound;3.50 &divide; 5 = &pound;0.70 &nbsp;&rarr;&nbsp; 8 pens = 8 &times; &pound;0.70 = <strong>&pound;5.60</strong></p>
+      <p>A recipe for 4 people needs 200 g of rice. How much for 10 people?</p>
+      <p style="padding-left:14px">1 person = 200 &divide; 4 = 50 g &nbsp;&rarr;&nbsp; 10 people = 10 &times; 50 = <strong>500 g</strong></p>
+      <p><span class="ls18-term">Best buy</span> questions use the same idea &mdash; find the price <em>per single item</em> (or per 100g/per litre) for each option, then compare.</p>
+      <p>Shop A: 6 apples for &pound;2.40 (&pound;0.40 each). Shop B: 10 apples for &pound;3.80 (&pound;0.38 each). &nbsp;&rarr;&nbsp; <strong>Shop B</strong> is better value.</p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls18-section">
+    <div class="ls18-section-head">
+      <span class="ls18-section-num">04</span>
+      <h2 class="ls18-section-title">Inverse proportion</h2>
+      <span class="ls18-section-time">10 min</span>
+    </div>
+    <div class="ls18-card">
+      <p>Two quantities are in <span class="ls18-term">inverse proportion</span> when one increases as the other <strong>decreases</strong> at a matching rate &mdash; double one, and the other halves. This is written <span class="ls18-eq">y = k &divide; x</span> (equivalently xy = k, a constant).</p>
+      <p>Classic examples: more workers &rarr; less time to finish a job; faster speed &rarr; less time for a fixed journey.</p>
+      <p>It takes 4 workers 15 hours to build a wall, all working at the same rate. How long would 6 workers take?</p>
+      <p style="padding-left:14px">Total "worker-hours" needed = 4 &times; 15 = 60</p>
+      <p style="padding-left:14px">6 workers: 60 &divide; 6 = <strong>10 hours</strong></p>
+      <p>y is inversely proportional to x. When x = 5, y = 12. Find y when x = 3.</p>
+      <p style="padding-left:14px">k = xy = 5 &times; 12 = 60 &nbsp;&rarr;&nbsp; y = 60 &divide; 3 = <strong>20</strong></p>
+      <p><span class="ls18-term">Spotting the difference</span>: if the question says quantities change <em>together</em> (both up or both down), it's direct. If one goes up while the other goes down, it's inverse.</p>
+    </div>
+  </div>
+
+  <!-- 5 GCSE questions -->
+  <div class="ls18-section">
+    <div class="ls18-section-head">
+      <span class="ls18-section-num">05</span>
+      <h2 class="ls18-section-title">GCSE-style review questions</h2>
+      <span class="ls18-section-time">16 min</span>
+    </div>
+
+    <div class="ls18-q">
+      <div class="ls18-q-top"><p class="ls18-q-text">1. Simplify the ratio 45:18.</p><span class="ls18-q-marks">[1 mark]</span></div>
+      <button class="ls18-reveal-btn" data-reveal="p1">Show mark scheme</button>
+      <div class="ls18-answer" id="p1">Divide both by 9 &rarr; <strong>5:2</strong> (1)</div>
+    </div>
+
+    <div class="ls18-q">
+      <div class="ls18-q-top"><p class="ls18-q-text">2. Share &pound;84 in the ratio 2:5.</p><span class="ls18-q-marks">[2 marks]</span></div>
+      <button class="ls18-reveal-btn" data-reveal="p2">Show mark scheme</button>
+      <div class="ls18-answer" id="p2">84 &divide; 7 = &pound;12 (1) &nbsp; shares = <strong>&pound;24 : &pound;60</strong> (1)</div>
+    </div>
+
+    <div class="ls18-q">
+      <div class="ls18-q-top"><p class="ls18-q-text">3. A shop sells 6 apples for &pound;2.40 and a market stall sells 10 apples for &pound;3.80. Which offers better value? Show your working.</p><span class="ls18-q-marks">[3 marks]</span></div>
+      <button class="ls18-reveal-btn" data-reveal="p3">Show mark scheme</button>
+      <div class="ls18-answer" id="p3">Shop: 2.40 &divide; 6 = &pound;0.40 per apple (1) &nbsp; Stall: 3.80 &divide; 10 = &pound;0.38 per apple (1) &nbsp; <strong>Market stall</strong> is better value, it's cheaper per apple (1)</div>
+    </div>
+
+    <div class="ls18-q">
+      <div class="ls18-q-top"><p class="ls18-q-text">4. It takes 4 workers 15 hours to build a wall, all working at the same rate. How long would it take 6 workers?</p><span class="ls18-q-marks">[3 marks]</span></div>
+      <button class="ls18-reveal-btn" data-reveal="p4">Show mark scheme</button>
+      <div class="ls18-answer" id="p4">Worker-hours = 4 &times; 15 = 60 (1) &nbsp; 60 &divide; 6 (1) &nbsp; = <strong>10 hours</strong> (1)</div>
+    </div>
+
+    <div class="ls18-q">
+      <div class="ls18-q-top"><p class="ls18-q-text">5. y is inversely proportional to x. When x = 5, y = 12. Find y when x = 3.</p><span class="ls18-q-marks">[2 marks]</span></div>
+      <button class="ls18-reveal-btn" data-reveal="p5">Show mark scheme</button>
+      <div class="ls18-answer" id="p5">k = 5 &times; 12 = 60 (1) &nbsp; y = 60 &divide; 3 = <strong>20</strong> (1)</div>
+    </div>
+  </div>
+
+  <p class="ls18-footer-note">Tip: read the question carefully to decide direct or inverse before you start &mdash; "the more/faster ... the less/fewer" is your inverse-proportion signal.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls18-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls18-root .ls18-activity[data-activity="1"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls18-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls18-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls18-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls18-root .ls18-activity[data-activity="2"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls18-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls18-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls18-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

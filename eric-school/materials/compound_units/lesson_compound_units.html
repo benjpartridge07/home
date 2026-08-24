@@ -1,0 +1,345 @@
+<style>
+  #ls19-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --acc: #B5762A; --acc-soft: #F1E3CE;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls19-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls19-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls19-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls19-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls19-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls19-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls19-section { margin-bottom: 26px; }
+  .ls19-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls19-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls19-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls19-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls19-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls19-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls19-card p:last-child { margin-bottom: 0; }
+  .ls19-term { font-weight: 600; color: var(--maths); }
+  .ls19-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls19-triangle-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .ls19-triangle-wrap svg { max-width: 220px; width: 100%; height: auto; }
+
+  .ls19-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls19-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls19-table-wrap th, .ls19-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls19-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls19-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls19-activity { background: var(--acc-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls19-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls19-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls19-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls19-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls19-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls19-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls19-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls19-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls19-feedback.ok { color: #2E6B45; }
+  .ls19-feedback.no { color: #A34B4B; }
+
+  .ls19-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls19-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls19-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls19-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls19-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--acc); background: none; border: 1.5px solid var(--acc); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls19-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--acc); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls19-answer.show { display: block; }
+
+  .ls19-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls19-root">
+  <p class="ls19-eyebrow">GCSE Maths &middot; Ratio, Proportion &amp; Rates of Change</p>
+  <h1 class="ls19-title">Compound Units: Speed, Density &amp; Pressure</h1>
+  <div class="ls19-meta">
+    <span><span class="ls19-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>60 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">01</span>
+      <h2 class="ls19-section-title">What is a compound unit?</h2>
+      <span class="ls19-section-time">6 min</span>
+    </div>
+    <div class="ls19-card">
+      <p>A <span class="ls19-term">compound unit</span> is made by dividing (or combining) two other units &mdash; e.g. metres <em>per</em> second, grams <em>per</em> cm&sup3;, newtons <em>per</em> m&sup2;. The word &ldquo;per&rdquo; is your clue that a compound unit is being used.</p>
+      <p>All three formulas on this page have <span class="ls19-term">exactly the same shape</span>: one quantity &divide; another quantity. Once you can rearrange one of them, you can rearrange all three.</p>
+    </div>
+  </div>
+
+  <!-- 2 speed -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">02</span>
+      <h2 class="ls19-section-title">Speed = distance &divide; time</h2>
+      <span class="ls19-section-time">10 min</span>
+    </div>
+    <div class="ls19-card">
+      <p><span class="ls19-eq">speed = distance &divide; time</span> &nbsp;&mdash;&nbsp; measured in m/s (metres per second) or km/h (kilometres per hour), depending on the units of distance and time you're given.</p>
+      <p>Worked example: a runner covers 200 m in 25 s.</p>
+      <p style="padding-left:14px">speed = 200 &divide; 25 = <strong>8 m/s</strong></p>
+    </div>
+    <div class="ls19-triangle-wrap">
+      <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="150,20 20,230 280,230" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <line x1="20" y1="150" x2="280" y2="150" stroke="#23201A" stroke-width="2"/>
+        <line x1="150" y1="150" x2="150" y2="230" stroke="#23201A" stroke-width="2"/>
+        <text x="150" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="28" font-weight="600" fill="#B5762A">D</text>
+        <text x="150" y="140" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">distance</text>
+        <text x="85" y="200" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="24" font-weight="600" fill="#3A5E85">S</text>
+        <text x="85" y="220" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">speed</text>
+        <text x="215" y="200" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="24" font-weight="600" fill="#3A5E85">T</text>
+        <text x="215" y="220" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">time</text>
+      </svg>
+    </div>
+    <div class="ls19-card">
+      <p><span class="ls19-term">Formula triangle:</span> cover the letter you want &mdash; cover D and you see S next to T (multiply: D = S &times; T); cover S and you see D over T (divide: S = D &divide; T); cover T and you see D over S (divide: T = D &divide; S).</p>
+      <p>Rearranged example: a car travels at 30 m/s for 12 s &mdash; distance = speed &times; time = 30 &times; 12 = <strong>360 m</strong>. A cyclist covers 45 km at 15 km/h &mdash; time = distance &divide; speed = 45 &divide; 15 = <strong>3 hours</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">&bull;</span>
+      <h2 class="ls19-section-title">Activity &mdash; speed, distance, time</h2>
+      <span class="ls19-section-time">8 min</span>
+    </div>
+    <div class="ls19-activity" data-activity="1">
+      <p class="ls19-activity-label">Give units too, e.g. 8m/s or 360m</p>
+      <div class="ls19-blank-row"><label>Distance 150 m, time 30 s &rarr; speed =</label><input type="text" data-answer="5m/s"></div>
+      <div class="ls19-blank-row"><label>Speed 20 m/s, time 9 s &rarr; distance =</label><input type="text" data-answer="180m"></div>
+      <div class="ls19-blank-row"><label>Distance 100 km, speed 40 km/h &rarr; time =</label><input type="text" data-answer="2.5hours"></div>
+      <div class="ls19-blank-row"><label>Speed 12 m/s, time 5 s &rarr; distance =</label><input type="text" data-answer="60m"></div>
+      <button class="ls19-check-btn" id="ls19-check-1">Check answers</button>
+      <p class="ls19-feedback" id="ls19-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 3 density -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">03</span>
+      <h2 class="ls19-section-title">Density = mass &divide; volume</h2>
+      <span class="ls19-section-time">9 min</span>
+    </div>
+    <div class="ls19-card">
+      <p><span class="ls19-eq">density = mass &divide; volume</span> &nbsp;&mdash;&nbsp; measured in g/cm&sup3; or kg/m&sup3;. The same formula triangle idea works: cover mass to multiply (m = &rho; &times; V), cover density or volume to divide.</p>
+      <p>Worked example: a block has mass 54 g and volume 20 cm&sup3;.</p>
+      <p style="padding-left:14px">density = 54 &divide; 20 = <strong>2.7 g/cm&sup3;</strong></p>
+      <p>Rearranged example: a liquid has density 0.8 g/cm&sup3; and volume 50 cm&sup3; &mdash; mass = density &times; volume = 0.8 &times; 50 = <strong>40 g</strong>.</p>
+    </div>
+  </div>
+
+  <!-- 4 pressure -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">04</span>
+      <h2 class="ls19-section-title">Pressure = force &divide; area</h2>
+      <span class="ls19-section-time">10 min</span>
+    </div>
+    <div class="ls19-card">
+      <p><span class="ls19-eq">pressure = force &divide; area</span> &nbsp;&mdash;&nbsp; measured in N/m&sup2;, which has its own name: the <strong>pascal (Pa)</strong>. 1 Pa = 1 N/m&sup2;.</p>
+      <p>Worked example: a force of 300 N acts on an area of 0.5 m&sup2;.</p>
+      <p style="padding-left:14px">pressure = 300 &divide; 0.5 = <strong>600 Pa</strong></p>
+    </div>
+    <div class="ls19-triangle-wrap">
+      <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="150,20 20,230 280,230" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <line x1="20" y1="150" x2="280" y2="150" stroke="#23201A" stroke-width="2"/>
+        <line x1="150" y1="150" x2="150" y2="230" stroke="#23201A" stroke-width="2"/>
+        <text x="150" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="28" font-weight="600" fill="#B5762A">F</text>
+        <text x="150" y="140" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">force</text>
+        <text x="85" y="200" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="24" font-weight="600" fill="#3A5E85">P</text>
+        <text x="85" y="220" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">pressure</text>
+        <text x="215" y="200" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="24" font-weight="600" fill="#3A5E85">A</text>
+        <text x="215" y="220" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#6B6355">area</text>
+      </svg>
+    </div>
+    <div class="ls19-card">
+      <p>For the same force, a <span class="ls19-term">smaller area gives a bigger pressure</span> &mdash; that's why a sharp knife (small contact area) cuts more easily than a blunt one (large contact area), and why snowshoes (large area) stop you sinking into snow.</p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">&bull;</span>
+      <h2 class="ls19-section-title">Activity &mdash; density &amp; pressure</h2>
+      <span class="ls19-section-time">8 min</span>
+    </div>
+    <div class="ls19-activity maths" data-activity="2">
+      <p class="ls19-activity-label">Give units too, e.g. 2.7g/cm3 or 600Pa</p>
+      <div class="ls19-blank-row"><label>Mass 80 g, volume 40 cm&sup3; &rarr; density =</label><input type="text" data-answer="2g/cm3"></div>
+      <div class="ls19-blank-row"><label>Density 3 g/cm&sup3;, mass 90 g &rarr; volume =</label><input type="text" data-answer="30cm3"></div>
+      <div class="ls19-blank-row"><label>Force 400 N, area 2 m&sup2; &rarr; pressure =</label><input type="text" data-answer="200Pa"></div>
+      <div class="ls19-blank-row"><label>Pressure 500 Pa, area 0.2 m&sup2; &rarr; force =</label><input type="text" data-answer="100N"></div>
+      <button class="ls19-check-btn" id="ls19-check-2">Check answers</button>
+      <p class="ls19-feedback" id="ls19-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 5 converting -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">05</span>
+      <h2 class="ls19-section-title">Converting compound units</h2>
+      <span class="ls19-section-time">12 min</span>
+    </div>
+    <div class="ls19-card">
+      <p><span class="ls19-term">Speed &mdash; km/h &harr; m/s:</span> 1 km/h = 1000 m &divide; 3600 s, so to convert km/h &rarr; m/s, <strong>&divide; 3.6</strong>; to convert m/s &rarr; km/h, <strong>&times; 3.6</strong>.</p>
+      <p style="padding-left:14px">72 km/h &divide; 3.6 = <strong>20 m/s</strong> &nbsp;&middot;&nbsp; 15 m/s &times; 3.6 = <strong>54 km/h</strong></p>
+      <p><span class="ls19-term">Density &mdash; g/cm&sup3; &harr; kg/m&sup3;:</span> 1 g/cm&sup3; = 1000 kg/m&sup3;, so to convert g/cm&sup3; &rarr; kg/m&sup3;, <strong>&times; 1000</strong>; kg/m&sup3; &rarr; g/cm&sup3;, <strong>&divide; 1000</strong>.</p>
+      <p style="padding-left:14px">2.7 g/cm&sup3; &times; 1000 = <strong>2700 kg/m&sup3;</strong></p>
+      <p><span class="ls19-term">Area for pressure &mdash; cm&sup2; &harr; m&sup2;:</span> 1 m&sup2; = 10 000 cm&sup2; (100 cm &times; 100 cm), so cm&sup2; &rarr; m&sup2; is <strong>&divide; 10 000</strong>, and m&sup2; &rarr; cm&sup2; is <strong>&times; 10 000</strong>.</p>
+    </div>
+    <div class="ls19-table-wrap">
+      <table>
+        <tr><th>Conversion</th><th>Rule</th></tr>
+        <tr><td>km/h &rarr; m/s</td><td>&divide; 3.6</td></tr>
+        <tr><td>m/s &rarr; km/h</td><td>&times; 3.6</td></tr>
+        <tr><td>g/cm&sup3; &rarr; kg/m&sup3;</td><td>&times; 1000</td></tr>
+        <tr><td>kg/m&sup3; &rarr; g/cm&sup3;</td><td>&divide; 1000</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity 3 -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">&bull;</span>
+      <h2 class="ls19-section-title">Activity &mdash; converting units</h2>
+      <span class="ls19-section-time">7 min</span>
+    </div>
+    <div class="ls19-activity" data-activity="3">
+      <p class="ls19-activity-label">Give units too, e.g. 20m/s</p>
+      <div class="ls19-blank-row"><label>Convert 36 km/h to m/s &rarr;</label><input type="text" data-answer="10m/s"></div>
+      <div class="ls19-blank-row"><label>Convert 25 m/s to km/h &rarr;</label><input type="text" data-answer="90km/h"></div>
+      <div class="ls19-blank-row"><label>Convert 1.2 g/cm&sup3; to kg/m&sup3; &rarr;</label><input type="text" data-answer="1200kg/m3"></div>
+      <button class="ls19-check-btn" id="ls19-check-3">Check answers</button>
+      <p class="ls19-feedback" id="ls19-feedback-3"></p>
+    </div>
+  </div>
+
+  <!-- 6 GCSE questions -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">06</span>
+      <h2 class="ls19-section-title">GCSE-style review questions</h2>
+      <span class="ls19-section-time">15 min</span>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">1. A cyclist travels 12 km in 40 minutes. Calculate their average speed in km/h, then convert your answer to m/s.</p><span class="ls19-q-marks">[3 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="p1">Show mark scheme</button>
+      <div class="ls19-answer" id="p1">40 min = 2/3 hour, speed = 12 &divide; (2/3) = <strong>18 km/h</strong> (1) &nbsp; 18 &divide; 3.6 (1) &nbsp; = <strong>5 m/s</strong> (1)</div>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">2. A block has mass 250 g and volume 100 cm&sup3;. Calculate its density in g/cm&sup3;, then convert your answer to kg/m&sup3;.</p><span class="ls19-q-marks">[2 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="p2">Show mark scheme</button>
+      <div class="ls19-answer" id="p2">density = 250 &divide; 100 = <strong>2.5 g/cm&sup3;</strong> (1) &nbsp; &times; 1000 = <strong>2500 kg/m&sup3;</strong> (1)</div>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">3. A force of 150 N acts on an area of 0.03 m&sup2;. Calculate the pressure.</p><span class="ls19-q-marks">[2 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="p3">Show mark scheme</button>
+      <div class="ls19-answer" id="p3">pressure = 150 &divide; 0.03 (1) &nbsp; = <strong>5000 Pa</strong> (1)</div>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">4. Explain, using the pressure formula, why a drawing pin has a very sharp point.</p><span class="ls19-q-marks">[2 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="p4">Show mark scheme</button>
+      <div class="ls19-answer" id="p4">A sharp point has a very small area (1) &nbsp; for a given force, a smaller area produces a much larger pressure (pressure = force &divide; area), which pushes the pin into the surface more easily (1)</div>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">5. A liquid has density 0.9 g/cm&sup3;. Calculate the mass of 200 cm&sup3; of this liquid.</p><span class="ls19-q-marks">[2 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="p5">Show mark scheme</button>
+      <div class="ls19-answer" id="p5">mass = density &times; volume = 0.9 &times; 200 (1) &nbsp; = <strong>180 g</strong> (1)</div>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">6. A car travels at a constant speed of 90 km/h. Convert this speed to m/s, then calculate how far the car travels in 20 seconds.</p><span class="ls19-q-marks">[3 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="p6">Show mark scheme</button>
+      <div class="ls19-answer" id="p6">90 &divide; 3.6 (1) &nbsp; = <strong>25 m/s</strong> (1) &nbsp; distance = 25 &times; 20 = <strong>500 m</strong> (1)</div>
+    </div>
+  </div>
+
+  <p class="ls19-footer-note">Tip: all three formulas share one shape (quantity &divide; quantity) &mdash; learn the "cover it up" triangle trick for speed, and it works for density and pressure too. Always check your units match before converting, and give units in every answer.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, '').replace(/hours?/, 'hours'); }
+
+  document.getElementById('ls19-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls19-root .ls19-activity[data-activity="1"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls19-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls19-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls19-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls19-root .ls19-activity[data-activity="2"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls19-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls19-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls19-check-3').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls19-root .ls19-activity[data-activity="3"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls19-feedback-3');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls19-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls19-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>
