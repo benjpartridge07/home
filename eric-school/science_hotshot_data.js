@@ -11,9 +11,9 @@ const SCIENCE_TOPICS = [
   { id: "bio_cells4", subject: "bio", label: "Cell Specialisation", status: "done" },
   { id: "bio_body1", subject: "bio", label: "Human Body Systems, Part 1: Breathing & Transport", status: "done" },
   { id: "bio_body2", subject: "bio", label: "Human Body Systems, Part 2: Digestion & Control", status: "done" },
-  { id: "bio_plants1", subject: "bio", label: "Plants, Part 1: Structure & Transpiration", status: "upcoming" },
-  { id: "bio_plants2", subject: "bio", label: "Plants, Part 2: Photosynthesis", status: "upcoming" },
-  { id: "bio_health1", subject: "bio", label: "Lifestyle & Health, Part 1: Disease Risk", status: "upcoming" },
+  { id: "bio_plants1", subject: "bio", label: "Plants, Part 1: Structure & Transpiration", status: "done" },
+  { id: "bio_plants2", subject: "bio", label: "Plants, Part 2: Photosynthesis", status: "done" },
+  { id: "bio_health1", subject: "bio", label: "Lifestyle & Health, Part 1: Disease Risk", status: "done" },
   { id: "bio_health2", subject: "bio", label: "Lifestyle & Health, Part 2: Hormones", status: "upcoming" },
   { id: "bio_disease1", subject: "bio", label: "Disease, Part 1: Infection & Defence", status: "upcoming" },
   { id: "bio_disease2", subject: "bio", label: "Disease, Part 2: Treatment & Technology", status: "upcoming" },
@@ -65,6 +65,25 @@ const SCIENCE_QUESTIONS = [
   { s: "bio", t: "bio_body2", q: "What is the main role of the small intestine?", a: "It absorbs digested food (nutrients) into the blood." },
   { s: "bio", t: "bio_body2", q: "Which hormone controls blood glucose by letting cells take up glucose?", a: "Insulin." },
   { s: "bio", t: "bio_body2", q: "Which gland produces insulin?", a: "The pancreas." },
+
+  // Biology — Plants, Part 1: Structure & Transpiration
+  { s: "bio", t: "bio_plants1", q: "What is the function of root hair cells?", a: "They absorb water and mineral ions from the soil — their shape gives a large surface area." },
+  { s: "bio", t: "bio_plants1", q: "What does xylem transport, and in which direction?", a: "Water and dissolved mineral ions, one way only — from the roots up to the leaves." },
+  { s: "bio", t: "bio_plants1", q: "What does phloem transport, and in which direction(s)?", a: "Dissolved sugars (mainly sucrose), in both directions — this is called translocation." },
+  { s: "bio", t: "bio_plants1", q: "What is transpiration?", a: "The loss of water vapour from a plant's leaves, mainly through the stomata, by evaporation and diffusion." },
+  { s: "bio", t: "bio_plants1", q: "Name two factors that increase the rate of transpiration.", a: "Higher temperature, lower humidity, more air movement (wind), or higher light intensity (any two)." },
+
+  // Biology — Plants, Part 2: Photosynthesis
+  { s: "bio", t: "bio_plants2", q: "Write the word equation for photosynthesis.", a: "Carbon dioxide + water → glucose + oxygen (using light energy, absorbed by chlorophyll, in the chloroplasts)." },
+  { s: "bio", t: "bio_plants2", q: "What pigment absorbs light energy for photosynthesis, and where is it found?", a: "Chlorophyll, found inside chloroplasts." },
+  { s: "bio", t: "bio_plants2", q: "What is a limiting factor in photosynthesis?", a: "Whichever factor (light intensity, CO2 concentration, or temperature) is in shortest supply, stopping the rate rising further even if the other factors increase." },
+  { s: "bio", t: "bio_plants2", q: "What does a magnesium deficiency cause in a plant, and why?", a: "Yellow leaves (chlorosis) — magnesium is needed to make chlorophyll." },
+
+  // Biology — Lifestyle & Health, Part 1: Disease Risk
+  { s: "bio", t: "bio_health1", q: "What's the difference between a communicable and a non-communicable disease?", a: "A communicable disease is caused by a pathogen and can spread between people; a non-communicable disease can't spread — it develops from genetic, lifestyle and/or environmental factors." },
+  { s: "bio", t: "bio_health1", q: "Give two risk factors linked to cardiovascular disease.", a: "Smoking, poor diet, lack of exercise, or obesity (any two)." },
+  { s: "bio", t: "bio_health1", q: "What do statins do?", a: "They reduce blood cholesterol, slowing the build-up of fatty deposits in the arteries." },
+  { s: "bio", t: "bio_health1", q: "What is homeostasis?", a: "The maintenance of a constant internal environment, e.g. body temperature, blood glucose, and water content." },
 
   // Chemistry — General KS3/GCSE Foundations
   { s: "chem", t: "chem_general", q: "What are the three states of matter?", a: "Solid, liquid, and gas." },
