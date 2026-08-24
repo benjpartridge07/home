@@ -1,0 +1,259 @@
+<style>
+  #ls19-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --bio: #2F8B57; --bio-soft: #DFF0E5;
+    --risk: #B0532E; --risk-soft: #F6E4DB;
+    --treat: #3A5E85; --treat-soft: #DDE6EF;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls19-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls19-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls19-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls19-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls19-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls19-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls19-section { margin-bottom: 26px; }
+  .ls19-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls19-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls19-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls19-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls19-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls19-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls19-card p:last-child { margin-bottom: 0; }
+  .ls19-term { font-weight: 600; color: var(--bio); }
+  .ls19-term-risk { font-weight: 600; color: var(--risk); }
+  .ls19-term-treat { font-weight: 600; color: var(--treat); }
+
+  .ls19-wide-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls19-wide-card ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.6; }
+
+  .ls19-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls19-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls19-table-wrap th, .ls19-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls19-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls19-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls19-callout { background: var(--risk-soft); border: 1px solid #E3BBA7; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls19-callout p { font-size: 13.5px; line-height: 1.6; margin: 0; color: var(--ink); }
+  .ls19-callout-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--risk); margin: 0 0 6px; }
+
+  .ls19-activity { background: var(--bio-soft); border: 1px solid #B7D9C4; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls19-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls19-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls19-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls19-blank-row input { flex: 1; min-width: 90px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls19-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls19-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls19-feedback.ok { color: #2E6B45; }
+  .ls19-feedback.no { color: #A34B4B; }
+
+  .ls19-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls19-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls19-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls19-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls19-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--bio); background: none; border: 1.5px solid var(--bio); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls19-answer { display: none; font-size: 13px; line-height: 1.55; background: #EEF6F0; border-left: 3px solid var(--bio); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls19-answer.show { display: block; }
+
+  .ls19-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls19-root">
+  <p class="ls19-eyebrow">Kick-off lesson &middot; Lifestyle &amp; Health, Part 1</p>
+  <h1 class="ls19-title">Disease risk &amp; cardiovascular health</h1>
+  <div class="ls19-meta">
+    <span><span class="ls19-dot" style="background:var(--bio)"></span>Biology</span>
+    <span>50 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">01</span>
+      <h2 class="ls19-section-title">Communicable vs non-communicable disease</h2>
+      <span class="ls19-section-time">8 min</span>
+    </div>
+    <div class="ls19-card">
+      <p>A <span class="ls19-term">communicable disease</span> is caused by a pathogen (bacterium, virus, fungus or protist) and can spread from person to person.</p>
+      <p>A <span class="ls19-term-risk">non-communicable disease</span> cannot be spread between people. It develops because of a combination of genetic, lifestyle and environmental factors, often building up over a long period of time. Examples: cardiovascular disease, type 2 diabetes, some cancers, chronic lung disease.</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">02</span>
+      <h2 class="ls19-section-title">Risk factors for non-communicable disease</h2>
+      <span class="ls19-section-time">12 min</span>
+    </div>
+    <div class="ls19-card">
+      <p>A <span class="ls19-term-risk">risk factor</span> is something that <b>increases the probability</b> of developing a disease &mdash; it does not guarantee that someone will get it.</p>
+    </div>
+    <div class="ls19-table-wrap">
+      <table>
+        <tr><th>Risk factor</th><th>Linked to</th></tr>
+        <tr><td>Smoking</td><td>Lung disease, lung cancer, cardiovascular disease</td></tr>
+        <tr><td>Poor diet (high fat/salt/sugar)</td><td>Obesity, type 2 diabetes, cardiovascular disease</td></tr>
+        <tr><td>Excess alcohol</td><td>Liver disease, some cancers</td></tr>
+        <tr><td>Lack of exercise</td><td>Obesity, cardiovascular disease, type 2 diabetes</td></tr>
+        <tr><td>Obesity</td><td>Type 2 diabetes, cardiovascular disease, some cancers</td></tr>
+      </table>
+    </div>
+    <div class="ls19-callout">
+      <p class="ls19-callout-label">Exam tip &mdash; correlation vs cause</p>
+      <p>A study can show a <b>correlation</b> between a factor and a disease (they rise and fall together), but that alone doesn't prove the factor <b>causes</b> the disease &mdash; there could be another linked variable. Scientists look for a plausible <b>mechanism</b> and repeat studies before accepting a causal link.</p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">03</span>
+      <h2 class="ls19-section-title">Cardiovascular disease &amp; its treatments</h2>
+      <span class="ls19-section-time">14 min</span>
+    </div>
+    <div class="ls19-card">
+      <p><span class="ls19-term-treat">Cardiovascular disease (CVD)</span> is disease of the heart or blood vessels. In <b>coronary heart disease</b>, fatty deposits (atheroma) build up inside the coronary arteries, narrowing them and restricting blood flow to the heart muscle &mdash; this can starve heart tissue of oxygen.</p>
+    </div>
+    <div class="ls19-table-wrap">
+      <table>
+        <tr><th>Treatment</th><th>What it does</th></tr>
+        <tr><td>Statins</td><td>Drugs that reduce blood cholesterol level, slowing the build-up of fatty deposits</td></tr>
+        <tr><td>Stents</td><td>Tiny mesh tubes inserted into a narrowed artery to hold it open and restore blood flow</td></tr>
+        <tr><td>Coronary bypass surgery</td><td>A healthy blood vessel from elsewhere in the body is used to bypass the blocked section of a coronary artery</td></tr>
+        <tr><td>Artificial hearts / valves</td><td>Mechanical devices that pump blood or replace a faulty valve, e.g. while a patient waits for a transplant</td></tr>
+        <tr><td>Heart transplant</td><td>A severely diseased heart is replaced with a healthy donor heart</td></tr>
+      </table>
+    </div>
+    <div class="ls19-callout">
+      <p class="ls19-callout-label">Exam tip &mdash; evaluate, don't just describe</p>
+      <p>"Evaluate" questions want pros <b>and</b> cons. E.g. statins avoid surgery but must be taken long-term and can cause side effects; surgery (bypass/transplant) can fix the problem more directly but carries the risks of any major operation, and donor hearts are in short supply.</p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">04</span>
+      <h2 class="ls19-section-title">Homeostasis &mdash; the big idea</h2>
+      <span class="ls19-section-time">8 min</span>
+    </div>
+    <div class="ls19-card">
+      <p><span class="ls19-term">Homeostasis</span> is the maintenance of a constant internal environment, despite changes inside or outside the body. The body constantly monitors and controls things like body temperature, blood glucose concentration, and water content.</p>
+      <p>The general pattern: a <b>receptor</b> detects a change away from the normal level, and a <b>coordination system</b> (nerves or hormones) triggers an <b>effector</b> to respond and bring the level back to normal.</p>
+    </div>
+    <div class="ls19-wide-card">
+      <ul>
+        <li>Homeostasis matters because cells (and the enzymes inside them) only work properly within a narrow range of conditions</li>
+        <li>This lesson only needs the <b>big picture</b> &mdash; the detail of how blood glucose is controlled by insulin is covered next, in Lifestyle &amp; Health, Part 2: Hormones</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Activity -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">&bull;</span>
+      <h2 class="ls19-section-title">Activity &mdash; which term does each clue describe?</h2>
+      <span class="ls19-section-time">6 min</span>
+    </div>
+    <div class="ls19-activity" id="ls19-activity-1">
+      <p class="ls19-activity-label">communicable / non-communicable / risk factor / statin / stent / homeostasis</p>
+      <div class="ls19-blank-row"><label>A disease that can spread from person to person &rarr;</label><input type="text" data-answer="communicable"></div>
+      <div class="ls19-blank-row"><label>Something that increases the chance of developing a disease &rarr;</label><input type="text" data-answer="riskfactor"></div>
+      <div class="ls19-blank-row"><label>A mesh tube that holds a narrowed artery open &rarr;</label><input type="text" data-answer="stent"></div>
+      <div class="ls19-blank-row"><label>A drug that lowers blood cholesterol &rarr;</label><input type="text" data-answer="statin"></div>
+      <div class="ls19-blank-row"><label>A disease that cannot be passed between people &rarr;</label><input type="text" data-answer="noncommunicable"></div>
+      <div class="ls19-blank-row"><label>Maintaining a constant internal environment &rarr;</label><input type="text" data-answer="homeostasis"></div>
+      <button class="ls19-check-btn" id="ls19-check-1">Check answers</button>
+      <p class="ls19-feedback" id="ls19-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 5 GCSE questions -->
+  <div class="ls19-section">
+    <div class="ls19-section-head">
+      <span class="ls19-section-num">05</span>
+      <h2 class="ls19-section-title">GCSE-style review questions</h2>
+      <span class="ls19-section-time">8 min</span>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">1. What is a non-communicable disease?</p><span class="ls19-q-marks">[2 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="ls19h1">Show mark scheme</button>
+      <div class="ls19-answer" id="ls19h1">A disease that cannot be spread between people (1); caused by a combination of genetic, lifestyle and/or environmental factors (1).</div>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">2. State two lifestyle risk factors linked to cardiovascular disease.</p><span class="ls19-q-marks">[2 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="ls19h2">Show mark scheme</button>
+      <div class="ls19-answer" id="ls19h2">Any two: smoking (1); poor diet / high fat diet (1); lack of exercise (1); obesity (1); excess alcohol (1).</div>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">3. A newspaper reports that "people who drink a certain energy drink are more likely to develop heart disease." Explain why this does not prove the drink causes heart disease.</p><span class="ls19-q-marks">[2 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="ls19h3">Show mark scheme</button>
+      <div class="ls19-answer" id="ls19h3">This only shows a correlation between the two things (1); there could be another linked factor causing both, e.g. people who drink it also have a poor diet/don't exercise, so a direct cause hasn't been shown (1).</div>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">4. Describe how a stent is used to treat coronary heart disease.</p><span class="ls19-q-marks">[2 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="ls19h4">Show mark scheme</button>
+      <div class="ls19-answer" id="ls19h4">A stent (mesh tube) is inserted into the narrowed coronary artery (1) and holds it open, restoring blood flow to the heart muscle (1).</div>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">5. Evaluate the use of statins compared with coronary bypass surgery to treat someone at risk of a heart attack.</p><span class="ls19-q-marks">[4 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="ls19h5">Show mark scheme</button>
+      <div class="ls19-answer" id="ls19h5">Statins: don't require surgery, lower risk in the short term (1); but must be taken long-term and can cause side effects (1). Bypass surgery: can restore blood flow more directly/permanently (1); but carries the risks of major surgery and a longer recovery time (1).</div>
+    </div>
+
+    <div class="ls19-q">
+      <div class="ls19-q-top"><p class="ls19-q-text">6. What is meant by homeostasis? Give one example of something the body keeps constant.</p><span class="ls19-q-marks">[2 marks]</span></div>
+      <button class="ls19-reveal-btn" data-reveal="ls19h6">Show mark scheme</button>
+      <div class="ls19-answer" id="ls19h6">The maintenance of a constant internal environment despite changes inside or outside the body (1); e.g. body temperature / blood glucose concentration / water content (1).</div>
+    </div>
+  </div>
+
+  <p class="ls19-footer-note">Tip: if a question says "risk factor," it never means "cause" &mdash; it means something that makes a disease more <i>likely</i>. Keep that word choice ("increases the chance/likelihood of") in your answers.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls19-check-1').addEventListener('click', () => {
+    const rows = document.getElementById('ls19-activity-1').querySelectorAll('input[data-answer]');
+    let correct = 0;
+    rows.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7D9C4');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls19-feedback-1');
+    fb.textContent = `${correct} of ${rows.length} correct.`;
+    fb.className = 'ls19-feedback ' + (correct === rows.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls19-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>
