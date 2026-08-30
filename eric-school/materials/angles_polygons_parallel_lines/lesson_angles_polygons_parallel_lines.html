@@ -1,0 +1,351 @@
+<style>
+  #ls20-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --acc: #B5762A; --acc-soft: #F1E3CE;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls20-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls20-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls20-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls20-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls20-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls20-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls20-section { margin-bottom: 26px; }
+  .ls20-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls20-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls20-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls20-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls20-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls20-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls20-card p:last-child { margin-bottom: 0; }
+  .ls20-term { font-weight: 600; color: var(--maths); }
+  .ls20-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls20-diagram-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .ls20-diagram-wrap svg { max-width: 280px; width: 100%; height: auto; }
+
+  .ls20-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls20-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls20-table-wrap th, .ls20-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls20-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls20-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls20-activity { background: var(--acc-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls20-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls20-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls20-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls20-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls20-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls20-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls20-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls20-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls20-feedback.ok { color: #2E6B45; }
+  .ls20-feedback.no { color: #A34B4B; }
+
+  .ls20-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls20-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls20-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls20-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls20-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--acc); background: none; border: 1.5px solid var(--acc); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls20-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--acc); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls20-answer.show { display: block; }
+
+  .ls20-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls20-root">
+  <p class="ls20-eyebrow">GCSE Maths &middot; Geometry &amp; Measures</p>
+  <h1 class="ls20-title">Angles, Polygons &amp; Parallel Lines</h1>
+  <div class="ls20-meta">
+    <span><span class="ls20-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>84 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">01</span>
+      <h2 class="ls20-section-title">Angle facts: lines and points</h2>
+      <span class="ls20-section-time">6 min</span>
+    </div>
+    <div class="ls20-card">
+      <p><span class="ls20-term">Angles on a straight line</span> add up to <span class="ls20-eq">180&deg;</span>. Example: if one angle is 125&deg;, the other is 180 &minus; 125 = <strong>55&deg;</strong>.</p>
+      <p><span class="ls20-term">Angles around a point</span> add up to <span class="ls20-eq">360&deg;</span>. Example: three angles at a point are 90&deg;, 130&deg; and x&deg; &mdash; x = 360 &minus; 90 &minus; 130 = <strong>140&deg;</strong>.</p>
+      <p><span class="ls20-term">Vertically opposite angles</span> (formed when two straight lines cross) are <strong>equal</strong> &mdash; they're the pair of angles directly across from each other, like an X shape.</p>
+    </div>
+  </div>
+
+  <!-- 2 triangles & quadrilaterals -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">02</span>
+      <h2 class="ls20-section-title">Angles in triangles &amp; quadrilaterals</h2>
+      <span class="ls20-section-time">9 min</span>
+    </div>
+    <div class="ls20-diagram-wrap">
+      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="150,20 40,200 260,200" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <text x="150" y="50" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="600" fill="#B5762A">a</text>
+        <text x="70" y="185" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="600" fill="#3A5E85">b</text>
+        <text x="230" y="185" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="600" fill="#3A5E85">c</text>
+        <text x="150" y="215" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="#6B6355">a + b + c = 180&deg;</text>
+      </svg>
+    </div>
+    <div class="ls20-card">
+      <p><span class="ls20-eq">Angles in a triangle sum to 180&deg;</span>. Example: a triangle has angles 65&deg; and 72&deg; &mdash; the third angle = 180 &minus; 65 &minus; 72 = <strong>43&deg;</strong>.</p>
+      <p>In an <span class="ls20-term">isosceles triangle</span>, two angles (and two sides) are equal. In an <span class="ls20-term">equilateral triangle</span>, all three angles are 60&deg;.</p>
+      <p><span class="ls20-eq">Angles in a quadrilateral sum to 360&deg;</span> (split it into two triangles: 180&deg; + 180&deg;). Example: angles 95&deg;, 88&deg; and 102&deg; &mdash; the fourth angle = 360 &minus; 95 &minus; 88 &minus; 102 = <strong>75&deg;</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">&bull;</span>
+      <h2 class="ls20-section-title">Activity &mdash; angle facts, triangles &amp; quadrilaterals</h2>
+      <span class="ls20-section-time">7 min</span>
+    </div>
+    <div class="ls20-activity" data-activity="1">
+      <p class="ls20-activity-label">Give your answer in degrees, just the number, e.g. 68</p>
+      <div class="ls20-blank-row"><label>Straight line: one angle 112&deg; &rarr; other angle =</label><input type="text" data-answer="68"></div>
+      <div class="ls20-blank-row"><label>Point: angles 150&deg;, 95&deg; and x&deg; &rarr; x =</label><input type="text" data-answer="115"></div>
+      <div class="ls20-blank-row"><label>Triangle: angles 40&deg; and 85&deg; &rarr; third angle =</label><input type="text" data-answer="55"></div>
+      <div class="ls20-blank-row"><label>Quadrilateral: angles 60&deg;, 100&deg;, 95&deg; &rarr; fourth angle =</label><input type="text" data-answer="105"></div>
+      <button class="ls20-check-btn" id="ls20-check-1">Check answers</button>
+      <p class="ls20-feedback" id="ls20-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 3 parallel lines -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">03</span>
+      <h2 class="ls20-section-title">Angles in parallel lines</h2>
+      <span class="ls20-section-time">12 min</span>
+    </div>
+    <div class="ls20-diagram-wrap">
+      <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20" y1="70" x2="300" y2="70" stroke="#23201A" stroke-width="2"/>
+        <line x1="20" y1="170" x2="300" y2="170" stroke="#23201A" stroke-width="2"/>
+        <polyline points="252,64 262,70 252,76" fill="none" stroke="#23201A" stroke-width="1.6"/>
+        <polyline points="252,164 262,170 252,176" fill="none" stroke="#23201A" stroke-width="1.6"/>
+        <line x1="80" y1="10" x2="240" y2="210" stroke="#23201A" stroke-width="2"/>
+        <text x="98" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#3A5E85">1</text>
+        <text x="156" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#3A5E85">2</text>
+        <text x="156" y="98" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#B5762A">3</text>
+        <text x="98" y="98" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#B5762A">4</text>
+        <text x="178" y="148" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#3A5E85">5</text>
+        <text x="236" y="148" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#3A5E85">6</text>
+        <text x="236" y="198" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#B5762A">7</text>
+        <text x="178" y="198" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#B5762A">8</text>
+      </svg>
+    </div>
+    <div class="ls20-card">
+      <p><span class="ls20-term">Corresponding angles</span> (F-shape) are in matching positions at each intersection &mdash; <strong>equal</strong>. In the diagram: 1&amp;5, 2&amp;6, 3&amp;7, 4&amp;8.</p>
+      <p><span class="ls20-term">Alternate angles</span> (Z-shape) are between the two parallel lines, on opposite sides of the transversal &mdash; <strong>equal</strong>. In the diagram: 4&amp;6, 3&amp;5.</p>
+      <p><span class="ls20-term">Co-interior angles</span> (also called allied angles, C/U-shape) are between the two parallel lines, on the same side of the transversal &mdash; they <strong>sum to 180&deg;</strong>. In the diagram: 4&amp;5, 3&amp;6.</p>
+      <p>Worked example: if angle 1 = 65&deg;, then angle 3 = 65&deg; (vertically opposite), angle 4 = 115&deg; (straight line with 1), angle 5 = 65&deg; (corresponding to 1), and angle 6 = 115&deg; (co-interior with angle 3, or corresponding to angle 2).</p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">&bull;</span>
+      <h2 class="ls20-section-title">Activity &mdash; parallel line angles</h2>
+      <span class="ls20-section-time">8 min</span>
+    </div>
+    <div class="ls20-activity maths" data-activity="2">
+      <p class="ls20-activity-label">Give your answer in degrees, just the number, e.g. 118</p>
+      <div class="ls20-blank-row"><label>One corresponding angle is 118&deg; &rarr; the other =</label><input type="text" data-answer="118"></div>
+      <div class="ls20-blank-row"><label>One alternate angle is 47&deg; &rarr; the other =</label><input type="text" data-answer="47"></div>
+      <div class="ls20-blank-row"><label>One co-interior angle is 105&deg; &rarr; the other =</label><input type="text" data-answer="75"></div>
+      <div class="ls20-blank-row"><label>Two lines cross; one angle is 63&deg; &rarr; vertically opposite =</label><input type="text" data-answer="63"></div>
+      <button class="ls20-check-btn" id="ls20-check-2">Check answers</button>
+      <p class="ls20-feedback" id="ls20-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 4 polygons -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">04</span>
+      <h2 class="ls20-section-title">Interior &amp; exterior angles of polygons</h2>
+      <span class="ls20-section-time">10 min</span>
+    </div>
+    <div class="ls20-card">
+      <p><span class="ls20-eq">Sum of interior angles = (n &minus; 2) &times; 180&deg;</span>, where n is the number of sides. This works because any polygon can be split into (n &minus; 2) triangles.</p>
+      <p>Worked example: a heptagon has 7 sides &mdash; sum = (7 &minus; 2) &times; 180 = 5 &times; 180 = <strong>900&deg;</strong>.</p>
+      <p><span class="ls20-term">Exterior angles</span> of any convex polygon <strong>always sum to 360&deg;</strong> &mdash; no matter how many sides. At each vertex, the <span class="ls20-term">interior and exterior angle lie on a straight line</span>, so interior + exterior = 180&deg;.</p>
+    </div>
+    <div class="ls20-table-wrap">
+      <table>
+        <tr><th>Polygon</th><th>Sides (n)</th><th>Sum of interior angles</th></tr>
+        <tr><td>Triangle</td><td>3</td><td>180&deg;</td></tr>
+        <tr><td>Quadrilateral</td><td>4</td><td>360&deg;</td></tr>
+        <tr><td>Pentagon</td><td>5</td><td>540&deg;</td></tr>
+        <tr><td>Hexagon</td><td>6</td><td>720&deg;</td></tr>
+        <tr><td>Heptagon</td><td>7</td><td>900&deg;</td></tr>
+        <tr><td>Octagon</td><td>8</td><td>1080&deg;</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5 regular polygons -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">05</span>
+      <h2 class="ls20-section-title">Regular polygons</h2>
+      <span class="ls20-section-time">10 min</span>
+    </div>
+    <div class="ls20-card">
+      <p>In a <span class="ls20-term">regular polygon</span>, all sides and all angles are equal, so each angle is simply the total shared out evenly.</p>
+      <p><span class="ls20-eq">Each exterior angle = 360&deg; &divide; n</span> &nbsp;&mdash;&nbsp; <span class="ls20-eq">Each interior angle = 180&deg; &minus; exterior angle</span></p>
+      <p>Worked example (regular pentagon, n = 5): exterior angle = 360 &divide; 5 = <strong>72&deg;</strong>; interior angle = 180 &minus; 72 = <strong>108&deg;</strong>.</p>
+      <p>You can also work <span class="ls20-term">backwards</span> from an exterior angle to find the number of sides: n = 360 &divide; exterior angle. Example: exterior angle 24&deg; &rarr; n = 360 &divide; 24 = <strong>15 sides</strong>.</p>
+    </div>
+    <div class="ls20-table-wrap">
+      <table>
+        <tr><th>Regular polygon</th><th>n</th><th>Exterior angle</th><th>Interior angle</th></tr>
+        <tr><td>Square</td><td>4</td><td>90&deg;</td><td>90&deg;</td></tr>
+        <tr><td>Pentagon</td><td>5</td><td>72&deg;</td><td>108&deg;</td></tr>
+        <tr><td>Hexagon</td><td>6</td><td>60&deg;</td><td>120&deg;</td></tr>
+        <tr><td>Octagon</td><td>8</td><td>45&deg;</td><td>135&deg;</td></tr>
+        <tr><td>Decagon</td><td>10</td><td>36&deg;</td><td>144&deg;</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity 3 -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">&bull;</span>
+      <h2 class="ls20-section-title">Activity &mdash; regular polygons</h2>
+      <span class="ls20-section-time">7 min</span>
+    </div>
+    <div class="ls20-activity" data-activity="3">
+      <p class="ls20-activity-label">Give your answer in degrees (or as a number of sides), just the number, e.g. 45</p>
+      <div class="ls20-blank-row"><label>Regular octagon (8 sides) &rarr; each exterior angle =</label><input type="text" data-answer="45"></div>
+      <div class="ls20-blank-row"><label>Regular octagon (8 sides) &rarr; each interior angle =</label><input type="text" data-answer="135"></div>
+      <div class="ls20-blank-row"><label>Regular decagon (10 sides) &rarr; each interior angle =</label><input type="text" data-answer="144"></div>
+      <div class="ls20-blank-row"><label>Exterior angle 20&deg; &rarr; number of sides =</label><input type="text" data-answer="18"></div>
+      <button class="ls20-check-btn" id="ls20-check-3">Check answers</button>
+      <p class="ls20-feedback" id="ls20-feedback-3"></p>
+    </div>
+  </div>
+
+  <!-- 6 GCSE questions -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">06</span>
+      <h2 class="ls20-section-title">GCSE-style review questions</h2>
+      <span class="ls20-section-time">15 min</span>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">1. Two angles on a straight line are (2x + 10)&deg; and (3x &minus; 10)&deg;. Find the value of x, then find the size of each angle.</p><span class="ls20-q-marks">[4 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="p1">Show mark scheme</button>
+      <div class="ls20-answer" id="p1">(2x+10) + (3x&minus;10) = 180 (1) &nbsp; 5x = 180 (1) &nbsp; x = <strong>36</strong> (1) &nbsp; angles = 2(36)+10 = <strong>82&deg;</strong> and 3(36)&minus;10 = <strong>98&deg;</strong> (1)</div>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">2. A triangle has angles of 54&deg;, 61&deg; and x&deg;. Find x.</p><span class="ls20-q-marks">[2 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="p2">Show mark scheme</button>
+      <div class="ls20-answer" id="p2">180 &minus; 54 &minus; 61 (1) &nbsp; = <strong>65&deg;</strong> (1)</div>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">3. Two parallel lines are crossed by a transversal. One angle is 73&deg;. State the size of (a) its corresponding angle, and (b) its co-interior angle, giving a reason for each.</p><span class="ls20-q-marks">[3 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="p3">Show mark scheme</button>
+      <div class="ls20-answer" id="p3">(a) <strong>73&deg;</strong> &mdash; corresponding angles are equal (1) &nbsp; (b) <strong>107&deg;</strong> (180 &minus; 73) &mdash; co-interior angles sum to 180&deg; (1) &nbsp; both reasons correctly stated (1)</div>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">4. Calculate the sum of the interior angles of a regular nonagon (9 sides).</p><span class="ls20-q-marks">[2 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="p4">Show mark scheme</button>
+      <div class="ls20-answer" id="p4">(9 &minus; 2) &times; 180 (1) &nbsp; = <strong>1260&deg;</strong> (1)</div>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">5. A regular polygon has an exterior angle of 24&deg;. (a) How many sides does it have? (b) What is the size of each interior angle?</p><span class="ls20-q-marks">[3 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="p5">Show mark scheme</button>
+      <div class="ls20-answer" id="p5">(a) 360 &divide; 24 = <strong>15 sides</strong> (1) &nbsp; (b) 180 &minus; 24 (1) &nbsp; = <strong>156&deg;</strong> (1)</div>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">6. A quadrilateral has angles 85&deg;, 95&deg;, x&deg; and x&deg; (the last two angles are equal). Find x.</p><span class="ls20-q-marks">[3 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="p6">Show mark scheme</button>
+      <div class="ls20-answer" id="p6">85 + 95 + 2x = 360 (1) &nbsp; 2x = 180 (1) &nbsp; x = <strong>90&deg;</strong> (1)</div>
+    </div>
+  </div>
+
+  <p class="ls20-footer-note">Tip: for parallel lines, learn the three shapes &mdash; F (corresponding, equal), Z (alternate, equal), C/U (co-interior, sum to 180&deg;). For polygons, remember interior sum = (n&minus;2)&times;180&deg; but exterior angles always sum to 360&deg;, whatever the shape.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, '').replace(/hours?/, 'hours'); }
+
+  document.getElementById('ls20-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls20-root .ls20-activity[data-activity="1"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls20-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls20-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls20-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls20-root .ls20-activity[data-activity="2"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls20-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls20-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls20-check-3').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls20-root .ls20-activity[data-activity="3"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls20-feedback-3');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls20-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls20-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

@@ -1,0 +1,281 @@
+<style>
+  #ls20-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --bio: #2F8B57; --bio-soft: #DFF0E5;
+    --risk: #B0532E; --risk-soft: #F6E4DB;
+    --treat: #3A5E85; --treat-soft: #DDE6EF;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls20-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls20-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls20-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls20-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls20-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls20-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls20-section { margin-bottom: 26px; }
+  .ls20-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls20-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls20-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls20-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls20-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls20-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls20-card p:last-child { margin-bottom: 0; }
+  .ls20-term { font-weight: 600; color: var(--bio); }
+  .ls20-term-risk { font-weight: 600; color: var(--risk); }
+  .ls20-term-treat { font-weight: 600; color: var(--treat); }
+
+  .ls20-wide-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls20-wide-card ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.6; }
+
+  .ls20-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls20-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls20-table-wrap th, .ls20-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls20-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls20-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls20-callout { background: var(--risk-soft); border: 1px solid #E3BBA7; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls20-callout p { font-size: 13.5px; line-height: 1.6; margin: 0; color: var(--ink); }
+  .ls20-callout-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--risk); margin: 0 0 6px; }
+
+  .ls20-note { background: var(--treat-soft); border: 1px solid #C3D3E3; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls20-note p { font-size: 13.5px; line-height: 1.6; margin: 0; color: var(--ink); }
+  .ls20-note-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--treat); margin: 0 0 6px; }
+
+  .ls20-activity { background: var(--bio-soft); border: 1px solid #B7D9C4; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls20-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls20-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls20-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls20-blank-row input { flex: 1; min-width: 90px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls20-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls20-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls20-feedback.ok { color: #2E6B45; }
+  .ls20-feedback.no { color: #A34B4B; }
+
+  .ls20-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls20-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls20-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls20-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls20-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--bio); background: none; border: 1.5px solid var(--bio); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls20-answer { display: none; font-size: 13px; line-height: 1.55; background: #EEF6F0; border-left: 3px solid var(--bio); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls20-answer.show { display: block; }
+
+  .ls20-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls20-root">
+  <p class="ls20-eyebrow">Follow-on lesson &middot; Lifestyle &amp; Health, Part 2</p>
+  <h1 class="ls20-title">Hormones, blood glucose &amp; diabetes</h1>
+  <div class="ls20-meta">
+    <span><span class="ls20-dot" style="background:var(--bio)"></span>Biology</span>
+    <span>50 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">01</span>
+      <h2 class="ls20-section-title">The endocrine system</h2>
+      <span class="ls20-section-time">8 min</span>
+    </div>
+    <div class="ls20-card">
+      <p>The <span class="ls20-term">endocrine system</span> is made up of glands that secrete <span class="ls20-term">hormones</span> directly into the bloodstream.</p>
+      <p>A hormone is a <b>chemical messenger</b>. It travels in the blood until it reaches its <b>target organ</b>, where it produces an effect.</p>
+    </div>
+    <div class="ls20-wide-card">
+      <ul>
+        <li><b>Pituitary gland</b> (in the brain) &mdash; often called the "master gland" because it releases hormones that control several other glands</li>
+        <li><b>Pancreas</b> &mdash; releases insulin and glucagon, which control blood glucose concentration (the focus of this lesson)</li>
+        <li><b>Adrenal glands</b> &mdash; release adrenaline, preparing the body for "fight or flight"</li>
+        <li><b>Ovaries / testes</b> &mdash; release reproductive hormones</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">02</span>
+      <h2 class="ls20-section-title">Hormones vs nerves</h2>
+      <span class="ls20-section-time">6 min</span>
+    </div>
+    <div class="ls20-card">
+      <p>The body has <b>two</b> coordination systems that respond to change: the <span class="ls20-term-treat">nervous system</span> (electrical impulses along neurons) and the <span class="ls20-term">hormonal (endocrine) system</span> (chemical messengers in the blood). Both are used to keep conditions in the body constant &mdash; part of <b>homeostasis</b>.</p>
+    </div>
+    <div class="ls20-table-wrap">
+      <table>
+        <tr><th>Feature</th><th>Nervous system</th><th>Hormonal system</th></tr>
+        <tr><td>Signal</td><td>Electrical impulses along neurons</td><td>Chemicals (hormones) carried in the blood</td></tr>
+        <tr><td>Speed</td><td>Very fast</td><td>Slower</td></tr>
+        <tr><td>Effect</td><td>Short-lived, acts on a precise area</td><td>Longer-lasting, can act on a wide area</td></tr>
+        <tr><td>Example</td><td>Pulling your hand off something hot</td><td>Insulin controlling blood glucose</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">03</span>
+      <h2 class="ls20-section-title">Controlling blood glucose concentration</h2>
+      <span class="ls20-section-time">12 min</span>
+    </div>
+    <div class="ls20-card">
+      <p>Blood glucose concentration is monitored and controlled by the <span class="ls20-term">pancreas</span>, as part of homeostasis (recap: Part 1).</p>
+      <p><b>After eating carbohydrate:</b> blood glucose concentration rises above normal &rarr; the pancreas releases <span class="ls20-term">insulin</span> into the blood &rarr; insulin causes cells (especially liver and muscle cells) to take up glucose from the blood, using some for respiration and converting the excess into <span class="ls20-term">glycogen</span> for storage &rarr; blood glucose concentration falls back to normal.</p>
+    </div>
+    <div class="ls20-note">
+      <p class="ls20-note-label">Beyond Foundation &mdash; the other direction</p>
+      <p>When blood glucose is too <i>low</i> (e.g. after exercise or between meals), the pancreas releases <b>glucagon</b>, which causes glycogen stores in the liver to be converted back into glucose and released into the blood. Foundation tier only requires you to know about <b>insulin</b>, but glucagon completes the picture: together they keep blood glucose steady by <b>negative feedback</b> &mdash; whichever way the level moves, a hormone response pushes it back to normal.</p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">04</span>
+      <h2 class="ls20-section-title">Type 1 &amp; Type 2 diabetes</h2>
+      <span class="ls20-section-time">14 min</span>
+    </div>
+    <div class="ls20-card">
+      <p><span class="ls20-term-risk">Diabetes</span> is a condition where the body cannot properly control blood glucose concentration. There are two types.</p>
+    </div>
+    <div class="ls20-table-wrap">
+      <table>
+        <tr><th></th><th>Type 1 diabetes</th><th>Type 2 diabetes</th></tr>
+        <tr><td>Cause</td><td>The pancreas produces little or no insulin</td><td>Body cells stop responding properly to insulin (or the pancreas doesn't produce enough)</td></tr>
+        <tr><td>Usual onset</td><td>Often develops in childhood</td><td>Usually develops later in life, though increasingly seen in younger people too</td></tr>
+        <tr><td>Key risk factors</td><td>Not strongly linked to lifestyle</td><td>Strongly linked to lifestyle &mdash; obesity, poor diet, lack of exercise</td></tr>
+        <tr><td>Treatment</td><td>Regular insulin injections, matched to diet and activity; monitoring blood glucose</td><td>Lifestyle changes (healthier diet, more exercise, weight loss); medication; insulin if needed</td></tr>
+      </table>
+    </div>
+    <div class="ls20-callout">
+      <p class="ls20-callout-label">Exam tip &mdash; same problem, different cause</p>
+      <p>Both types share the same underlying issue: blood glucose cannot be controlled properly, so it can stay too high (<b>hyperglycaemia</b>). Left unmanaged, this can damage blood vessels and nerves and increase the risk of further disease, e.g. cardiovascular disease.</p>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">05</span>
+      <h2 class="ls20-section-title">Hormones, lifestyle &amp; health risk</h2>
+      <span class="ls20-section-time">8 min</span>
+    </div>
+    <div class="ls20-card">
+      <p>This links back to Part 1: <span class="ls20-term-risk">obesity</span> is a major risk factor for Type 2 diabetes, because carrying excess body fat makes it harder for cells to respond properly to insulin. A diet high in fat/sugar and a lack of exercise both increase the risk of obesity <i>and</i> directly increase the risk of Type 2 diabetes &mdash; genetics/family history also plays a role.</p>
+    </div>
+    <div class="ls20-wide-card">
+      <ul>
+        <li>Managing Type 2 diabetes risk uses the <b>same</b> lifestyle changes that reduce cardiovascular disease risk: better diet, more exercise, maintaining a healthy weight</li>
+        <li>Someone with poorly controlled diabetes is also at greater risk of cardiovascular disease &mdash; risk factors and diseases can interact, not act in isolation</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Activity -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">&bull;</span>
+      <h2 class="ls20-section-title">Activity &mdash; which term does each clue describe?</h2>
+      <span class="ls20-section-time">6 min</span>
+    </div>
+    <div class="ls20-activity" id="ls20-activity-1">
+      <p class="ls20-activity-label">endocrine system / hormone / pancreas / insulin / glucagon / glycogen</p>
+      <div class="ls20-blank-row"><label>Collective name for glands that release hormones &rarr;</label><input type="text" data-answer="endocrinesystem"></div>
+      <div class="ls20-blank-row"><label>A chemical messenger carried in the blood &rarr;</label><input type="text" data-answer="hormone"></div>
+      <div class="ls20-blank-row"><label>The gland that produces insulin and glucagon &rarr;</label><input type="text" data-answer="pancreas"></div>
+      <div class="ls20-blank-row"><label>The hormone that causes blood glucose to fall &rarr;</label><input type="text" data-answer="insulin"></div>
+      <div class="ls20-blank-row"><label>The hormone that causes blood glucose to rise &rarr;</label><input type="text" data-answer="glucagon"></div>
+      <div class="ls20-blank-row"><label>The storage form of glucose in the liver/muscles &rarr;</label><input type="text" data-answer="glycogen"></div>
+      <button class="ls20-check-btn" id="ls20-check-1">Check answers</button>
+      <p class="ls20-feedback" id="ls20-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 6 GCSE questions -->
+  <div class="ls20-section">
+    <div class="ls20-section-head">
+      <span class="ls20-section-num">06</span>
+      <h2 class="ls20-section-title">GCSE-style review questions</h2>
+      <span class="ls20-section-time">8 min</span>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">1. What is meant by the term "hormone"?</p><span class="ls20-q-marks">[2 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="ls20h1">Show mark scheme</button>
+      <div class="ls20-answer" id="ls20h1">A chemical messenger (1); produced by a gland and carried in the blood to a target organ, where it produces an effect (1).</div>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">2. Describe how insulin controls blood glucose concentration after a meal.</p><span class="ls20-q-marks">[3 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="ls20h2">Show mark scheme</button>
+      <div class="ls20-answer" id="ls20h2">The pancreas detects blood glucose has risen and releases insulin (1); insulin causes cells (e.g. liver/muscle) to take up glucose from the blood (1); excess glucose is converted to glycogen for storage, so blood glucose concentration falls back to normal (1).</div>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">3. State one difference between how the nervous system and the hormonal system send signals around the body.</p><span class="ls20-q-marks">[2 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="ls20h3">Show mark scheme</button>
+      <div class="ls20-answer" id="ls20h3">Any one linked pair: the nervous system uses electrical impulses along neurons, the hormonal system uses chemicals carried in the blood (1); nervous system responses are fast, hormonal responses are slower (1); accept nervous effects are short-lived/precise vs hormonal effects longer-lasting/widespread.</div>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">4. What causes Type 1 diabetes?</p><span class="ls20-q-marks">[2 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="ls20h4">Show mark scheme</button>
+      <div class="ls20-answer" id="ls20h4">The pancreas produces little or no insulin (1); so blood glucose concentration cannot be properly controlled/stays too high (1).</div>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">5. Explain why obesity increases the risk of developing Type 2 diabetes.</p><span class="ls20-q-marks">[2 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="ls20h5">Show mark scheme</button>
+      <div class="ls20-answer" id="ls20h5">Carrying excess body fat makes body cells less responsive to insulin (insulin resistance) (1); so blood glucose concentration is not controlled properly, increasing the risk of developing Type 2 diabetes (1).</div>
+    </div>
+
+    <div class="ls20-q">
+      <div class="ls20-q-top"><p class="ls20-q-text">6. Compare how Type 1 diabetes and Type 2 diabetes are treated.</p><span class="ls20-q-marks">[4 marks]</span></div>
+      <button class="ls20-reveal-btn" data-reveal="ls20h6">Show mark scheme</button>
+      <div class="ls20-answer" id="ls20h6">Type 1: treated with regular insulin injections (1), matched to diet and activity, alongside monitoring blood glucose (1). Type 2: treated mainly with lifestyle changes &mdash; healthier diet, more exercise, weight loss (1); medication, and insulin if needed, may also be used (1).</div>
+    </div>
+  </div>
+
+  <p class="ls20-footer-note">Tip: if a question asks about diabetes "risk," lead with the lifestyle link for Type 2 (diet, exercise, obesity) &mdash; Type 1 is not caused by lifestyle, so don't mix the two up in an exam answer.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls20-check-1').addEventListener('click', () => {
+    const rows = document.getElementById('ls20-activity-1').querySelectorAll('input[data-answer]');
+    let correct = 0;
+    rows.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7D9C4');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls20-feedback-1');
+    fb.textContent = `${correct} of ${rows.length} correct.`;
+    fb.className = 'ls20-feedback ' + (correct === rows.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls20-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>
