@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Orks Battle Card</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --paper:#F4F1EA; --paper-line:#E4DDCE;
+    --card:#FFFEFB;
+    --border:#e2e4e9;
+    --ink:#23201A; --ink-soft:#6B6355;
+    --text:#1b1e24; --text-dim:#5b616e;
+    --accent:#d6336c; --accent-soft:#fbe4ec;
+    --ork:#2F8B57; --ork-soft:#DFF0E5;
+    --tau:#B5762A; --tau-soft:#F1E3CE;
+    --shadow: rgba(35,32,26,.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  header.page-head{
+    padding:2.5rem 1.5rem 1rem;
+    max-width:820px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header.page-head h1{
+    margin:0 0 .4rem;
+    font-size:1.9rem;
+  }
+  header.page-head p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:1rem;
+    max-width:640px;
+  }
+
+  .doc{
+    font-family:'IBM Plex Sans', -apple-system, sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    max-width:820px;
+    margin:1.5rem auto 3rem;
+    padding:32px 26px 46px;
+    border-radius:18px;
+  }
+  .doc * { box-sizing:border-box; }
+
+  .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 6px; }
+  .doc-title{ font-family:'Instrument Serif', serif; font-style:italic; font-size:34px; margin:0 0 10px; line-height:1.1; }
+  .doc-intro{ font-size:14px; line-height:1.65; color:var(--ink); margin:0 0 22px; }
+  .doc-intro b{ color:var(--accent); }
+
+  section.sec{ margin-bottom:30px; }
+  .sec-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:12px; border-bottom:2px solid var(--paper-line); padding-bottom:8px; }
+  .sec-num{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--accent); font-weight:600; }
+  .sec-title{ font-size:19px; font-weight:600; margin:0; }
+
+  .card{ background:var(--card); border:1px solid var(--paper-line); border-radius:12px; padding:15px 18px; box-shadow:0 1px 4px var(--shadow); margin-bottom:12px; }
+  .card p{ font-size:13.5px; line-height:1.65; margin:0 0 9px; }
+  .card p:last-child{ margin-bottom:0; }
+  .card ul, .card ol{ margin:0 0 9px; padding-left:20px; font-size:13.5px; line-height:1.65; }
+  .card ul:last-child, .card ol:last-child{ margin-bottom:0; }
+  .term{ font-weight:600; color:var(--accent); }
+
+  .table-wrap{ background:var(--card); border:1px solid var(--paper-line); border-radius:12px; padding:4px; box-shadow:0 1px 4px var(--shadow); margin-bottom:12px; overflow-x:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:12.5px; }
+  th, td{ text-align:left; padding:8px 11px; border-bottom:1px solid var(--paper-line); vertical-align:top; }
+  th{ font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); }
+  tr:last-child td{ border-bottom:none; }
+  tr.new td{ background:var(--ork-soft); }
+  tr.new td:first-child{ border-radius:8px 0 0 8px; }
+  tr.new td:last-child{ border-radius:0 8px 8px 0; }
+
+  .callout{ border-left:4px solid; border-radius:0 10px 10px 0; padding:12px 16px; margin:10px 0 14px; }
+  .callout.ork{ background:var(--ork-soft); border-color:var(--ork); }
+  .callout.tau{ background:var(--tau-soft); border-color:var(--tau); }
+  .callout .cal-label{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; font-weight:600; margin:0 0 5px; }
+  .callout.ork .cal-label{ color:var(--ork); }
+  .callout.tau .cal-label{ color:var(--tau); }
+  .callout p{ font-size:13px; line-height:1.6; margin:0; color:var(--ink); }
+
+  .cheatsheet{ background:var(--ink); color:var(--paper); border-radius:14px; padding:20px 22px; }
+  .cheatsheet h4{ margin:0 0 8px; font-size:13px; font-family:'IBM Plex Mono', monospace; text-transform:uppercase; letter-spacing:.06em; color:#B6E0C6; }
+  .cheatsheet ol, .cheatsheet ul{ margin:0 0 16px; padding-left:20px; font-size:12.8px; line-height:1.7; }
+  .cheatsheet ol:last-child, .cheatsheet ul:last-child{ margin-bottom:0; }
+  .cheatsheet b{ color:#fff; }
+  .cheatsheet .t{ font-family:'IBM Plex Mono', monospace; font-weight:600; color:#B6E0C6; }
+
+  .footnote{ font-size:12px; color:var(--ink-soft); font-style:italic; margin-top:8px; }
+  a.src{ color:var(--accent); }
+
+  @media (max-width:600px){
+    .doc{ padding:22px 16px 34px; }
+  }
+</style>
+</head>
+<body>
+<nav class="wh-nav">
+  <a class="wh-nav-home" href="../index.html">Home</a>
+  <a href="../11th%20Edition/index.html">11th Edition</a>
+  <a href="../Orks/index.html">Orks</a>
+  <a href="../Datasheets/index.html">Datasheets</a>
+</nav>
+<style>
+  .wh-nav{position:sticky;top:0;z-index:1000;display:flex;gap:24px;align-items:center;padding:12px 24px;background:#FFFEFB;border-bottom:1px solid #E4DDCE;box-shadow:0 1px 4px rgba(35,32,26,.08);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:14px;}
+  .wh-nav a{color:#d6336c;text-decoration:none;font-weight:500;}
+  .wh-nav a:hover{text-decoration:underline;}
+  .wh-nav .wh-nav-home{color:#23201A;font-weight:700;}
+</style>
+
+
+<header class="page-head">
+  <a class="back-link" href="../index.html">&larr; Warhammer</a>
+  <h1>Orks</h1>
+  <p>Battle card for the Green Tide list &mdash; army list, deployment/turn plan, and kill priority for facing T&rsquo;au Empire.</p>
+</header>
+
+<div class="doc">
+
+  <p class="eyebrow">Warhammer 40,000 &middot; Orks vs T&rsquo;au Empire</p>
+  <h1 class="doc-title">Ork Battle Card</h1>
+  <p class="doc-intro">Eric printed a <b>Battlewagon</b>, so the Nobz get a ride instead of footslogging &mdash; the whole plan below is built around minimising time spent walking through T&rsquo;au firing lanes and maximising the turn you're already swinging in melee.</p>
+
+  <!-- 1: The List -->
+  <section class="sec" id="list">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">The List</h2></div>
+    <div class="table-wrap">
+      <table>
+        <tr><th>#</th><th>Unit</th><th>Role</th></tr>
+        <tr><td>1</td><td>10 Boyz, Warboss, Painboy</td><td>Frontline mob with on-board healing</td></tr>
+        <tr><td>2</td><td>10 Boyz, Bigboss</td><td>Second-wave melee mob</td></tr>
+        <tr><td>3</td><td>Nobz, Bannernob</td><td>Hardest-hitting melee unit &mdash; rides the Battlewagon</td></tr>
+        <tr><td>4</td><td>Weirdboy</td><td>Stays back; holds Da Jump for the gap-close</td></tr>
+        <tr><td>5</td><td>Gretchin</td><td>Forward screen / objective sitter</td></tr>
+        <tr><td>6</td><td>Big Mek</td><td>Backfield buffs &amp; repairs</td></tr>
+        <tr><td>7</td><td>War Trak</td><td>Fast flank harasser</td></tr>
+        <tr class="new"><td>8</td><td><b>Battlewagon</b> <span style="color:var(--ork); font-size:11px; font-family:'IBM Plex Mono',monospace;">NEW</span></td><td>Transport for the Nobz + Deff Rolla ram threat</td></tr>
+      </table>
+    </div>
+    <div class="callout ork">
+      <p class="cal-label">Why the Nobz ride</p>
+      <p>Nobz are your best damage-per-model, but they're also what T&rsquo;au's alpha-strike shooting deletes fastest if they walk. The Battlewagon keeps them safe until they're close enough to matter, then delivers them into charge range on turn 2.</p>
+    </div>
+  </section>
+
+  <!-- 2: Turn Plan -->
+  <section class="sec" id="turns">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Turn Plan</h2></div>
+    <div class="cheatsheet">
+      <h4>Turn 1</h4>
+      <ul>
+        <li>Gretchin screen forward &mdash; eat overwatch, block Kroot/deep strike pockets, sit an objective</li>
+        <li>Battlewagon (Nobz aboard) and both Boyz mobs advance using the wagon and terrain as cover</li>
+        <li>War Trak works a flank, staying out of LOS where possible &mdash; threaten a backfield objective or a light vehicle</li>
+        <li>Hold Da Jump unless the board clearly rewards an early charge threat</li>
+      </ul>
+      <h4>Turn 2</h4>
+      <ul>
+        <li>Battlewagon closes in, rams with <span class="t">Deff Rolla</span> into whatever it's adjacent to for free damage</li>
+        <li>Nobz + Bannernob disembark and charge &mdash; target their biggest <b>shooting</b> threat, not screening chaff</li>
+        <li>Boyz mobs keep closing under cover; Warboss/Bigboss keep them stubborn</li>
+        <li>Big Mek + Gretchin hold the home objective</li>
+      </ul>
+      <h4>Turn 3+</h4>
+      <ul>
+        <li>Stay in combat &mdash; T&rsquo;au fold in melee, so consolidate into new targets each turn so they can't disengage and reset their range advantage</li>
+        <li>Call the <span class="t">Waaagh!</span> on the turn your big multi-unit charge lands, so Boyz and Nobz swing together</li>
+        <li>Use the War Trak to pick off characters or light vehicles falling back from combat</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3: Kill Priority -->
+  <section class="sec" id="priority">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Kill Priority</h2></div>
+    <div class="card">
+      <ol>
+        <li><b>Markerlight / drone controller units</b> &mdash; multiply everything else's accuracy, remove first if reachable</li>
+        <li><b>Riptide / Broadsides</b> &mdash; biggest single damage source, but bad in melee &mdash; a perfect Nobz target</li>
+        <li><b>Crisis suits</b> &mdash; mobile flamers/plasma, kill or force them off objectives</li>
+        <li><b>Kroot / screens</b> &mdash; cheap for Orks to trade Gretchin into, don't waste Nobz here</li>
+      </ol>
+    </div>
+    <div class="callout tau">
+      <p class="cal-label">The read</p>
+      <p>T&rsquo;au want distance and clean firing lanes. Every choice on this card is about removing both &mdash; minimise turns spent in the open under fire, and maximise the turn you're already swinging.</p>
+    </div>
+  </section>
+
+  <p class="footnote">Cross-check current points for the Battlewagon and Nobz upgrade against the latest Munitorum Field Manual &mdash; see the <a class="src" href="../Datasheets/Armageddon%20Orks/index.html">Armageddon Orks datasheets</a> and the <a class="src" href="../11th%20Edition/Rules%20Guide/index.html#orks">11th Edition Guide's Orks section</a>.</p>
+
+</div>
+
+</body>
+</html>

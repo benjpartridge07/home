@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Leader &amp; Support</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --paper:#F4F1EA; --paper-line:#E4DDCE;
+    --card:#FFFEFB;
+    --ink:#23201A; --ink-soft:#6B6355;
+    --text:#1b1e24; --text-dim:#5b616e;
+    --accent:#d6336c; --accent-soft:#fbe4ec;
+    --shadow: rgba(35,32,26,.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  header.page-head{
+    padding:2.5rem 1.5rem 1rem;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header.page-head h1{
+    margin:0 0 .4rem;
+    font-size:1.9rem;
+  }
+  header.page-head p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:1rem;
+    max-width:640px;
+  }
+
+  .doc{
+    font-family:'IBM Plex Sans', -apple-system, sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    max-width:820px;
+    margin:1.5rem auto 3rem;
+    padding:32px 26px 46px;
+    border-radius:18px;
+  }
+  .doc * { box-sizing:border-box; }
+
+  .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 6px; }
+  .doc-title{ font-family:'Instrument Serif', serif; font-style:italic; font-size:34px; margin:0 0 10px; line-height:1.1; }
+  .doc-intro{ font-size:14px; line-height:1.65; color:var(--ink); margin:0 0 22px; }
+  .doc-intro b{ color:var(--accent); }
+
+  section.sec{ margin-bottom:30px; }
+  .sec-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:12px; border-bottom:2px solid var(--paper-line); padding-bottom:8px; }
+  .sec-num{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--accent); font-weight:600; }
+  .sec-title{ font-size:19px; font-weight:600; margin:0; }
+
+  .card{ background:var(--card); border:1px solid var(--paper-line); border-radius:12px; padding:15px 18px; box-shadow:0 1px 4px var(--shadow); margin-bottom:12px; }
+  .card p{ font-size:13.5px; line-height:1.65; margin:0 0 9px; }
+  .card p:last-child{ margin-bottom:0; }
+  .term{ font-weight:600; color:var(--accent); }
+
+  .callout{ background:var(--accent-soft); border-left:4px solid var(--accent); border-radius:0 10px 10px 0; padding:12px 16px; margin:0 0 14px; }
+  .callout .cal-label{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); font-weight:600; margin:0 0 5px; }
+  .callout p{ font-size:13px; line-height:1.6; margin:0; color:var(--ink); }
+
+  .table-wrap{ background:var(--card); border:1px solid var(--paper-line); border-radius:12px; padding:4px; box-shadow:0 1px 4px var(--shadow); margin-bottom:12px; overflow-x:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:12.5px; }
+  th, td{ text-align:left; padding:8px 11px; border-bottom:1px solid var(--paper-line); vertical-align:top; }
+  th{ font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); }
+  tr:last-child td{ border-bottom:none; }
+  .tag{ font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); background:#F1EAD9; padding:2px 7px; border-radius:5px; }
+
+  .footnote{ font-size:12px; color:var(--ink-soft); font-style:italic; margin-top:8px; }
+  a.src{ color:var(--accent); }
+</style>
+</head>
+<body>
+<nav class="wh-nav">
+  <a class="wh-nav-home" href="../../index.html">Home</a>
+  <a href="../../11th%20Edition/index.html">11th Edition</a>
+  <a href="../../Orks/index.html">Orks</a>
+  <a href="../../Datasheets/index.html">Datasheets</a>
+</nav>
+<style>
+  .wh-nav{position:sticky;top:0;z-index:1000;display:flex;gap:24px;align-items:center;padding:12px 24px;background:#FFFEFB;border-bottom:1px solid #E4DDCE;box-shadow:0 1px 4px rgba(35,32,26,.08);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:14px;}
+  .wh-nav a{color:#d6336c;text-decoration:none;font-weight:500;}
+  .wh-nav a:hover{text-decoration:underline;}
+  .wh-nav .wh-nav-home{color:#23201A;font-weight:700;}
+</style>
+
+
+<header class="page-head">
+  <a class="back-link" href="../index.html">&larr; 11th Edition</a>
+  <h1>Leader &amp; Support</h1>
+  <p>Which Ork characters can join which squads, using the Warboss/Bigboss/Weirdboy/Bannernob/Painboy line-up from the Armageddon box &mdash; plus what a "Leader" and a "Bodyguard unit" actually are.</p>
+</header>
+
+<div class="doc">
+
+  <p class="eyebrow">Warhammer 40,000 &middot; 11th Edition &middot; Orks</p>
+  <h1 class="doc-title">Leader &amp; Support</h1>
+  <p class="doc-intro">Two names for the two halves of the same relationship: the <b>Leader</b> is the CHARACTER model that attaches, the <b>Bodyguard unit</b> is the squad it joins. Every eligible pairing is spelled out on the datasheets themselves &mdash; there's no army-wide rule to memorise, just two lists that mirror each other.</p>
+
+  <!-- 1 -->
+  <section class="sec" id="terms">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Leader vs Bodyguard unit</h2></div>
+    <div class="card">
+      <p><span class="term">Leader</span> is the ability printed on a CHARACTER's own datasheet: <i>"This model can be attached to the following units."</i> It lists every squad that character is allowed to join.</p>
+      <p><span class="term">Bodyguard unit</span> is the squad's side of the same relationship &mdash; its datasheet carries a matching <i>"LED BY"</i> section naming every character allowed to attach to it. The two lists always agree with each other; they're just printed from opposite ends.</p>
+    </div>
+    <div class="card">
+      <p>Once attached, the Leader and its Bodyguard unit act as <b>one combined unit</b> for the rest of the game &mdash; they move, shoot, charge and fight together, and are treated as a single unit for coherency. Each model still keeps its own profile though (its own wounds, weapons and attacks) rather than being merged into one averaged statline.</p>
+    </div>
+    <div class="callout">
+      <p class="cal-label">A separate ability: Support</p>
+      <p>Some characters (Bannernob, Painboy) have a <span class="term">Support</span> ability instead of Leader &mdash; mechanically it works the same way (attach to a listed unit), but it's a <i>different slot</i>. A unit can have <b>both</b> a Leader and a Support character attached to it at the same time &mdash; e.g. a Boyz squad could carry a Warboss (Leader) and a Painboy (Support) together.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="sec" id="box">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Your Armageddon box characters</h2></div>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Character</th><th>Ability</th><th>Can join</th></tr>
+        <tr><td>Warboss</td><td><span class="tag">Leader</span></td><td>Boyz, Breaka Boyz, Nobz</td></tr>
+        <tr><td>Bigboss</td><td><span class="tag">Leader</span></td><td>Boyz, Breaka Boyz, Nobz</td></tr>
+        <tr><td>Weirdboy</td><td><span class="tag">Leader</span></td><td>Boyz, Breaka Boyz</td></tr>
+        <tr><td>Bannernob</td><td><span class="tag">Support</span></td><td>Boyz, Breaka Boyz, Burna Boyz, Flash Gitz, Lootas, Nobz, Tankbustas</td></tr>
+        <tr><td>Painboy</td><td><span class="tag">Support</span></td><td>Boyz, Breaka Boyz, Burna Boyz, Lootas, Nobz, Tankbustas</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <p>The list is exhaustive &mdash; if a unit isn't named, that character can't join it. The Weirdboy, for instance, can lead Boyz but not Nobz, even though the Warboss and Bigboss can lead both.</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="sec" id="gretchin">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Gretchin</h2></div>
+    <div class="card">
+      <p>Gretchin's own "LED BY" list names only two characters &mdash; <b>Da Red Gobbo</b> and <b>Zodgrod Wortsnagga</b>, both Epic Heroes. Neither is in the Armageddon box, so with what's actually in your collection, the Gretchin squad will always sit on the table unled.</p>
+      <p>That's specific to which characters exist for Gretchin though, not a general rule about them &mdash; if you ever pick up one of those two models, they could attach. And either way, Gretchin can never merge with a Boyz squad or any other rank-and-file unit: only a single CHARACTER model can attach to a unit, ordinary squads never combine with each other.</p>
+    </div>
+  </section>
+
+  <p class="footnote">Source: Wahapedia 11th Edition Orks datasheets (wahapedia.ru/wh40k11ed/factions/orks) &mdash; Warboss, Bigboss, Weirdboy, Bannernob, Painboy and Gretchin pages. Re-check a character's own "Leader"/"Support" text before a game if you pick up any model not covered here, since the eligible-unit list is set per character.</p>
+
+</div>
+
+</body>
+</html>

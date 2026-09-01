@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Weapon Abilities</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --paper:#F4F1EA; --paper-line:#E4DDCE;
+    --card:#FFFEFB;
+    --ink:#23201A; --ink-soft:#6B6355;
+    --text:#1b1e24; --text-dim:#5b616e;
+    --accent:#d6336c; --accent-soft:#fbe4ec;
+    --shadow: rgba(35,32,26,.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  header.page-head{
+    padding:2.5rem 1.5rem 1rem;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header.page-head h1{
+    margin:0 0 .4rem;
+    font-size:1.9rem;
+  }
+  header.page-head p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:1rem;
+    max-width:640px;
+  }
+
+  .doc{
+    font-family:'IBM Plex Sans', -apple-system, sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    max-width:820px;
+    margin:1.5rem auto 3rem;
+    padding:32px 26px 46px;
+    border-radius:18px;
+  }
+  .doc * { box-sizing:border-box; }
+
+  .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 6px; }
+  .doc-title{ font-family:'Instrument Serif', serif; font-style:italic; font-size:34px; margin:0 0 10px; line-height:1.1; }
+  .doc-intro{ font-size:14px; line-height:1.65; color:var(--ink); margin:0 0 22px; }
+  .doc-intro b{ color:var(--accent); }
+
+  .callout{ background:var(--accent-soft); border-left:4px solid var(--accent); border-radius:0 10px 10px 0; padding:12px 16px; margin:0 0 26px; }
+  .callout .cal-label{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); font-weight:600; margin:0 0 5px; }
+  .callout p{ font-size:13px; line-height:1.6; margin:0; color:var(--ink); }
+
+  .glossary{ background:var(--card); border:1px solid var(--paper-line); border-radius:12px; padding:6px 20px; box-shadow:0 1px 4px var(--shadow); }
+  .entry{ padding:14px 0; border-bottom:1px solid var(--paper-line); }
+  .entry:last-child{ border-bottom:none; }
+  .entry-head{ display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; margin-bottom:5px; }
+  .entry-name{ font-weight:600; font-size:15px; color:var(--accent); }
+  .entry-tag{ font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); background:#F1EAD9; padding:2px 7px; border-radius:5px; }
+  .entry p{ font-size:13.5px; line-height:1.6; margin:0; color:var(--ink); }
+  .entry .note{ font-size:12px; font-style:italic; color:var(--ink-soft); margin-top:5px; }
+
+  .footnote{ font-size:12px; color:var(--ink-soft); font-style:italic; margin-top:20px; }
+  a.src{ color:var(--accent); }
+</style>
+</head>
+<body>
+<nav class="wh-nav">
+  <a class="wh-nav-home" href="../../index.html">Home</a>
+  <a href="../../11th%20Edition/index.html">11th Edition</a>
+  <a href="../../Orks/index.html">Orks</a>
+  <a href="../../Datasheets/index.html">Datasheets</a>
+</nav>
+<style>
+  .wh-nav{position:sticky;top:0;z-index:1000;display:flex;gap:24px;align-items:center;padding:12px 24px;background:#FFFEFB;border-bottom:1px solid #E4DDCE;box-shadow:0 1px 4px rgba(35,32,26,.08);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:14px;}
+  .wh-nav a{color:#d6336c;text-decoration:none;font-weight:500;}
+  .wh-nav a:hover{text-decoration:underline;}
+  .wh-nav .wh-nav-home{color:#23201A;font-weight:700;}
+</style>
+
+
+<header class="page-head">
+  <a class="back-link" href="../index.html">&larr; 11th Edition</a>
+  <h1>Weapon Abilities</h1>
+  <p>Every Weapon Ability &mdash; the keywords printed under an individual weapon's profile on a datasheet, like Rapid Fire or Cleave &mdash; listed A&ndash;Z with what it does. These are different from Datasheet Abilities (whole-unit rules like Deep Strike or Stealth), which live on the datasheet itself rather than under a specific weapon.</p>
+</header>
+
+<div class="doc">
+
+  <p class="eyebrow">Warhammer 40,000 &middot; 11th Edition</p>
+  <h1 class="doc-title">Weapon Abilities, A&ndash;Z</h1>
+  <p class="doc-intro">Any keyword you see written under a weapon's stat line (Rapid Fire 1, Devastating Wounds, Cleave 1, and so on) is a <b>Weapon Ability</b> &mdash; it only affects attacks made with that specific weapon. Values shown as &ldquo;X&rdquo; vary per weapon &mdash; check the datasheet for the actual number.</p>
+
+  <div class="callout">
+    <p class="cal-label">⚠️ Double-check before relying on these at the table</p>
+    <p>11th edition reshuffled several weapon abilities from 10th (Devastating Wounds, Hazardous, Heavy, Indirect Fire and Precision all work differently now), and added <b>Cleave</b> as brand new. The Pistol keyword's exact current name is genuinely unsettled across sources at time of writing &mdash; some call it <b>Point-Blank</b>, others say it's just <b>Pistol</b> again and functionally identical to Close-Quarters shooting. Confirm exact wording and values on <a class="src" href="https://wahapedia.ru/wh40k11ed/" target="_blank" rel="noopener">Wahapedia</a>, which stays current as rules get FAQ'd/errata'd.</p>
+  </div>
+
+  <div class="glossary">
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Anti-X Y+</span></div>
+      <p>Against models with keyword X, this weapon scores a Critical Wound on an unmodified wound roll of Y+ (e.g. Anti-Vehicle 3+ critically wounds Vehicles on a 3, 4, 5 or 6).</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Assault</span></div>
+      <p>This weapon can still be fired even if the bearer's unit Advanced this turn.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Blast</span></div>
+      <p>Add 1 to this weapon's Attacks characteristic for every full 5 models in the target unit &mdash; rewards firing into big blobs.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Cleave X</span><span class="entry-tag">New in 11th</span></div>
+      <p>The melee equivalent of Blast &mdash; adds bonus Attacks against a target unit based on its model count, but on a melee weapon rather than a ranged one.</p>
+      <p class="note">Exact wording/value mechanics not yet double-checked against a primary source &mdash; verify on Wahapedia before relying on it.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Conversion X+</span></div>
+      <p>Scores a Critical Hit on an unmodified hit roll of X+ when the target is beyond half this weapon's range &mdash; rewards long-range precision shooting.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Devastating Wounds</span><span class="entry-tag">Changed</span></div>
+      <p>A Critical Wound scored by this weapon ignores the target's saving throw entirely, including any invulnerable save.</p>
+      <p class="note">In 10th edition this instead converted the hit into mortal wounds.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Extra Attacks</span></div>
+      <p>Can't be chosen as a bearer's only weapon. When resolving attacks, add this weapon's Attacks to those of another weapon the model is also attacking with that phase.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Hazardous</span><span class="entry-tag">Changed</span></div>
+      <p>After the weapon is used, roll a D6 for each model that used it; on a 1&ndash;2, that model's unit suffers 1 mortal wound (3 for VEHICLE units).</p>
+      <p class="note">In 10th edition this only failed on a 1, and the mortal-wound count scaled with unit size rather than being a flat number.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Heavy</span><span class="entry-tag">Changed</span></div>
+      <p>Get +1 to hit with this weapon if the bearer's unit is not Engaged and moved 3" or less this turn.</p>
+      <p class="note">In 10th edition this required the unit to Remain Stationary entirely; 11th allows a short move and still grants the bonus.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Ignores Cover</span></div>
+      <p>The target unit does not get the Benefit of Cover against attacks made with this weapon.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Indirect Fire</span><span class="entry-tag">Changed</span></div>
+      <p>This weapon can target units the bearer can't draw line of sight to, at reduced accuracy (or full accuracy if an allied unit can see the target).</p>
+      <p class="note">Reworked significantly for 11th edition &mdash; confirm the current penalty/observer mechanics on Wahapedia rather than assuming 10th-edition rules still apply.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Lance</span></div>
+      <p>Get +1 to wound with this weapon if the bearer's unit made a Charge move this turn.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Lethal Hits</span></div>
+      <p>An unmodified hit roll of 6 (a Critical Hit) with this weapon automatically wounds the target &mdash; no wound roll needed for that hit.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Melta X</span></div>
+      <p>Add X to this weapon's Damage characteristic when the target is within half range.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">One Shot</span></div>
+      <p>This weapon can only be selected to shoot with once per battle.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Pistol</span><span class="entry-tag">Naming unsettled</span></div>
+      <p>The bearer's unit can still fire this weapon even while Engaged with the enemy (within Engagement Range) &mdash; other, non-Pistol weapons can't.</p>
+      <p class="note">10th edition's [PISTOL] keyword; some 11th-edition sources call the current version [POINT-BLANK], others keep [PISTOL] and treat it as functionally identical to Close-Quarters shooting. Check the exact current name on Wahapedia.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Precision</span><span class="entry-tag">Changed</span></div>
+      <p>Attacks made with this weapon can be allocated to CHARACTER models within the target unit, not just the closest eligible model &mdash; lets you snipe out an attached character.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Psychic</span></div>
+      <p>Marks the weapon as a psychic attack, relevant to any rule that specifically buffs, blocks, or reacts to Psychic Attacks (e.g. anti-psyker abilities).</p>
+      <p class="note">Some sources describe an additional 11th-edition effect around ignoring hit-roll modifiers &mdash; unconfirmed, verify on Wahapedia.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Rapid Fire X</span></div>
+      <p>Add X to this weapon's Attacks characteristic when the target is within half range.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Sustained Hits X</span></div>
+      <p>A Critical Hit with this weapon scores X additional hits on the target, on top of the original hit.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Torrent</span></div>
+      <p>This weapon automatically hits its target &mdash; no hit roll is made.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head"><span class="entry-name">Twin-linked</span></div>
+      <p>Re-roll wound rolls made for this weapon.</p>
+    </div>
+
+  </div>
+
+  <p class="footnote">Sources: Wahapedia 11th Edition core rules &amp; FAQs (wahapedia.ru/wh40k11ed), Wargamer's 11th Edition abilities guide, and community keyword round-ups from ThriftHammer, Sprues &amp; Brews and Tabletop Battles. Entries flagged above weren't confirmable against a primary source at time of writing &mdash; check Wahapedia for the current official wording before a game.</p>
+
+</div>
+
+</body>
+</html>
