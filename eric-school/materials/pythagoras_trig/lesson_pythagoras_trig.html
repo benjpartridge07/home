@@ -1,0 +1,333 @@
+<nav id="eric-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../../biology.html" style="color:#2f9d5c;text-decoration:none;font-weight:600;">Biology</a>
+    <a href="../../math.html" style="color:#7c3aed;text-decoration:none;font-weight:600;">Maths</a>
+    <a href="../../physics.html" style="color:#2f6fed;text-decoration:none;font-weight:600;">Physics</a>
+    <a href="../../chemistry.html" style="color:#c4571f;text-decoration:none;font-weight:600;">Chemistry</a>
+</nav>
+<style>
+  #ls22-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --acc: #B5762A; --acc-soft: #F1E3CE;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls22-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls22-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls22-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls22-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls22-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls22-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls22-section { margin-bottom: 26px; }
+  .ls22-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls22-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls22-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls22-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls22-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls22-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls22-card p:last-child { margin-bottom: 0; }
+  .ls22-term { font-weight: 600; color: var(--maths); }
+  .ls22-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls22-diagram-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .ls22-diagram-wrap svg { max-width: 280px; width: 100%; height: auto; }
+
+  .ls22-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls22-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls22-table-wrap th, .ls22-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls22-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls22-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls22-activity { background: var(--acc-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls22-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls22-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls22-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls22-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls22-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls22-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls22-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls22-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls22-feedback.ok { color: #2E6B45; }
+  .ls22-feedback.no { color: #A34B4B; }
+
+  .ls22-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls22-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls22-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls22-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls22-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--acc); background: none; border: 1.5px solid var(--acc); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls22-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--acc); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls22-answer.show { display: block; }
+
+  .ls22-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls22-root">
+  <p class="ls22-eyebrow">GCSE Maths &middot; Geometry &amp; Measures</p>
+  <h1 class="ls22-title">Pythagoras&rsquo; Theorem &amp; Trigonometry</h1>
+  <div class="ls22-meta">
+    <span><span class="ls22-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>80 minutes</span>
+  </div>
+
+  <!-- 1 finding the hypotenuse -->
+  <div class="ls22-section">
+    <div class="ls22-section-head">
+      <span class="ls22-section-num">01</span>
+      <h2 class="ls22-section-title">Pythagoras&rsquo; theorem: finding the hypotenuse</h2>
+      <span class="ls22-section-time">8 min</span>
+    </div>
+    <div class="ls22-diagram-wrap">
+      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="40,190 40,40 240,190" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <polyline points="40,170 60,170 60,190" fill="none" stroke="#23201A" stroke-width="1.6"/>
+        <text x="22" y="120" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="600" fill="#3A5E85">a</text>
+        <text x="140" y="210" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="600" fill="#3A5E85">b</text>
+        <text x="155" y="105" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="600" fill="#B5762A">c</text>
+      </svg>
+    </div>
+    <div class="ls22-card">
+      <p><span class="ls22-term">Pythagoras&rsquo; theorem</span> works for any <span class="ls22-term">right-angled triangle</span>. It links the two shorter sides (<span class="ls22-eq">a</span> and <span class="ls22-eq">b</span>) to the <span class="ls22-term">hypotenuse</span> &mdash; the longest side, always opposite the right angle (side <span class="ls22-eq">c</span>).</p>
+      <p><span class="ls22-eq">a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup></span></p>
+      <p>To find the hypotenuse, <strong>add</strong> the squares of the two shorter sides, then square root. Worked example: a = 6 cm, b = 8 cm &rarr; c<sup>2</sup> = 6<sup>2</sup> + 8<sup>2</sup> = 36 + 64 = 100 &rarr; c = &radic;100 = <strong>10 cm</strong>.</p>
+    </div>
+  </div>
+
+  <!-- 2 finding a shorter side -->
+  <div class="ls22-section">
+    <div class="ls22-section-head">
+      <span class="ls22-section-num">02</span>
+      <h2 class="ls22-section-title">Pythagoras&rsquo; theorem: finding a shorter side</h2>
+      <span class="ls22-section-time">8 min</span>
+    </div>
+    <div class="ls22-card">
+      <p>If you already know the hypotenuse and want a shorter side, rearrange the formula &mdash; <strong>subtract</strong> instead of add:</p>
+      <p><span class="ls22-eq">a<sup>2</sup> = c<sup>2</sup> &minus; b<sup>2</sup></span> &nbsp;&nbsp; or &nbsp;&nbsp; <span class="ls22-eq">b<sup>2</sup> = c<sup>2</sup> &minus; a<sup>2</sup></span></p>
+      <p>Worked example: hypotenuse c = 13 cm, one shorter side b = 5 cm &rarr; a<sup>2</sup> = 13<sup>2</sup> &minus; 5<sup>2</sup> = 169 &minus; 25 = 144 &rarr; a = &radic;144 = <strong>12 cm</strong>.</p>
+      <p><span class="ls22-term">Common mistake</span>: always check which side is the hypotenuse first (the longest side, opposite the right angle) &mdash; it's always <span class="ls22-eq">c</span> on its own on one side of the equation, never added to another squared side.</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls22-section">
+    <div class="ls22-section-head">
+      <span class="ls22-section-num">&bull;</span>
+      <h2 class="ls22-section-title">Activity &mdash; Pythagoras&rsquo; theorem</h2>
+      <span class="ls22-section-time">7 min</span>
+    </div>
+    <div class="ls22-activity" data-activity="1">
+      <p class="ls22-activity-label">Give your answer as a number only (units are cm), e.g. 10</p>
+      <div class="ls22-blank-row"><label>a = 3, b = 4 &rarr; hypotenuse c =</label><input type="text" data-answer="5"></div>
+      <div class="ls22-blank-row"><label>a = 5, b = 12 &rarr; hypotenuse c =</label><input type="text" data-answer="13"></div>
+      <div class="ls22-blank-row"><label>c = 10, b = 6 &rarr; shorter side a =</label><input type="text" data-answer="8"></div>
+      <div class="ls22-blank-row"><label>c = 17, b = 15 &rarr; shorter side a =</label><input type="text" data-answer="8"></div>
+      <button class="ls22-check-btn" id="ls22-check-1">Check answers</button>
+      <p class="ls22-feedback" id="ls22-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 3 SOH CAH TOA intro -->
+  <div class="ls22-section">
+    <div class="ls22-section-head">
+      <span class="ls22-section-num">03</span>
+      <h2 class="ls22-section-title">Introducing SOH CAH TOA</h2>
+      <span class="ls22-section-time">8 min</span>
+    </div>
+    <div class="ls22-diagram-wrap">
+      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="30,190 30,50 260,190" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <polyline points="30,170 50,170 50,190" fill="none" stroke="#23201A" stroke-width="1.6"/>
+        <path d="M 78 190 A 48 48 0 0 0 55 158" fill="none" stroke="#B5762A" stroke-width="1.6"/>
+        <text x="72" y="172" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#B5762A">&theta;</text>
+        <text x="15" y="122" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="600" fill="#3A5E85">opp</text>
+        <text x="145" y="210" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="600" fill="#3A5E85">adj</text>
+        <text x="168" y="112" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="600" fill="#3A5E85">hyp</text>
+      </svg>
+    </div>
+    <div class="ls22-card">
+      <p><span class="ls22-term">Right-angled trigonometry</span> links an <span class="ls22-term">angle</span> (&theta;) in a right-angled triangle to the <span class="ls22-term">ratio</span> of two of its sides. Relative to the angle &theta;, the three sides are named the <span class="ls22-term">hypotenuse</span> (longest side, opposite the right angle), the <span class="ls22-term">opposite</span> (across from &theta;) and the <span class="ls22-term">adjacent</span> (next to &theta;, not the hypotenuse).</p>
+      <p>Remember the three ratios with <span class="ls22-eq">SOH CAH TOA</span>:</p>
+      <p><span class="ls22-eq">SOH</span>: sin &theta; = opp &divide; hyp &nbsp;&nbsp; <span class="ls22-eq">CAH</span>: cos &theta; = adj &divide; hyp &nbsp;&nbsp; <span class="ls22-eq">TOA</span>: tan &theta; = opp &divide; adj</p>
+      <p>To choose the right ratio: label the two sides you know (or want) as opp/adj/hyp relative to the angle, then pick the ratio that contains both of them. Make sure your calculator is in <span class="ls22-term">degree mode</span>.</p>
+    </div>
+  </div>
+
+  <!-- 4 finding a missing side -->
+  <div class="ls22-section">
+    <div class="ls22-section-head">
+      <span class="ls22-section-num">04</span>
+      <h2 class="ls22-section-title">Trigonometry: finding a missing side</h2>
+      <span class="ls22-section-time">10 min</span>
+    </div>
+    <div class="ls22-card">
+      <p>If you know an angle and one side, and want to find another side, <span class="ls22-term">rearrange</span> the ratio to make the unknown side the subject.</p>
+      <p>Worked example (SOH): angle = 35&deg;, hypotenuse = 9 cm, find the opposite side x. sin 35&deg; = x &divide; 9 &rarr; x = 9 &times; sin 35&deg; = 9 &times; 0.5736 = <strong>5.2 cm</strong> (1 d.p.).</p>
+      <p>Worked example (CAH): angle = 52&deg;, adjacent = 7 cm, find the hypotenuse h. cos 52&deg; = 7 &divide; h &rarr; h = 7 &divide; cos 52&deg; = 7 &divide; 0.6157 = <strong>11.4 cm</strong> (1 d.p.).</p>
+      <p><span class="ls22-term">Tip</span>: if the unknown is on top of the ratio (opp or adj), <strong>multiply</strong>. If the unknown is on the bottom (hyp, or adj in TOA), you must <strong>divide</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls22-section">
+    <div class="ls22-section-head">
+      <span class="ls22-section-num">&bull;</span>
+      <h2 class="ls22-section-title">Activity &mdash; finding missing sides</h2>
+      <span class="ls22-section-time">7 min</span>
+    </div>
+    <div class="ls22-activity maths" data-activity="2">
+      <p class="ls22-activity-label">Give your answer as a number only (units are cm), rounded to 1 decimal place if needed, e.g. 6 or 9.6</p>
+      <div class="ls22-blank-row"><label>Angle 30&deg;, hypotenuse 12 &rarr; opposite side =</label><input type="text" data-answer="6"></div>
+      <div class="ls22-blank-row"><label>Angle 60&deg;, hypotenuse 10 &rarr; adjacent side =</label><input type="text" data-answer="5"></div>
+      <div class="ls22-blank-row"><label>Angle 40&deg;, hypotenuse 15 &rarr; opposite side =</label><input type="text" data-answer="9.6"></div>
+      <div class="ls22-blank-row"><label>Angle 25&deg;, opposite 4 &rarr; hypotenuse =</label><input type="text" data-answer="9.5"></div>
+      <button class="ls22-check-btn" id="ls22-check-2">Check answers</button>
+      <p class="ls22-feedback" id="ls22-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 5 finding a missing angle -->
+  <div class="ls22-section">
+    <div class="ls22-section-head">
+      <span class="ls22-section-num">05</span>
+      <h2 class="ls22-section-title">Trigonometry: finding a missing angle</h2>
+      <span class="ls22-section-time">10 min</span>
+    </div>
+    <div class="ls22-card">
+      <p>If you know two sides and want the angle, use the <span class="ls22-term">inverse</span> trig function (sin<sup>-1</sup>, cos<sup>-1</sup> or tan<sup>-1</sup> &mdash; usually SHIFT + sin/cos/tan on a calculator) to &ldquo;undo&rdquo; the ratio.</p>
+      <p><span class="ls22-eq">&theta; = sin<sup>-1</sup>(opp &divide; hyp)</span> &nbsp;&nbsp; <span class="ls22-eq">&theta; = cos<sup>-1</sup>(adj &divide; hyp)</span> &nbsp;&nbsp; <span class="ls22-eq">&theta; = tan<sup>-1</sup>(opp &divide; adj)</span></p>
+      <p>Worked example: opposite = 7 cm, hypotenuse = 11 cm. sin &theta; = 7 &divide; 11 = 0.6364 &rarr; &theta; = sin<sup>-1</sup>(0.6364) = <strong>39.5&deg;</strong> (1 d.p.).</p>
+      <p>Worked example: opposite = 8 cm, adjacent = 8 cm. tan &theta; = 8 &divide; 8 = 1 &rarr; &theta; = tan<sup>-1</sup>(1) = <strong>45&deg;</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Activity 3 -->
+  <div class="ls22-section">
+    <div class="ls22-section-head">
+      <span class="ls22-section-num">&bull;</span>
+      <h2 class="ls22-section-title">Activity &mdash; finding missing angles</h2>
+      <span class="ls22-section-time">7 min</span>
+    </div>
+    <div class="ls22-activity" data-activity="3">
+      <p class="ls22-activity-label">Give your answer in degrees, just the number, rounded to 1 decimal place if needed, e.g. 30 or 39.5</p>
+      <div class="ls22-blank-row"><label>Opposite = 5, hypotenuse = 10 &rarr; &theta; =</label><input type="text" data-answer="30"></div>
+      <div class="ls22-blank-row"><label>Adjacent = 6, hypotenuse = 12 &rarr; &theta; =</label><input type="text" data-answer="60"></div>
+      <div class="ls22-blank-row"><label>Opposite = 8, adjacent = 8 &rarr; &theta; =</label><input type="text" data-answer="45"></div>
+      <div class="ls22-blank-row"><label>Opposite = 7, hypotenuse = 11 &rarr; &theta; =</label><input type="text" data-answer="39.5"></div>
+      <button class="ls22-check-btn" id="ls22-check-3">Check answers</button>
+      <p class="ls22-feedback" id="ls22-feedback-3"></p>
+    </div>
+  </div>
+
+  <!-- 6 GCSE questions -->
+  <div class="ls22-section">
+    <div class="ls22-section-head">
+      <span class="ls22-section-num">06</span>
+      <h2 class="ls22-section-title">GCSE-style review questions</h2>
+      <span class="ls22-section-time">15 min</span>
+    </div>
+
+    <div class="ls22-q">
+      <div class="ls22-q-top"><p class="ls22-q-text">1. A right-angled triangle has shorter sides of 9 cm and 12 cm. Find the length of the hypotenuse.</p><span class="ls22-q-marks">[2 marks]</span></div>
+      <button class="ls22-reveal-btn" data-reveal="p1">Show mark scheme</button>
+      <div class="ls22-answer" id="p1">c<sup>2</sup> = 9<sup>2</sup> + 12<sup>2</sup> = 81 + 144 = 225 (1) &nbsp; c = &radic;225 = <strong>15 cm</strong> (1)</div>
+    </div>
+
+    <div class="ls22-q">
+      <div class="ls22-q-top"><p class="ls22-q-text">2. The hypotenuse of a right-angled triangle is 25 cm and one of the shorter sides is 7 cm. Find the length of the other shorter side.</p><span class="ls22-q-marks">[3 marks]</span></div>
+      <button class="ls22-reveal-btn" data-reveal="p2">Show mark scheme</button>
+      <div class="ls22-answer" id="p2">a<sup>2</sup> = 25<sup>2</sup> &minus; 7<sup>2</sup> (1) &nbsp; = 625 &minus; 49 = 576 (1) &nbsp; a = &radic;576 = <strong>24 cm</strong> (1)</div>
+    </div>
+
+    <div class="ls22-q">
+      <div class="ls22-q-top"><p class="ls22-q-text">3. In a right-angled triangle, an angle is 28&deg; and the hypotenuse is 14 cm. Find the length of the side opposite the angle, to 1 decimal place.</p><span class="ls22-q-marks">[3 marks]</span></div>
+      <button class="ls22-reveal-btn" data-reveal="p3">Show mark scheme</button>
+      <div class="ls22-answer" id="p3">sin 28&deg; = x &divide; 14 (1) &nbsp; x = 14 &times; sin 28&deg; (1) &nbsp; = <strong>6.6 cm</strong> (1)</div>
+    </div>
+
+    <div class="ls22-q">
+      <div class="ls22-q-top"><p class="ls22-q-text">4. In a right-angled triangle, the side adjacent to a 50&deg; angle is 9 cm. Find the length of the hypotenuse, to 1 decimal place.</p><span class="ls22-q-marks">[3 marks]</span></div>
+      <button class="ls22-reveal-btn" data-reveal="p4">Show mark scheme</button>
+      <div class="ls22-answer" id="p4">cos 50&deg; = 9 &divide; h (1) &nbsp; h = 9 &divide; cos 50&deg; (1) &nbsp; = <strong>14.0 cm</strong> (1)</div>
+    </div>
+
+    <div class="ls22-q">
+      <div class="ls22-q-top"><p class="ls22-q-text">5. A ladder leans against a wall. The foot of the ladder is 2.5 m from the wall and it reaches 6 m up the wall. Calculate the angle the ladder makes with the ground, to 1 decimal place.</p><span class="ls22-q-marks">[3 marks]</span></div>
+      <button class="ls22-reveal-btn" data-reveal="p5">Show mark scheme</button>
+      <div class="ls22-answer" id="p5">tan &theta; = 6 &divide; 2.5 = 2.4 (1) &nbsp; &theta; = tan<sup>-1</sup>(2.4) (1) &nbsp; = <strong>67.4&deg;</strong> (1)</div>
+    </div>
+
+    <div class="ls22-q">
+      <div class="ls22-q-top"><p class="ls22-q-text">6. A right-angled triangle has an opposite side of 15 cm and a hypotenuse of 17 cm. (a) Find the angle opposite the 15 cm side, to 1 decimal place. (b) Find the length of the third side.</p><span class="ls22-q-marks">[4 marks]</span></div>
+      <button class="ls22-reveal-btn" data-reveal="p6">Show mark scheme</button>
+      <div class="ls22-answer" id="p6">(a) sin &theta; = 15 &divide; 17 (1) &nbsp; &theta; = sin<sup>-1</sup>(15 &divide; 17) = <strong>61.9&deg;</strong> (1) &nbsp; (b) 17<sup>2</sup> &minus; 15<sup>2</sup> = 289 &minus; 225 = 64 (1) &nbsp; &radic;64 = <strong>8 cm</strong> (1)</div>
+    </div>
+  </div>
+
+  <p class="ls22-footer-note">Tip: always find the hypotenuse first &mdash; it's the longest side, opposite the right angle. For trigonometry, label opp/adj/hyp relative to the angle you're using, pick SOH, CAH or TOA to match the two sides involved, and check your calculator is in degree mode.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, '').replace(/hours?/, 'hours'); }
+
+  document.getElementById('ls22-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls22-root .ls22-activity[data-activity="1"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls22-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls22-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls22-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls22-root .ls22-activity[data-activity="2"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls22-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls22-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls22-check-3').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls22-root .ls22-activity[data-activity="3"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls22-feedback-3');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls22-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls22-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

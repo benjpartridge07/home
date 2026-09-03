@@ -1,0 +1,450 @@
+<nav id="eric-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../../biology.html" style="color:#2f9d5c;text-decoration:none;font-weight:600;">Biology</a>
+    <a href="../../math.html" style="color:#7c3aed;text-decoration:none;font-weight:600;">Maths</a>
+    <a href="../../physics.html" style="color:#2f6fed;text-decoration:none;font-weight:600;">Physics</a>
+    <a href="../../chemistry.html" style="color:#c4571f;text-decoration:none;font-weight:600;">Chemistry</a>
+</nav>
+<style>
+  #ls23-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --acc: #B5762A; --acc-soft: #F1E3CE;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls23-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls23-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls23-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls23-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls23-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls23-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls23-section { margin-bottom: 26px; }
+  .ls23-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls23-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls23-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls23-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls23-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls23-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls23-card p:last-child { margin-bottom: 0; }
+  .ls23-term { font-weight: 600; color: var(--maths); }
+  .ls23-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls23-vec { display: inline-flex; align-items: center; font-family: 'IBM Plex Mono', monospace; vertical-align: middle; margin: 0 1px; }
+  .ls23-vec .paren { font-size: 22px; line-height: 1; color: var(--ink-soft); }
+  .ls23-vec .col { display: inline-flex; flex-direction: column; align-items: center; margin: 0 2px; font-size: 12.5px; line-height: 1.2; }
+
+  .ls23-diagram-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .ls23-diagram-wrap svg { max-width: 280px; width: 100%; height: auto; }
+
+  .ls23-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls23-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls23-table-wrap th, .ls23-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls23-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls23-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls23-activity { background: var(--acc-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls23-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls23-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls23-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls23-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls23-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls23-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls23-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls23-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls23-feedback.ok { color: #2E6B45; }
+  .ls23-feedback.no { color: #A34B4B; }
+
+  .ls23-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls23-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls23-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls23-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls23-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--acc); background: none; border: 1.5px solid var(--acc); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls23-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--acc); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls23-answer.show { display: block; }
+
+  .ls23-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls23-root">
+  <p class="ls23-eyebrow">GCSE Maths &middot; Geometry &amp; Measures</p>
+  <h1 class="ls23-title">Transformations &amp; Constructions</h1>
+  <div class="ls23-meta">
+    <span><span class="ls23-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>92 minutes</span>
+  </div>
+
+  <!-- 1 translation -->
+  <div class="ls23-section">
+    <div class="ls23-section-head">
+      <span class="ls23-section-num">01</span>
+      <h2 class="ls23-section-title">Translation</h2>
+      <span class="ls23-section-time">8 min</span>
+    </div>
+    <div class="ls23-diagram-wrap">
+      <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20" y1="20" x2="20" y2="180" stroke="#E4DDCE" stroke-width="1"/>
+        <line x1="60" y1="20" x2="60" y2="180" stroke="#E4DDCE" stroke-width="1"/>
+        <line x1="100" y1="20" x2="100" y2="180" stroke="#E4DDCE" stroke-width="1"/>
+        <line x1="140" y1="20" x2="140" y2="180" stroke="#E4DDCE" stroke-width="1"/>
+        <line x1="180" y1="20" x2="180" y2="180" stroke="#E4DDCE" stroke-width="1"/>
+        <line x1="220" y1="20" x2="220" y2="180" stroke="#E4DDCE" stroke-width="1"/>
+        <line x1="260" y1="20" x2="260" y2="180" stroke="#E4DDCE" stroke-width="1"/>
+        <line x1="20" y1="20" x2="280" y2="20" stroke="#E4DDCE" stroke-width="1"/>
+        <line x1="20" y1="60" x2="280" y2="60" stroke="#E4DDCE" stroke-width="1"/>
+        <line x1="20" y1="100" x2="280" y2="100" stroke="#E4DDCE" stroke-width="1"/>
+        <line x1="20" y1="140" x2="280" y2="140" stroke="#E4DDCE" stroke-width="1"/>
+        <line x1="20" y1="180" x2="280" y2="180" stroke="#E4DDCE" stroke-width="1"/>
+        <polygon points="40,160 80,160 60,120" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <text x="45" y="176" font-family="IBM Plex Mono, monospace" font-size="11" fill="#6B6355">object</text>
+        <polygon points="160,80 200,80 180,40" fill="none" stroke="#3A5E85" stroke-width="2.5"/>
+        <text x="165" y="36" font-family="IBM Plex Mono, monospace" font-size="11" fill="#3A5E85">image</text>
+        <line x1="60" y1="120" x2="176" y2="44" stroke="#B5762A" stroke-width="2"/>
+        <polygon points="180,40 172,46 176,52" fill="#B5762A"/>
+        <text x="200" y="118" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#B5762A">vector (3, 2)</text>
+      </svg>
+    </div>
+    <div class="ls23-card">
+      <p>A <span class="ls23-term">translation</span> slides a shape to a new position &mdash; it does not turn it, flip it or change its size. Every point moves the <strong>same distance in the same direction</strong>.</p>
+      <p>A translation is described using a <span class="ls23-term">column vector</span>: <span class="ls23-vec"><span class="paren">(</span><span class="col"><span>x</span><span>y</span></span><span class="paren">)</span></span>. The top number is the movement <strong>left/right</strong> (positive = right, negative = left); the bottom number is the movement <strong>up/down</strong> (positive = up, negative = down).</p>
+      <p>Worked example: translate point A(1, 4) by the vector <span class="ls23-vec"><span class="paren">(</span><span class="col"><span>3</span><span>&minus;2</span></span><span class="paren">)</span></span>. Add the vector to the coordinates: (1 + 3, 4 &minus; 2) = <strong>(4, 2)</strong>.</p>
+      <p>To find the vector between two points, work out how far you move right/left and up/down to get from the object to the image.</p>
+    </div>
+  </div>
+
+  <!-- 2 rotation -->
+  <div class="ls23-section">
+    <div class="ls23-section-head">
+      <span class="ls23-section-num">02</span>
+      <h2 class="ls23-section-title">Rotation</h2>
+      <span class="ls23-section-time">10 min</span>
+    </div>
+    <div class="ls23-diagram-wrap">
+      <svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="170,110 170,150 190,150" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <polygon points="130,70 170,70 170,50" fill="none" stroke="#3A5E85" stroke-width="2.5"/>
+        <circle cx="130" cy="110" r="3.5" fill="#B5762A"/>
+        <text x="118" y="128" font-family="IBM Plex Mono, monospace" font-size="11" fill="#B5762A">centre</text>
+        <path d="M 155 110 A 25 25 0 0 1 130 85" fill="none" stroke="#B5762A" stroke-width="1.8"/>
+        <polygon points="130,85 140,90 135,97" fill="#B5762A"/>
+        <text x="152" y="90" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#B5762A">90&deg;</text>
+        <text x="196" y="145" font-family="IBM Plex Mono, monospace" font-size="11" fill="#6B6355">object</text>
+        <text x="100" y="46" font-family="IBM Plex Mono, monospace" font-size="11" fill="#3A5E85">image</text>
+      </svg>
+    </div>
+    <div class="ls23-card">
+      <p>A <span class="ls23-term">rotation</span> turns a shape around a fixed point. To fully describe a rotation you need <strong>three</strong> things: the <span class="ls23-term">angle</span> of rotation (e.g. 90&deg;, 180&deg;, 270&deg;), the <span class="ls23-term">direction</span> (clockwise or anticlockwise), and the <span class="ls23-term">centre of rotation</span> (a coordinate).</p>
+      <p>To rotate a shape by hand: trace the shape, put your pencil on the centre of rotation, and turn the tracing paper through the given angle in the given direction.</p>
+      <p>Handy check for rotations about the <span class="ls23-eq">origin (0, 0)</span>: 90&deg; clockwise sends (x, y) &rarr; (y, &minus;x); 90&deg; anticlockwise sends (x, y) &rarr; (&minus;y, x); 180&deg; sends (x, y) &rarr; (&minus;x, &minus;y) &mdash; and 180&deg; looks the same clockwise or anticlockwise.</p>
+      <p>Worked example: rotate point (2, 5) by 180&deg; about the origin &rarr; (&minus;2, &minus;5).</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls23-section">
+    <div class="ls23-section-head">
+      <span class="ls23-section-num">&bull;</span>
+      <h2 class="ls23-section-title">Activity &mdash; translation &amp; rotation</h2>
+      <span class="ls23-section-time">7 min</span>
+    </div>
+    <div class="ls23-activity" data-activity="1">
+      <p class="ls23-activity-label">Give coordinates in the form (x,y) with no spaces, e.g. (5,3)</p>
+      <div class="ls23-blank-row"><label>Point (2, 5) translated by vector (3, &minus;2) &rarr; image =</label><input type="text" data-answer="(5,3)"></div>
+      <div class="ls23-blank-row"><label>Point (&minus;1, 4) translated by vector (&minus;2, &minus;3) &rarr; image =</label><input type="text" data-answer="(-3,1)"></div>
+      <div class="ls23-blank-row"><label>Point (3, 2) rotated 180&deg; about the origin &rarr; image =</label><input type="text" data-answer="(-3,-2)"></div>
+      <div class="ls23-blank-row"><label>Point (1, 5) rotated 90&deg; clockwise about the origin &rarr; image =</label><input type="text" data-answer="(5,-1)"></div>
+      <button class="ls23-check-btn" id="ls23-check-1">Check answers</button>
+      <p class="ls23-feedback" id="ls23-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 3 reflection -->
+  <div class="ls23-section">
+    <div class="ls23-section-head">
+      <span class="ls23-section-num">03</span>
+      <h2 class="ls23-section-title">Reflection</h2>
+      <span class="ls23-section-time">8 min</span>
+    </div>
+    <div class="ls23-diagram-wrap">
+      <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+        <line x1="140" y1="16" x2="140" y2="184" stroke="#6B6355" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <text x="140" y="12" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#6B6355">mirror line</text>
+        <polygon points="60,140 100,140 80,100" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <polygon points="220,140 180,140 200,100" fill="none" stroke="#3A5E85" stroke-width="2.5"/>
+        <line x1="80" y1="100" x2="200" y2="100" stroke="#B5762A" stroke-width="1.3" stroke-dasharray="3,3"/>
+        <circle cx="140" cy="100" r="2.5" fill="#B5762A"/>
+        <text x="60" y="176" font-family="IBM Plex Mono, monospace" font-size="11" fill="#6B6355">object</text>
+        <text x="196" y="176" font-family="IBM Plex Mono, monospace" font-size="11" fill="#3A5E85">image</text>
+      </svg>
+    </div>
+    <div class="ls23-card">
+      <p>A <span class="ls23-term">reflection</span> flips a shape in a mirror line. Every point on the image is the <strong>same perpendicular distance</strong> from the mirror line as the matching point on the object, but on the opposite side.</p>
+      <p>Common mirror lines and the effect on a point (x, y): reflect in the <span class="ls23-eq">x-axis</span> &rarr; (x, &minus;y); reflect in the <span class="ls23-eq">y-axis</span> &rarr; (&minus;x, y); reflect in the line <span class="ls23-eq">y = x</span> &rarr; (y, x); reflect in the line <span class="ls23-eq">y = &minus;x</span> &rarr; (&minus;y, &minus;x).</p>
+      <p>For a vertical line like <span class="ls23-eq">x = a</span> or horizontal line like <span class="ls23-eq">y = b</span>: find the distance from the point to the line, then go the same distance on the other side.</p>
+      <p>Worked example: reflect (5, 1) in the line x = 2. Distance from x = 2 to x = 5 is 3, so the image is 3 the other side: x = 2 &minus; 3 = &minus;1. Image = <strong>(&minus;1, 1)</strong>.</p>
+    </div>
+  </div>
+
+  <!-- 4 enlargement -->
+  <div class="ls23-section">
+    <div class="ls23-section-head">
+      <span class="ls23-section-num">04</span>
+      <h2 class="ls23-section-title">Enlargement: scale factor &amp; centre</h2>
+      <span class="ls23-section-time">10 min</span>
+    </div>
+    <div class="ls23-diagram-wrap">
+      <svg viewBox="0 0 210 190" xmlns="http://www.w3.org/2000/svg">
+        <line x1="30" y1="170" x2="150" y2="170" stroke="#DDBF8E" stroke-width="1.3" stroke-dasharray="4,3"/>
+        <line x1="30" y1="170" x2="150" y2="90" stroke="#DDBF8E" stroke-width="1.3" stroke-dasharray="4,3"/>
+        <line x1="30" y1="170" x2="190" y2="130" stroke="#DDBF8E" stroke-width="1.3" stroke-dasharray="4,3"/>
+        <circle cx="30" cy="170" r="3.5" fill="#B5762A"/>
+        <text x="6" y="184" font-family="IBM Plex Mono, monospace" font-size="10" fill="#B5762A">centre</text>
+        <polygon points="90,170 90,130 110,150" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <polygon points="150,170 150,90 190,130" fill="none" stroke="#3A5E85" stroke-width="2.5"/>
+        <text x="92" y="184" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#6B6355">object</text>
+        <text x="155" y="86" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#3A5E85">image, SF 2</text>
+      </svg>
+    </div>
+    <div class="ls23-card">
+      <p>An <span class="ls23-term">enlargement</span> is described by a <span class="ls23-term">scale factor</span> (SF) and a <span class="ls23-term">centre of enlargement</span>. Each point on the image lies on the straight line (ray) from the centre through the matching point on the object, at <strong>SF &times; the distance</strong> from the centre.</p>
+      <p><span class="ls23-term">Ray method</span> (to draw an enlargement): draw a straight line from the centre through each vertex of the object, then mark the image vertex at SF times the distance from the centre along that same ray.</p>
+      <p>Worked example: a shape has a side of length 4 cm. It is enlarged by scale factor 3. The matching side on the image = 4 &times; 3 = <strong>12 cm</strong>.</p>
+      <p>Watch out: the <span class="ls23-term">area</span> scale factor is the (linear) scale factor <strong>squared</strong>. Enlarging a shape of area 5 cm&sup2; by SF 3 gives an image area of 5 &times; 3&sup2; = <strong>45 cm&sup2;</strong>.</p>
+    </div>
+  </div>
+
+  <!-- 5 negative/fractional scale factors -->
+  <div class="ls23-section">
+    <div class="ls23-section-head">
+      <span class="ls23-section-num">05</span>
+      <h2 class="ls23-section-title">Negative &amp; fractional scale factors</h2>
+      <span class="ls23-section-time">9 min</span>
+    </div>
+    <div class="ls23-diagram-wrap">
+      <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+        <line x1="150" y1="100" x2="50" y2="110" stroke="#DDBF8E" stroke-width="1.3" stroke-dasharray="4,3"/>
+        <line x1="150" y1="70" x2="70" y2="130" stroke="#DDBF8E" stroke-width="1.3" stroke-dasharray="4,3"/>
+        <line x1="170" y1="90" x2="50" y2="110" stroke="#DDBF8E" stroke-width="1.3" stroke-dasharray="4,3"/>
+        <circle cx="110" cy="100" r="3.5" fill="#B5762A"/>
+        <text x="112" y="96" font-family="IBM Plex Mono, monospace" font-size="10" fill="#B5762A">centre</text>
+        <polygon points="150,100 150,70 170,90" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <polygon points="70,100 70,130 50,110" fill="none" stroke="#3A5E85" stroke-width="2.5"/>
+        <text x="152" y="66" font-family="IBM Plex Mono, monospace" font-size="10" fill="#6B6355">object</text>
+        <text x="18" y="122" font-family="IBM Plex Mono, monospace" font-size="10" fill="#3A5E85">image, SF &minus;1</text>
+      </svg>
+    </div>
+    <div class="ls23-card">
+      <p>Enlargements aren't always bigger! A <span class="ls23-term">fractional scale factor</span> (e.g. SF = &frac12;) produces a <strong>smaller</strong> image, on the <strong>same side</strong> of the centre as the object, sitting between the centre and the object.</p>
+      <p>A <span class="ls23-term">negative scale factor</span> (e.g. SF = &minus;2) produces an image on the <strong>opposite side</strong> of the centre &mdash; the shape is turned upside down (rotated 180&deg;) as well as resized. Its size is |SF| times the object.</p>
+      <p>Worked example: SF = &minus;1. The image is exactly the same size as the object, but on the opposite side of the centre, rotated 180&deg;.</p>
+    </div>
+    <div class="ls23-table-wrap">
+      <table>
+        <tr><th>Scale factor</th><th>Size of image</th><th>Position relative to centre</th></tr>
+        <tr><td>SF &gt; 1</td><td>Bigger</td><td>Same side as object</td></tr>
+        <tr><td>0 &lt; SF &lt; 1</td><td>Smaller</td><td>Same side as object</td></tr>
+        <tr><td>SF &lt; 0</td><td>|SF| &times; object size</td><td>Opposite side, turned 180&deg;</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls23-section">
+    <div class="ls23-section-head">
+      <span class="ls23-section-num">&bull;</span>
+      <h2 class="ls23-section-title">Activity &mdash; reflection &amp; enlargement</h2>
+      <span class="ls23-section-time">7 min</span>
+    </div>
+    <div class="ls23-activity maths" data-activity="2">
+      <p class="ls23-activity-label">Give coordinates in the form (x,y) with no spaces, or a plain number for lengths</p>
+      <div class="ls23-blank-row"><label>Reflect point (4, 3) in the x-axis &rarr; image =</label><input type="text" data-answer="(4,-3)"></div>
+      <div class="ls23-blank-row"><label>Reflect point (2, 5) in the y-axis &rarr; image =</label><input type="text" data-answer="(-2,5)"></div>
+      <div class="ls23-blank-row"><label>Reflect point (1, 2) in the line y = x &rarr; image =</label><input type="text" data-answer="(2,1)"></div>
+      <div class="ls23-blank-row"><label>Shape enlarged SF 3, object side 5 cm &rarr; image side (cm) =</label><input type="text" data-answer="15"></div>
+      <button class="ls23-check-btn" id="ls23-check-2">Check answers</button>
+      <p class="ls23-feedback" id="ls23-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 6 constructions: bisectors -->
+  <div class="ls23-section">
+    <div class="ls23-section-head">
+      <span class="ls23-section-num">06</span>
+      <h2 class="ls23-section-title">Constructions: perpendicular &amp; angle bisectors</h2>
+      <span class="ls23-section-time">11 min</span>
+    </div>
+    <div class="ls23-diagram-wrap">
+      <svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="100" r="110" fill="none" stroke="#B5762A" stroke-width="1" stroke-dasharray="3,3"/>
+        <circle cx="220" cy="100" r="110" fill="none" stroke="#3A5E85" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="40" y1="100" x2="220" y2="100" stroke="#23201A" stroke-width="2.5"/>
+        <circle cx="40" cy="100" r="3" fill="#23201A"/>
+        <circle cx="220" cy="100" r="3" fill="#23201A"/>
+        <text x="34" y="118" font-family="IBM Plex Mono, monospace" font-size="12" fill="#23201A">A</text>
+        <text x="214" y="118" font-family="IBM Plex Mono, monospace" font-size="12" fill="#23201A">B</text>
+        <line x1="130" y1="20" x2="130" y2="180" stroke="#3A5E85" stroke-width="2.5"/>
+        <circle cx="130" cy="100" r="3" fill="#3A5E85"/>
+        <text x="136" y="30" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#3A5E85">perpendicular bisector</text>
+      </svg>
+      <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+        <line x1="40" y1="180" x2="210" y2="180" stroke="#23201A" stroke-width="2.5"/>
+        <line x1="40" y1="180" x2="126" y2="57" stroke="#23201A" stroke-width="2.5"/>
+        <path d="M 110 180 A 70 70 0 0 1 80 123" fill="none" stroke="#B5762A" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <line x1="40" y1="180" x2="191" y2="102" stroke="#3A5E85" stroke-width="2.2" stroke-dasharray="6,3"/>
+        <circle cx="40" cy="180" r="3" fill="#23201A"/>
+        <text x="18" y="192" font-family="IBM Plex Mono, monospace" font-size="11" fill="#23201A">V</text>
+        <text x="150" y="112" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#3A5E85">bisector</text>
+      </svg>
+    </div>
+    <div class="ls23-card">
+      <p>Formal <span class="ls23-term">constructions</span> use only a <strong>ruler (straight edge)</strong> and <strong>compasses</strong> &mdash; no protractor for the construction marks. Always leave your <strong>arcs visible</strong>; they show your method and earn marks even if the final line is slightly off.</p>
+      <p><span class="ls23-term">Perpendicular bisector of a line AB</span>: open your compasses to more than half the length of AB. Put the point on A and draw an arc above and below the line; keeping the same radius, put the point on B and draw two more arcs. Join the two points where the arcs cross with a straight line &mdash; this line cuts AB at exactly <strong>90&deg;</strong>, through its <strong>midpoint</strong>. Every point on it is equidistant from A and B.</p>
+      <p><span class="ls23-term">Angle bisector</span>: put the compass point on the vertex and draw an arc that crosses both arms of the angle. Without changing the radius, put the compass point on each of those two crossing points in turn and draw two more arcs that intersect inside the angle. Join the vertex to that intersection point &mdash; this line splits the angle exactly in <strong>half</strong>. Every point on it is equidistant from both arms.</p>
+    </div>
+  </div>
+
+  <!-- 7 constructions: perpendicular from/to a point -->
+  <div class="ls23-section">
+    <div class="ls23-section-head">
+      <span class="ls23-section-num">07</span>
+      <h2 class="ls23-section-title">Constructions: perpendicular from/to a point</h2>
+      <span class="ls23-section-time">9 min</span>
+    </div>
+    <div class="ls23-card">
+      <p><span class="ls23-term">Perpendicular from a point to a line</span> (the point is <strong>not</strong> on the line): put the compass point on the given point and draw an arc that crosses the line in two places. Keeping the same (or a wider) radius, put the compass point on each of those two crossing points in turn and draw two arcs that intersect on the other side of the line. Join the original point to that intersection &mdash; this line meets the given line at <strong>90&deg;</strong> and is the <span class="ls23-term">shortest distance</span> from the point to the line.</p>
+      <p><span class="ls23-term">Perpendicular at a point on a line</span> (the point <strong>is</strong> on the line): put the compass point on the given point and mark two points on the line, one on each side, the same distance away. Then, using a wider radius, draw intersecting arcs above (or below) the line from each of those two marked points. Join the original point to where the arcs cross &mdash; that line is perpendicular to the original line at that point.</p>
+      <p>All of these constructions rely on the same idea: a point that is the same distance from two other points (found using equal compass radii) lies on the perpendicular bisector of the line joining them.</p>
+    </div>
+  </div>
+
+  <!-- Activity 3 -->
+  <div class="ls23-section">
+    <div class="ls23-section-head">
+      <span class="ls23-section-num">&bull;</span>
+      <h2 class="ls23-section-title">Activity &mdash; constructions</h2>
+      <span class="ls23-section-time">6 min</span>
+    </div>
+    <div class="ls23-activity" data-activity="3">
+      <p class="ls23-activity-label">Fill in the missing word or number for each statement</p>
+      <div class="ls23-blank-row"><label>The perpendicular bisector crosses the line at ___ degrees</label><input type="text" data-answer="90"></div>
+      <div class="ls23-blank-row"><label>Every point on the perpendicular bisector of AB is equidistant from A and ___</label><input type="text" data-answer="b"></div>
+      <div class="ls23-blank-row"><label>Every point on an angle bisector is equidistant from both ___ of the angle</label><input type="text" data-answer="arms"></div>
+      <div class="ls23-blank-row"><label>Formal constructions use a ruler and ___</label><input type="text" data-answer="compasses"></div>
+      <button class="ls23-check-btn" id="ls23-check-3">Check answers</button>
+      <p class="ls23-feedback" id="ls23-feedback-3"></p>
+    </div>
+  </div>
+
+  <!-- 8 GCSE questions -->
+  <div class="ls23-section">
+    <div class="ls23-section-head">
+      <span class="ls23-section-num">08</span>
+      <h2 class="ls23-section-title">GCSE-style review questions</h2>
+      <span class="ls23-section-time">15 min</span>
+    </div>
+
+    <div class="ls23-q">
+      <div class="ls23-q-top"><p class="ls23-q-text">1. Point P(3, &minus;1) is translated by the vector (&minus;2, 5). Find the coordinates of the image.</p><span class="ls23-q-marks">[2 marks]</span></div>
+      <button class="ls23-reveal-btn" data-reveal="r1">Show mark scheme</button>
+      <div class="ls23-answer" id="r1">(3 &minus; 2, &minus;1 + 5) (1) &nbsp; = <strong>(1, 4)</strong> (1)</div>
+    </div>
+
+    <div class="ls23-q">
+      <div class="ls23-q-top"><p class="ls23-q-text">2. A rotation is described using three pieces of information. Name all three.</p><span class="ls23-q-marks">[3 marks]</span></div>
+      <button class="ls23-reveal-btn" data-reveal="r2">Show mark scheme</button>
+      <div class="ls23-answer" id="r2"><strong>Angle</strong> of rotation (1) &nbsp; <strong>direction</strong> &mdash; clockwise or anticlockwise (1) &nbsp; <strong>centre</strong> of rotation (1)</div>
+    </div>
+
+    <div class="ls23-q">
+      <div class="ls23-q-top"><p class="ls23-q-text">3. Point (6, 2) is reflected in the line x = 4. Find the coordinates of the image.</p><span class="ls23-q-marks">[2 marks]</span></div>
+      <button class="ls23-reveal-btn" data-reveal="r3">Show mark scheme</button>
+      <div class="ls23-answer" id="r3">Distance from x = 4 to x = 6 is 2, so image x = 4 &minus; 2 = 2 (1) &nbsp; image = <strong>(2, 2)</strong> (1)</div>
+    </div>
+
+    <div class="ls23-q">
+      <div class="ls23-q-top"><p class="ls23-q-text">4. A shape is enlarged by scale factor &frac13; from a centre of enlargement. State (a) what happens to the size of the shape, and (b) where the image is positioned relative to the centre.</p><span class="ls23-q-marks">[2 marks]</span></div>
+      <button class="ls23-reveal-btn" data-reveal="r4">Show mark scheme</button>
+      <div class="ls23-answer" id="r4">(a) The image is <strong>smaller</strong> than the object (1) &nbsp; (b) The image is on the <strong>same side</strong> of the centre as the object, between the centre and the object (1)</div>
+    </div>
+
+    <div class="ls23-q">
+      <div class="ls23-q-top"><p class="ls23-q-text">5. Explain, using the words "size" and "side", what happens when a shape is enlarged by scale factor &minus;2.</p><span class="ls23-q-marks">[2 marks]</span></div>
+      <button class="ls23-reveal-btn" data-reveal="r5">Show mark scheme</button>
+      <div class="ls23-answer" id="r5">The image is <strong>twice the size</strong> of the object (1) &nbsp; and is on the <strong>opposite side</strong> of the centre of enlargement, turned 180&deg; (1)</div>
+    </div>
+
+    <div class="ls23-q">
+      <div class="ls23-q-top"><p class="ls23-q-text">6. Describe the steps to construct the perpendicular bisector of a line segment AB using a ruler and compasses.</p><span class="ls23-q-marks">[3 marks]</span></div>
+      <button class="ls23-reveal-btn" data-reveal="r6">Show mark scheme</button>
+      <div class="ls23-answer" id="r6">Set compasses to a radius more than half of AB (1) &nbsp; draw arcs from A and from B (same radius) so they cross above and below the line (1) &nbsp; join the two crossing points with a straight line (1)</div>
+    </div>
+  </div>
+
+  <p class="ls23-footer-note">Tip: transformation checklist &mdash; Translation needs a vector. Rotation needs angle + direction + centre. Reflection needs a mirror line. Enlargement needs a scale factor + centre (check the sign and whether it's a fraction!). For constructions, never rub out your arcs &mdash; they're part of the method marks.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, '').replace(/hours?/, 'hours'); }
+
+  document.getElementById('ls23-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls23-root .ls23-activity[data-activity="1"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls23-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls23-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls23-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls23-root .ls23-activity[data-activity="2"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls23-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls23-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls23-check-3').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls23-root .ls23-activity[data-activity="3"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls23-feedback-3');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls23-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls23-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

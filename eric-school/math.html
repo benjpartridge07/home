@@ -403,45 +403,45 @@
     <div class="topic">
       <div class="topic-head">
         <h3>Area, Perimeter &amp; Volume</h3>
-        <span class="status upcoming">Upcoming</span>
+        <span class="status done">Done</span>
       </div>
-      <p class="desc">2D shape area/perimeter (including circles), and volume of prisms and cylinders.</p>
+      <p class="desc">Area and perimeter of 2D shapes including circles, and volume of cuboids, prisms and cylinders. 27-mark test.</p>
       <div class="files">
-        <span class="placeholder">🧪 Interactive lesson</span>
-        <span class="placeholder">📄 Reference sheet</span>
+        <a href="materials/area_perimeter_volume/lesson_area_perimeter_volume.html">🧪 Interactive lesson</a>
+        <a href="materials/area_perimeter_volume/area_perimeter_volume_reference.pdf">📄 Reference sheet</a>
         <button type="button" class="videos-btn" data-topic="area_volume">🎥 Videos</button>
-        <span class="placeholder">📝 Test</span>
-        <span class="placeholder">✅ Answers</span>
+        <a href="materials/area_perimeter_volume/area_perimeter_volume_test.pdf">📝 Test</a>
+        <a href="materials/area_perimeter_volume/area_perimeter_volume_test_answers.pdf">✅ Answers</a>
       </div>
     </div>
 
     <div class="topic">
       <div class="topic-head">
         <h3>Pythagoras' Theorem &amp; Trigonometry</h3>
-        <span class="status upcoming">Upcoming</span>
+        <span class="status done">Done</span>
       </div>
-      <p class="desc">Finding missing sides with Pythagoras, and SOH CAH TOA for right-angled triangles.</p>
+      <p class="desc">Finding missing sides with Pythagoras, and SOH CAH TOA for right-angled triangles. 27-mark test.</p>
       <div class="files">
-        <span class="placeholder">🧪 Interactive lesson</span>
-        <span class="placeholder">📄 Reference sheet</span>
+        <a href="materials/pythagoras_trig/lesson_pythagoras_trig.html">🧪 Interactive lesson</a>
+        <a href="materials/pythagoras_trig/pythagoras_trig_reference.pdf">📄 Reference sheet</a>
         <button type="button" class="videos-btn" data-topic="pythagoras_trig">🎥 Videos</button>
-        <span class="placeholder">📝 Test</span>
-        <span class="placeholder">✅ Answers</span>
+        <a href="materials/pythagoras_trig/pythagoras_trig_test.pdf">📝 Test</a>
+        <a href="materials/pythagoras_trig/pythagoras_trig_test_answers.pdf">✅ Answers</a>
       </div>
     </div>
 
     <div class="topic">
       <div class="topic-head">
         <h3>Transformations &amp; Constructions</h3>
-        <span class="status upcoming">Upcoming</span>
+        <span class="status done">Done</span>
       </div>
-      <p class="desc">Translation, rotation, reflection, enlargement, and ruler-and-compass constructions.</p>
+      <p class="desc">Translation, rotation, reflection, enlargement (including negative/fractional scale factors), and ruler-and-compass constructions. 27-mark test.</p>
       <div class="files">
-        <span class="placeholder">🧪 Interactive lesson</span>
-        <span class="placeholder">📄 Reference sheet</span>
+        <a href="materials/transformations_constructions/lesson_transformations_constructions.html">🧪 Interactive lesson</a>
+        <a href="materials/transformations_constructions/transformations_constructions_reference.pdf">📄 Reference sheet</a>
         <button type="button" class="videos-btn" data-topic="transformations">🎥 Videos</button>
-        <span class="placeholder">📝 Test</span>
-        <span class="placeholder">✅ Answers</span>
+        <a href="materials/transformations_constructions/transformations_constructions_test.pdf">📝 Test</a>
+        <a href="materials/transformations_constructions/transformations_constructions_test_answers.pdf">✅ Answers</a>
       </div>
     </div>
 
@@ -508,6 +508,27 @@
 <script>
   // One entry per topic. Add more objects to a topic's array as videos come in.
   const VIDEOS = {
+    area_volume: [
+      { name: "Area of a Trapezium (Corbettmaths)", url: "https://www.youtube.com/watch?v=PA9DkwNXhQk" },
+      { name: "Area of a Circle (Corbettmaths)", url: "https://www.youtube.com/watch?v=Of8p1SfOcR0" },
+      { name: "Circumference of a Circle (Corbettmaths)", url: "https://www.youtube.com/watch?v=GColEqg8E9Q" },
+      { name: "Volume of a Prism (Corbettmaths)", url: "https://www.youtube.com/watch?v=rGc00WJaqV0" },
+      { name: "Volume of a Cylinder (Corbettmaths)", url: "https://www.youtube.com/watch?v=ExALFZ3mP0Y" }
+    ],
+    pythagoras_trig: [
+      { name: "Pythagoras' Theorem (Corbettmaths)", url: "https://www.youtube.com/watch?v=iWLVTy_rGjs" },
+      { name: "Trigonometry Introduction (Corbettmaths)", url: "https://www.youtube.com/watch?v=WWf3MnQ1SwU" },
+      { name: "Trigonometry: Missing Sides (Corbettmaths)", url: "https://www.youtube.com/watch?v=F_uTDZtRe0I" },
+      { name: "Trigonometry: Missing Angles (Corbettmaths)", url: "https://www.youtube.com/watch?v=I2MpcUZNQD0" }
+    ],
+    transformations: [
+      { name: "Translations (Corbettmaths)", url: "https://www.youtube.com/watch?v=qb4ElyditqY" },
+      { name: "Rotations (Corbettmaths)", url: "https://www.youtube.com/watch?v=rgdRlbbWQgA" },
+      { name: "Reflections (Corbettmaths)", url: "https://www.youtube.com/watch?v=AE0w7QRjGqQ" },
+      { name: "Enlargements (Corbettmaths)", url: "https://www.youtube.com/watch?v=7362afSFdtw" },
+      { name: "Enlargements with Negative Scale Factors (Corbettmaths)", url: "https://www.youtube.com/watch?v=YvpJN-h3bu0" },
+      { name: "Perpendicular Bisectors (Corbettmaths)", url: "https://www.youtube.com/watch?v=1beKcgU9ogE" }
+    ],
     ratio: [
       { name: "Ratio Simplifying (Corbettmaths)", url: "https://www.youtube.com/watch?v=z7UWth70guM" },
       { name: "Ratio: Sharing the Total (Corbettmaths)", url: "https://corbettmaths.com/2013/03/03/ratio-sharing-the-total/" },

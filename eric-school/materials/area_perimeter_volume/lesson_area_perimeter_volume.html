@@ -1,0 +1,383 @@
+<nav id="eric-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../../biology.html" style="color:#2f9d5c;text-decoration:none;font-weight:600;">Biology</a>
+    <a href="../../math.html" style="color:#7c3aed;text-decoration:none;font-weight:600;">Maths</a>
+    <a href="../../physics.html" style="color:#2f6fed;text-decoration:none;font-weight:600;">Physics</a>
+    <a href="../../chemistry.html" style="color:#c4571f;text-decoration:none;font-weight:600;">Chemistry</a>
+</nav>
+<style>
+  #ls21-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --acc: #B5762A; --acc-soft: #F1E3CE;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls21-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls21-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls21-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls21-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls21-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls21-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls21-section { margin-bottom: 26px; }
+  .ls21-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls21-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls21-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls21-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls21-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls21-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls21-card p:last-child { margin-bottom: 0; }
+  .ls21-term { font-weight: 600; color: var(--maths); }
+  .ls21-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls21-diagram-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .ls21-diagram-wrap svg { max-width: 280px; width: 100%; height: auto; }
+
+  .ls21-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls21-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls21-table-wrap th, .ls21-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls21-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls21-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls21-activity { background: var(--acc-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls21-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls21-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls21-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls21-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls21-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls21-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls21-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls21-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls21-feedback.ok { color: #2E6B45; }
+  .ls21-feedback.no { color: #A34B4B; }
+
+  .ls21-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls21-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls21-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls21-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls21-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--acc); background: none; border: 1.5px solid var(--acc); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls21-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--acc); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls21-answer.show { display: block; }
+
+  .ls21-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls21-root">
+  <p class="ls21-eyebrow">GCSE Maths &middot; Geometry &amp; Measures</p>
+  <h1 class="ls21-title">Area, Perimeter &amp; Volume</h1>
+  <div class="ls21-meta">
+    <span><span class="ls21-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>84 minutes</span>
+  </div>
+
+  <!-- 1 rectangles, triangles, parallelograms -->
+  <div class="ls21-section">
+    <div class="ls21-section-head">
+      <span class="ls21-section-num">01</span>
+      <h2 class="ls21-section-title">Area &amp; perimeter: rectangles, triangles &amp; parallelograms</h2>
+      <span class="ls21-section-time">10 min</span>
+    </div>
+    <div class="ls21-diagram-wrap">
+      <svg viewBox="0 0 160 140" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="30" width="120" height="70" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <text x="80" y="20" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#B5762A">base</text>
+        <text x="155" y="68" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#3A5E85" transform="rotate(90 155 68)">height</text>
+      </svg>
+      <svg viewBox="0 0 160 140" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="30,100 130,100 80,20" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <line x1="80" y1="100" x2="80" y2="20" stroke="#3A5E85" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="80" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#B5762A">base</text>
+        <text x="92" y="60" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#3A5E85">height</text>
+      </svg>
+      <svg viewBox="0 0 160 140" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="40,100 140,100 120,30 20,30" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <line x1="40" y1="100" x2="40" y2="30" stroke="#3A5E85" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="90" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#B5762A">base</text>
+        <text x="20" y="65" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#3A5E85">height</text>
+      </svg>
+    </div>
+    <div class="ls21-card">
+      <p><span class="ls21-term">Rectangle</span>: area = <span class="ls21-eq">length &times; width</span>. Perimeter = <span class="ls21-eq">2(length + width)</span>. Example: 8 cm by 5 cm &rarr; area = 40 cm&sup2;, perimeter = 2(8+5) = <strong>26 cm</strong>.</p>
+      <p><span class="ls21-term">Triangle</span>: area = <span class="ls21-eq">&frac12; &times; base &times; height</span>, using the <em>perpendicular</em> (vertical) height, not a slanted side. Example: base 10 cm, height 6 cm &rarr; area = &frac12; &times; 10 &times; 6 = <strong>30 cm&sup2;</strong>.</p>
+      <p><span class="ls21-term">Parallelogram</span>: area = <span class="ls21-eq">base &times; perpendicular height</span> (it's a rectangle "pushed over" &mdash; same area). Example: base 12 cm, height 7 cm &rarr; area = 12 &times; 7 = <strong>84 cm&sup2;</strong>.</p>
+      <p>Perimeter of any straight-sided shape is just the <span class="ls21-term">total distance around the outside</span> &mdash; add up all the side lengths.</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls21-section">
+    <div class="ls21-section-head">
+      <span class="ls21-section-num">&bull;</span>
+      <h2 class="ls21-section-title">Activity &mdash; rectangles, triangles &amp; parallelograms</h2>
+      <span class="ls21-section-time">7 min</span>
+    </div>
+    <div class="ls21-activity" data-activity="1">
+      <p class="ls21-activity-label">Give your answer as just the number (no units), e.g. 24</p>
+      <div class="ls21-blank-row"><label>Rectangle 9 cm &times; 6 cm &rarr; area (cm&sup2;) =</label><input type="text" data-answer="54"></div>
+      <div class="ls21-blank-row"><label>Rectangle 9 cm &times; 6 cm &rarr; perimeter (cm) =</label><input type="text" data-answer="30"></div>
+      <div class="ls21-blank-row"><label>Triangle base 14 cm, height 5 cm &rarr; area (cm&sup2;) =</label><input type="text" data-answer="35"></div>
+      <div class="ls21-blank-row"><label>Parallelogram base 11 cm, height 4 cm &rarr; area (cm&sup2;) =</label><input type="text" data-answer="44"></div>
+      <button class="ls21-check-btn" id="ls21-check-1">Check answers</button>
+      <p class="ls21-feedback" id="ls21-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 2 trapeziums -->
+  <div class="ls21-section">
+    <div class="ls21-section-head">
+      <span class="ls21-section-num">02</span>
+      <h2 class="ls21-section-title">Area of a trapezium</h2>
+      <span class="ls21-section-time">9 min</span>
+    </div>
+    <div class="ls21-diagram-wrap">
+      <svg viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="60,20 190,20 240,120 10,120" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <text x="125" y="12" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#B5762A">a (top)</text>
+        <text x="125" y="138" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#B5762A">b (bottom)</text>
+        <line x1="60" y1="20" x2="60" y2="120" stroke="#3A5E85" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="45" y="72" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#3A5E85">h</text>
+      </svg>
+    </div>
+    <div class="ls21-card">
+      <p>A <span class="ls21-term">trapezium</span> has one pair of parallel sides, of lengths a and b, separated by perpendicular height h.</p>
+      <p><span class="ls21-eq">Area = &frac12; &times; (a + b) &times; h</span> &mdash; add the two parallel sides, halve the total, then multiply by the height.</p>
+      <p>Worked example: parallel sides 6 cm and 10 cm, height 4 cm &rarr; area = &frac12; &times; (6+10) &times; 4 = &frac12; &times; 16 &times; 4 = <strong>32 cm&sup2;</strong>.</p>
+    </div>
+  </div>
+
+  <!-- 3 circles -->
+  <div class="ls21-section">
+    <div class="ls21-section-head">
+      <span class="ls21-section-num">03</span>
+      <h2 class="ls21-section-title">Circles: area &amp; circumference</h2>
+      <span class="ls21-section-time">12 min</span>
+    </div>
+    <div class="ls21-diagram-wrap">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="75" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <line x1="100" y1="100" x2="175" y2="100" stroke="#B5762A" stroke-width="2"/>
+        <text x="140" y="92" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#B5762A">r</text>
+        <line x1="25" y1="100" x2="175" y2="100" stroke="#3A5E85" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="100" y="130" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#3A5E85">d</text>
+        <circle cx="100" cy="100" r="3" fill="#23201A"/>
+      </svg>
+    </div>
+    <div class="ls21-card">
+      <p><span class="ls21-term">Radius</span> (r) is the distance from the centre to the edge. <span class="ls21-term">Diameter</span> (d) goes all the way across through the centre &mdash; <span class="ls21-eq">d = 2r</span>.</p>
+      <p><span class="ls21-eq">Area = &pi;r&sup2;</span> &mdash; square the radius, then multiply by &pi;. Worked example: r = 5 cm &rarr; area = &pi; &times; 5&sup2; = &pi; &times; 25 = <strong>78.5 cm&sup2;</strong> (3 s.f., using &pi; &asymp; 3.14).</p>
+      <p><span class="ls21-eq">Circumference = &pi;d = 2&pi;r</span> &mdash; the distance all the way around. Worked example: d = 12 cm &rarr; circumference = &pi; &times; 12 = <strong>37.7 cm</strong> (3 s.f.).</p>
+      <p>Exam tip: use the &pi; button on your calculator for full accuracy, and only round your <em>final</em> answer &mdash; usually to 1 or 3 significant figures, or leave the answer in terms of &pi; if asked (e.g. 25&pi; cm&sup2;).</p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls21-section">
+    <div class="ls21-section-head">
+      <span class="ls21-section-num">&bull;</span>
+      <h2 class="ls21-section-title">Activity &mdash; trapeziums &amp; circles</h2>
+      <span class="ls21-section-time">8 min</span>
+    </div>
+    <div class="ls21-activity maths" data-activity="2">
+      <p class="ls21-activity-label">Round circle answers to 1 decimal place (use &pi; &asymp; 3.14). Give your answer as just the number.</p>
+      <div class="ls21-blank-row"><label>Trapezium: sides 5 cm &amp; 9 cm, height 6 cm &rarr; area (cm&sup2;) =</label><input type="text" data-answer="42"></div>
+      <div class="ls21-blank-row"><label>Circle radius 4 cm &rarr; area (cm&sup2;, 1 d.p.) =</label><input type="text" data-answer="50.2"></div>
+      <div class="ls21-blank-row"><label>Circle radius 4 cm &rarr; circumference (cm, 1 d.p.) =</label><input type="text" data-answer="25.1"></div>
+      <div class="ls21-blank-row"><label>Circle diameter 10 cm &rarr; circumference (cm, 1 d.p.) =</label><input type="text" data-answer="31.4"></div>
+      <button class="ls21-check-btn" id="ls21-check-2">Check answers</button>
+      <p class="ls21-feedback" id="ls21-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 4 volume of cuboids and prisms -->
+  <div class="ls21-section">
+    <div class="ls21-section-head">
+      <span class="ls21-section-num">04</span>
+      <h2 class="ls21-section-title">Volume of cuboids &amp; prisms</h2>
+      <span class="ls21-section-time">12 min</span>
+    </div>
+    <div class="ls21-diagram-wrap">
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="40,50 140,50 170,30 70,30" fill="#DDE6EF" stroke="#23201A" stroke-width="2"/>
+        <polygon points="40,50 40,130 140,130 140,50" fill="#FFFEFB" stroke="#23201A" stroke-width="2"/>
+        <polygon points="140,50 170,30 170,110 140,130" fill="#F1E3CE" stroke="#23201A" stroke-width="2"/>
+        <text x="90" y="150" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#B5762A">length</text>
+        <text x="20" y="95" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#3A5E85" transform="rotate(-90 20 95)">height</text>
+        <text x="160" y="75" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#6B6355">width</text>
+      </svg>
+    </div>
+    <div class="ls21-card">
+      <p><span class="ls21-term">Cuboid</span>: volume = <span class="ls21-eq">length &times; width &times; height</span>. Example: 5 cm &times; 4 cm &times; 3 cm &rarr; volume = <strong>60 cm&sup3;</strong>.</p>
+      <p><span class="ls21-term">Prism</span> (a 3D shape with a constant cross-section, like a triangular prism): <span class="ls21-eq">volume = cross-sectional area &times; length</span>. First find the area of the end face (the shape you'd see if you sliced straight through), then multiply by how long the prism is.</p>
+      <p>Worked example (triangular prism): triangular cross-section with base 6 cm, height 4 cm, and the prism is 10 cm long. Cross-sectional area = &frac12; &times; 6 &times; 4 = 12 cm&sup2;. Volume = 12 &times; 10 = <strong>120 cm&sup3;</strong>.</p>
+      <p>A cuboid is really just a special case of a prism where the cross-section is a rectangle.</p>
+    </div>
+  </div>
+
+  <!-- 5 volume of cylinders -->
+  <div class="ls21-section">
+    <div class="ls21-section-head">
+      <span class="ls21-section-num">05</span>
+      <h2 class="ls21-section-title">Volume of a cylinder</h2>
+      <span class="ls21-section-time">10 min</span>
+    </div>
+    <div class="ls21-diagram-wrap">
+      <svg viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="80" cy="35" rx="55" ry="18" fill="#DDE6EF" stroke="#23201A" stroke-width="2"/>
+        <line x1="25" y1="35" x2="25" y2="145" stroke="#23201A" stroke-width="2"/>
+        <line x1="135" y1="35" x2="135" y2="145" stroke="#23201A" stroke-width="2"/>
+        <path d="M 25 145 A 55 18 0 0 0 135 145" fill="none" stroke="#23201A" stroke-width="2"/>
+        <line x1="80" y1="35" x2="128" y2="35" stroke="#B5762A" stroke-width="2"/>
+        <text x="104" y="27" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#B5762A">r</text>
+        <text x="145" y="95" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#3A5E85">h</text>
+      </svg>
+    </div>
+    <div class="ls21-card">
+      <p>A <span class="ls21-term">cylinder</span> is a prism whose cross-section is a circle, so the same rule applies: <span class="ls21-eq">volume = circular cross-sectional area &times; height = &pi;r&sup2;h</span>.</p>
+      <p>Worked example: radius 3 cm, height 8 cm &rarr; volume = &pi; &times; 3&sup2; &times; 8 = &pi; &times; 9 &times; 8 = &pi; &times; 72 = <strong>226.2 cm&sup3;</strong> (1 d.p.).</p>
+      <p>Exam tip: watch out for questions that give you the <em>diameter</em> instead of the radius &mdash; halve it first before squaring, or you'll get an answer 4 times too big.</p>
+    </div>
+  </div>
+
+  <!-- Activity 3 -->
+  <div class="ls21-section">
+    <div class="ls21-section-head">
+      <span class="ls21-section-num">&bull;</span>
+      <h2 class="ls21-section-title">Activity &mdash; volume of prisms &amp; cylinders</h2>
+      <span class="ls21-section-time">7 min</span>
+    </div>
+    <div class="ls21-activity" data-activity="3">
+      <p class="ls21-activity-label">Round cylinder answers to 1 decimal place (use &pi; &asymp; 3.14). Give your answer as just the number.</p>
+      <div class="ls21-blank-row"><label>Cuboid 6 cm &times; 5 cm &times; 4 cm &rarr; volume (cm&sup3;) =</label><input type="text" data-answer="120"></div>
+      <div class="ls21-blank-row"><label>Triangular prism: cross-section area 15 cm&sup2;, length 8 cm &rarr; volume (cm&sup3;) =</label><input type="text" data-answer="120"></div>
+      <div class="ls21-blank-row"><label>Cylinder radius 2 cm, height 10 cm &rarr; volume (cm&sup3;, 1 d.p.) =</label><input type="text" data-answer="125.6"></div>
+      <div class="ls21-blank-row"><label>Cylinder diameter 6 cm, height 5 cm &rarr; volume (cm&sup3;, 1 d.p.) =</label><input type="text" data-answer="141.3"></div>
+      <button class="ls21-check-btn" id="ls21-check-3">Check answers</button>
+      <p class="ls21-feedback" id="ls21-feedback-3"></p>
+    </div>
+  </div>
+
+  <!-- 6 GCSE questions -->
+  <div class="ls21-section">
+    <div class="ls21-section-head">
+      <span class="ls21-section-num">06</span>
+      <h2 class="ls21-section-title">GCSE-style review questions</h2>
+      <span class="ls21-section-time">16 min</span>
+    </div>
+
+    <div class="ls21-q">
+      <div class="ls21-q-top"><p class="ls21-q-text">1. A rectangle has length 12 cm and width 7 cm. Find its area and perimeter.</p><span class="ls21-q-marks">[3 marks]</span></div>
+      <button class="ls21-reveal-btn" data-reveal="p1">Show mark scheme</button>
+      <div class="ls21-answer" id="p1">Area = 12 &times; 7 = <strong>84 cm&sup2;</strong> (1) &nbsp; Perimeter = 2(12+7) (1) &nbsp; = <strong>38 cm</strong> (1)</div>
+    </div>
+
+    <div class="ls21-q">
+      <div class="ls21-q-top"><p class="ls21-q-text">2. A triangle has a base of 9 cm and a perpendicular height of 6 cm. Calculate its area.</p><span class="ls21-q-marks">[2 marks]</span></div>
+      <button class="ls21-reveal-btn" data-reveal="p2">Show mark scheme</button>
+      <div class="ls21-answer" id="p2">&frac12; &times; 9 &times; 6 (1) &nbsp; = <strong>27 cm&sup2;</strong> (1)</div>
+    </div>
+
+    <div class="ls21-q">
+      <div class="ls21-q-top"><p class="ls21-q-text">3. A trapezium has parallel sides of 8 cm and 14 cm, and a perpendicular height of 5 cm. Calculate its area.</p><span class="ls21-q-marks">[3 marks]</span></div>
+      <button class="ls21-reveal-btn" data-reveal="p3">Show mark scheme</button>
+      <div class="ls21-answer" id="p3">&frac12; &times; (8+14) (1) &nbsp; &times; 5 (1) &nbsp; = <strong>55 cm&sup2;</strong> (1)</div>
+    </div>
+
+    <div class="ls21-q">
+      <div class="ls21-q-top"><p class="ls21-q-text">4. A circle has a radius of 6 cm. Calculate (a) its area and (b) its circumference, both to 1 decimal place.</p><span class="ls21-q-marks">[4 marks]</span></div>
+      <button class="ls21-reveal-btn" data-reveal="p4">Show mark scheme</button>
+      <div class="ls21-answer" id="p4">(a) &pi; &times; 6&sup2; (1) &nbsp; = <strong>113.1 cm&sup2;</strong> (1) &nbsp; (b) &pi; &times; 12 (1) &nbsp; = <strong>37.7 cm</strong> (1)</div>
+    </div>
+
+    <div class="ls21-q">
+      <div class="ls21-q-top"><p class="ls21-q-text">5. A semicircular flower bed has a diameter of 10 m. Calculate the perimeter of the flower bed (the curved edge plus the straight edge), to 1 decimal place.</p><span class="ls21-q-marks">[3 marks]</span></div>
+      <button class="ls21-reveal-btn" data-reveal="p5">Show mark scheme</button>
+      <div class="ls21-answer" id="p5">Curved part = &frac12; &times; &pi; &times; 10 = 15.7 m (1) &nbsp; Straight edge = 10 m (1) &nbsp; Total = 15.7 + 10 = <strong>25.7 m</strong> (1)</div>
+    </div>
+
+    <div class="ls21-q">
+      <div class="ls21-q-top"><p class="ls21-q-text">6. A cuboid has length 8 cm, width 5 cm and height 4 cm. Calculate its volume.</p><span class="ls21-q-marks">[2 marks]</span></div>
+      <button class="ls21-reveal-btn" data-reveal="p6">Show mark scheme</button>
+      <div class="ls21-answer" id="p6">8 &times; 5 &times; 4 (1) &nbsp; = <strong>160 cm&sup3;</strong> (1)</div>
+    </div>
+
+    <div class="ls21-q">
+      <div class="ls21-q-top"><p class="ls21-q-text">7. A triangular prism has a cross-section with base 10 cm and perpendicular height 6 cm, and the prism is 15 cm long. Calculate its volume.</p><span class="ls21-q-marks">[3 marks]</span></div>
+      <button class="ls21-reveal-btn" data-reveal="p7">Show mark scheme</button>
+      <div class="ls21-answer" id="p7">Cross-sectional area = &frac12; &times; 10 &times; 6 = 30 cm&sup2; (1) &nbsp; Volume = 30 &times; 15 (1) &nbsp; = <strong>450 cm&sup3;</strong> (1)</div>
+    </div>
+
+    <div class="ls21-q">
+      <div class="ls21-q-top"><p class="ls21-q-text">8. A cylinder has radius 4 cm and height 12 cm. Calculate its volume to 1 decimal place.</p><span class="ls21-q-marks">[3 marks]</span></div>
+      <button class="ls21-reveal-btn" data-reveal="p8">Show mark scheme</button>
+      <div class="ls21-answer" id="p8">&pi; &times; 4&sup2; &times; 12 (1) &nbsp; = &pi; &times; 192 (1) &nbsp; = <strong>603.2 cm&sup3;</strong> (1)</div>
+    </div>
+  </div>
+
+  <p class="ls21-footer-note">Tip: for triangles, parallelograms and trapeziums, always use the <em>perpendicular</em> height, never a slanted side. For circles, remember d = 2r &mdash; if you're given the diameter, halve it before squaring for the area. For any prism (including cylinders), volume = cross-sectional area &times; length/height.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls21-check-1').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls21-root .ls21-activity[data-activity="1"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls21-feedback-1');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls21-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls21-check-2').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls21-root .ls21-activity[data-activity="2"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#B7C6D8');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls21-feedback-2');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls21-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.getElementById('ls21-check-3').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#ls21-root .ls21-activity[data-activity="3"] input[data-answer]');
+    let correct = 0;
+    inputs.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls21-feedback-3');
+    fb.textContent = `${correct} of ${inputs.length} correct.`;
+    fb.className = 'ls21-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls21-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>
