@@ -156,21 +156,21 @@
     font-family:inherit;
     cursor:pointer;
   }
-  dialog#video-dialog{
+  dialog#video-dialog, dialog#practice-dialog{
     border:none;
     border-radius:12px;
     padding:1.5rem;
     width:min(420px, 90vw);
     color:var(--text);
   }
-  dialog#video-dialog::backdrop{
+  dialog#video-dialog::backdrop, dialog#practice-dialog::backdrop{
     background:rgba(20,22,26,.45);
   }
-  dialog#video-dialog h3{
+  dialog#video-dialog h3, dialog#practice-dialog h3{
     margin:0 0 1rem;
     font-size:1.1rem;
   }
-  #video-dialog-list{
+  #video-dialog-list, #practice-dialog-list{
     list-style:none;
     margin:0;
     padding:0;
@@ -178,7 +178,7 @@
     flex-direction:column;
     gap:.5rem;
   }
-  #video-dialog-list a{
+  #video-dialog-list a, #practice-dialog-list a{
     display:block;
     padding:.6rem .8rem;
     border-radius:8px;
@@ -188,15 +188,15 @@
     font-weight:600;
     font-size:.92rem;
   }
-  #video-dialog-list a:hover{
+  #video-dialog-list a:hover, #practice-dialog-list a:hover{
     text-decoration:underline;
   }
-  #video-dialog-list .empty{
+  #video-dialog-list .empty, #practice-dialog-list .empty{
     color:var(--text-dim);
     font-style:italic;
     font-size:.9rem;
   }
-  #video-dialog-close{
+  #video-dialog-close, #practice-dialog-close{
     margin-top:1.25rem;
     padding:.5rem 1rem;
     border-radius:8px;
@@ -427,6 +427,7 @@
         <button type="button" class="videos-btn" data-topic="pythagoras_trig">🎥 Videos</button>
         <a href="materials/pythagoras_trig/pythagoras_trig_test.pdf">📝 Test</a>
         <a href="materials/pythagoras_trig/pythagoras_trig_test_answers.pdf">✅ Answers</a>
+        <button type="button" class="practice-btn" data-topic="pythagoras_trig">🔁 More Practice</button>
       </div>
     </div>
 
@@ -503,6 +504,12 @@
   <h3 id="video-dialog-title">Videos</h3>
   <ul id="video-dialog-list"></ul>
   <button type="button" id="video-dialog-close">Close</button>
+</dialog>
+
+<dialog id="practice-dialog">
+  <h3 id="practice-dialog-title">More Practice</h3>
+  <ul id="practice-dialog-list"></ul>
+  <button type="button" id="practice-dialog-close">Close</button>
 </dialog>
 
 <script>
@@ -624,6 +631,57 @@
   document.getElementById("video-dialog-close").addEventListener("click", () => dialog.close());
   dialog.addEventListener("click", (e) => {
     if (e.target === dialog) dialog.close();
+  });
+
+  // Extra practice tests beyond the main topic test, e.g. after doing well
+  // on the original and wanting more of the same style of questions.
+  const EXTRA_PRACTICE = {
+    pythagoras_trig: [
+      { name: "Practice Test 2", url: "materials/pythagoras_trig/pythagoras_trig_test2.pdf" },
+      { name: "Practice Test 2 — Answers", url: "materials/pythagoras_trig/pythagoras_trig_test2_answers.pdf" },
+      { name: "Practice Test 3", url: "materials/pythagoras_trig/pythagoras_trig_test3.pdf" },
+      { name: "Practice Test 3 — Answers", url: "materials/pythagoras_trig/pythagoras_trig_test3_answers.pdf" },
+      { name: "Practice Test 4", url: "materials/pythagoras_trig/pythagoras_trig_test4.pdf" },
+      { name: "Practice Test 4 — Answers", url: "materials/pythagoras_trig/pythagoras_trig_test4_answers.pdf" }
+    ]
+  };
+
+  const practiceDialog = document.getElementById("practice-dialog");
+  const practiceDialogTitle = document.getElementById("practice-dialog-title");
+  const practiceDialogList = document.getElementById("practice-dialog-list");
+
+  document.querySelectorAll(".practice-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const topic = btn.dataset.topic;
+      const extras = EXTRA_PRACTICE[topic] || [];
+      const topicLabel = btn.closest(".topic").querySelector("h3").textContent;
+
+      practiceDialogTitle.textContent = `${topicLabel} — More Practice`;
+      practiceDialogList.innerHTML = "";
+
+      if (extras.length === 0) {
+        const li = document.createElement("li");
+        li.className = "empty";
+        li.textContent = "No extra practice tests yet.";
+        practiceDialogList.appendChild(li);
+      } else {
+        extras.forEach(item => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = item.url;
+          a.textContent = item.name;
+          li.appendChild(a);
+          practiceDialogList.appendChild(li);
+        });
+      }
+
+      practiceDialog.showModal();
+    });
+  });
+
+  document.getElementById("practice-dialog-close").addEventListener("click", () => practiceDialog.close());
+  practiceDialog.addEventListener("click", (e) => {
+    if (e.target === practiceDialog) practiceDialog.close();
   });
 </script>
 
