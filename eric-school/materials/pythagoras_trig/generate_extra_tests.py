@@ -2,9 +2,19 @@
 """Generate three extra practice tests + answer sheets for
 Pythagoras' Theorem & Trigonometry (GCSE Maths, Geometry & Measures).
 
-Same style/section structure as the original pythagoras_trig_test.pdf
-(Sections A-E, 27 marks total) but with all new numbers, for extra
-practice after doing well on the original test."""
+Each test keeps the same 5-section, 27-mark shape as the original
+pythagoras_trig_test.pdf, but the three tests deliberately use
+DIFFERENT question styles from each other and from the original
+(not just re-numbered clones of the same template):
+
+- Test 2: converse of Pythagoras, elevation/depression word problems,
+  an isosceles-triangle split, a combined Pythagoras+trig question.
+- Test 3: Pythagoras applied to squares/equilateral triangles, true/false
+  and calculator-comparison conceptual questions, a navigation word
+  problem, a ladder-safety "does it meet the requirement" question.
+- Test 4: surd-form answers, "which method/ratio would you use"
+  identification questions, true/false, two combined (a)/(b) questions.
+"""
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
@@ -31,8 +41,6 @@ styles = {
                                 textColor=INK_SOFT, spaceAfter=14),
     'h2': ParagraphStyle('h2', fontName='Helvetica-Bold', fontSize=14,
                           textColor=MATHS, spaceBefore=16, spaceAfter=8),
-    'body': ParagraphStyle('body', fontName='Helvetica', fontSize=10.5,
-                            textColor=INK, leading=15, spaceAfter=8, alignment=TA_LEFT),
     'marks': ParagraphStyle('marks', fontName='Helvetica-Oblique', fontSize=9.5,
                              textColor=INK_SOFT, spaceAfter=10),
     'qtext': ParagraphStyle('qtext', fontName='Helvetica', fontSize=10.5,
@@ -79,172 +87,234 @@ def q(number, text, marks):
     ]
 
 
-# Each test: (A1, A2, A3, B1, B2, B3, C1, C2, C3, D1, D2, E1, E2) questions + answers
-TESTS = {
-    2: dict(
-        a1=('A right-angled triangle has shorter sides of 9 cm and 12 cm. Find the length of the hypotenuse.', 2,
-            'a<sup>2</sup> + b<sup>2</sup> = 9<sup>2</sup> + 12<sup>2</sup> = 81 + 144 = 225 (1) &nbsp; c = &radic;225 = <b>15 cm</b> (1)'),
-        a2=('A right-angled triangle has a hypotenuse of 17 cm and one shorter side of 8 cm. Find the length of the other shorter side.', 3,
-            'a<sup>2</sup> = 17<sup>2</sup> &minus; 8<sup>2</sup> (1) &nbsp; = 289 &minus; 64 = 225 (1) &nbsp; a = &radic;225 = <b>15 cm</b> (1)'),
-        a3=('A rectangle measures 9 cm by 40 cm. Find the length of its diagonal.', 2,
-            'diagonal<sup>2</sup> = 9<sup>2</sup> + 40<sup>2</sup> = 81 + 1600 = 1681 (1) &nbsp; diagonal = &radic;1681 = <b>41 cm</b> (1)'),
-        b1=('In a right-angled triangle, what is the name of the side opposite the right angle?', 1,
-            'The <b>hypotenuse</b> (1)'),
-        b2=('Write down the SOH CAH TOA formula you would use to find the adjacent side if you know the hypotenuse and the angle.', 1,
-            '<b>CAH</b>: adjacent = hypotenuse &times; cos &#952; (1)'),
-        b3=('Write down the SOH CAH TOA formula you would use to find an angle if you know the opposite and hypotenuse.', 1,
-            '<b>SOH</b>: &#952; = sin<sup>-1</sup>(opposite &divide; hypotenuse) (1)'),
-        c1=('A right-angled triangle has an angle of 37&#176; and a hypotenuse of 12 cm. Find the length of the side opposite the angle, to 1 decimal place.', 3,
-            'sin 37&#176; = x &divide; 12 (1) &nbsp; x = 12 &times; sin 37&#176; (1) &nbsp; = <b>7.2 cm</b> (1)'),
-        c2=('A right-angled triangle has an angle of 62&#176; and an adjacent side of 5 cm. Find the length of the hypotenuse, to 1 decimal place.', 2,
-            'cos 62&#176; = 5 &divide; h &rarr; h = 5 &divide; cos 62&#176; (1) &nbsp; = <b>10.7 cm</b> (1)'),
-        c3=('A right-angled triangle has an angle of 27&#176; and an adjacent side of 9 cm. Find the length of the side opposite the angle, to 1 decimal place.', 2,
-            'tan 27&#176; = x &divide; 9 &rarr; x = 9 &times; tan 27&#176; (1) &nbsp; = <b>4.6 cm</b> (1)'),
-        d1=('A right-angled triangle has an opposite side of 8 cm and a hypotenuse of 17 cm. Find the angle, to 1 decimal place.', 2,
-            'sin &#952; = 8 &divide; 17 = 0.4706 &rarr; &#952; = sin<sup>-1</sup>(0.4706) (1) &nbsp; = <b>28.1&#176;</b> (1)'),
-        d2=('A right-angled triangle has an adjacent side of 7 cm and an opposite side of 11 cm. Find the angle, to 1 decimal place.', 3,
-            'tan &#952; = 11 &divide; 7 = 1.5714 (1) &nbsp; &#952; = tan<sup>-1</sup>(1.5714) (1) &nbsp; = <b>57.5&#176;</b> (1)'),
-        e1=('A ladder rests against a vertical wall. The foot of the ladder is 2.1 m from the wall and the ladder is 5.8 m long. Calculate how far up the wall the ladder reaches, to 1 decimal place.', 2,
-            'Use Pythagoras: height<sup>2</sup> = 5.8<sup>2</sup> &minus; 2.1<sup>2</sup> = 33.64 &minus; 4.41 = 29.23 (1) &nbsp; &radic;29.23 = <b>5.4 m</b> (1)'),
-        e2=('A wire runs from the top of a vertical pole to a point on the ground 8 m from its base, making an angle of 50&#176; with the ground. Calculate the height of the pole, to 1 decimal place.', 3,
-            'tan 50&#176; = h &divide; 8 (1) &nbsp; h = 8 &times; tan 50&#176; (1) &nbsp; = <b>9.5 m</b> (1)'),
-    ),
-    3: dict(
-        a1=('A right-angled triangle has shorter sides of 8 cm and 15 cm. Find the length of the hypotenuse.', 2,
-            'a<sup>2</sup> + b<sup>2</sup> = 8<sup>2</sup> + 15<sup>2</sup> = 64 + 225 = 289 (1) &nbsp; c = &radic;289 = <b>17 cm</b> (1)'),
-        a2=('A right-angled triangle has a hypotenuse of 25 cm and one shorter side of 7 cm. Find the length of the other shorter side.', 3,
-            'a<sup>2</sup> = 25<sup>2</sup> &minus; 7<sup>2</sup> (1) &nbsp; = 625 &minus; 49 = 576 (1) &nbsp; a = &radic;576 = <b>24 cm</b> (1)'),
-        a3=('A rectangle measures 20 cm by 21 cm. Find the length of its diagonal.', 2,
-            'diagonal<sup>2</sup> = 20<sup>2</sup> + 21<sup>2</sup> = 400 + 441 = 841 (1) &nbsp; diagonal = &radic;841 = <b>29 cm</b> (1)'),
-        b1=('Which SOH CAH TOA ratio links the opposite and adjacent sides (not the hypotenuse)?', 1,
-            '<b>TOA</b> (1)'),
-        b2=('Write down the SOH CAH TOA formula you would use to find the hypotenuse if you know the opposite side and the angle.', 1,
-            '<b>SOH</b>: hypotenuse = opposite &divide; sin &#952; (1)'),
-        b3=('Write down the SOH CAH TOA formula you would use to find an angle if you know the adjacent and hypotenuse.', 1,
-            '<b>CAH</b>: &#952; = cos<sup>-1</sup>(adjacent &divide; hypotenuse) (1)'),
-        c1=('A right-angled triangle has an angle of 48&#176; and a hypotenuse of 14 cm. Find the length of the side opposite the angle, to 1 decimal place.', 3,
-            'sin 48&#176; = x &divide; 14 (1) &nbsp; x = 14 &times; sin 48&#176; (1) &nbsp; = <b>10.4 cm</b> (1)'),
-        c2=('A right-angled triangle has an angle of 29&#176; and an adjacent side of 11 cm. Find the length of the hypotenuse, to 1 decimal place.', 2,
-            'cos 29&#176; = 11 &divide; h &rarr; h = 11 &divide; cos 29&#176; (1) &nbsp; = <b>12.6 cm</b> (1)'),
-        c3=('A right-angled triangle has an angle of 51&#176; and an adjacent side of 4 cm. Find the length of the side opposite the angle, to 1 decimal place.', 2,
-            'tan 51&#176; = x &divide; 4 &rarr; x = 4 &times; tan 51&#176; (1) &nbsp; = <b>4.9 cm</b> (1)'),
-        d1=('A right-angled triangle has an opposite side of 5 cm and a hypotenuse of 12 cm. Find the angle, to 1 decimal place.', 2,
-            'sin &#952; = 5 &divide; 12 = 0.4167 &rarr; &#952; = sin<sup>-1</sup>(0.4167) (1) &nbsp; = <b>24.6&#176;</b> (1)'),
-        d2=('A right-angled triangle has an adjacent side of 8 cm and an opposite side of 6 cm. Find the angle, to 1 decimal place.', 3,
-            'tan &#952; = 6 &divide; 8 = 0.75 (1) &nbsp; &#952; = tan<sup>-1</sup>(0.75) (1) &nbsp; = <b>36.9&#176;</b> (1)'),
-        e1=('A ladder rests against a vertical wall. The foot of the ladder is 1.5 m from the wall and the ladder is 4 m long. Calculate how far up the wall the ladder reaches, to 1 decimal place.', 2,
-            'Use Pythagoras: height<sup>2</sup> = 4<sup>2</sup> &minus; 1.5<sup>2</sup> = 16 &minus; 2.25 = 13.75 (1) &nbsp; &radic;13.75 = <b>3.7 m</b> (1)'),
-        e2=('A kite is flying on a taut string 25 m long, which makes an angle of 40&#176; with the ground. Calculate the height of the kite above the ground, to 1 decimal place.', 3,
-            'sin 40&#176; = h &divide; 25 (1) &nbsp; h = 25 &times; sin 40&#176; (1) &nbsp; = <b>16.1 m</b> (1)'),
-    ),
-    4: dict(
-        a1=('A right-angled triangle has shorter sides of 10 cm and 24 cm. Find the length of the hypotenuse.', 2,
-            'a<sup>2</sup> + b<sup>2</sup> = 10<sup>2</sup> + 24<sup>2</sup> = 100 + 576 = 676 (1) &nbsp; c = &radic;676 = <b>26 cm</b> (1)'),
-        a2=('A right-angled triangle has a hypotenuse of 20 cm and one shorter side of 12 cm. Find the length of the other shorter side.', 3,
-            'a<sup>2</sup> = 20<sup>2</sup> &minus; 12<sup>2</sup> (1) &nbsp; = 400 &minus; 144 = 256 (1) &nbsp; a = &radic;256 = <b>16 cm</b> (1)'),
-        a3=('A rectangle measures 18 cm by 24 cm. Find the length of its diagonal.', 2,
-            'diagonal<sup>2</sup> = 18<sup>2</sup> + 24<sup>2</sup> = 324 + 576 = 900 (1) &nbsp; diagonal = &radic;900 = <b>30 cm</b> (1)'),
-        b1=('In a right-angled triangle, what do we call the side next to angle &#952; that is not the hypotenuse?', 1,
-            'The <b>adjacent</b> side (1)'),
-        b2=('Write down the SOH CAH TOA formula you would use to find the opposite side if you know the adjacent side and the angle.', 1,
-            '<b>TOA</b>: opposite = adjacent &times; tan &#952; (1)'),
-        b3=('Write down the SOH CAH TOA formula you would use to find an angle if you know the adjacent and hypotenuse.', 1,
-            '<b>CAH</b>: &#952; = cos<sup>-1</sup>(adjacent &divide; hypotenuse) (1)'),
-        c1=('A right-angled triangle has an angle of 33&#176; and a hypotenuse of 16 cm. Find the length of the side opposite the angle, to 1 decimal place.', 3,
-            'sin 33&#176; = x &divide; 16 (1) &nbsp; x = 16 &times; sin 33&#176; (1) &nbsp; = <b>8.7 cm</b> (1)'),
-        c2=('A right-angled triangle has an angle of 47&#176; and an adjacent side of 6 cm. Find the length of the hypotenuse, to 1 decimal place.', 2,
-            'cos 47&#176; = 6 &divide; h &rarr; h = 6 &divide; cos 47&#176; (1) &nbsp; = <b>8.8 cm</b> (1)'),
-        c3=('A right-angled triangle has an angle of 58&#176; and an adjacent side of 3 cm. Find the length of the side opposite the angle, to 1 decimal place.', 2,
-            'tan 58&#176; = x &divide; 3 &rarr; x = 3 &times; tan 58&#176; (1) &nbsp; = <b>4.8 cm</b> (1)'),
-        d1=('A right-angled triangle has an opposite side of 9 cm and a hypotenuse of 15 cm. Find the angle, to 1 decimal place.', 2,
-            'sin &#952; = 9 &divide; 15 = 0.6 &rarr; &#952; = sin<sup>-1</sup>(0.6) (1) &nbsp; = <b>36.9&#176;</b> (1)'),
-        d2=('A right-angled triangle has an adjacent side of 6 cm and an opposite side of 13 cm. Find the angle, to 1 decimal place.', 3,
-            'tan &#952; = 13 &divide; 6 = 2.1667 (1) &nbsp; &#952; = tan<sup>-1</sup>(2.1667) (1) &nbsp; = <b>65.2&#176;</b> (1)'),
-        e1=('A ladder rests against a vertical wall. The foot of the ladder is 2.4 m from the wall and the ladder is 6.5 m long. Calculate how far up the wall the ladder reaches, to 1 decimal place.', 2,
-            'Use Pythagoras: height<sup>2</sup> = 6.5<sup>2</sup> &minus; 2.4<sup>2</sup> = 42.25 &minus; 5.76 = 36.49 (1) &nbsp; &radic;36.49 = <b>6.0 m</b> (1)'),
-        e2=('A ramp rises at an angle of 15&#176; to the horizontal over a horizontal distance of 12 m. Calculate the height gained by the ramp, to 1 decimal place.', 3,
-            'tan 15&#176; = h &divide; 12 (1) &nbsp; h = 12 &times; tan 15&#176; (1) &nbsp; = <b>3.2 m</b> (1)'),
-    ),
-}
-
-
-def build_test(n, t):
-    doc = SimpleDocTemplate(f'pythagoras_trig_test{n}.pdf', pagesize=A4,
-                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
-    s = []
-    s += header('Pythagoras&rsquo; Theorem &amp; Trigonometry',
-                 f'Extra practice test {n} &middot; 27 marks total')
-    s.append(name_table())
-    s.append(Spacer(1, 10))
-
-    s.append(Paragraph('Section A &mdash; Pythagoras&rsquo; theorem', styles['h2']))
-    s += q('A1', t['a1'][0], t['a1'][1])
-    s += q('A2', t['a2'][0], t['a2'][1])
-    s += q('A3', t['a3'][0], t['a3'][1])
-
-    s.append(Paragraph('Section B &mdash; SOH CAH TOA basics', styles['h2']))
-    s += q('B1', t['b1'][0], t['b1'][1])
-    s += q('B2', t['b2'][0], t['b2'][1])
-    s += q('B3', t['b3'][0], t['b3'][1])
-
-    s.append(Paragraph('Section C &mdash; Finding missing sides', styles['h2']))
-    s += q('C1', t['c1'][0], t['c1'][1])
-    s += q('C2', t['c2'][0], t['c2'][1])
-    s += q('C3', t['c3'][0], t['c3'][1])
-
-    s.append(Paragraph('Section D &mdash; Finding missing angles', styles['h2']))
-    s += q('D1', t['d1'][0], t['d1'][1])
-    s += q('D2', t['d2'][0], t['d2'][1])
-
-    s.append(Paragraph('Section E &mdash; Applying Pythagoras &amp; trigonometry', styles['h2']))
-    s += q('E1', t['e1'][0], t['e1'][1])
-    s += q('E2', t['e2'][0], t['e2'][1])
-
-    doc.build(s)
-
-
-def build_answers(n, t):
-    doc = SimpleDocTemplate(f'pythagoras_trig_test{n}_answers.pdf', pagesize=A4,
-                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
-    s = []
-    s += header('Pythagoras&rsquo; Theorem &amp; Trigonometry',
-                 f'Extra practice test {n} &mdash; answer sheet &middot; 27 marks total')
-
-    s.append(Paragraph('Section A &mdash; Pythagoras&rsquo; theorem', styles['h2']))
-    s.append(Paragraph(f'A1. {t["a1"][2]}', styles['ans']))
-    s.append(Paragraph(f'A2. {t["a2"][2]}', styles['ans']))
-    s.append(Paragraph(f'A3. {t["a3"][2]}', styles['ans']))
-
-    s.append(Paragraph('Section B &mdash; SOH CAH TOA basics', styles['h2']))
-    s.append(Paragraph(f'B1. {t["b1"][2]}', styles['ans']))
-    s.append(Paragraph(f'B2. {t["b2"][2]}', styles['ans']))
-    s.append(Paragraph(f'B3. {t["b3"][2]}', styles['ans']))
-
-    s.append(Paragraph('Section C &mdash; Finding missing sides', styles['h2']))
-    s.append(Paragraph(f'C1. {t["c1"][2]}', styles['ans']))
-    s.append(Paragraph(f'C2. {t["c2"][2]}', styles['ans']))
-    s.append(Paragraph(f'C3. {t["c3"][2]}', styles['ans']))
-
-    s.append(Paragraph('Section D &mdash; Finding missing angles', styles['h2']))
-    s.append(Paragraph(f'D1. {t["d1"][2]}', styles['ans']))
-    s.append(Paragraph(f'D2. {t["d2"][2]}', styles['ans']))
-
-    s.append(Paragraph('Section E &mdash; Applying Pythagoras &amp; trigonometry', styles['h2']))
-    s.append(Paragraph(f'E1. {t["e1"][2]}', styles['ans']))
-    s.append(Paragraph(f'E2. {t["e2"][2]}', styles['ans']))
-
-    s.append(Paragraph(
+def marking_note():
+    return Paragraph(
         'Marking note: award method marks for a correctly set-up equation or calculation even if the final answer '
         'contains a rounding or arithmetic slip. Accept any correct rounding to 1 decimal place unless a different '
         'level of accuracy is specified. Missing units on an otherwise-correct numerical answer should lose the '
         'final accuracy mark, not the method mark.',
-        styles['note']))
+        styles['note'])
+
+
+# ============================================================ TEST 2
+# Flavour: converse of Pythagoras, angle of elevation/depression word
+# problems, splitting an isosceles triangle, a combined ladder question.
+
+def build_test2():
+    doc = SimpleDocTemplate('pythagoras_trig_test2.pdf', pagesize=A4,
+                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
+    s = []
+    s += header('Pythagoras&rsquo; Theorem &amp; Trigonometry', 'Extra practice test 2 &middot; 27 marks total')
+    s.append(name_table())
+    s.append(Spacer(1, 10))
+
+    s.append(Paragraph('Section A &mdash; Pythagoras&rsquo; theorem', styles['h2']))
+    s += q('A1', 'Point A is 8 km east and 6 km north of point B. Find the direct distance from A to B.', 2)
+    s += q('A2', 'A ship sails 24 km east, then 7 km south, from its starting point. Use Pythagoras&rsquo; theorem to find how far the ship now is from its starting point.', 3)
+    s += q('A3', 'A triangle has sides of length 9 cm, 12 cm and 15 cm. Use Pythagoras&rsquo; theorem to show that this triangle is right-angled.', 2)
+
+    s.append(Paragraph('Section B &mdash; SOH CAH TOA basics', styles['h2']))
+    s += q('B1', 'A student says: &ldquo;To find a missing angle, I should always use sin<sup>-1</sup>, no matter which two sides I know.&rdquo; Explain why this is incorrect.', 1)
+    s += q('B2', 'In a right-angled triangle you know the adjacent side and want to find the opposite side. Which SOH CAH TOA ratio should you use, and write the rearranged formula for the opposite side.', 1)
+    s += q('B3', 'True or False: cos 60&#176; = sin 30&#176;. Show a calculation to support your answer.', 1)
+
+    s.append(Paragraph('Section C &mdash; Finding missing sides', styles['h2']))
+    s += q('C1', 'From a point on the ground 20 m from the base of a tower, the angle of elevation to the top of the tower is 34&#176;. Find the height of the tower, to 1 decimal place.', 3)
+    s += q('C2', 'A plane is flying at a height of 1200 m. The angle of depression from the plane to a landmark on the ground is 8&#176;. Find the horizontal distance from the plane to the landmark, to the nearest metre.', 2)
+    s += q('C3', 'A rope is attached to the top of a flagpole and anchored to the ground, making an angle of 63&#176; with the ground. If the rope is 10 m long, find the height of the flagpole, to 1 decimal place.', 2)
+
+    s.append(Paragraph('Section D &mdash; Finding missing angles', styles['h2']))
+    s += q('D1', 'A ramp is 5 m long and rises to a height of 1.2 m. Find the angle the ramp makes with the ground, to 1 decimal place.', 2)
+    s += q('D2', 'A surveyor stands 45 m from the base of a cliff. The top of the cliff is 62 m above the ground. Find the angle of elevation to the top of the cliff, to 1 decimal place.', 3)
+
+    s.append(Paragraph('Section E &mdash; Applying Pythagoras &amp; trigonometry', styles['h2']))
+    s += q('E1', 'An isosceles triangle has two equal sides of length 13 cm and a base of 10 cm. Find the perpendicular height of the triangle by splitting the base into two equal halves.', 2)
+    s += q('E2', 'A ladder 6 m long leans against a wall, reaching 5.2 m up the wall. (a) Find the distance from the foot of the ladder to the wall. (b) Find the angle the ladder makes with the ground. Give both answers to 1 decimal place.', 3)
 
     doc.build(s)
 
 
+def build_answers2():
+    doc = SimpleDocTemplate('pythagoras_trig_test2_answers.pdf', pagesize=A4,
+                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
+    s = []
+    s += header('Pythagoras&rsquo; Theorem &amp; Trigonometry', 'Extra practice test 2 &mdash; answer sheet &middot; 27 marks total')
+
+    s.append(Paragraph('Section A &mdash; Pythagoras&rsquo; theorem', styles['h2']))
+    s.append(Paragraph('A1. 8<sup>2</sup> + 6<sup>2</sup> = 64 + 36 = 100 (1) &nbsp; distance = &radic;100 = <b>10 km</b> (1)', styles['ans']))
+    s.append(Paragraph('A2. 24<sup>2</sup> + 7<sup>2</sup> (1) &nbsp; = 576 + 49 = 625 (1) &nbsp; &radic;625 = <b>25 km</b> (1)', styles['ans']))
+    s.append(Paragraph('A3. 9<sup>2</sup> + 12<sup>2</sup> = 81 + 144 = 225 (1) &nbsp; 15<sup>2</sup> = 225 &mdash; since these are equal, the triangle <b>is right-angled</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section B &mdash; SOH CAH TOA basics', styles['h2']))
+    s.append(Paragraph('B1. The correct inverse function (sin<sup>-1</sup>, cos<sup>-1</sup> or tan<sup>-1</sup>) depends on which two sides are known &mdash; sin<sup>-1</sup> only works when the opposite and hypotenuse are known (1)', styles['ans']))
+    s.append(Paragraph('B2. <b>TOA</b>: opposite = adjacent &times; tan &#952; (1)', styles['ans']))
+    s.append(Paragraph('B3. <b>True</b> &mdash; cos 60&#176; = 0.5 and sin 30&#176; = 0.5 (1)', styles['ans']))
+
+    s.append(Paragraph('Section C &mdash; Finding missing sides', styles['h2']))
+    s.append(Paragraph('C1. tan 34&#176; = h &divide; 20 (1) &nbsp; h = 20 &times; tan 34&#176; (1) &nbsp; = <b>13.5 m</b> (1)', styles['ans']))
+    s.append(Paragraph('C2. tan 8&#176; = 1200 &divide; d &rarr; d = 1200 &divide; tan 8&#176; (1) &nbsp; = <b>8538 m</b> (1)', styles['ans']))
+    s.append(Paragraph('C3. sin 63&#176; = h &divide; 10 &rarr; h = 10 &times; sin 63&#176; (1) &nbsp; = <b>8.9 m</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section D &mdash; Finding missing angles', styles['h2']))
+    s.append(Paragraph('D1. sin &#952; = 1.2 &divide; 5 = 0.24 &rarr; &#952; = sin<sup>-1</sup>(0.24) (1) &nbsp; = <b>13.9&#176;</b> (1)', styles['ans']))
+    s.append(Paragraph('D2. tan &#952; = 62 &divide; 45 = 1.3778 (1) &nbsp; &#952; = tan<sup>-1</sup>(1.3778) (1) &nbsp; = <b>54.0&#176;</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section E &mdash; Applying Pythagoras &amp; trigonometry', styles['h2']))
+    s.append(Paragraph('E1. Half the base = 5 cm; height<sup>2</sup> = 13<sup>2</sup> &minus; 5<sup>2</sup> = 169 &minus; 25 = 144 (1) &nbsp; height = &radic;144 = <b>12 cm</b> (1)', styles['ans']))
+    s.append(Paragraph('E2. (a) distance<sup>2</sup> = 6<sup>2</sup> &minus; 5.2<sup>2</sup> = 36 &minus; 27.04 = 8.96 &rarr; &radic;8.96 = <b>3.0 m</b> (1) &nbsp; (b) sin &#952; = 5.2 &divide; 6 (1) &nbsp; &#952; = sin<sup>-1</sup>(5.2&divide;6) = <b>60.1&#176;</b> (1)', styles['ans']))
+
+    s.append(marking_note())
+    doc.build(s)
+
+
+# ============================================================ TEST 3
+# Flavour: Pythagoras applied to squares/equilateral triangles, true/false
+# and calculator-comparison conceptual questions, a navigation word
+# problem, a ladder-safety "does it meet the requirement" question.
+
+def build_test3():
+    doc = SimpleDocTemplate('pythagoras_trig_test3.pdf', pagesize=A4,
+                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
+    s = []
+    s += header('Pythagoras&rsquo; Theorem &amp; Trigonometry', 'Extra practice test 3 &middot; 27 marks total')
+    s.append(name_table())
+    s.append(Spacer(1, 10))
+
+    s.append(Paragraph('Section A &mdash; Pythagoras&rsquo; theorem', styles['h2']))
+    s += q('A1', 'A square has a diagonal of 18 cm. Find the length of one side, to 1 decimal place.', 2)
+    s += q('A2', 'An equilateral triangle has sides of length 16 cm. Find its perpendicular height, to 1 decimal place.', 3)
+    s += q('A3', 'A triangle has sides of length 11 cm, 60 cm and 61 cm. Determine, showing your working, whether this triangle is right-angled.', 2)
+
+    s.append(Paragraph('Section B &mdash; SOH CAH TOA basics', styles['h2']))
+    s += q('B1', 'True or False: in a right-angled triangle, increasing the angle &#952; (while keeping the hypotenuse fixed) increases the length of the side opposite &#952;. Explain your answer.', 1)
+    s += q('B2', 'Without using a calculator, state whether tan 80&#176; is greater than or less than 1. Explain your reasoning.', 1)
+    s += q('B3', 'Calculate sin 70&#176; and cos 70&#176; (to 2 decimal places) and state which is larger.', 1)
+
+    s.append(Paragraph('Section C &mdash; Finding missing sides', styles['h2']))
+    s += q('C1', 'A right-angled triangle has a hypotenuse of 22 cm and an angle of 40&#176;. Find the length of the side adjacent to the 40&#176; angle, to 1 decimal place.', 3)
+    s += q('C2', 'A vertical flagpole casts a shadow 9 m long when the sun&rsquo;s angle of elevation is 51&#176;. Find the height of the flagpole, to 1 decimal place.', 2)
+    s += q('C3', 'A right-angled triangle has an angle of 24&#176; and an opposite side of 5 cm. Find the length of the adjacent side, to 1 decimal place.', 2)
+
+    s.append(Paragraph('Section D &mdash; Finding missing angles', styles['h2']))
+    s += q('D1', 'A road climbs 18 m over a horizontal distance of 150 m. Find the angle of the slope, to 1 decimal place.', 2)
+    s += q('D2', 'A right-angled triangle has a hypotenuse of 19 cm and one shorter side of 11 cm. Find the angle between the hypotenuse and the 11 cm side, to 1 decimal place.', 3)
+
+    s.append(Paragraph('Section E &mdash; Applying Pythagoras &amp; trigonometry', styles['h2']))
+    s += q('E1', 'A window cleaner&rsquo;s ladder must make an angle of at least 65&#176; with the ground to be considered safe. The ladder is 4 m long and its foot is placed 1.5 m from the wall. Calculate the angle the ladder makes with the ground and state whether it meets the safety requirement.', 2)
+    s += q('E2', 'A ship sails from port P for 15 km due east to point Q, then turns and sails 9 km due north to point R. (a) Find the direct distance from P to R, to 1 decimal place. (b) Find the angle between the direct route PR and the initial direction PQ (due east), to 1 decimal place.', 3)
+
+    doc.build(s)
+
+
+def build_answers3():
+    doc = SimpleDocTemplate('pythagoras_trig_test3_answers.pdf', pagesize=A4,
+                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
+    s = []
+    s += header('Pythagoras&rsquo; Theorem &amp; Trigonometry', 'Extra practice test 3 &mdash; answer sheet &middot; 27 marks total')
+
+    s.append(Paragraph('Section A &mdash; Pythagoras&rsquo; theorem', styles['h2']))
+    s.append(Paragraph('A1. a<sup>2</sup> + a<sup>2</sup> = 18<sup>2</sup> &rarr; 2a<sup>2</sup> = 324 (1) &nbsp; a<sup>2</sup> = 162 &rarr; a = &radic;162 = <b>12.7 cm</b> (1)', styles['ans']))
+    s.append(Paragraph('A2. Splitting the triangle in half gives a right-angled triangle with hypotenuse 16 cm and base 8 cm (1) &nbsp; height<sup>2</sup> = 16<sup>2</sup> &minus; 8<sup>2</sup> = 256 &minus; 64 = 192 (1) &nbsp; height = &radic;192 = <b>13.9 cm</b> (1)', styles['ans']))
+    s.append(Paragraph('A3. 11<sup>2</sup> + 60<sup>2</sup> = 121 + 3600 = 3721 (1) &nbsp; 61<sup>2</sup> = 3721 &mdash; since these are equal, the triangle <b>is right-angled</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section B &mdash; SOH CAH TOA basics', styles['h2']))
+    s.append(Paragraph('B1. <b>True</b> &mdash; opposite = hypotenuse &times; sin &#952;, and sin &#952; increases as &#952; increases from 0&#176; to 90&#176;, so a larger &#952; gives a larger opposite side (1)', styles['ans']))
+    s.append(Paragraph('B2. <b>Greater than 1</b> &mdash; tan 45&#176; = 1, and tan &#952; keeps increasing as &#952; increases towards 90&#176;, so tan 80&#176; &gt; 1 (1)', styles['ans']))
+    s.append(Paragraph('B3. sin 70&#176; = 0.94, cos 70&#176; = 0.34 &mdash; <b>sin 70&#176; is larger</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section C &mdash; Finding missing sides', styles['h2']))
+    s.append(Paragraph('C1. cos 40&#176; = x &divide; 22 (1) &nbsp; x = 22 &times; cos 40&#176; (1) &nbsp; = <b>16.9 cm</b> (1)', styles['ans']))
+    s.append(Paragraph('C2. tan 51&#176; = h &divide; 9 &rarr; h = 9 &times; tan 51&#176; (1) &nbsp; = <b>11.1 m</b> (1)', styles['ans']))
+    s.append(Paragraph('C3. tan 24&#176; = 5 &divide; x &rarr; x = 5 &divide; tan 24&#176; (1) &nbsp; = <b>11.2 cm</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section D &mdash; Finding missing angles', styles['h2']))
+    s.append(Paragraph('D1. tan &#952; = 18 &divide; 150 = 0.12 (1) &nbsp; &#952; = tan<sup>-1</sup>(0.12) = <b>6.8&#176;</b> (1)', styles['ans']))
+    s.append(Paragraph('D2. cos &#952; = 11 &divide; 19 = 0.5789 (1) &nbsp; &#952; = cos<sup>-1</sup>(0.5789) (1) &nbsp; = <b>54.6&#176;</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section E &mdash; Applying Pythagoras &amp; trigonometry', styles['h2']))
+    s.append(Paragraph('E1. cos &#952; = 1.5 &divide; 4 = 0.375 &rarr; &#952; = cos<sup>-1</sup>(0.375) = 68.0&#176; (1) &nbsp; since 68.0&#176; &gt; 65&#176;, the ladder <b>meets the safety requirement</b> (1)', styles['ans']))
+    s.append(Paragraph('E2. (a) PR<sup>2</sup> = 15<sup>2</sup> + 9<sup>2</sup> = 225 + 81 = 306 &rarr; PR = &radic;306 = <b>17.5 km</b> (1) &nbsp; (b) tan &#952; = 9 &divide; 15 = 0.6 (1) &nbsp; &#952; = tan<sup>-1</sup>(0.6) = <b>31.0&#176;</b> (1)', styles['ans']))
+
+    s.append(marking_note())
+    doc.build(s)
+
+
+# ============================================================ TEST 4
+# Flavour: surd-form answers, "which method/ratio" identification
+# questions, true/false, two combined (a)/(b) questions.
+
+def build_test4():
+    doc = SimpleDocTemplate('pythagoras_trig_test4.pdf', pagesize=A4,
+                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
+    s = []
+    s += header('Pythagoras&rsquo; Theorem &amp; Trigonometry', 'Extra practice test 4 &middot; 27 marks total')
+    s.append(name_table())
+    s.append(Spacer(1, 10))
+
+    s.append(Paragraph('Section A &mdash; Pythagoras&rsquo; theorem', styles['h2']))
+    s += q('A1', 'A right-angled triangle has two shorter sides both equal to 6 cm. Find the length of the hypotenuse, giving your answer both as a simplified surd and to 1 decimal place.', 2)
+    s += q('A2', 'A right-angled triangle has a hypotenuse of 10 cm and one shorter side of 7 cm. Find the length of the other shorter side, to 1 decimal place.', 3)
+    s += q('A3', 'A ladder reaches from the ground to a window 4.8 m up a wall. The foot of the ladder is 2.2 m from the wall. Find the length of the ladder, to 1 decimal place.', 2)
+
+    s.append(Paragraph('Section B &mdash; SOH CAH TOA basics', styles['h2']))
+    s += q('B1', 'A right-angled triangle has a known hypotenuse and a known angle, and you need to find the side adjacent to that angle. Which method should you use &mdash; Pythagoras&rsquo; theorem or SOH CAH TOA &mdash; and which specific ratio?', 1)
+    s += q('B2', 'A right-angled triangle has two known shorter sides and no known angles. Which method should you use to find the hypotenuse: Pythagoras&rsquo; theorem, or SOH CAH TOA?', 1)
+    s += q('B3', 'True or False: Pythagoras&rsquo; theorem can be used on any triangle, not just right-angled ones.', 1)
+
+    s.append(Paragraph('Section C &mdash; Finding missing sides', styles['h2']))
+    s += q('C1', 'A right-angled triangle has an angle of 22&#176; and an opposite side of 6 cm. Find the length of the hypotenuse, to 1 decimal place.', 3)
+    s += q('C2', 'A right-angled triangle has an angle of 66&#176; and a hypotenuse of 9 cm. Find the length of the side adjacent to the angle, to 1 decimal place.', 2)
+    s += q('C3', 'A right-angled triangle has an angle of 39&#176; and an opposite side of 7 cm. Find the length of the adjacent side, to 1 decimal place.', 2)
+
+    s.append(Paragraph('Section D &mdash; Finding missing angles', styles['h2']))
+    s += q('D1', 'A right-angled triangle has a hypotenuse of 25 cm and an adjacent side of 7 cm. Find the angle between them, to 1 decimal place.', 2)
+    s += q('D2', 'A zip-wire is fixed between two platforms. The horizontal distance between the platforms is 40 m and the vertical drop is 14 m. Find the angle the zip-wire makes with the horizontal, to 1 decimal place.', 3)
+
+    s.append(Paragraph('Section E &mdash; Applying Pythagoras &amp; trigonometry', styles['h2']))
+    s += q('E1', 'A right-angled triangle has an opposite side of 9 cm and an adjacent side of 12 cm. (a) Find the length of the hypotenuse. (b) Find the angle opposite the 9 cm side, to 1 decimal place.', 2)
+    s += q('E2', 'A rectangular gate measures 1.8 m high and 3 m wide. A diagonal support strut is fitted. (a) Find the length of the strut, to 1 decimal place. (b) Find the angle the strut makes with the base of the gate, to 1 decimal place.', 3)
+
+    doc.build(s)
+
+
+def build_answers4():
+    doc = SimpleDocTemplate('pythagoras_trig_test4_answers.pdf', pagesize=A4,
+                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
+    s = []
+    s += header('Pythagoras&rsquo; Theorem &amp; Trigonometry', 'Extra practice test 4 &mdash; answer sheet &middot; 27 marks total')
+
+    s.append(Paragraph('Section A &mdash; Pythagoras&rsquo; theorem', styles['h2']))
+    s.append(Paragraph('A1. 6<sup>2</sup> + 6<sup>2</sup> = 36 + 36 = 72 (1) &nbsp; hypotenuse = &radic;72 = <b>6&radic;2 &asymp; 8.5 cm</b> (1)', styles['ans']))
+    s.append(Paragraph('A2. a<sup>2</sup> = 10<sup>2</sup> &minus; 7<sup>2</sup> (1) &nbsp; = 100 &minus; 49 = 51 (1) &nbsp; a = &radic;51 = <b>7.1 cm</b> (1)', styles['ans']))
+    s.append(Paragraph('A3. length<sup>2</sup> = 4.8<sup>2</sup> + 2.2<sup>2</sup> = 23.04 + 4.84 = 27.88 (1) &nbsp; length = &radic;27.88 = <b>5.3 m</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section B &mdash; SOH CAH TOA basics', styles['h2']))
+    s.append(Paragraph('B1. SOH CAH TOA &mdash; specifically <b>CAH</b> (adjacent = hypotenuse &times; cos &#952;) (1)', styles['ans']))
+    s.append(Paragraph('B2. <b>Pythagoras&rsquo; theorem</b> &mdash; no angle is known or needed (1)', styles['ans']))
+    s.append(Paragraph('B3. <b>False</b> &mdash; Pythagoras&rsquo; theorem only applies to right-angled triangles (1)', styles['ans']))
+
+    s.append(Paragraph('Section C &mdash; Finding missing sides', styles['h2']))
+    s.append(Paragraph('C1. sin 22&#176; = 6 &divide; h (1) &nbsp; h = 6 &divide; sin 22&#176; (1) &nbsp; = <b>16.0 cm</b> (1)', styles['ans']))
+    s.append(Paragraph('C2. cos 66&#176; = x &divide; 9 &rarr; x = 9 &times; cos 66&#176; (1) &nbsp; = <b>3.7 cm</b> (1)', styles['ans']))
+    s.append(Paragraph('C3. tan 39&#176; = 7 &divide; x &rarr; x = 7 &divide; tan 39&#176; (1) &nbsp; = <b>8.6 cm</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section D &mdash; Finding missing angles', styles['h2']))
+    s.append(Paragraph('D1. cos &#952; = 7 &divide; 25 = 0.28 (1) &nbsp; &#952; = cos<sup>-1</sup>(0.28) = <b>73.7&#176;</b> (1)', styles['ans']))
+    s.append(Paragraph('D2. tan &#952; = 14 &divide; 40 = 0.35 (1) &nbsp; &#952; = tan<sup>-1</sup>(0.35) (1) &nbsp; = <b>19.3&#176;</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section E &mdash; Applying Pythagoras &amp; trigonometry', styles['h2']))
+    s.append(Paragraph('E1. (a) hyp<sup>2</sup> = 9<sup>2</sup> + 12<sup>2</sup> = 81 + 144 = 225 &rarr; hyp = <b>15 cm</b> (1) &nbsp; (b) sin &#952; = 9 &divide; 15 = 0.6 &rarr; &#952; = sin<sup>-1</sup>(0.6) = <b>36.9&#176;</b> (1)', styles['ans']))
+    s.append(Paragraph('E2. (a) strut<sup>2</sup> = 1.8<sup>2</sup> + 3<sup>2</sup> = 3.24 + 9 = 12.24 &rarr; strut = &radic;12.24 = <b>3.5 m</b> (1) &nbsp; (b) tan &#952; = 1.8 &divide; 3 = 0.6 (1) &nbsp; &#952; = tan<sup>-1</sup>(0.6) = <b>31.0&#176;</b> (1)', styles['ans']))
+
+    s.append(marking_note())
+    doc.build(s)
+
+
 if __name__ == '__main__':
-    for n, t in TESTS.items():
-        build_test(n, t)
-        build_answers(n, t)
+    build_test2()
+    build_answers2()
+    build_test3()
+    build_answers3()
+    build_test4()
+    build_answers4()
     print('done')
