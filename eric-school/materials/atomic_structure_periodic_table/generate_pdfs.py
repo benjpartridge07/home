@@ -94,6 +94,7 @@ def build_reference():
         [cell('Neutron'), cell('1'), cell('0'), cell('Nucleus')],
         [cell('Electron'), cell('very small'), cell('&minus;1'), cell('Shells around nucleus')],
     ], col_widths=[35 * mm, 35 * mm, 35 * mm, 37 * mm]))
+    s.append(Paragraph('<i>Picture it: shrink the atom to the size of a football stadium and the nucleus is a pea on the centre spot, holding nearly all the weight. Protons (+) and electrons (&minus;) wear opposite badges and attract; neutrons wear no badge (0) and just add weight.</i>', styles['body']))
 
     s.append(Paragraph('2. Atomic number, mass number &amp; isotopes', styles['h2']))
     s.append(Paragraph('<b>Atomic number</b> = number of protons = number of electrons. <b>Mass number</b> = protons + neutrons. So neutrons = mass number &minus; atomic number.', styles['body']))
