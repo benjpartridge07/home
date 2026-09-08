@@ -1,0 +1,337 @@
+<nav id="eric-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../../biology.html" style="color:#2f9d5c;text-decoration:none;font-weight:600;">Biology</a>
+    <a href="../../math.html" style="color:#7c3aed;text-decoration:none;font-weight:600;">Maths</a>
+    <a href="../../physics.html" style="color:#2f6fed;text-decoration:none;font-weight:600;">Physics</a>
+    <a href="../../chemistry.html" style="color:#c4571f;text-decoration:underline;font-weight:600;">Chemistry</a>
+</nav>
+<style>
+  #ls24-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --chem: #C4571F; --chem-soft: #FBEADD;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls24-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls24-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls24-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls24-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls24-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls24-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls24-section { margin-bottom: 26px; }
+  .ls24-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls24-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls24-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls24-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls24-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls24-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls24-card p:last-child { margin-bottom: 0; }
+  .ls24-card ol, .ls24-card ul { font-size: 13.5px; line-height: 1.6; padding-left: 20px; margin: 0 0 10px; }
+  .ls24-card ol:last-child, .ls24-card ul:last-child { margin-bottom: 0; }
+  .ls24-term { font-weight: 600; color: var(--chem); }
+
+  .ls24-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls24-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls24-table-wrap th, .ls24-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls24-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls24-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls24-atom-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .ls24-atom-wrap svg { flex-shrink: 0; }
+  .ls24-atom-wrap .ls24-atom-caption { font-size: 12.5px; line-height: 1.6; flex: 1; min-width: 200px; }
+
+  .ls24-groupgrid { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+  .ls24-groupcard { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 14px; box-shadow: 0 1px 4px var(--shadow); flex: 1; min-width: 220px; }
+  .ls24-groupcard h4 { margin: 0 0 6px; font-size: 13.5px; color: var(--chem); }
+  .ls24-groupcard ul { margin: 0; padding-left: 16px; font-size: 12px; line-height: 1.55; }
+
+  .ls24-activity { background: var(--chem-soft); border: 1px solid #EAC6A6; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls24-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls24-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls24-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls24-blank-row input { flex: 1; min-width: 90px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls24-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls24-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls24-feedback.ok { color: #2E6B45; }
+  .ls24-feedback.no { color: #A34B4B; }
+
+  .ls24-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls24-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls24-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls24-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls24-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--chem); background: none; border: 1.5px solid var(--chem); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls24-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBEADD; border-left: 3px solid var(--chem); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls24-answer.show { display: block; }
+
+  .ls24-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls24-root">
+  <p class="ls24-eyebrow">Chemistry &middot; Topic 1 of 10 &middot; AQA GCSE Chemistry 4.1</p>
+  <h1 class="ls24-title">Atomic structure &amp; the periodic table</h1>
+  <div class="ls24-meta">
+    <span><span class="ls24-dot" style="background:var(--chem)"></span>Chemistry</span>
+    <span>60 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls24-section">
+    <div class="ls24-section-head">
+      <span class="ls24-section-num">01</span>
+      <h2 class="ls24-section-title">Inside the atom</h2>
+      <span class="ls24-section-time">10 min</span>
+    </div>
+    <div class="ls24-atom-wrap">
+      <svg viewBox="0 0 160 160" width="160" height="160" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="80" cy="80" rx="70" ry="30" fill="none" stroke="#3A5E85" stroke-width="1.2" opacity="0.5"/>
+        <ellipse cx="80" cy="80" rx="70" ry="30" fill="none" stroke="#3A5E85" stroke-width="1.2" opacity="0.5" transform="rotate(60 80 80)"/>
+        <ellipse cx="80" cy="80" rx="70" ry="30" fill="none" stroke="#3A5E85" stroke-width="1.2" opacity="0.5" transform="rotate(120 80 80)"/>
+        <circle cx="80" cy="80" r="14" fill="#FBEADD" stroke="#C4571F" stroke-width="1.5"/>
+        <circle cx="76" cy="77" r="4" fill="#C4571F"/>
+        <circle cx="85" cy="82" r="4" fill="#8a3f14"/>
+        <circle cx="79" cy="86" r="4" fill="#C4571F"/>
+        <circle cx="86" cy="74" r="4" fill="#8a3f14"/>
+        <circle cx="150" cy="80" r="3.2" fill="#3A5E85"/>
+        <circle cx="27" cy="55" r="3.2" fill="#3A5E85"/>
+        <circle cx="98" cy="18" r="3.2" fill="#3A5E85"/>
+      </svg>
+      <p class="ls24-atom-caption">Every atom has a tiny, dense <span class="ls24-term">nucleus</span> at its centre (protons + neutrons), surrounded by <span class="ls24-term">electrons</span> moving in shells. The atom's radius is about 1 &times; 10<sup>-10</sup> m &mdash; but the nucleus is around 1/10,000 of that, so almost all of an atom's mass is packed into a space that's almost all empty otherwise.</p>
+    </div>
+    <div class="ls24-table-wrap">
+      <table>
+        <tr><th>Particle</th><th>Relative mass</th><th>Relative charge</th><th>Location</th></tr>
+        <tr><td>Proton</td><td>1</td><td>+1</td><td>Nucleus</td></tr>
+        <tr><td>Neutron</td><td>1</td><td>0</td><td>Nucleus</td></tr>
+        <tr><td>Electron</td><td>very small (~1/1836)</td><td>&minus;1</td><td>Shells around nucleus</td></tr>
+      </table>
+    </div>
+    <div class="ls24-card">
+      <p>An atom has <span class="ls24-term">no overall charge</span> &mdash; because the number of protons (+) always equals the number of electrons (&minus;) in a neutral atom, the charges cancel out. All atoms of a given element have the same number of protons.</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls24-section">
+    <div class="ls24-section-head">
+      <span class="ls24-section-num">02</span>
+      <h2 class="ls24-section-title">Atomic number, mass number &amp; isotopes</h2>
+      <span class="ls24-section-time">10 min</span>
+    </div>
+    <div class="ls24-card">
+      <p><span class="ls24-term">Atomic number</span> (bottom number, or the smaller one) = number of protons = number of electrons in a neutral atom. It's what makes an element that element.</p>
+      <p><span class="ls24-term">Mass number</span> (top number, or the bigger one) = number of protons + number of neutrons.</p>
+      <p>So: <b>number of neutrons = mass number &minus; atomic number</b>.</p>
+      <p><span class="ls24-term">Isotopes</span> are atoms of the same element (same number of protons) with a <b>different number of neutrons</b> (and therefore a different mass number). Isotopes of an element have the same chemical properties (chemistry is controlled by electrons), but different physical properties like mass and density &mdash; some isotopes are also radioactive.</p>
+      <p><span class="ls24-term">Relative atomic mass (A<sub>r</sub>)</span> is the weighted mean mass of all the naturally occurring isotopes of an element, compared with 1/12th the mass of an atom of carbon-12:</p>
+      <p style="text-align:center"><b>A<sub>r</sub> = (mass of isotope 1 &times; % abundance) + (mass of isotope 2 &times; % abundance) + &hellip; &divide; 100</b></p>
+      <p>Example: chlorine is 75% chlorine-35 and 25% chlorine-37. A<sub>r</sub> = (35 &times; 75 + 37 &times; 25) &divide; 100 = (2625 + 925) &divide; 100 = <b>35.5</b>.</p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls24-section">
+    <div class="ls24-section-head">
+      <span class="ls24-section-num">03</span>
+      <h2 class="ls24-section-title">Electronic structure</h2>
+      <span class="ls24-section-time">10 min</span>
+    </div>
+    <div class="ls24-card">
+      <p>Electrons occupy <span class="ls24-term">shells</span> (energy levels) around the nucleus. The lowest-energy shell (closest to the nucleus) fills up first, then the next, and so on. For the first 20 elements, the maximum number of electrons per shell is:</p>
+      <ol><li>1st shell: up to <b>2</b></li><li>2nd shell: up to <b>8</b></li><li>3rd shell: up to <b>8</b></li></ol>
+      <p>Example: sodium has atomic number 11, so it has 11 electrons: 2, 8, 1. Silicon has atomic number 14: 2, 8, 4.</p>
+      <p>This links directly to the periodic table: the <b>number of electrons in the outer shell = group number</b> (for groups 1&ndash;7 in this simplified view), and the <b>number of occupied shells = period number</b> (the row it's in). Elements in the same group have the same number of outer electrons, which is why they react in similar ways.</p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls24-section">
+    <div class="ls24-section-head">
+      <span class="ls24-section-num">04</span>
+      <h2 class="ls24-section-title">Developing the periodic table</h2>
+      <span class="ls24-section-time">10 min</span>
+    </div>
+    <div class="ls24-card">
+      <p>Early chemists tried arranging the known elements in order of <span class="ls24-term">atomic weight</span>. In 1864, John <span class="ls24-term">Newlands</span> proposed his "Law of Octaves" &mdash; every 8th element (in weight order) seemed to have similar properties. But his table had problems: it forced some very different elements into the same group, and it left no gaps for elements that hadn't been discovered yet &mdash; so it wasn't widely accepted.</p>
+      <p>In 1869, Dmitri <span class="ls24-term">Mendeleev</span> published a table that mostly followed atomic weight order, but he sometimes swapped elements to keep ones with similar properties in the same column. Crucially, he left <b>gaps</b> for elements he believed hadn't been discovered yet, and used the pattern to <b>predict their properties</b>. When those elements (like germanium) were later discovered and matched his predictions almost exactly, it gave scientists confidence that his arrangement reflected something real.</p>
+      <p>The <span class="ls24-term">modern periodic table</span> arranges elements in order of increasing <b>atomic (proton) number</b>, not weight &mdash; which is what fixed the few places where weight order had given the wrong sequence. Elements in the same vertical <b>group</b> have the same number of outer-shell electrons and similar chemical properties; elements in the same horizontal <b>period</b> have the same number of occupied electron shells.</p>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="ls24-section">
+    <div class="ls24-section-head">
+      <span class="ls24-section-num">05</span>
+      <h2 class="ls24-section-title">Metals &amp; non-metals</h2>
+      <span class="ls24-section-time">8 min</span>
+    </div>
+    <div class="ls24-table-wrap">
+      <table>
+        <tr><th></th><th>Metals</th><th>Non-metals</th></tr>
+        <tr><td>Position</td><td>Left &amp; bottom-left of the table (most elements)</td><td>Top-right of the table</td></tr>
+        <tr><td>Appearance</td><td>Shiny</td><td>Dull (except iodine)</td></tr>
+        <tr><td>Malleability</td><td>Malleable &amp; ductile</td><td>Brittle when solid</td></tr>
+        <tr><td>Conductivity</td><td>Good conductors of heat &amp; electricity</td><td>Poor conductors (insulators) &mdash; except graphite</td></tr>
+        <tr><td>Melting/boiling point</td><td>Generally high</td><td>Generally low</td></tr>
+        <tr><td>Ion formed</td><td>Lose electrons &rarr; positive ion</td><td>Gain electrons &rarr; negative ion (or share, covalent)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="ls24-section">
+    <div class="ls24-section-head">
+      <span class="ls24-section-num">06</span>
+      <h2 class="ls24-section-title">Three key groups: 0, 1 &amp; 7</h2>
+      <span class="ls24-section-time">12 min</span>
+    </div>
+    <div class="ls24-groupgrid">
+      <div class="ls24-groupcard">
+        <h4>Group 0 &mdash; Noble gases</h4>
+        <ul>
+          <li>He, Ne, Ar, Kr, Xe</li>
+          <li><b>Full outer shell</b> &rarr; very unreactive (inert)</li>
+          <li>Single atoms (monatomic gases)</li>
+          <li>Boiling point <b>increases</b> down the group</li>
+          <li>Uses: filament lamps, balloons (He), lighting (Ne)</li>
+        </ul>
+      </div>
+      <div class="ls24-groupcard">
+        <h4>Group 1 &mdash; Alkali metals</h4>
+        <ul>
+          <li>Li, Na, K (Rb, Cs)</li>
+          <li><b>1 outer electron</b>, easily lost &rarr; 1+ ion</li>
+          <li>Soft, low density (float on water); low melting point</li>
+          <li><b>Reactivity increases</b> down the group</li>
+          <li>Metal + water &rarr; metal hydroxide + hydrogen</li>
+          <li>Stored under oil</li>
+        </ul>
+      </div>
+      <div class="ls24-groupcard">
+        <h4>Group 7 &mdash; Halogens</h4>
+        <ul>
+          <li>F, Cl, Br, I &mdash; diatomic molecules (e.g. Cl<sub>2</sub>)</li>
+          <li><b>7 outer electrons</b>, gain 1 &rarr; 1&minus; ion</li>
+          <li><b>Reactivity decreases</b> down the group</li>
+          <li>Melting/boiling point increases down the group (F<sub>2</sub>, Cl<sub>2</sub> gases &rarr; Br<sub>2</sub> liquid &rarr; I<sub>2</sub> solid)</li>
+          <li>A more reactive halogen can <b>displace</b> a less reactive one from a salt solution</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ls24-card">
+      <p><b>Why the trends happen:</b> going down Group 1, the outer electron is further from the nucleus and more shielded by inner shells, so it's easier to lose &mdash; reactivity increases. Going down Group 7, the outer shell needing one more electron is also further out and more shielded, so it's harder to attract an extra electron &mdash; reactivity decreases.</p>
+    </div>
+  </div>
+
+  <!-- Activity -->
+  <div class="ls24-section">
+    <div class="ls24-section-head">
+      <span class="ls24-section-num">&bull;</span>
+      <h2 class="ls24-section-title">Activity &mdash; particles &amp; electronic structure</h2>
+      <span class="ls24-section-time">8 min</span>
+    </div>
+    <div class="ls24-activity" id="ls24-activity-1">
+      <p class="ls24-activity-label">Fill in the missing value or word for each</p>
+      <div class="ls24-blank-row"><label>Relative charge of a neutron &rarr;</label><input type="text" data-answer="0"></div>
+      <div class="ls24-blank-row"><label>Relative mass of an electron (roughly) &rarr;</label><input type="text" data-answer="verysmall"></div>
+      <div class="ls24-blank-row"><label>An atom with 17 protons and 18 neutrons: mass number &rarr;</label><input type="text" data-answer="35"></div>
+      <div class="ls24-blank-row"><label>Electronic structure of magnesium (atomic number 12) &rarr;</label><input type="text" data-answer="2,8,2"></div>
+      <div class="ls24-blank-row"><label>Group number = number of electrons in the &rarr;</label><input type="text" data-answer="outershell"></div>
+      <div class="ls24-blank-row"><label>Scientist who left gaps in his table for undiscovered elements &rarr;</label><input type="text" data-answer="mendeleev"></div>
+      <button class="ls24-check-btn" id="ls24-check-1">Check answers</button>
+      <p class="ls24-feedback" id="ls24-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 7 GCSE questions -->
+  <div class="ls24-section">
+    <div class="ls24-section-head">
+      <span class="ls24-section-num">07</span>
+      <h2 class="ls24-section-title">GCSE-style review questions</h2>
+      <span class="ls24-section-time">12 min</span>
+    </div>
+
+    <div class="ls24-q">
+      <div class="ls24-q-top"><p class="ls24-q-text">1. An atom of potassium has 19 protons and 20 neutrons. State its mass number and its number of electrons.</p><span class="ls24-q-marks">[2 marks]</span></div>
+      <button class="ls24-reveal-btn" data-reveal="f1">Show mark scheme</button>
+      <div class="ls24-answer" id="f1">Mass number = 19 + 20 = <b>39</b> (1); number of electrons = number of protons = <b>19</b> (1).</div>
+    </div>
+
+    <div class="ls24-q">
+      <div class="ls24-q-top"><p class="ls24-q-text">2. Explain what is meant by the term "isotopes".</p><span class="ls24-q-marks">[2 marks]</span></div>
+      <button class="ls24-reveal-btn" data-reveal="f2">Show mark scheme</button>
+      <div class="ls24-answer" id="f2">Atoms of the same element (same number of protons) (1) with a different number of neutrons / different mass number (1).</div>
+    </div>
+
+    <div class="ls24-q">
+      <div class="ls24-q-top"><p class="ls24-q-text">3. Explain why Mendeleev left gaps in his periodic table, and why this was important.</p><span class="ls24-q-marks">[3 marks]</span></div>
+      <button class="ls24-reveal-btn" data-reveal="f3">Show mark scheme</button>
+      <div class="ls24-answer" id="f3">He left gaps for elements he believed had not yet been discovered (1). He used the gaps to predict the properties of these missing elements (1). When elements matching his predictions (e.g. germanium) were later discovered, it confirmed his table was a valid way of organising the elements (1).</div>
+    </div>
+
+    <div class="ls24-q">
+      <div class="ls24-q-top"><p class="ls24-q-text">4. Give the electronic structure of an aluminium atom (atomic number 13), and state which group and period it is in.</p><span class="ls24-q-marks">[3 marks]</span></div>
+      <button class="ls24-reveal-btn" data-reveal="f4">Show mark scheme</button>
+      <div class="ls24-answer" id="f4">Electronic structure: <b>2, 8, 3</b> (1). Group <b>3</b>, since it has 3 outer electrons (1). Period <b>3</b>, since it has 3 occupied shells (1).</div>
+    </div>
+
+    <div class="ls24-q">
+      <div class="ls24-q-top"><p class="ls24-q-text">5. Sodium reacts vigorously with water, but lithium reacts less vigorously. Explain this difference in terms of electronic structure.</p><span class="ls24-q-marks">[3 marks]</span></div>
+      <button class="ls24-reveal-btn" data-reveal="f5">Show mark scheme</button>
+      <div class="ls24-answer" id="f5">Sodium's outer electron is in a shell further from the nucleus than lithium's (1). It is more shielded by inner shells (1), so it is lost more easily, making sodium more reactive (1).</div>
+    </div>
+
+    <div class="ls24-q">
+      <div class="ls24-q-top"><p class="ls24-q-text">6. Chlorine can displace bromine from a solution of potassium bromide, but iodine cannot. Use this to place chlorine, bromine and iodine in order of reactivity, and explain your reasoning.</p><span class="ls24-q-marks">[3 marks]</span></div>
+      <button class="ls24-reveal-btn" data-reveal="f6">Show mark scheme</button>
+      <div class="ls24-answer" id="f6">Order (most to least reactive): <b>chlorine, bromine, iodine</b> (1). A more reactive halogen displaces a less reactive one from solution, so chlorine displacing bromine shows chlorine is more reactive than bromine (1). Reactivity decreases down Group 7, which is consistent with iodine being unable to displace either (1).</div>
+    </div>
+
+    <div class="ls24-q">
+      <div class="ls24-q-top"><p class="ls24-q-text">7. Argon is used to fill the space inside filament light bulbs. Suggest why argon, rather than oxygen, is used for this.</p><span class="ls24-q-marks">[2 marks]</span></div>
+      <button class="ls24-reveal-btn" data-reveal="f7">Show mark scheme</button>
+      <div class="ls24-answer" id="f7">Argon is a noble gas with a full outer shell, so it is very unreactive/inert (1). This stops the hot metal filament from reacting (e.g. burning/oxidising), unlike oxygen which would react with it (1).</div>
+    </div>
+  </div>
+
+  <p class="ls24-footer-note">Tip: questions about Groups 1 and 7 love asking "why" a trend happens, not just "what" the trend is. Always answer in terms of the outer electron being further from the nucleus and more shielded as you go down a group &mdash; that single idea explains both trends.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.getElementById('ls24-check-1').addEventListener('click', () => {
+    const rows = document.getElementById('ls24-activity-1').querySelectorAll('input[data-answer]');
+    let correct = 0;
+    rows.forEach(inp => {
+      const ok = norm(inp.value) === norm(inp.dataset.answer);
+      inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#EAC6A6');
+      if (ok) correct++;
+    });
+    const fb = document.getElementById('ls24-feedback-1');
+    fb.textContent = `${correct} of ${rows.length} correct.`;
+    fb.className = 'ls24-feedback ' + (correct === rows.length ? 'ok' : 'no');
+  });
+
+  document.querySelectorAll('#ls24-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>

@@ -11,6 +11,11 @@
     --text:#1b1e24;
     --text-dim:#5b616e;
     --accent:#c4571f;
+    --accent-soft:#fbeadd;
+    --done:#1f9d55;
+    --done-soft:#e7f8ee;
+    --upcoming:#b98900;
+    --upcoming-soft:#fbf1dc;
   }
   *{box-sizing:border-box;}
   body{
@@ -48,16 +53,140 @@
     margin:0 auto;
     padding:0 1.5rem 3rem;
   }
-  .empty-state{
+  .subject{
+    margin-top:2rem;
+  }
+  .subject h2{
+    font-size:1.1rem;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--text-dim);
+    margin:0 0 .75rem;
+  }
+  .topic{
     background:var(--card);
     border:1px solid var(--border);
     border-radius:12px;
-    padding:2.5rem 1.5rem;
-    text-align:center;
-    color:var(--text-dim);
-    margin-top:1.5rem;
+    padding:1.25rem 1.5rem;
+    margin-bottom:1rem;
   }
-  .empty-state .icon{ font-size:2rem; margin-bottom:.75rem; }
+  .topic-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .topic-head h3{
+    margin:0;
+    font-size:1.15rem;
+  }
+  .topic-head .spec-ref{
+    font-family: 'Courier New', monospace;
+    font-size:.75rem;
+    color:var(--text-dim);
+    font-weight:400;
+  }
+  .status{
+    font-size:.75rem;
+    font-weight:600;
+    padding:.2rem .6rem;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .status.done{ background:var(--done-soft); color:var(--done); }
+  .status.upcoming{ background:var(--upcoming-soft); color:var(--upcoming); }
+  .topic p.desc{
+    color:var(--text-dim);
+    margin:.5rem 0 1rem;
+    font-size:.95rem;
+  }
+  .files{
+    display:flex;
+    gap:.6rem;
+    flex-wrap:wrap;
+  }
+  .files a{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    padding:.5rem .9rem;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    text-decoration:none;
+    font-size:.9rem;
+    font-weight:600;
+    border:1px solid transparent;
+  }
+  .files a:hover{
+    border-color:var(--accent);
+  }
+  .files .placeholder{
+    display:inline-flex;
+    align-items:center;
+    padding:.5rem .9rem;
+    border-radius:8px;
+    background:#f0f1f4;
+    color:var(--text-dim);
+    font-size:.9rem;
+    font-style:italic;
+  }
+  .files button{
+    font-family:inherit;
+    cursor:pointer;
+  }
+  dialog#video-dialog{
+    border:none;
+    border-radius:12px;
+    padding:1.5rem;
+    width:min(420px, 90vw);
+    color:var(--text);
+  }
+  dialog#video-dialog::backdrop{
+    background:rgba(20,22,26,.45);
+  }
+  dialog#video-dialog h3{
+    margin:0 0 1rem;
+    font-size:1.1rem;
+  }
+  #video-dialog-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:.5rem;
+  }
+  #video-dialog-list a{
+    display:block;
+    padding:.6rem .8rem;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:600;
+    font-size:.92rem;
+  }
+  #video-dialog-list a:hover{
+    text-decoration:underline;
+  }
+  #video-dialog-list .empty{
+    color:var(--text-dim);
+    font-style:italic;
+    font-size:.9rem;
+  }
+  #video-dialog-close{
+    margin-top:1.25rem;
+    padding:.5rem 1rem;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    font-family:inherit;
+    font-size:.9rem;
+    cursor:pointer;
+  }
 </style>
 </head>
 <body>
@@ -73,15 +202,233 @@
 <header>
   <a class="back-link" href="school/science/index.html">&larr; All subjects</a>
   <h1>Eric's Chemistry Revision</h1>
-  <p>AQA Combined Science: Synergy (8465), Foundation tier.</p>
+  <p>AQA GCSE Chemistry (8462), Triple Science (Separate Sciences). Tier not yet confirmed by the school &mdash; topics are being built at Foundation depth first, since that content is guaranteed either way and Higher-only extras can be layered in later.</p>
 </header>
 
 <main>
-  <div class="empty-state">
-    <div class="icon">⚗️</div>
-    <p>No chemistry topics built yet &mdash; check back soon.</p>
+
+  <div class="subject">
+    <h2>GCSE Chemistry &middot; Paper 1</h2>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Atomic Structure &amp; the Periodic Table <span class="spec-ref">4.1</span></h3>
+        <span class="status done">Done</span>
+      </div>
+      <p class="desc">Subatomic particles, atomic/mass number &amp; isotopes, electronic structure, the history of the periodic table (Newlands &amp; Mendeleev), metals vs non-metals, and Groups 0, 1 &amp; 7. 36-mark test.</p>
+      <div class="files">
+        <a href="materials/atomic_structure_periodic_table/lesson_atomic_structure_periodic_table.html">🧪 Interactive lesson</a>
+        <a href="materials/atomic_structure_periodic_table/atomic_structure_periodic_table_reference.pdf">📄 Reference sheet</a>
+        <button type="button" class="videos-btn" data-topic="atomic_structure_periodic_table">🎥 Videos</button>
+        <a href="materials/atomic_structure_periodic_table/atomic_structure_periodic_table_test.pdf">📝 Test</a>
+        <a href="materials/atomic_structure_periodic_table/atomic_structure_periodic_table_test_answers.pdf">✅ Answers</a>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Bonding, Structure &amp; the Properties of Matter <span class="spec-ref">4.2</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Ionic, covalent and metallic bonding; states of matter; the properties of ionic/covalent/metallic substances; giant covalent structures and polymers; the structure of diamond, graphite, graphene &amp; fullerenes.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="bonding">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Quantitative Chemistry <span class="spec-ref">4.3</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Conservation of mass, relative formula mass, moles, concentration of solutions, and percentage yield.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="quantitative">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Chemical Changes <span class="spec-ref">4.4</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Reactivity series, extraction of metals, acids &amp; bases, neutralisation, making salts, and electrolysis.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="chemical_changes">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Energy Changes <span class="spec-ref">4.5</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Exothermic &amp; endothermic reactions, reaction profiles, and the chemistry of cells &amp; batteries.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="energy_changes">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
   </div>
+
+  <div class="subject">
+    <h2>GCSE Chemistry &middot; Paper 2</h2>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>The Rate &amp; Extent of Chemical Change <span class="spec-ref">4.6</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Factors affecting the rate of reaction, collision theory, catalysts, and reversible reactions &amp; equilibrium.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="rate_of_change">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Organic Chemistry <span class="spec-ref">4.7</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Crude oil &amp; hydrocarbons, fractional distillation, cracking, and the properties of alkanes &amp; alkenes.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="organic">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Chemical Analysis <span class="spec-ref">4.8</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Pure substances &amp; mixtures, chromatography, and tests to identify common gases.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="analysis">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Chemistry of the Atmosphere <span class="spec-ref">4.9</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">The evolution of the Earth's atmosphere, the greenhouse effect, and human impact on climate change.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="atmosphere">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Using Resources <span class="spec-ref">4.10</span></h3>
+        <span class="status upcoming">Upcoming</span>
+      </div>
+      <p class="desc">Using the Earth's resources sustainably, potable water, waste water treatment, alternative methods of extracting metals, and life cycle assessments.</p>
+      <div class="files">
+        <span class="placeholder">🧪 Interactive lesson</span>
+        <span class="placeholder">📄 Reference sheet</span>
+        <button type="button" class="videos-btn" data-topic="resources">🎥 Videos</button>
+        <span class="placeholder">📝 Test</span>
+        <span class="placeholder">✅ Answers</span>
+      </div>
+    </div>
+
+  </div>
+
 </main>
+
+<dialog id="video-dialog">
+  <h3 id="video-dialog-title">Videos</h3>
+  <ul id="video-dialog-list"></ul>
+  <button type="button" id="video-dialog-close">Close</button>
+</dialog>
+
+<script>
+  // One entry per topic. Add more objects to a topic's array as videos come in.
+  const VIDEOS = {
+    atomic_structure_periodic_table: [
+      { name: "Atomic Number and Mass Number (Freesciencelessons)", url: "https://youtu.be/nyvVjJf7RAU" },
+      { name: "Relative Atomic Mass (Freesciencelessons)", url: "https://youtu.be/yOsMN89wIQc" },
+      { name: "Electron Energy Levels (Freesciencelessons)", url: "https://youtu.be/NuUDkub7N9A" },
+      { name: "Development of the Periodic Table (Freesciencelessons)", url: "https://youtu.be/IoldeyRWgz8" },
+      { name: "Group 0 (Freesciencelessons)", url: "https://youtu.be/EReyx5QoUSs" },
+      { name: "Group 1 Part 1 (Freesciencelessons)", url: "https://youtu.be/Z9U0728-fPY" },
+      { name: "Group 7 Part 1: The Halogens (Freesciencelessons)", url: "https://youtu.be/5l-5sKDudq8" }
+    ]
+  };
+
+  const dialog = document.getElementById("video-dialog");
+  const dialogTitle = document.getElementById("video-dialog-title");
+  const dialogList = document.getElementById("video-dialog-list");
+
+  document.querySelectorAll(".videos-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const topic = btn.dataset.topic;
+      const videos = VIDEOS[topic] || [];
+      const topicLabel = btn.closest(".topic").querySelector("h3").textContent;
+
+      dialogTitle.textContent = `${topicLabel} — Videos`;
+      dialogList.innerHTML = "";
+
+      if (videos.length === 0) {
+        const li = document.createElement("li");
+        li.className = "empty";
+        li.textContent = "No videos added yet.";
+        dialogList.appendChild(li);
+      } else {
+        videos.forEach(v => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = v.url;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = v.name;
+          li.appendChild(a);
+          dialogList.appendChild(li);
+        });
+      }
+
+      dialog.showModal();
+    });
+  });
+
+  document.getElementById("video-dialog-close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+</script>
 
 </body>
 </html>
