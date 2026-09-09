@@ -48,18 +48,72 @@
     max-width:900px;
     margin:0 auto;
     padding:1.5rem 1.5rem 3rem;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.25rem;
+  }
+  @media (max-width:700px){
+    main{ grid-template-columns:1fr; }
+  }
+  .cat-card{
+    display:block;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:2rem 1.5rem;
+    text-align:center;
+    text-decoration:none;
+    color:var(--text);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .cat-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(20,22,26,.08);
+  }
+  .cat-card .icon{
+    width:56px;
+    height:56px;
+    border-radius:14px;
+    background:var(--accent-soft);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.6rem;
+    margin:0 auto 1rem;
+  }
+  .cat-card h2{
+    margin:0 0 .4rem;
+    font-size:1.25rem;
+  }
+  .cat-card p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:.9rem;
+    line-height:1.5;
   }
 </style>
 </head>
 <body>
+<nav id="alice-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="index.html" style="color:#0e9488;text-decoration:underline;font-weight:600;">Alice</a>
+    <a href="english/index.html" style="color:#0e9488;text-decoration:none;font-weight:600;">English</a>
+</nav>
 
 <header>
   <a class="back-link" href="../index.html">&larr; All projects</a>
   <h1>Alice's Projects</h1>
-  <p>Nothing here yet.</p>
+  <p>Pick a category to see what's inside.</p>
 </header>
 
 <main>
+
+  <a class="cat-card" href="english/index.html">
+    <div class="icon">✏️</div>
+    <h2>English</h2>
+    <p>Reading &amp; writing practice.</p>
+  </a>
+
 </main>
 
 </body>

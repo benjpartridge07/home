@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Alice's English</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#0e9488;
+    --accent-soft:#e3f7f4;
+    --done:#1f9d55;
+    --done-soft:#e7f8ee;
+    --upcoming:#b98900;
+    --upcoming-soft:#fbf1dc;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{
+    padding:2.5rem 1.5rem 1.5rem;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header h1{
+    margin:0 0 .25rem;
+    font-size:1.9rem;
+  }
+  header p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:1rem;
+  }
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 1.5rem 3rem;
+  }
+  .subject{
+    margin-top:2rem;
+  }
+  .subject h2{
+    font-size:1.1rem;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--text-dim);
+    margin:0 0 .75rem;
+  }
+  .topic{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:1.25rem 1.5rem;
+    margin-bottom:1rem;
+  }
+  .topic-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .topic-head h3{
+    margin:0;
+    font-size:1.15rem;
+  }
+  .status{
+    font-size:.75rem;
+    font-weight:600;
+    padding:.2rem .6rem;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .status.done{ background:var(--done-soft); color:var(--done); }
+  .status.upcoming{ background:var(--upcoming-soft); color:var(--upcoming); }
+  .topic p.desc{
+    color:var(--text-dim);
+    margin:.5rem 0 1rem;
+    font-size:.95rem;
+  }
+  .files{
+    display:flex;
+    gap:.6rem;
+    flex-wrap:wrap;
+  }
+  .files a{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    padding:.5rem .9rem;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    text-decoration:none;
+    font-size:.9rem;
+    font-weight:600;
+    border:1px solid transparent;
+  }
+  .files a:hover{
+    border-color:var(--accent);
+  }
+</style>
+</head>
+<body>
+<nav id="alice-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../index.html" style="color:#0e9488;text-decoration:none;font-weight:600;">Alice</a>
+    <a href="../english/index.html" style="color:#0e9488;text-decoration:underline;font-weight:600;">English</a>
+</nav>
+
+<header>
+  <a class="back-link" href="../index.html">&larr; Alice's Projects</a>
+  <h1>Alice's English</h1>
+  <p>Reading &amp; writing practice.</p>
+</header>
+
+<main>
+
+  <div class="subject">
+    <h2>English</h2>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Writing</h3>
+        <span class="status done">Done</span>
+      </div>
+      <p class="desc">Printable joined-up (cursive) handwriting practice sheets &mdash; trace over the grey words in a big, friendly connected script, then write them again on the blank lines below.</p>
+      <div class="files">
+        <a href="materials/writing/words_practice.pdf">📝 My Name &amp; Words</a>
+        <a href="materials/writing/sentences_practice.pdf">📝 Simple Sentences</a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+</body>
+</html>
