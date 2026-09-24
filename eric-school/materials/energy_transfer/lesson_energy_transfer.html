@@ -1,0 +1,332 @@
+<nav id="eric-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../../biology.html" style="color:#2f9d5c;text-decoration:none;font-weight:600;">Biology</a>
+    <a href="../../math.html" style="color:#7c3aed;text-decoration:none;font-weight:600;">Maths</a>
+    <a href="../../physics.html" style="color:#2f6fed;text-decoration:none;font-weight:600;">Physics</a>
+    <a href="../../chemistry.html" style="color:#c4571f;text-decoration:none;font-weight:600;">Chemistry</a>
+</nav>
+<style>
+  #ls25-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --phys: #B5762A; --phys-soft: #F1E3CE;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls25-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls25-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls25-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls25-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls25-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls25-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .ls25-section { margin-bottom: 26px; }
+  .ls25-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls25-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls25-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls25-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls25-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls25-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls25-card p:last-child { margin-bottom: 0; }
+  .ls25-card ul { margin: 0 0 10px; padding-left: 20px; font-size: 13.5px; line-height: 1.6; }
+  .ls25-card ul:last-child { margin-bottom: 0; }
+  .ls25-term { font-weight: 600; color: var(--phys); }
+  .ls25-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls25-storegrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 0 0 10px; }
+  @media (max-width: 520px) { .ls25-storegrid { grid-template-columns: 1fr; } }
+  .ls25-store { background: #FBF6EC; border: 1px solid var(--paper-line); border-radius: 8px; padding: 8px 10px; font-size: 12.5px; }
+  .ls25-store b { color: var(--phys); display: block; font-size: 12.5px; }
+
+  .ls25-activity { background: var(--phys-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls25-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls25-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls25-activity p.prompt { font-size: 13.5px; margin: 0 0 10px; line-height: 1.55; }
+
+  .ls25-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls25-blank-row label { font-size: 13px; min-width: 260px; font-weight: 500; }
+  .ls25-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls25-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls25-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls25-feedback.ok { color: #2E6B45; }
+  .ls25-feedback.no { color: #A34B4B; }
+
+  .ls25-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls25-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls25-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls25-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls25-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--phys); background: none; border: 1.5px solid var(--phys); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls25-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--phys); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls25-answer.show { display: block; }
+
+  .ls25-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls25-root">
+  <p class="ls25-eyebrow">Physics &middot; Energy (AQA 4.5.1&ndash;4.5.2)</p>
+  <h1 class="ls25-title">Energy Transfer</h1>
+  <div class="ls25-meta">
+    <span><span class="ls25-dot" style="background:var(--phys)"></span>Physics</span>
+    <span><span class="ls25-dot" style="background:var(--maths)"></span>Maths (formula substitution &amp; rearranging)</span>
+    <span>90 minutes</span>
+  </div>
+
+  <!-- 1 -->
+  <div class="ls25-section">
+    <div class="ls25-section-head">
+      <span class="ls25-section-num">01</span>
+      <h2 class="ls25-section-title">Energy stores and systems</h2>
+      <span class="ls25-section-time">8 min</span>
+    </div>
+    <div class="ls25-card">
+      <p>A <span class="ls25-term">system</span> is just an object, or a group of objects, that you're looking at. Energy is always stored in one or more of eight ways &mdash; when something changes (a ball falls, a kettle heats up, a spring stretches), energy moves between these stores, but the total amount never changes.</p>
+      <div class="ls25-storegrid">
+        <div class="ls25-store"><b>Kinetic</b>anything moving</div>
+        <div class="ls25-store"><b>Gravitational potential</b>anything raised up, in a gravitational field</div>
+        <div class="ls25-store"><b>Elastic potential</b>anything stretched or squashed (springs)</div>
+        <div class="ls25-store"><b>Thermal</b>anything with a temperature above absolute zero</div>
+        <div class="ls25-store"><b>Chemical</b>fuels, food, batteries</div>
+        <div class="ls25-store"><b>Nuclear</b>the nucleus of atoms</div>
+        <div class="ls25-store"><b>Electrostatic</b>charges that attract/repel at a distance</div>
+        <div class="ls25-store"><b>Magnetic</b>magnets that attract/repel at a distance</div>
+      </div>
+      <p>Example: a ball held above the ground stores energy <span class="ls25-term">gravitationally</span>. Once dropped, that store empties as its <span class="ls25-term">kinetic</span> store fills up &mdash; the energy hasn't vanished, it's just moved between stores.</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ls25-section">
+    <div class="ls25-section-head">
+      <span class="ls25-section-num">02</span>
+      <h2 class="ls25-section-title">Transfers, conservation &amp; dissipation</h2>
+      <span class="ls25-section-time">10 min</span>
+    </div>
+    <div class="ls25-card">
+      <p>Energy moves between stores along four possible pathways:</p>
+      <ul>
+        <li><span class="ls25-term">Mechanically</span> &mdash; a force acting through a distance (pushing, pulling, stretching)</li>
+        <li><span class="ls25-term">Electrically</span> &mdash; charge moving through a circuit</li>
+        <li><span class="ls25-term">By heating</span> &mdash; energy transferred because of a temperature difference</li>
+        <li><span class="ls25-term">By radiation</span> &mdash; light or sound waves spreading out from a source</li>
+      </ul>
+      <p><span class="ls25-term">Conservation of energy:</span> energy cannot be created or destroyed &mdash; it can only be transferred, stored, or dissipated. The total energy of a closed system is always the same before and after any change.</p>
+      <p><span class="ls25-term">Dissipation</span> is what happens to "wasted" energy &mdash; it spreads out into the surroundings, usually heating them up, and becomes increasingly difficult to use for anything useful. It isn't gone, it's just spread too thinly to be useful &mdash; that's why we call it "wasted" rather than "destroyed".</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls25-section">
+    <div class="ls25-section-head">
+      <span class="ls25-section-num">&bull;</span>
+      <h2 class="ls25-section-title">Activity &mdash; name the store</h2>
+      <span class="ls25-section-time">6 min</span>
+    </div>
+    <div class="ls25-activity" id="ls25-activity-1">
+      <p class="ls25-activity-label">Which energy store is the main one involved? Type one word.</p>
+      <p class="prompt">Accepted words: kinetic, gravitational, elastic, thermal, chemical, nuclear, electrostatic, magnetic.</p>
+      <div class="ls25-blank-row"><label>A stretched elastic band, before it's released &rarr;</label><input type="text" data-answer="elastic"></div>
+      <div class="ls25-blank-row"><label>A car speeding along a motorway &rarr;</label><input type="text" data-answer="kinetic"></div>
+      <div class="ls25-blank-row"><label>A tin of beans on a high shelf &rarr;</label><input type="text" data-answer="gravitational"></div>
+      <div class="ls25-blank-row"><label>Petrol sitting in a car's fuel tank &rarr;</label><input type="text" data-answer="chemical"></div>
+      <button class="ls25-check-btn" data-check="1">Check answers</button>
+      <p class="ls25-feedback" data-feedback="1"></p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ls25-section">
+    <div class="ls25-section-head">
+      <span class="ls25-section-num">03</span>
+      <h2 class="ls25-section-title">Kinetic &amp; gravitational potential energy</h2>
+      <span class="ls25-section-time">12 min</span>
+    </div>
+    <div class="ls25-card">
+      <p><span class="ls25-eq">kinetic energy = &frac12; &times; mass &times; speed&sup2;</span> &nbsp; or &nbsp; <strong>E<sub>k</sub> = &frac12;mv&sup2;</strong></p>
+      <p>E<sub>k</sub> &mdash; kinetic energy, in joules, J &nbsp;&middot;&nbsp; m &mdash; mass, in kg &nbsp;&middot;&nbsp; v &mdash; speed, in m/s. Notice the speed is <strong>squared</strong> &mdash; doubling an object's speed doesn't double its kinetic energy, it <em>quadruples</em> it.</p>
+      <p>Worked example: a 2 kg ball moving at 3 m/s. &nbsp; E<sub>k</sub> = &frac12; &times; 2 &times; 3&sup2; = &frac12; &times; 2 &times; 9 = <strong>9 J</strong></p>
+    </div>
+    <div class="ls25-card">
+      <p><span class="ls25-eq">gravitational potential energy = mass &times; gravitational field strength &times; height</span> &nbsp; or &nbsp; <strong>E<sub>p</sub> = mgh</strong></p>
+      <p>E<sub>p</sub> &mdash; GPE, in J &nbsp;&middot;&nbsp; m &mdash; mass, in kg &nbsp;&middot;&nbsp; g &mdash; gravitational field strength, 9.8 N/kg near Earth's surface &nbsp;&middot;&nbsp; h &mdash; height, in m</p>
+      <p>Worked example: a 5 kg mass raised 2 m. &nbsp; E<sub>p</sub> = 5 &times; 9.8 &times; 2 = <strong>98 J</strong></p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls25-section">
+    <div class="ls25-section-head">
+      <span class="ls25-section-num">&bull;</span>
+      <h2 class="ls25-section-title">Activity &mdash; E<sub>k</sub> and E<sub>p</sub> calculations</h2>
+      <span class="ls25-section-time">10 min</span>
+    </div>
+    <div class="ls25-activity" id="ls25-activity-2">
+      <p class="ls25-activity-label">Straight substitution first, then one rearrangement</p>
+      <p class="prompt">Use g = 9.8 N/kg. Type just the number, in joules.</p>
+      <div class="ls25-blank-row"><label>m = 2 kg, v = 4 m/s &rarr; E<sub>k</sub> =</label><input type="text" data-answer="16"></div>
+      <div class="ls25-blank-row"><label>m = 0.5 kg, v = 10 m/s &rarr; E<sub>k</sub> =</label><input type="text" data-answer="25"></div>
+      <div class="ls25-blank-row"><label>m = 3 kg, h = 4 m &rarr; E<sub>p</sub> =</label><input type="text" data-answer="117.6"></div>
+      <div class="ls25-blank-row"><label>m = 10 kg, h = 5 m &rarr; E<sub>p</sub> =</label><input type="text" data-answer="490"></div>
+      <div class="ls25-blank-row"><label>E<sub>p</sub> = 98 J, m = 2 kg &rarr; h =</label><input type="text" data-answer="5"></div>
+      <button class="ls25-check-btn" data-check="2">Check answers</button>
+      <p class="ls25-feedback" data-feedback="2"></p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ls25-section">
+    <div class="ls25-section-head">
+      <span class="ls25-section-num">04</span>
+      <h2 class="ls25-section-title">Elastic potential energy &amp; specific heat capacity</h2>
+      <span class="ls25-section-time">12 min</span>
+    </div>
+    <div class="ls25-card">
+      <p><span class="ls25-eq">elastic potential energy = &frac12; &times; spring constant &times; extension&sup2;</span> &nbsp; or &nbsp; <strong>E<sub>e</sub> = &frac12;ke&sup2;</strong> &nbsp; (assuming the spring hasn't gone past its limit of proportionality)</p>
+      <p>k &mdash; spring constant, in N/m &nbsp;&middot;&nbsp; e &mdash; extension, in m. Worked example: k = 40 N/m, e = 0.2 m. &nbsp; E<sub>e</sub> = &frac12; &times; 40 &times; 0.2&sup2; = &frac12; &times; 40 &times; 0.04 = <strong>0.8 J</strong></p>
+    </div>
+    <div class="ls25-card">
+      <p><span class="ls25-eq">change in thermal energy = mass &times; specific heat capacity &times; change in temperature</span> &nbsp; or &nbsp; <strong>&Delta;E = mc&Delta;&theta;</strong></p>
+      <p>&Delta;E &mdash; energy transferred, in J &nbsp;&middot;&nbsp; m &mdash; mass, in kg &nbsp;&middot;&nbsp; c &mdash; specific heat capacity, in J/kg&deg;C (a property of the material &mdash; water is 4200) &nbsp;&middot;&nbsp; &Delta;&theta; &mdash; temperature change, in &deg;C</p>
+      <p>Worked example: 2 kg of water, c = 4200 J/kg&deg;C, heated through 10&deg;C. &nbsp; &Delta;E = 2 &times; 4200 &times; 10 = 84,000 J = <strong>8.4 &times; 10&#8308; J</strong> &mdash; a good chance to reuse standard form from Maths.</p>
+    </div>
+  </div>
+
+  <!-- Activity 3 -->
+  <div class="ls25-section">
+    <div class="ls25-section-head">
+      <span class="ls25-section-num">&bull;</span>
+      <h2 class="ls25-section-title">Activity &mdash; E<sub>e</sub> and specific heat capacity</h2>
+      <span class="ls25-section-time">10 min</span>
+    </div>
+    <div class="ls25-activity maths" id="ls25-activity-3">
+      <p class="ls25-activity-label">Straight substitution, then one rearrangement</p>
+      <p class="prompt">Type just the number, in joules (or &deg;C for the last one).</p>
+      <div class="ls25-blank-row"><label>k = 50 N/m, e = 0.1 m &rarr; E<sub>e</sub> =</label><input type="text" data-answer="0.25"></div>
+      <div class="ls25-blank-row"><label>k = 200 N/m, e = 0.05 m &rarr; E<sub>e</sub> =</label><input type="text" data-answer="0.25"></div>
+      <div class="ls25-blank-row"><label>m = 1 kg water, c = 4200, &Delta;&theta; = 5&deg;C &rarr; &Delta;E =</label><input type="text" data-answer="21000"></div>
+      <div class="ls25-blank-row"><label>m = 0.5 kg, c = 900 J/kg&deg;C, &Delta;&theta; = 20&deg;C &rarr; &Delta;E =</label><input type="text" data-answer="9000"></div>
+      <div class="ls25-blank-row"><label>&Delta;E = 42000 J, m = 2 kg, c = 4200 &rarr; &Delta;&theta; =</label><input type="text" data-answer="5"></div>
+      <button class="ls25-check-btn" data-check="3">Check answers</button>
+      <p class="ls25-feedback" data-feedback="3"></p>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="ls25-section">
+    <div class="ls25-section-head">
+      <span class="ls25-section-num">05</span>
+      <h2 class="ls25-section-title">Power and efficiency</h2>
+      <span class="ls25-section-time">12 min</span>
+    </div>
+    <div class="ls25-card">
+      <p><span class="ls25-eq">power = energy transferred &divide; time</span> &nbsp; or &nbsp; <strong>P = E / t</strong> &nbsp; &mdash; power is measured in <strong>watts, W</strong> (1 W = 1 J of energy transferred per second).</p>
+      <p>Worked example: a motor transfers 600 J in 5 s. &nbsp; P = 600 / 5 = <strong>120 W</strong></p>
+    </div>
+    <div class="ls25-card">
+      <p><span class="ls25-eq">efficiency = useful output energy transfer &divide; total input energy transfer</span> &nbsp; (&times;100 to give a percentage)</p>
+      <p>Because some energy is <em>always</em> dissipated (usually as heat, through friction or electrical resistance), efficiency is always less than 1 (or less than 100%) for a real machine &mdash; it's impossible to build a machine that wastes nothing.</p>
+      <p>Worked example: a lamp is supplied with 500 J, and usefully transfers 350 J as light. &nbsp; efficiency = 350 / 500 = 0.7 = <strong>70%</strong></p>
+      <p>Common ways to reduce unwanted energy transfers: <span class="ls25-term">lubrication</span> (oil/grease reduces friction between moving parts) and <span class="ls25-term">insulation</span> (reduces unwanted heating transfers, e.g. loft insulation in a house).</p>
+    </div>
+  </div>
+
+  <!-- 6 GCSE questions -->
+  <div class="ls25-section">
+    <div class="ls25-section-head">
+      <span class="ls25-section-num">06</span>
+      <h2 class="ls25-section-title">GCSE-style review questions</h2>
+      <span class="ls25-section-time">15 min</span>
+    </div>
+
+    <div class="ls25-q">
+      <div class="ls25-q-top"><p class="ls25-q-text">1. State the principle of conservation of energy.</p><span class="ls25-q-marks">[1 mark]</span></div>
+      <button class="ls25-reveal-btn" data-reveal="e1">Show mark scheme</button>
+      <div class="ls25-answer" id="e1">Energy cannot be created or destroyed, only transferred, stored or dissipated (1).</div>
+    </div>
+
+    <div class="ls25-q">
+      <div class="ls25-q-top"><p class="ls25-q-text">2. Name the four ways that energy can be transferred.</p><span class="ls25-q-marks">[4 marks]</span></div>
+      <button class="ls25-reveal-btn" data-reveal="e2">Show mark scheme</button>
+      <div class="ls25-answer" id="e2">Mechanically (1), electrically (1), by heating (1), by radiation (1).</div>
+    </div>
+
+    <div class="ls25-q">
+      <div class="ls25-q-top"><p class="ls25-q-text">3. Calculate the kinetic energy of a 1200 kg car travelling at 15 m/s.</p><span class="ls25-q-marks">[2 marks]</span></div>
+      <button class="ls25-reveal-btn" data-reveal="e3">Show mark scheme</button>
+      <div class="ls25-answer" id="e3">E<sub>k</sub> = &frac12;mv&sup2; = &frac12; &times; 1200 &times; 15&sup2; (1) &nbsp; <strong>E<sub>k</sub> = 135,000 J (1.35 &times; 10&#8309; J)</strong> (1)</div>
+    </div>
+
+    <div class="ls25-q">
+      <div class="ls25-q-top"><p class="ls25-q-text">4. A spring with a spring constant of 25 N/m is stretched by 0.08 m. Calculate its elastic potential energy. Show your working.</p><span class="ls25-q-marks">[3 marks]</span></div>
+      <button class="ls25-reveal-btn" data-reveal="e4">Show mark scheme</button>
+      <div class="ls25-answer" id="e4">E<sub>e</sub> = &frac12;ke&sup2; (1) &nbsp; E<sub>e</sub> = &frac12; &times; 25 &times; 0.08&sup2; (1) &nbsp; <strong>E<sub>e</sub> = 0.08 J</strong> (1)</div>
+    </div>
+
+    <div class="ls25-q">
+      <div class="ls25-q-top"><p class="ls25-q-text">5. 2 kg of water gains 42,000 J of energy when heated. The specific heat capacity of water is 4200 J/kg&deg;C. Calculate the temperature rise. Show how you rearranged the equation.</p><span class="ls25-q-marks">[3 marks]</span></div>
+      <button class="ls25-reveal-btn" data-reveal="e5">Show mark scheme</button>
+      <div class="ls25-answer" id="e5">&Delta;&theta; = &Delta;E / (mc) (1) &nbsp; &Delta;&theta; = 42000 / (2 &times; 4200) (1) &nbsp; <strong>&Delta;&theta; = 5&deg;C</strong> (1)</div>
+    </div>
+
+    <div class="ls25-q">
+      <div class="ls25-q-top"><p class="ls25-q-text">6. A kettle has a power rating of 2000 W. Calculate the energy it transfers when used for 3 minutes.</p><span class="ls25-q-marks">[3 marks]</span></div>
+      <button class="ls25-reveal-btn" data-reveal="e6">Show mark scheme</button>
+      <div class="ls25-answer" id="e6">3 minutes = 180 s (1) &nbsp; E = Pt = 2000 &times; 180 (1) &nbsp; <strong>E = 360,000 J (3.6 &times; 10&#8309; J)</strong> (1)</div>
+    </div>
+
+    <div class="ls25-q">
+      <div class="ls25-q-top"><p class="ls25-q-text">7. A lamp has a total energy input of 60 J, and produces 12 J of useful light energy (the rest is wasted as heat). Calculate its efficiency as a percentage.</p><span class="ls25-q-marks">[2 marks]</span></div>
+      <button class="ls25-reveal-btn" data-reveal="e7">Show mark scheme</button>
+      <div class="ls25-answer" id="e7">efficiency = 12 / 60 (1) &nbsp; <strong>efficiency = 0.2 = 20%</strong> (1)</div>
+    </div>
+
+    <div class="ls25-q">
+      <div class="ls25-q-top"><p class="ls25-q-text">8. Explain, in terms of energy, why no real machine can ever be 100% efficient, and give one way of reducing unwanted energy transfers caused by friction.</p><span class="ls25-q-marks">[3 marks]</span></div>
+      <button class="ls25-reveal-btn" data-reveal="e8">Show mark scheme</button>
+      <div class="ls25-answer" id="e8">Some of the input energy is always dissipated to the surroundings, usually as heat, due to friction/resistance (1). This wasted energy can't be usefully recovered, so useful output energy transfer is always less than total input energy transfer (1). Lubrication (oiling/greasing moving parts) reduces friction and unwanted heat transfer (1) &mdash; insulation is also accepted for a heat-transfer context.</div>
+    </div>
+  </div>
+
+  <p class="ls25-footer-note">Tip: on calculation questions, write the equation first, then the substituted numbers, then the final answer with units &mdash; that's usually 3 separate marks even if the arithmetic slips at the end.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, ''); }
+
+  document.querySelectorAll('#ls25-root [data-check]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const n = btn.dataset.check;
+      const container = document.getElementById('ls25-activity-' + n);
+      const inputs = container.querySelectorAll('input[data-answer]');
+      let correct = 0;
+      inputs.forEach(inp => {
+        const ok = norm(inp.value) === norm(inp.dataset.answer);
+        inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : '#DDBF8E');
+        if (ok) correct++;
+      });
+      const fb = document.querySelector('[data-feedback="' + n + '"]');
+      fb.textContent = `${correct} of ${inputs.length} correct.`;
+      fb.className = 'ls25-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+    });
+  });
+
+  document.querySelectorAll('#ls25-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>
