@@ -496,6 +496,120 @@ def build_answers3():
     doc.build(s)
 
 
+# ---------------------------------------------------------------- TEST 4
+
+def build_test4():
+    doc = SimpleDocTemplate('standard_form_indices_test4.pdf', pagesize=A4,
+                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
+    s = []
+    s += header('Standard Form &amp; Indices', 'Test 4 &middot; 41 marks total &middot; Sections F &amp; G include Higher-tier content')
+
+    s.append(table([[
+        cell('Name: ________________________________'),
+        cell('Date: ______________'),
+        cell('Score: _____ / 41'),
+    ]], col_widths=[80 * mm, 45 * mm, 40 * mm]))
+    s.append(Spacer(1, 10))
+
+    s.append(Paragraph('Section A &mdash; Laws of indices', styles['h2']))
+    s += q('A1', 'Write 5<super>6</super> &times; 5<super>3</super> as a single power of 5.', 1)
+    s += q('A2', 'Write 9<super>10</super> &divide; 9<super>4</super> as a single power of 9.', 1)
+    s += q('A3', 'Write (7<super>2</super>)<super>4</super> as a single power of 7.', 1)
+    s += q('A4', 'Work out the value of 4<super>2</super> &times; 4<super>1</super>.', 2)
+
+    s.append(Paragraph('Section B &mdash; Zero and negative indices', styles['h2']))
+    s += q('B1', 'Work out the value of 15<super>0</super>.', 1)
+    s += q('B2', 'Work out the value of 2<super>&minus;3</super>. Give your answer as a fraction.', 2)
+    s += q('B3', 'Work out the value of 10<super>&minus;6</super>. Give your answer as a decimal.', 2)
+
+    s.append(Paragraph('Section C &mdash; Writing standard form', styles['h2']))
+    s += q('C1', 'Write 91,000 in standard form.', 2)
+    s += q('C2', 'Write 5,600,000 in standard form.', 2)
+    s += q('C3', 'Write 0.0039 in standard form.', 2)
+    s += q('C4', 'Write 0.00008 in standard form.', 2)
+
+    s.append(Paragraph('Section D &mdash; Converting back, and calculating', styles['h2']))
+    s += q('D1', 'Write 3.4 &times; 10<super>4</super> as an ordinary number.', 1)
+    s += q('D2', 'Write 9 &times; 10<super>&minus;5</super> as an ordinary number.', 1)
+    s += q('D3', 'Work out (6 &times; 10<super>3</super>) &times; (5 &times; 10<super>4</super>). Give your answer in standard form.', 3)
+    s += q('D4', 'Work out (8 &times; 10<super>9</super>) &divide; (4 &times; 10<super>4</super>). Give your answer in standard form.', 3)
+
+    s.append(Paragraph('Section E &mdash; Powers to know, and estimating roots', styles['h2']))
+    s += q('E1', 'Write down the value of 5<super>3</super>.', 1)
+    s += q('E2', '&radic;130 lies between which two consecutive whole numbers?', 1)
+
+    s.append(Paragraph('Section F &mdash; Laws of indices with algebra', styles['h2']))
+    s += q('F1', 'Simplify u<super>8</super> &times; u<super>5</super>.', 1)
+    s += q('F2', 'Simplify v<super>12</super> &divide; v<super>6</super>.', 1)
+    s += q('F3', 'Simplify (w<super>5</super>)<super>2</super>.', 1)
+    s += q('F4', 'Simplify 6f<super>3</super> &times; 2f<super>5</super>.', 2)
+    s += q('F5', 'Simplify (3g<super>2</super>)<super>3</super>.', 2)
+
+    s.append(Paragraph('Section G &mdash; Fractional indices (Higher)', styles['h2']))
+    s += q('G1', 'Work out the value of 64<super>1/2</super>.', 1)
+    s += q('G2', 'Work out the value of 125<super>1/3</super>.', 1)
+    s += q('G3', 'Work out the value of 27<super>2/3</super>.', 2)
+    s += q('G4', 'Work out the value of 25<super>&minus;1/2</super>.', 2)
+
+    doc.build(s)
+
+
+# ---------------------------------------------------------------- ANSWERS 4
+
+def build_answers4():
+    doc = SimpleDocTemplate('standard_form_indices_test4_answers.pdf', pagesize=A4,
+                             leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN)
+    s = []
+    s += header('Standard Form &amp; Indices', 'Test 4 &middot; Answer sheet &middot; 41 marks total')
+
+    s.append(Paragraph('Section A &mdash; Laws of indices', styles['h2']))
+    s.append(Paragraph('A1. <b>5<super>9</super></b> (1)', styles['ans']))
+    s.append(Paragraph('A2. <b>9<super>6</super></b> (1)', styles['ans']))
+    s.append(Paragraph('A3. <b>7<super>8</super></b> (1)', styles['ans']))
+    s.append(Paragraph('A4. 4<super>2</super> &times; 4<super>1</super> = 4<super>3</super> (1) &nbsp; = <b>64</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section B &mdash; Zero and negative indices', styles['h2']))
+    s.append(Paragraph('B1. <b>1</b> (1)', styles['ans']))
+    s.append(Paragraph('B2. 1 &divide; 2<super>3</super> = 1 &divide; 8 (1) &nbsp; = <b>1/8</b> (1)', styles['ans']))
+    s.append(Paragraph('B3. 1 &divide; 10<super>6</super> = 1 &divide; 1000000 (1) &nbsp; = <b>0.000001</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section C &mdash; Writing standard form', styles['h2']))
+    s.append(Paragraph('C1. 9.1 (1) &nbsp; = <b>9.1 &times; 10<super>4</super></b> (1)', styles['ans']))
+    s.append(Paragraph('C2. 5.6 (1) &nbsp; = <b>5.6 &times; 10<super>6</super></b> (1)', styles['ans']))
+    s.append(Paragraph('C3. 3.9 (1) &nbsp; = <b>3.9 &times; 10<super>&minus;3</super></b> (1)', styles['ans']))
+    s.append(Paragraph('C4. 8 (1) &nbsp; = <b>8 &times; 10<super>&minus;5</super></b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section D &mdash; Converting back, and calculating', styles['h2']))
+    s.append(Paragraph('D1. <b>34,000</b> (1)', styles['ans']))
+    s.append(Paragraph('D2. <b>0.00009</b> (1)', styles['ans']))
+    s.append(Paragraph('D3. 6 &times; 5 = 30, 10<super>3</super> &times; 10<super>4</super> = 10<super>7</super> (1) &nbsp; = 30 &times; 10<super>7</super> (1) &nbsp; adjust to standard form: <b>3 &times; 10<super>8</super></b> (1)', styles['ans']))
+    s.append(Paragraph('D4. 8 &divide; 4 = 2, 10<super>9</super> &divide; 10<super>4</super> = 10<super>5</super> (1) &nbsp; = 2 &times; 10<super>5</super> (1) &nbsp; already in standard form: <b>2 &times; 10<super>5</super></b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section E &mdash; Powers to know, and estimating roots', styles['h2']))
+    s.append(Paragraph('E1. <b>125</b> (1)', styles['ans']))
+    s.append(Paragraph('E2. 11<super>2</super>=121, 12<super>2</super>=144 &nbsp; = between <b>11 and 12</b> (1)', styles['ans']))
+
+    s.append(Paragraph('Section F &mdash; Laws of indices with algebra', styles['h2']))
+    s.append(Paragraph('F1. <b>u<super>13</super></b> (1)', styles['ans']))
+    s.append(Paragraph('F2. <b>v<super>6</super></b> (1)', styles['ans']))
+    s.append(Paragraph('F3. <b>w<super>10</super></b> (1)', styles['ans']))
+    s.append(Paragraph('F4. 6 &times; 2 = 12 (1) &nbsp; f<super>3+5</super> = f<super>8</super> (1) &nbsp; = <b>12f<super>8</super></b>', styles['ans']))
+    s.append(Paragraph('F5. 3<super>3</super> = 27 (1) &nbsp; g<super>2&times;3</super> = g<super>6</super> (1) &nbsp; = <b>27g<super>6</super></b>', styles['ans']))
+
+    s.append(Paragraph('Section G &mdash; Fractional indices (Higher)', styles['h2']))
+    s.append(Paragraph('G1. &radic;64 = <b>8</b> (1)', styles['ans']))
+    s.append(Paragraph('G2. cube root of 125 = <b>5</b> (1)', styles['ans']))
+    s.append(Paragraph('G3. cube root of 27 = 3 (1) &nbsp; 3<super>2</super> = <b>9</b> (1)', styles['ans']))
+    s.append(Paragraph('G4. &radic;25 = 5 (1) &nbsp; 1 &divide; 5 = <b>1/5</b> (1)', styles['ans']))
+
+    s.append(Paragraph(
+        'Marking note: award method marks for a correctly identified front number/power, or correctly applied law '
+        'of indices, even if the final answer contains an arithmetic error. Accept equivalent fractions/decimals.',
+        styles['note']))
+
+    doc.build(s)
+
+
 if __name__ == '__main__':
     build_reference()
     build_test()
@@ -504,4 +618,6 @@ if __name__ == '__main__':
     build_answers2()
     build_test3()
     build_answers3()
+    build_test4()
+    build_answers4()
     print('done')
