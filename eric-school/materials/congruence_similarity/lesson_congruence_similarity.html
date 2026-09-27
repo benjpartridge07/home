@@ -1,0 +1,363 @@
+<nav id="eric-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../../biology.html" style="color:#2f9d5c;text-decoration:none;font-weight:600;">Biology</a>
+    <a href="../../math.html" style="color:#7c3aed;text-decoration:none;font-weight:600;">Maths</a>
+    <a href="../../physics.html" style="color:#2f6fed;text-decoration:none;font-weight:600;">Physics</a>
+    <a href="../../chemistry.html" style="color:#c4571f;text-decoration:none;font-weight:600;">Chemistry</a>
+</nav>
+<style>
+  #ls26-root {
+    --paper: #F4F1EA; --paper-line: #E4DDCE;
+    --ink: #23201A; --ink-soft: #6B6355;
+    --maths: #3A5E85; --maths-soft: #DDE6EF;
+    --acc: #B5762A; --acc-soft: #F1E3CE;
+    --card: #FFFEFB; --shadow: rgba(35, 32, 26, 0.10);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 30px 22px 44px;
+    border-radius: 18px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #ls26-root * { box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  .ls26-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+  .ls26-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 32px; margin: 0 0 6px; line-height: 1.1; }
+  .ls26-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin: 0 0 24px; }
+  .ls26-meta span { display: flex; align-items: center; gap: 5px; }
+  .ls26-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .ls26-tag { background: var(--acc-soft); color: #7A4E17; border-radius: 5px; padding: 1px 7px; font-size: 10.5px; }
+
+  .ls26-section { margin-bottom: 26px; }
+  .ls26-section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .ls26-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .ls26-section-title { font-size: 17px; font-weight: 600; margin: 0; }
+  .ls26-section-time { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  .ls26-card { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; }
+  .ls26-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; color: var(--ink); }
+  .ls26-card p:last-child { margin-bottom: 0; }
+  .ls26-term { font-weight: 600; color: var(--maths); }
+  .ls26-eq { font-family: 'IBM Plex Mono', monospace; background: #F1EAD9; padding: 2px 7px; border-radius: 5px; }
+
+  .ls26-diagram-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .ls26-diagram-wrap svg { max-width: 300px; width: 100%; height: auto; }
+
+  .ls26-table-wrap { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 4px; box-shadow: 0 1px 4px var(--shadow); margin-bottom: 10px; overflow-x: auto; }
+  .ls26-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ls26-table-wrap th, .ls26-table-wrap td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--paper-line); }
+  .ls26-table-wrap th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .ls26-table-wrap tr:last-child td { border-bottom: none; }
+
+  .ls26-activity { background: var(--acc-soft); border: 1px solid #DDBF8E; border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls26-activity.maths { background: var(--maths-soft); border-color: #B7C6D8; }
+  .ls26-activity-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 6px; }
+
+  .ls26-blank-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .ls26-blank-row label { font-size: 13px; min-width: 260px; flex: 2; font-weight: 500; }
+  .ls26-blank-row input { flex: 1; min-width: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 6px 9px; border: 1px solid var(--paper-line); border-radius: 6px; background: #fff; }
+  .ls26-check-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; margin-top: 4px; }
+  .ls26-feedback { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .ls26-feedback.ok { color: #2E6B45; }
+  .ls26-feedback.no { color: #A34B4B; }
+
+  .ls26-q { background: var(--card); border: 1px solid var(--paper-line); border-radius: 12px; padding: 15px 17px; margin-bottom: 10px; }
+  .ls26-q-top { display: flex; justify-content: space-between; gap: 10px; }
+  .ls26-q-text { font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .ls26-q-marks { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .ls26-reveal-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--acc); background: none; border: 1.5px solid var(--acc); border-radius: 7px; padding: 5px 12px; cursor: pointer; margin-top: 10px; }
+  .ls26-answer { display: none; font-size: 13px; line-height: 1.55; background: #FBF6EC; border-left: 3px solid var(--acc); padding: 9px 12px; margin-top: 10px; border-radius: 0 6px 6px 0; }
+  .ls26-answer.show { display: block; }
+
+  .ls26-footer-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 20px; }
+</style>
+
+<div id="ls26-root">
+  <p class="ls26-eyebrow">GCSE Maths &middot; Geometry &amp; Measures</p>
+  <h1 class="ls26-title">Congruence &amp; Similarity</h1>
+  <div class="ls26-meta">
+    <span><span class="ls26-dot" style="background:var(--maths)"></span>Maths</span>
+    <span>85 minutes</span>
+    <span class="ls26-tag">Section 05 is Higher tier</span>
+  </div>
+
+  <!-- 1 congruent vs similar -->
+  <div class="ls26-section">
+    <div class="ls26-section-head">
+      <span class="ls26-section-num">01</span>
+      <h2 class="ls26-section-title">Congruent or similar?</h2>
+      <span class="ls26-section-time">6 min</span>
+    </div>
+    <div class="ls26-card">
+      <p>Two shapes are <span class="ls26-term">congruent</span> if they are <strong>exactly the same shape and size</strong>. One would fit perfectly on top of the other &mdash; even if you had to turn it or flip it over first. All matching sides are equal and all matching angles are equal.</p>
+      <p>Two shapes are <span class="ls26-term">similar</span> if they are the <strong>same shape but a different size</strong> &mdash; one is an enlargement of the other. Matching angles are equal, and every pair of matching sides is in the <strong>same ratio</strong> (the scale factor).</p>
+      <p>Quick test: congruent = same angles <em>and</em> same sides. Similar = same angles, sides all multiplied by the same number.</p>
+    </div>
+  </div>
+
+  <!-- 2 congruence conditions -->
+  <div class="ls26-section">
+    <div class="ls26-section-head">
+      <span class="ls26-section-num">02</span>
+      <h2 class="ls26-section-title">The four conditions for congruent triangles</h2>
+      <span class="ls26-section-time">12 min</span>
+    </div>
+    <div class="ls26-diagram-wrap">
+      <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="30,150 130,150 60,60" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <polygon points="170,150 270,150 200,60" fill="none" stroke="#3A5E85" stroke-width="2.5"/>
+        <!-- single tick on base -->
+        <line x1="80" y1="144" x2="80" y2="156" stroke="#B5762A" stroke-width="2"/>
+        <line x1="220" y1="144" x2="220" y2="156" stroke="#B5762A" stroke-width="2"/>
+        <!-- double tick on left side -->
+        <line x1="38" y1="106.9" x2="49.4" y2="110.7" stroke="#B5762A" stroke-width="2"/>
+        <line x1="40.6" y1="99.3" x2="52" y2="103.1" stroke="#B5762A" stroke-width="2"/>
+        <line x1="178" y1="106.9" x2="189.4" y2="110.7" stroke="#B5762A" stroke-width="2"/>
+        <line x1="180.6" y1="99.3" x2="192" y2="103.1" stroke="#B5762A" stroke-width="2"/>
+        <!-- included angle -->
+        <path d="M 48 150 A 18 18 0 0 0 35.7 132.9" fill="none" stroke="#B5762A" stroke-width="2"/>
+        <path d="M 188 150 A 18 18 0 0 0 175.7 132.9" fill="none" stroke="#B5762A" stroke-width="2"/>
+        <text x="150" y="30" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#B5762A">SAS</text>
+        <text x="150" y="172" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#6B6355">two sides + the angle between them</text>
+      </svg>
+    </div>
+    <div class="ls26-table-wrap">
+      <table>
+        <tr><th>Condition</th><th>Stands for</th><th>What must match</th></tr>
+        <tr><td><strong>SSS</strong></td><td>Side, Side, Side</td><td>All three pairs of sides are equal</td></tr>
+        <tr><td><strong>SAS</strong></td><td>Side, Angle, Side</td><td>Two sides and the angle <em>between</em> them (the included angle)</td></tr>
+        <tr><td><strong>ASA</strong> / <strong>AAS</strong></td><td>Angle, Side, Angle</td><td>Two angles and a <em>corresponding</em> side</td></tr>
+        <tr><td><strong>RHS</strong></td><td>Right angle, Hypotenuse, Side</td><td>Both have a right angle, equal hypotenuses, and one other pair of equal sides</td></tr>
+      </table>
+    </div>
+    <div class="ls26-card">
+      <p>Two things that <strong>don't</strong> prove congruence: <span class="ls26-eq">AAA</span> (three equal angles only proves the triangles are <em>similar</em> &mdash; one could be bigger) and <span class="ls26-eq">SSA</span> (the angle isn't between the two sides, so two different triangles are possible).</p>
+      <p><span class="ls26-term">Writing a congruence proof</span>: list three facts, give a <strong>reason</strong> for each one, then name the condition. Worked example &mdash; ABCD is a rectangle; prove triangles ABD and CDB are congruent:</p>
+      <p>AB = CD (opposite sides of a rectangle are equal). AD = CB (opposite sides of a rectangle are equal). BD is common to both triangles. So the triangles are congruent by <strong>SSS</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Activity 1 -->
+  <div class="ls26-section">
+    <div class="ls26-section-head">
+      <span class="ls26-section-num">&bull;</span>
+      <h2 class="ls26-section-title">Activity &mdash; name the condition</h2>
+      <span class="ls26-section-time">6 min</span>
+    </div>
+    <div class="ls26-activity" data-activity="1">
+      <p class="ls26-activity-label">Type SSS, SAS, ASA, RHS &mdash; or &ldquo;none&rdquo; if the triangles are not necessarily congruent</p>
+      <div class="ls26-blank-row"><label>Both triangles have sides 5 cm, 7 cm and 9 cm</label><input type="text" data-answer="sss"></div>
+      <div class="ls26-blank-row"><label>Both are right-angled, hypotenuse 13 cm, one other side 5 cm</label><input type="text" data-answer="rhs"></div>
+      <div class="ls26-blank-row"><label>Sides 6 cm and 8 cm with a 40&deg; angle between them</label><input type="text" data-answer="sas"></div>
+      <div class="ls26-blank-row"><label>Angles 50&deg; and 70&deg;, with the side between them 4 cm</label><input type="text" data-answer="asa|aas"></div>
+      <div class="ls26-blank-row"><label>Both have angles 30&deg;, 60&deg; and 90&deg;</label><input type="text" data-answer="none|aaa"></div>
+      <button class="ls26-check-btn" id="ls26-check-1">Check answers</button>
+      <p class="ls26-feedback" id="ls26-feedback-1"></p>
+    </div>
+  </div>
+
+  <!-- 3 similar shapes: missing lengths -->
+  <div class="ls26-section">
+    <div class="ls26-section-head">
+      <span class="ls26-section-num">03</span>
+      <h2 class="ls26-section-title">Similar shapes: finding missing lengths</h2>
+      <span class="ls26-section-time">12 min</span>
+    </div>
+    <div class="ls26-diagram-wrap">
+      <svg viewBox="0 0 260 195" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="20,170 68,170 20,134" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <polygon points="110,170 230,170 110,80" fill="none" stroke="#3A5E85" stroke-width="2.5"/>
+        <polyline points="20,162 28,162 28,170" fill="none" stroke="#6B6355" stroke-width="1.2"/>
+        <polyline points="110,160 120,160 120,170" fill="none" stroke="#6B6355" stroke-width="1.2"/>
+        <text x="44" y="186" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#23201A">4</text>
+        <text x="10" y="156" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#23201A">3</text>
+        <text x="52" y="146" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#23201A">5</text>
+        <text x="170" y="186" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#3A5E85">10</text>
+        <text x="98" y="130" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#B5762A">x</text>
+        <text x="182" y="118" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#B5762A">y</text>
+      </svg>
+    </div>
+    <div class="ls26-card">
+      <p>Step 1 &mdash; find a pair of <span class="ls26-term">matching sides</span> where you know <strong>both</strong> lengths. Step 2 &mdash; work out the <span class="ls26-term">scale factor</span>: <span class="ls26-eq">SF = new length &divide; original length</span>. Step 3 &mdash; multiply (to go bigger) or divide (to go smaller) by the scale factor.</p>
+      <p>Worked example (diagram, cm): the bases match, 4 and 10, so SF = 10 &divide; 4 = <strong>2.5</strong>. Then x = 3 &times; 2.5 = <strong>7.5 cm</strong> and y = 5 &times; 2.5 = <strong>12.5 cm</strong>.</p>
+      <p>Going the other way (large &rarr; small), divide by 2.5 &mdash; or multiply by the reciprocal, 0.4.</p>
+      <p><span class="ls26-term">Are two shapes similar?</span> Work out the ratio for <em>every</em> pair of matching sides. They're similar only if all the ratios are the same. A 4 &times; 6 rectangle and a 6 &times; 8 rectangle are <strong>not</strong> similar: 6 &divide; 4 = 1.5 but 8 &divide; 6 = 1.33&hellip;</p>
+    </div>
+  </div>
+
+  <!-- 4 nested similar triangles -->
+  <div class="ls26-section">
+    <div class="ls26-section-head">
+      <span class="ls26-section-num">04</span>
+      <h2 class="ls26-section-title">Similar triangles inside each other</h2>
+      <span class="ls26-section-time">12 min</span>
+    </div>
+    <div class="ls26-diagram-wrap">
+      <svg viewBox="0 0 260 210" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="130,20 30,180 230,180" fill="none" stroke="#23201A" stroke-width="2.5"/>
+        <line x1="96.7" y1="73.3" x2="163.3" y2="73.3" stroke="#3A5E85" stroke-width="2.5"/>
+        <!-- parallel arrows -->
+        <polyline points="126,69.3 131,73.3 126,77.3" fill="none" stroke="#B5762A" stroke-width="2"/>
+        <polyline points="126,176 131,180 126,184" fill="none" stroke="#B5762A" stroke-width="2"/>
+        <text x="130" y="14" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#23201A">A</text>
+        <text x="20" y="192" font-family="IBM Plex Mono, monospace" font-size="12" fill="#23201A">B</text>
+        <text x="234" y="192" font-family="IBM Plex Mono, monospace" font-size="12" fill="#23201A">C</text>
+        <text x="82" y="72" font-family="IBM Plex Mono, monospace" font-size="12" fill="#3A5E85">D</text>
+        <text x="168" y="72" font-family="IBM Plex Mono, monospace" font-size="12" fill="#3A5E85">E</text>
+        <text x="100" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#6B6355">3</text>
+        <text x="52" y="130" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#6B6355">6</text>
+        <text x="146" y="90" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="#3A5E85">4</text>
+        <text x="130" y="202" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="#B5762A">BC = ?</text>
+      </svg>
+    </div>
+    <div class="ls26-card">
+      <p>When a line <span class="ls26-eq">DE</span> is <strong>parallel</strong> to <span class="ls26-eq">BC</span>, triangle ADE is similar to triangle ABC. The angle at A is shared, and the parallel lines make <span class="ls26-term">corresponding angles</span> equal (angle ADE = angle ABC, angle AED = angle ACB).</p>
+      <p>The big trap: the side of the large triangle is the <strong>whole</strong> length AB, not just DB. Always work out AB = AD + DB first.</p>
+      <p>Worked example (diagram, cm): AD = 3, DB = 6, so AB = 3 + 6 = 9. SF = AB &divide; AD = 9 &divide; 3 = <strong>3</strong>. So BC = DE &times; 3 = 4 &times; 3 = <strong>12 cm</strong>.</p>
+      <p>Tip: sketch the two triangles <strong>separately</strong>, side by side, and label the matching sides. It makes it much harder to pair up the wrong lengths.</p>
+    </div>
+  </div>
+
+  <!-- Activity 2 -->
+  <div class="ls26-section">
+    <div class="ls26-section-head">
+      <span class="ls26-section-num">&bull;</span>
+      <h2 class="ls26-section-title">Activity &mdash; missing lengths</h2>
+      <span class="ls26-section-time">8 min</span>
+    </div>
+    <div class="ls26-activity maths" data-activity="2">
+      <p class="ls26-activity-label">Give numbers only (no units). Fractions like 1/3 are fine</p>
+      <div class="ls26-blank-row"><label>Matching sides are 6 cm and 15 cm. Scale factor (small &rarr; large) =</label><input type="text" data-answer="2.5|5/2"></div>
+      <div class="ls26-blank-row"><label>With that scale factor, an 8 cm side on the small shape becomes (cm)</label><input type="text" data-answer="20"></div>
+      <div class="ls26-blank-row"><label>Matching sides are 12 cm and 4 cm. Scale factor (large &rarr; small) =</label><input type="text" data-answer="1/3"></div>
+      <div class="ls26-blank-row"><label>DE &#8741; BC, AD = 5, DB = 10, DE = 7. BC (cm) =</label><input type="text" data-answer="21"></div>
+      <button class="ls26-check-btn" id="ls26-check-2">Check answers</button>
+      <p class="ls26-feedback" id="ls26-feedback-2"></p>
+    </div>
+  </div>
+
+  <!-- 5 area and volume scale factors -->
+  <div class="ls26-section">
+    <div class="ls26-section-head">
+      <span class="ls26-section-num">05</span>
+      <h2 class="ls26-section-title">Area &amp; volume of similar shapes (Higher)</h2>
+      <span class="ls26-section-time">14 min</span>
+    </div>
+    <div class="ls26-table-wrap">
+      <table>
+        <tr><th>If the length scale factor is</th><th>Area scale factor</th><th>Volume scale factor</th></tr>
+        <tr><td><strong>k</strong></td><td><strong>k&sup2;</strong></td><td><strong>k&sup3;</strong></td></tr>
+        <tr><td>2</td><td>4</td><td>8</td></tr>
+        <tr><td>3</td><td>9</td><td>27</td></tr>
+        <tr><td>&frac12;</td><td>&frac14;</td><td>&frac18;</td></tr>
+      </table>
+    </div>
+    <div class="ls26-card">
+      <p>Doubling every length of a cube makes it 2 wide, 2 deep and 2 tall &mdash; so each face has <strong>4</strong> times the area, and the cube holds <strong>8</strong> times the volume. That's why areas scale by <span class="ls26-eq">k&sup2;</span> and volumes by <span class="ls26-eq">k&sup3;</span>. Surface area is an area too, so it also scales by k&sup2;.</p>
+      <p>Worked example: two similar cylinders have heights 5 cm and 15 cm. Length SF = 15 &divide; 5 = 3. The small one has volume 40 cm&sup3; and surface area 60 cm&sup2;. Large volume = 40 &times; 3&sup3; = 40 &times; 27 = <strong>1080 cm&sup3;</strong>. Large surface area = 60 &times; 3&sup2; = 60 &times; 9 = <strong>540 cm&sup2;</strong>.</p>
+      <p><span class="ls26-term">Working backwards</span>: if you're given an area or volume ratio, <strong>square-root</strong> or <strong>cube-root</strong> it to get back to the length scale factor first.</p>
+      <p>Worked example: two similar shapes have areas 20 cm&sup2; and 45 cm&sup2;. Area SF = 45 &divide; 20 = 2.25, so length SF = &radic;2.25 = <strong>1.5</strong>. If the small one is a solid with volume 16 cm&sup3;, the large volume = 16 &times; 1.5&sup3; = 16 &times; 3.375 = <strong>54 cm&sup3;</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Activity 3 -->
+  <div class="ls26-section">
+    <div class="ls26-section-head">
+      <span class="ls26-section-num">&bull;</span>
+      <h2 class="ls26-section-title">Activity &mdash; area &amp; volume scale factors</h2>
+      <span class="ls26-section-time">6 min</span>
+    </div>
+    <div class="ls26-activity" data-activity="3">
+      <p class="ls26-activity-label">Give the scale factor as a number</p>
+      <div class="ls26-blank-row"><label>Length SF 5 &rarr; area SF =</label><input type="text" data-answer="25"></div>
+      <div class="ls26-blank-row"><label>Length SF 4 &rarr; volume SF =</label><input type="text" data-answer="64"></div>
+      <div class="ls26-blank-row"><label>Area SF 49 &rarr; length SF =</label><input type="text" data-answer="7"></div>
+      <div class="ls26-blank-row"><label>Volume SF 1000 &rarr; length SF =</label><input type="text" data-answer="10"></div>
+      <div class="ls26-blank-row"><label>Volume SF 8 &rarr; area SF =</label><input type="text" data-answer="4"></div>
+      <button class="ls26-check-btn" id="ls26-check-3">Check answers</button>
+      <p class="ls26-feedback" id="ls26-feedback-3"></p>
+    </div>
+  </div>
+
+  <!-- 6 GCSE questions -->
+  <div class="ls26-section">
+    <div class="ls26-section-head">
+      <span class="ls26-section-num">06</span>
+      <h2 class="ls26-section-title">GCSE-style review questions</h2>
+      <span class="ls26-section-time">15 min</span>
+    </div>
+
+    <div class="ls26-q">
+      <div class="ls26-q-top"><p class="ls26-q-text">1. Rectangle P is 5 cm by 8 cm. Rectangle Q is similar to P, and its shorter side is 12.5 cm. Find the longer side of Q.</p><span class="ls26-q-marks">[2 marks]</span></div>
+      <button class="ls26-reveal-btn" data-reveal="r1">Show mark scheme</button>
+      <div class="ls26-answer" id="r1">SF = 12.5 &divide; 5 = 2.5 (1) &nbsp; 8 &times; 2.5 = <strong>20 cm</strong> (1)</div>
+    </div>
+
+    <div class="ls26-q">
+      <div class="ls26-q-top"><p class="ls26-q-text">2. Triangle ABC is isosceles with AB = AC. M is the midpoint of BC. Prove that triangles ABM and ACM are congruent.</p><span class="ls26-q-marks">[3 marks]</span></div>
+      <button class="ls26-reveal-btn" data-reveal="r2">Show mark scheme</button>
+      <div class="ls26-answer" id="r2">AB = AC (given / isosceles triangle) and BM = CM (M is the midpoint of BC) (1) &nbsp; AM is common to both triangles (1) &nbsp; so congruent by <strong>SSS</strong> (1)</div>
+    </div>
+
+    <div class="ls26-q">
+      <div class="ls26-q-top"><p class="ls26-q-text">3. In triangle ABC, D is on AB and E is on AC, with DE parallel to BC. AD = 6 cm, DB = 4 cm and DE = 9 cm. Find BC.</p><span class="ls26-q-marks">[3 marks]</span></div>
+      <button class="ls26-reveal-btn" data-reveal="r3">Show mark scheme</button>
+      <div class="ls26-answer" id="r3">AB = 6 + 4 = 10 (1) &nbsp; SF = 10 &divide; 6 = 5/3 (1) &nbsp; BC = 9 &times; 5/3 = <strong>15 cm</strong> (1)</div>
+    </div>
+
+    <div class="ls26-q">
+      <div class="ls26-q-top"><p class="ls26-q-text">4. Two similar solids have heights 3 cm and 6 cm. The smaller one has a surface area of 40 cm&sup2;. Find the surface area of the larger one.</p><span class="ls26-q-marks">[2 marks]</span></div>
+      <button class="ls26-reveal-btn" data-reveal="r4">Show mark scheme</button>
+      <div class="ls26-answer" id="r4">Length SF = 2, so area SF = 2&sup2; = 4 (1) &nbsp; 40 &times; 4 = <strong>160 cm&sup2;</strong> (1)</div>
+    </div>
+
+    <div class="ls26-q">
+      <div class="ls26-q-top"><p class="ls26-q-text">5. Two similar bottles have volumes 250 cm&sup3; and 2000 cm&sup3;. The smaller bottle is 12 cm tall. How tall is the larger bottle?</p><span class="ls26-q-marks">[3 marks]</span></div>
+      <button class="ls26-reveal-btn" data-reveal="r5">Show mark scheme</button>
+      <div class="ls26-answer" id="r5">Volume SF = 2000 &divide; 250 = 8 (1) &nbsp; length SF = &#8731;8 = 2 (1) &nbsp; 12 &times; 2 = <strong>24 cm</strong> (1)</div>
+    </div>
+
+    <div class="ls26-q">
+      <div class="ls26-q-top"><p class="ls26-q-text">6. Two similar shapes have areas 36 cm&sup2; and 81 cm&sup2;. A side on the smaller shape is 10 cm. Find the matching side on the larger shape.</p><span class="ls26-q-marks">[2 marks]</span></div>
+      <button class="ls26-reveal-btn" data-reveal="r6">Show mark scheme</button>
+      <div class="ls26-answer" id="r6">Area SF = 81 &divide; 36 = 2.25, so length SF = &radic;2.25 = 1.5 (1) &nbsp; 10 &times; 1.5 = <strong>15 cm</strong> (1)</div>
+    </div>
+  </div>
+
+  <p class="ls26-footer-note">Tip: congruence proofs need three facts, a reason for each, and the condition name at the end. For similar shapes, always find the length scale factor first &mdash; then square it for areas, cube it for volumes. Given an area or volume? Square-root or cube-root back to the length scale factor before doing anything else.</p>
+</div>
+
+<script>
+(function() {
+  function norm(s) { return s.trim().toLowerCase().replace(/\s+/g, '').replace(/cm$/, ''); }
+
+  function checker(n, emptyColour) {
+    document.getElementById('ls26-check-' + n).addEventListener('click', () => {
+      const inputs = document.querySelectorAll('#ls26-root .ls26-activity[data-activity="' + n + '"] input[data-answer]');
+      let correct = 0;
+      inputs.forEach(inp => {
+        const ok = inp.dataset.answer.split('|').some(a => norm(inp.value) === norm(a));
+        inp.style.borderColor = ok ? '#3E7C59' : (inp.value ? '#A34B4B' : emptyColour);
+        if (ok) correct++;
+      });
+      const fb = document.getElementById('ls26-feedback-' + n);
+      fb.textContent = `${correct} of ${inputs.length} correct.`;
+      fb.className = 'ls26-feedback ' + (correct === inputs.length ? 'ok' : 'no');
+    });
+  }
+  checker(1, '#DDBF8E');
+  checker(2, '#B7C6D8');
+  checker(3, '#DDBF8E');
+
+  document.querySelectorAll('#ls26-root [data-reveal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ans = document.getElementById(btn.dataset.reveal);
+      ans.classList.toggle('show');
+      btn.textContent = ans.classList.contains('show') ? 'Hide mark scheme' : 'Show mark scheme';
+    });
+  });
+})();
+</script>
