@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Alice's Maths</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#0e9488;
+    --accent-soft:#e3f7f4;
+    --done:#1f9d55;
+    --done-soft:#e7f8ee;
+    --upcoming:#b98900;
+    --upcoming-soft:#fbf1dc;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{
+    padding:2.5rem 1.5rem 1.5rem;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header h1{
+    margin:0 0 .25rem;
+    font-size:1.9rem;
+  }
+  header p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:1rem;
+  }
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 1.5rem 3rem;
+  }
+  .subject{
+    margin-top:2rem;
+  }
+  .subject h2{
+    font-size:1.1rem;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--text-dim);
+    margin:0 0 .75rem;
+  }
+  .topic{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:1.25rem 1.5rem;
+    margin-bottom:1rem;
+  }
+  .topic-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .topic-head h3{
+    margin:0;
+    font-size:1.15rem;
+  }
+  .status{
+    font-size:.75rem;
+    font-weight:600;
+    padding:.2rem .6rem;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .status.done{ background:var(--done-soft); color:var(--done); }
+  .status.upcoming{ background:var(--upcoming-soft); color:var(--upcoming); }
+  .topic p.desc{
+    color:var(--text-dim);
+    margin:.5rem 0 1rem;
+    font-size:.95rem;
+  }
+  .files{
+    display:flex;
+    gap:.6rem;
+    flex-wrap:wrap;
+  }
+  .files a{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    padding:.5rem .9rem;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    text-decoration:none;
+    font-size:.9rem;
+    font-weight:600;
+    border:1px solid transparent;
+  }
+  .files a:hover, .files button:hover{
+    border-color:var(--accent);
+  }
+  .files button{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    padding:.5rem .9rem;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    font-family:inherit;
+    font-size:.9rem;
+    font-weight:600;
+    border:1px solid transparent;
+    cursor:pointer;
+  }
+  dialog#video-dialog{
+    border:none;
+    border-radius:12px;
+    padding:1.5rem;
+    width:min(460px, 90vw);
+    color:var(--text);
+  }
+  dialog#video-dialog::backdrop{ background:rgba(20,22,26,.45); }
+  dialog#video-dialog h3{ margin:0 0 1rem; font-size:1.1rem; }
+  #video-dialog-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.5rem; }
+  #video-dialog-list a{
+    display:block;
+    padding:.6rem .8rem;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:600;
+    font-size:.92rem;
+  }
+  #video-dialog-list a:hover{ text-decoration:underline; }
+  #video-dialog-list .empty{ color:var(--text-dim); font-style:italic; font-size:.9rem; }
+  #video-dialog-close{
+    margin-top:1.25rem;
+    padding:.5rem 1rem;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    font-family:inherit;
+    font-size:.9rem;
+    cursor:pointer;
+  }
+</style>
+</head>
+<body>
+<nav id="alice-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../index.html" style="color:#0e9488;text-decoration:none;font-weight:600;">Alice</a>
+    <a href="../english/index.html" style="color:#0e9488;text-decoration:none;font-weight:600;">English</a>
+    <a href="../math/index.html" style="color:#0e9488;text-decoration:underline;font-weight:600;">Maths</a>
+</nav>
+
+<header>
+  <a class="back-link" href="../index.html">&larr; Alice's Projects</a>
+  <h1>Alice's Maths</h1>
+  <p>Year 6 practice. Each topic has a reference sheet, videos, and practice tests with answers.</p>
+</header>
+
+<main>
+
+  <div class="subject">
+    <h2>Number: Multiplication &amp; Division</h2>
+
+    <div class="topic">
+      <div class="topic-head">
+        <h3>Dividing Large Numbers</h3>
+        <span class="status done">Done</span>
+      </div>
+      <p class="desc">Dividing numbers with up to 4 digits by 1- and 2-digit numbers, the Year 6 way: short division (bus stop), writing out the multiples, division using factors, long division, and remainders as r, fractions, decimals or rounded in real-life problems. Start with the reference sheet and videos, then try the tests (31 marks each, no calculator).</p>
+      <div class="files">
+        <a href="materials/division/division_reference.pdf">📄 Reference sheet</a>
+        <button type="button" class="videos-btn" data-topic="division">🎥 Videos</button>
+        <a href="materials/division/division_test1.pdf">📝 Test 1</a>
+        <a href="materials/division/division_test1_answers.pdf">✅ Answers 1</a>
+        <a href="materials/division/division_test2.pdf">📝 Test 2</a>
+        <a href="materials/division/division_test2_answers.pdf">✅ Answers 2</a>
+        <a href="materials/division/division_test3.pdf">📝 Test 3</a>
+        <a href="materials/division/division_test3_answers.pdf">✅ Answers 3</a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<dialog id="video-dialog">
+  <h3 id="video-dialog-title">Videos</h3>
+  <ul id="video-dialog-list"></ul>
+  <button type="button" id="video-dialog-close">Close</button>
+</dialog>
+
+<script>
+  // Videos for each topic: short Corbettmaths clips first, then full Oak National Year 6 lessons (video + quizzes)
+  const VIDEOS = {
+    division: [
+      { name: "Division: the written method (Corbettmaths)", url: "https://www.youtube.com/watch?v=q3Jk6W4oDgw" },
+      { name: "Division with remainders (Corbettmaths)", url: "https://www.youtube.com/watch?v=DHrjDo8J9S4" },
+      { name: "Long Division (Corbettmaths)", url: "https://www.youtube.com/watch?v=44i7ybPbG4o" },
+      { name: "Lesson: Short and long division by a 2-digit number (Oak National, Year 6)", url: "https://www.thenational.academy/pupils/lessons/using-short-and-long-division-to-divide-by-a-2-digit-divisor" },
+      { name: "Lesson: Solve problems using factors and long division (Oak National, Year 6)", url: "https://www.thenational.academy/pupils/lessons/solve-problems-with-4-digit-dividends-using-factors-and-long-division" },
+      { name: "Lesson: Dividing by a 2-digit number with a remainder (Oak National, Year 6)", url: "https://www.thenational.academy/pupils/lessons/dividing-by-a-2-digit-divisor-with-a-remainder" },
+      { name: "Lesson: Long division with fraction remainders (Oak National, Year 6)", url: "https://www.thenational.academy/pupils/lessons/use-long-division-with-fraction-remainders" },
+      { name: "Lesson: Remainders in real-life problems (Oak National, Year 6)", url: "https://www.thenational.academy/pupils/lessons/solve-problems-involving-remainders-in-context" }
+    ]
+  };
+
+  const dialog = document.getElementById("video-dialog");
+  const dialogTitle = document.getElementById("video-dialog-title");
+  const dialogList = document.getElementById("video-dialog-list");
+
+  document.querySelectorAll(".videos-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const videos = VIDEOS[btn.dataset.topic] || [];
+      dialogTitle.textContent = btn.closest(".topic").querySelector("h3").textContent + " — Videos";
+      dialogList.innerHTML = "";
+      if (videos.length === 0) {
+        const li = document.createElement("li");
+        li.className = "empty";
+        li.textContent = "No videos added yet.";
+        dialogList.appendChild(li);
+      } else {
+        videos.forEach(v => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = v.url;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = v.name;
+          li.appendChild(a);
+          dialogList.appendChild(li);
+        });
+      }
+      dialog.showModal();
+    });
+  });
+  document.getElementById("video-dialog-close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
+</script>
+
+</body>
+</html>
