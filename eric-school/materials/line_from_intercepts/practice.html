@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equation from Intercepts</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#7c3aed;
+    --accent-soft:#f1eafe;
+    --good:#2f9d5c;
+    --good-soft:#e7f8ee;
+    --bad:#d64545;
+    --bad-soft:#fbe6e6;
+    --amber:#b98900;
+    --amber-soft:#fbf1dc;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{
+    padding:2.5rem 1.5rem 1rem;
+    max-width:720px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    font-size:.9rem;
+    margin-bottom:.75rem;
+    cursor:pointer;
+    background:none;
+    border:none;
+    padding:0;
+    font-family:inherit;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header h1{ margin:0 0 .25rem; font-size:1.9rem; }
+  header p{ margin:0; color:var(--text-dim); font-size:1rem; }
+  main{ max-width:720px; margin:0 auto; padding:0 1.5rem 3.5rem; }
+
+  /* ---------- Home ---------- */
+  .mode-grid{ display:grid; grid-template-columns:1fr 1fr; gap:.9rem; margin-top:1.5rem; }
+  @media (max-width:520px){ .mode-grid{ grid-template-columns:1fr; } }
+  .mode-btn{
+    text-align:left;
+    font-family:inherit;
+    padding:1.2rem 1.25rem;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    cursor:pointer;
+    transition:transform .1s ease, box-shadow .1s ease;
+  }
+  .mode-btn:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(20,22,26,.08); border-color:var(--accent); }
+  .mode-btn b{ display:block; font-size:1.15rem; color:var(--accent); margin-bottom:.3rem; }
+  .mode-btn span{ font-size:.88rem; color:var(--text-dim); }
+  .mode-btn.mistakes b{ color:var(--bad); }
+  .mode-btn:disabled{ opacity:.5; cursor:default; transform:none; box-shadow:none; }
+  .how{
+    margin-top:1.5rem;
+    background:var(--accent-soft);
+    border-radius:14px;
+    padding:1rem 1.25rem;
+    font-size:.92rem;
+    line-height:1.55;
+  }
+  .how h2{ margin:0 0 .4rem; font-size:1rem; color:var(--accent); }
+  .how ol{ margin:.2rem 0 0; padding-left:1.2rem; }
+  .progress-link{
+    display:block;
+    text-align:center;
+    margin-top:1.5rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+  }
+  .progress-link:hover{ color:var(--accent); }
+
+  /* ---------- Quiz ---------- */
+  .quiz-top{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:1.5rem; margin-bottom:.6rem;
+    font-size:.85rem; color:var(--text-dim);
+  }
+  .progress-bar{ background:var(--border); border-radius:999px; height:8px; overflow:hidden; margin-bottom:1.25rem; }
+  .progress-bar-fill{ background:var(--accent); height:100%; width:0%; transition:width .2s ease; }
+  .question-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:1.25rem;
+    margin-bottom:1rem;
+  }
+  .question-text{ font-size:1.1rem; line-height:1.5; margin:0 0 .8rem; }
+  .form-note{ display:inline-block; margin-top:.3rem; font-size:.88rem; background:var(--amber-soft); color:var(--amber); padding:.2rem .6rem; border-radius:999px; font-weight:600; }
+  #graph{ display:block; width:100%; max-width:340px; margin:0 auto; }
+  .answer-row{ display:flex; gap:.6rem; flex-wrap:wrap; }
+  #answer-input{
+    flex:1;
+    min-width:200px;
+    font-family:inherit;
+    font-size:1.3rem;
+    padding:.8rem 1rem;
+    border-radius:12px;
+    border:2px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+  }
+  #answer-input:focus{ outline:none; border-color:var(--accent); }
+  .btn{
+    font-family:inherit;
+    font-size:1rem;
+    font-weight:700;
+    padding:.8rem 1.4rem;
+    border-radius:12px;
+    border:none;
+    cursor:pointer;
+    background:var(--accent);
+    color:#fff;
+  }
+  .btn.secondary{ background:var(--card); color:var(--text); border:1px solid var(--border); }
+  .typing-tip{ font-size:.8rem; color:var(--text-dim); margin:.5rem 0 0; }
+  .feedback{
+    margin-top:1rem;
+    border-radius:14px;
+    padding:1rem 1.2rem;
+    line-height:1.6;
+    font-size:.97rem;
+  }
+  .feedback.good{ background:var(--good-soft); }
+  .feedback.bad{ background:var(--bad-soft); }
+  .feedback h3{ margin:0 0 .3rem; font-size:1.05rem; }
+  .feedback.good h3{ color:var(--good); }
+  .feedback.bad h3{ color:var(--bad); }
+  .feedback .hint{ font-weight:600; margin:.2rem 0 .5rem; }
+  .feedback ol{ margin:.3rem 0 0; padding-left:1.3rem; }
+  .eq{ font-weight:700; white-space:nowrap; }
+  .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; font-size:.85em; line-height:1.05; margin:0 .1em; }
+  .frac > span:first-child{ border-bottom:1.5px solid currentColor; padding:0 .15em; }
+  #next-row{ margin-top:1rem; text-align:right; }
+
+  /* ---------- Summary / Stats ---------- */
+  .score-banner{ text-align:center; margin:1.5rem 0; }
+  .score-banner .score{ font-size:3rem; font-weight:700; color:var(--accent); }
+  .score-banner .score-label{ color:var(--text-dim); font-size:.95rem; }
+  .result-list, .stats-box{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    margin-bottom:1.5rem;
+  }
+  .result-row{
+    display:flex; justify-content:space-between; align-items:center; gap:1rem;
+    padding:.75rem 1.2rem;
+    border-bottom:1px solid var(--border);
+    font-size:.95rem;
+  }
+  .result-row:last-child{ border-bottom:none; }
+  .result-row.wrong{ background:var(--bad-soft); }
+  .result-row small{ color:var(--text-dim); display:block; }
+  .summary-actions{ display:flex; gap:.9rem; flex-wrap:wrap; }
+  .summary-actions .btn{ flex:1; min-width:160px; }
+  .stats-box h2{ margin:0; padding:.8rem 1.2rem; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-dim); background:var(--bg); border-bottom:1px solid var(--border); }
+  .stat-line{ display:flex; justify-content:space-between; padding:.7rem 1.2rem; border-bottom:1px solid var(--border); font-size:.95rem; }
+  .stat-line:last-child{ border-bottom:none; }
+  .stats-empty{ text-align:center; color:var(--text-dim); padding:2.5rem 1rem; }
+  #btn-clear-stats{
+    font-family:inherit; font-size:.85rem;
+    padding:.6rem 1rem; border-radius:8px;
+    border:1px solid var(--bad); background:#fff; color:var(--bad); cursor:pointer;
+  }
+  [hidden]{ display:none !important; }
+</style>
+</head>
+<body>
+<nav id="eric-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../../biology.html" style="color:#2f9d5c;text-decoration:none;font-weight:600;">Biology</a>
+    <a href="../../math.html" style="color:#7c3aed;text-decoration:none;font-weight:600;">Maths</a>
+    <a href="../../physics.html" style="color:#2f6fed;text-decoration:none;font-weight:600;">Physics</a>
+    <a href="../../chemistry.html" style="color:#c4571f;text-decoration:none;font-weight:600;">Chemistry</a>
+</nav>
+
+<header>
+  <button class="back-link" id="back-btn" type="button">&larr; <span id="back-label">Maths</span></button>
+  <h1>Equation from Intercepts</h1>
+  <p>You're told where a straight line crosses the axes. Write its equation.</p>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <div id="view-home">
+    <div class="mode-grid">
+      <button class="mode-btn" type="button" id="btn-easy"><b>Easy</b><span>10 questions. Whole-number gradients, answer as y = mx + c.</span></button>
+      <button class="mode-btn" type="button" id="btn-higher"><b>Higher</b><span>10 questions. Fraction gradients, and some answers in the form ax + by = c.</span></button>
+      <button class="mode-btn mistakes" type="button" id="btn-mistakes"><b>Practise my mistakes</b><span id="mistakes-count"></span></button>
+      <button class="mode-btn" type="button" id="btn-stats"><b>📊 My progress</b><span>Scores, and which kind of slip happens most.</span></button>
+    </div>
+    <div class="how">
+      <h2>How to do it</h2>
+      <ol>
+        <li><b>c</b> is where the line crosses the <b>y-axis</b>. Crosses at (0, 6)? Then c = 6.</li>
+        <li><b>Gradient m</b> = change in y &divide; change in x. From (0, 6) to (3, 0): y goes <b>down 6</b> while x goes <b>along 3</b>, so m = &minus;6 &divide; 3 = &minus;2.</li>
+        <li>Put them together: <b>y = &minus;2x + 6</b>.</li>
+        <li>Check: put x = 3 in. Do you get y = 0?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="view-quiz" hidden>
+    <div class="quiz-top">
+      <span id="quiz-title"></span>
+      <span id="quiz-count"></span>
+    </div>
+    <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
+    <div class="question-card">
+      <p class="question-text" id="question-text"></p>
+      <svg id="graph" viewBox="0 0 320 320" role="img" aria-label="Graph of the line"></svg>
+    </div>
+    <div class="answer-row">
+      <input id="answer-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="y = ...">
+      <button class="btn" type="button" id="btn-check">Check</button>
+    </div>
+    <p class="typing-tip">Type fractions with a slash, e.g. <b>y = -2/3x + 4</b>. Press Enter to check.</p>
+    <div id="feedback" class="feedback" hidden></div>
+    <div id="next-row" hidden><button class="btn" type="button" id="btn-next">Next &rarr;</button></div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div id="view-summary" hidden>
+    <div class="score-banner">
+      <div class="score" id="summary-score"></div>
+      <div class="score-label" id="summary-label"></div>
+    </div>
+    <div class="result-list" id="result-list"></div>
+    <div class="summary-actions">
+      <button class="btn" type="button" id="btn-retry">🔁 Another round</button>
+      <button class="btn secondary" type="button" id="btn-home">🏠 Menu</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div id="view-stats" hidden>
+    <div id="stats-content"></div>
+    <button type="button" id="btn-clear-stats">🗑️ Clear all progress</button>
+  </div>
+
+</main>
+
+<script>
+  const QUESTIONS_PER_ROUND = 10;
+  const STATS_KEY = "eric_line_intercepts_stats";
+  const MAX_MISTAKES = 30;
+
+  const views = {
+    home: document.getElementById("view-home"),
+    quiz: document.getElementById("view-quiz"),
+    summary: document.getElementById("view-summary"),
+    stats: document.getElementById("view-stats")
+  };
+  function showView(name) {
+    Object.values(views).forEach(v => v.hidden = true);
+    views[name].hidden = false;
+    document.getElementById("back-label").textContent = name === "home" ? "Maths" : "Menu";
+  }
+
+  // ---------- Maths helpers ----------
+  const gcd = (a, b) => { a = Math.abs(a); b = Math.abs(b); while (b) [a, b] = [b, a % b]; return a; };
+  const rand = (lo, hi) => lo + Math.floor(Math.random() * (hi - lo + 1));
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+  const MINUS = "−";
+  const num = n => (n < 0 ? MINUS : "") + Math.abs(n);
+  const close = (u, v) => Math.abs(u - v) < 1e-9;
+
+  function fracHTML(p, q) {
+    // p/q with q > 0, shown stacked; the sign sits in front
+    if (q === 1) return num(p);
+    return (p < 0 ? MINUS : "") + `<span class="frac"><span>${Math.abs(p)}</span><span>${q}</span></span>`;
+  }
+  function xTerm(p, q) {
+    if (q === 1 && p === 1) return "x";
+    if (q === 1 && p === -1) return MINUS + "x";
+    return fracHTML(p, q) + "x";
+  }
+  function yForm(Q) {
+    const c = Q.c === 0 ? "" : (Q.c > 0 ? " + " + Q.c : " " + MINUS + " " + Math.abs(Q.c));
+    return `<span class="eq">y = ${xTerm(Q.p, Q.q)}${c}</span>`;
+  }
+  // ax + by = c with integers, a > 0:  y = (p/q)x + c  ->  -p x + q y = q c
+  function intCoeffs(Q) {
+    let A = -Q.p, B = Q.q, C = Q.q * Q.c;
+    if (A < 0) { A = -A; B = -B; C = -C; }
+    return { A, B, C };
+  }
+  function intForm(Q) {
+    const { A, B, C } = intCoeffs(Q);
+    const ax = A === 1 ? "x" : A + "x";
+    const by = (B < 0 ? " " + MINUS + " " : " + ") + (Math.abs(B) === 1 ? "" : Math.abs(B)) + "y";
+    return `<span class="eq">${ax}${by} = ${num(C)}</span>`;
+  }
+
+  // ---------- Question generation ----------
+  // A question: line crosses the x-axis at (a, 0) and the y-axis at (0, c); gradient m = p/q = -c/a
+  function makeQuestion(level) {
+    for (;;) {
+      let p, q, a;
+      if (level === "easy") {
+        q = 1;
+        p = pick([-4, -3, -2, -1, 1, 2, 3, 4]);
+        a = pick([-6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6]);
+      } else {
+        q = pick([2, 3, 4, 5]);
+        p = rand(1, 2 * q) * pick([-1, 1]);
+        if (gcd(p, q) !== 1) continue;
+        a = q * pick([-3, -2, -1, 1, 2, 3]);
+      }
+      const c = -p * a / q;
+      if (!Number.isInteger(c) || c === 0 || Math.abs(c) > 12 || Math.abs(a) > 12) continue;
+      const form = level === "higher" && Math.random() < 0.4 ? "int" : "y";
+      return { level, a, c, p, q, form };
+    }
+  }
+  function makeRound(level) {
+    const qs = [];
+    while (qs.length < QUESTIONS_PER_ROUND) {
+      const Q = makeQuestion(level);
+      if (!qs.some(o => o.a === Q.a && o.c === Q.c)) qs.push(Q);
+    }
+    return qs;
+  }
+
+  // ---------- Parsing an answer ----------
+  // Turns e.g. "3y = -2x + 12" into {x, y, k} meaning x·X + y·Y + k = 0. Returns null if it can't read it.
+  function parseSide(s) {
+    const out = { x: 0, y: 0, k: 0 };
+    if (!s) return null;
+    if (!/^[+-]/.test(s)) s = "+" + s;
+    const terms = s.match(/[+-][^+-]+/g);
+    if (!terms || terms.join("") !== s) return null;
+    for (const t of terms) {
+      const sign = t[0] === "-" ? -1 : 1;
+      const m = t.slice(1).match(/^(\d+(?:\.\d+)?)?(?:\/(\d+(?:\.\d+)?))?([xy])?(?:\/(\d+(?:\.\d+)?))?$/);
+      if (!m || (!m[1] && !m[3])) return null;
+      if (!m[1] && m[2]) return null;
+      let v = m[1] ? parseFloat(m[1]) : 1;
+      if (m[2]) v /= parseFloat(m[2]);
+      if (m[4]) v /= parseFloat(m[4]);
+      if (m[4] && !m[3]) return null;
+      out[m[3] || "k"] += sign * v;
+    }
+    return out;
+  }
+  function parseEquation(raw) {
+    let s = raw.toLowerCase().replace(/[\s*×]/g, "").replace(/[−–—]/g, "-");
+    s = s.replace(/\((\d+(?:\.\d+)?\/\d+(?:\.\d+)?)\)/g, "$1");   // (2/3)x -> 2/3x
+    s = s.replace(/½/g, "1/2").replace(/⅓/g, "1/3").replace(/⅔/g, "2/3").replace(/¼/g, "1/4").replace(/¾/g, "3/4");
+    const sides = s.split("=");
+    if (sides.length !== 2) return null;
+    const L = parseSide(sides[0]), R = parseSide(sides[1]);
+    if (!L || !R) return null;
+    return { x: L.x - R.x, y: L.y - R.y, k: L.k - R.k, raw: s, L, R };
+  }
+
+  // ---------- Marking ----------
+  function mark(Q, raw) {
+    const e = parseEquation(raw);
+    if (!e) return { status: "unreadable" };
+    const m = Q.p / Q.q;
+    const hasLine = e.y !== 0;
+    const gm = hasLine ? -e.x / e.y : NaN;   // gradient they wrote
+    const gc = hasLine ? -e.k / e.y : NaN;   // intercept they wrote
+    const right = hasLine && close(gm, m) && close(gc, Q.c);
+    if (right && Q.form === "int") {
+      const integers = !/[\/.]/.test(e.raw);
+      const constOnRight = e.R.x === 0 && e.R.y === 0 && e.L.k === 0 && e.L.x !== 0 && e.L.y !== 0;
+      if (!integers || !constOnRight) return { status: "wrong", type: "form", gm, gc };
+    }
+    if (right) return { status: "right" };
+    let type = "other";
+    if (!hasLine) type = "other";
+    else if (close(gm, m) && !close(gc, Q.c)) type = "c";
+    else if (close(gm, -m)) type = close(gc, Q.c) ? "sign" : "other";
+    else if (close(gm, 1 / m) || close(gm, -1 / m)) type = "flip";
+    return { status: "wrong", type, gm, gc };
+  }
+
+  const TYPE_LABELS = {
+    sign: "Gradient sign the wrong way round",
+    flip: "Gradient upside down (run ÷ rise)",
+    c: "Wrong y-intercept (c)",
+    form: "Right line, not in the form ax + by = c",
+    other: "Other"
+  };
+  function hintFor(Q, type) {
+    const down = Q.p < 0;
+    switch (type) {
+      case "sign": return `Check the sign of the gradient. This line goes ${down ? "<b>down</b>" : "<b>up</b>"} from left to right, so the gradient is ${down ? "negative" : "positive"}.`;
+      case "flip": return "Your gradient is upside down. It's <b>change in y ÷ change in x</b> (up ÷ along), not the other way round.";
+      case "c": return `Your gradient is right, but check c. The line crosses the y-axis at (0, ${num(Q.c)}), so c = ${num(Q.c)}.`;
+      case "form": return "That's the right line, but this question wants it as <b>ax + by = c</b> with whole numbers: x and y terms on the left, the number on the right, no fractions.";
+      default: return "Not quite. Work through the steps below.";
+    }
+  }
+  function workedSteps(Q) {
+    const steps = [];
+    steps.push(`The line crosses the y-axis at (0, ${num(Q.c)}), so <b>c = ${num(Q.c)}</b>.`);
+    const dy = -Q.c, dx = Q.a;
+    const g = gcd(dy, dx);
+    let simp = "";
+    if (Q.q !== 1 || g !== 1 || dx < 0) simp = ` = ${fracHTML(Q.p, Q.q)}`;
+    steps.push(`Gradient = change in y &divide; change in x. From (0, ${num(Q.c)}) to (${num(Q.a)}, 0): ` +
+      `<span class="eq">m = ${fracHTML(dy, 1)} &divide; ${num(dx)}${simp}</span>`);
+    steps.push(`So ${yForm(Q)}.`);
+    if (Q.form === "int") {
+      const { A, B, C } = intCoeffs(Q);
+      steps.push(`Multiply everything by ${Q.q} to clear the fraction: <span class="eq">${Q.q}y = ${xTerm(Q.p, 1)} ${Q.q * Q.c < 0 ? MINUS : "+"} ${Math.abs(Q.q * Q.c)}</span>. ` +
+        `Move the x term to the left: ${intForm(Q)}.`);
+    }
+    steps.push(`Check: put x = ${num(Q.a)} in and you get y = 0. ✓`);
+    return steps;
+  }
+
+  // ---------- Graph ----------
+  function drawGraph(Q) {
+    const svg = document.getElementById("graph");
+    const S = 320, mid = 160;
+    const R = Math.max(Math.abs(Q.a), Math.abs(Q.c), 5) + 1;
+    const k = 145 / R;
+    const X = x => mid + x * k, Y = y => mid - y * k;
+    const labelStep = R > 10 ? 4 : R > 6 ? 2 : 1;
+    let h = `<rect width="${S}" height="${S}" fill="#fff"/>`;
+    for (let i = -R; i <= R; i++) {
+      h += `<line x1="${X(i)}" y1="${Y(-R)}" x2="${X(i)}" y2="${Y(R)}" stroke="#e8e9ee" stroke-width="1"/>`;
+      h += `<line x1="${X(-R)}" y1="${Y(i)}" x2="${X(R)}" y2="${Y(i)}" stroke="#e8e9ee" stroke-width="1"/>`;
+    }
+    h += `<line x1="${X(-R)}" y1="${mid}" x2="${X(R)}" y2="${mid}" stroke="#1b1e24" stroke-width="1.5"/>`;
+    h += `<line x1="${mid}" y1="${Y(-R)}" x2="${mid}" y2="${Y(R)}" stroke="#1b1e24" stroke-width="1.5"/>`;
+    h += `<text x="${X(R) + 2}" y="${mid - 6}" font-size="13" font-style="italic" text-anchor="end">x</text>`;
+    h += `<text x="${mid + 8}" y="${Y(R) + 11}" font-size="13" font-style="italic">y</text>`;
+    for (let i = -R + 1; i < R; i++) {
+      if (i === 0 || i % labelStep) continue;
+      h += `<text x="${X(i)}" y="${mid + 13}" font-size="9" fill="#5b616e" text-anchor="middle">${num(i)}</text>`;
+      h += `<text x="${mid - 5}" y="${Y(i) + 3}" font-size="9" fill="#5b616e" text-anchor="end">${num(i)}</text>`;
+    }
+    const m = Q.p / Q.q;
+    // only draw the part of the line inside the grid: x where -R <= mx + c <= R
+    const xs = [(-R - Q.c) / m, (R - Q.c) / m].sort((u, v) => u - v);
+    const x1 = Math.max(-R, xs[0]), x2 = Math.min(R, xs[1]);
+    h += `<line x1="${X(x1)}" y1="${Y(m * x1 + Q.c)}" x2="${X(x2)}" y2="${Y(m * x2 + Q.c)}" stroke="#7c3aed" stroke-width="2.5"/>`;
+    const dot = (x, y, label, dx, dy, anchor) => {
+      const w = label.length * 7.4 + 6, tx = X(x) + dx;
+      const left = anchor === "end" ? tx - w + 3 : anchor === "middle" ? tx - w / 2 : tx - 3;
+      return `<rect x="${left}" y="${Y(y) + dy - 12}" width="${w}" height="16" rx="3" fill="#fff" opacity=".9"/>` +
+        `<text x="${tx}" y="${Y(y) + dy}" font-size="13" font-weight="700" text-anchor="${anchor}">${label}</text>`;
+    };
+    // y-intercept label goes on the side away from the line; x-intercept label above/below away from it
+    const yLeft = m > 0;
+    const xAbove = (m > 0) === (Q.a > 0);
+    h += dot(0, Q.c, `(0, ${num(Q.c)})`, yLeft ? -10 : 10, 4, yLeft ? "end" : "start");
+    h += dot(Q.a, 0, `(${num(Q.a)}, 0)`, 0, xAbove ? -11 : 22, "middle");
+    h += `<circle cx="${X(0)}" cy="${Y(Q.c)}" r="5" fill="#7c3aed"/><circle cx="${X(Q.a)}" cy="${Y(0)}" r="5" fill="#7c3aed"/>`;
+    svg.innerHTML = h;
+  }
+
+  // ---------- Stats ----------
+  function loadStats() {
+    let s;
+    try { s = JSON.parse(localStorage.getItem(STATS_KEY)); } catch (e) { s = null; }
+    s = s || {};
+    s.easy = s.easy || { right: 0, wrong: 0 };
+    s.higher = s.higher || { right: 0, wrong: 0 };
+    s.types = s.types || {};
+    s.mistakes = s.mistakes || [];
+    return s;
+  }
+  function saveStats(s) {
+    try { localStorage.setItem(STATS_KEY, JSON.stringify(s)); } catch (e) { /* private mode: just don't save */ }
+  }
+  const sameQ = (u, v) => u.a === v.a && u.c === v.c && u.form === v.form;
+  function record(Q, result, given) {
+    const s = loadStats();
+    const lvl = s[Q.level];
+    if (result.status === "right") {
+      lvl.right++;
+      s.mistakes = s.mistakes.filter(M => !sameQ(M, Q));   // got it right now, so it drops off the list
+    } else {
+      lvl.wrong++;
+      s.types[result.type] = (s.types[result.type] || 0) + 1;
+      s.mistakes = s.mistakes.filter(M => !sameQ(M, Q));
+      s.mistakes.unshift({ level: Q.level, a: Q.a, c: Q.c, p: Q.p, q: Q.q, form: Q.form, given, type: result.type, when: new Date().toISOString().slice(0, 10) });
+      s.mistakes = s.mistakes.slice(0, MAX_MISTAKES);
+    }
+    saveStats(s);
+  }
+  function refreshMistakeButton() {
+    const n = loadStats().mistakes.length;
+    document.getElementById("mistakes-count").textContent = n ? `${n} question${n === 1 ? "" : "s"} to put right.` : "Nothing yet. Questions you get wrong will appear here.";
+    document.getElementById("btn-mistakes").disabled = n === 0;
+  }
+
+  // ---------- Quiz flow ----------
+  let round = [], idx = 0, results = [], mode = null, answered = false;
+
+  function startRound(m) {
+    mode = m;
+    if (m === "mistakes") {
+      round = loadStats().mistakes.slice(0, QUESTIONS_PER_ROUND).map(M => ({ level: M.level, a: M.a, c: M.c, p: M.p, q: M.q, form: M.form }));
+    } else {
+      round = makeRound(m);
+    }
+    if (!round.length) return;
+    idx = 0; results = [];
+    document.getElementById("quiz-title").textContent = { easy: "Easy", higher: "Higher", mistakes: "Practising my mistakes" }[m];
+    showView("quiz");
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const Q = round[idx];
+    answered = false;
+    document.getElementById("quiz-count").textContent = `Question ${idx + 1} of ${round.length}`;
+    document.getElementById("progress-fill").style.width = `${(idx / round.length) * 100}%`;
+    let text = `A straight line crosses the <b>y-axis at (0, ${num(Q.c)})</b> and the <b>x-axis at (${num(Q.a)}, 0)</b>. Write the equation of the line.`;
+    text += Q.form === "int" ? `<br><span class="form-note">Give it in the form ax + by = c, where a, b and c are integers</span>`
+                             : `<br><span class="form-note">Give it in the form y = mx + c</span>`;
+    document.getElementById("question-text").innerHTML = text;
+    drawGraph(Q);
+    const input = document.getElementById("answer-input");
+    input.value = "";
+    input.placeholder = Q.form === "int" ? "e.g. 2x + 3y = 12" : "y = ...";
+    input.disabled = false;
+    document.getElementById("btn-check").disabled = false;
+    document.getElementById("feedback").hidden = true;
+    document.getElementById("next-row").hidden = true;
+    input.focus();
+  }
+
+  function check() {
+    if (answered) { next(); return; }
+    const Q = round[idx];
+    const input = document.getElementById("answer-input");
+    const given = input.value.trim();
+    if (!given) return;
+    const res = mark(Q, given);
+    const fb = document.getElementById("feedback");
+    if (res.status === "unreadable") {
+      fb.className = "feedback bad";
+      fb.innerHTML = `<h3>I can't read that</h3>Write it like <b>${Q.form === "int" ? "2x + 3y = 12" : "y = -2/3x + 4"}</b>: one equals sign, using x and y.`;
+      fb.hidden = false;
+      return;
+    }
+    answered = true;
+    record(Q, res, given);
+    results.push({ Q, given, ok: res.status === "right" });
+    input.disabled = true;
+    document.getElementById("btn-check").disabled = true;
+    const answerHTML = Q.form === "int" ? intForm(Q) : yForm(Q);
+    if (res.status === "right") {
+      fb.className = "feedback good";
+      fb.innerHTML = `<h3>✅ Correct!</h3>${answerHTML}`;
+    } else {
+      fb.className = "feedback bad";
+      fb.innerHTML = `<h3>❌ Not quite. The answer is ${answerHTML}</h3><p class="hint">${hintFor(Q, res.type)}</p><ol>${workedSteps(Q).map(s => `<li>${s}</li>`).join("")}</ol>`;
+    }
+    fb.hidden = false;
+    document.getElementById("next-row").hidden = false;
+    document.getElementById("btn-next").focus();
+  }
+
+  function next() {
+    idx++;
+    if (idx >= round.length) showSummary();
+    else renderQuestion();
+  }
+
+  document.getElementById("btn-check").addEventListener("click", check);
+  document.getElementById("btn-next").addEventListener("click", next);
+  document.getElementById("answer-input").addEventListener("keydown", e => { if (e.key === "Enter") check(); });
+
+  function showSummary() {
+    const right = results.filter(r => r.ok).length;
+    document.getElementById("summary-score").textContent = `${right} / ${results.length}`;
+    document.getElementById("summary-label").textContent = mode === "mistakes" ? "put right this round" : "correct this round";
+    const list = document.getElementById("result-list");
+    list.innerHTML = results.map(r =>
+      `<div class="result-row${r.ok ? "" : " wrong"}"><span>(0, ${num(r.Q.c)}) and (${num(r.Q.a)}, 0)` +
+      `<small>${r.ok ? "" : "You wrote " + r.given.replace(/</g, "&lt;") + " &middot; answer "}${r.Q.form === "int" ? intForm(r.Q) : yForm(r.Q)}</small></span>` +
+      `<span>${r.ok ? "✅" : "❌"}</span></div>`).join("");
+    document.getElementById("progress-fill").style.width = "100%";
+    showView("summary");
+  }
+
+  document.getElementById("btn-retry").addEventListener("click", () => {
+    if (mode === "mistakes" && !loadStats().mistakes.length) { goHome(); return; }
+    startRound(mode);
+  });
+  document.getElementById("btn-home").addEventListener("click", goHome);
+  document.getElementById("btn-easy").addEventListener("click", () => startRound("easy"));
+  document.getElementById("btn-higher").addEventListener("click", () => startRound("higher"));
+  document.getElementById("btn-mistakes").addEventListener("click", () => startRound("mistakes"));
+  document.getElementById("btn-stats").addEventListener("click", openStats);
+
+  // ---------- Progress view ----------
+  function openStats() {
+    const s = loadStats();
+    const total = s.easy.right + s.easy.wrong + s.higher.right + s.higher.wrong;
+    const c = document.getElementById("stats-content");
+    if (!total) {
+      c.innerHTML = '<div class="stats-box"><div class="stats-empty">No practice recorded yet. Play a round first!</div></div>';
+    } else {
+      const pct = o => (o.right + o.wrong) ? Math.round(100 * o.right / (o.right + o.wrong)) + "%" : "–";
+      let h = `<div class="stats-box"><h2>Scores</h2>
+        <div class="stat-line"><span>Easy</span><span>${s.easy.right} right, ${s.easy.wrong} wrong &middot; <b>${pct(s.easy)}</b></span></div>
+        <div class="stat-line"><span>Higher</span><span>${s.higher.right} right, ${s.higher.wrong} wrong &middot; <b>${pct(s.higher)}</b></span></div></div>`;
+      const types = Object.entries(s.types).sort((u, v) => v[1] - u[1]);
+      if (types.length) {
+        h += `<div class="stats-box"><h2>Kinds of slip (most common first)</h2>` +
+          types.map(([t, n]) => `<div class="stat-line"><span>${TYPE_LABELS[t] || t}</span><b>${n}</b></div>`).join("") + `</div>`;
+      }
+      if (s.mistakes.length) {
+        h += `<div class="stats-box"><h2>Still to put right (${s.mistakes.length})</h2>` +
+          s.mistakes.map(M => `<div class="stat-line"><span>(0, ${num(M.c)}) and (${num(M.a)}, 0)<small style="display:block;color:var(--text-dim)">${M.when} &middot; wrote ${String(M.given).replace(/</g, "&lt;")}</small></span><span>${M.form === "int" ? intForm(M) : yForm(M)}</span></div>`).join("") + `</div>`;
+      }
+      c.innerHTML = h;
+    }
+    showView("stats");
+  }
+  document.getElementById("btn-clear-stats").addEventListener("click", () => {
+    if (!confirm("Clear all recorded progress? This can't be undone.")) return;
+    try { localStorage.removeItem(STATS_KEY); } catch (e) {}
+    openStats();
+  });
+
+  // ---------- Navigation ----------
+  function goHome() {
+    refreshMistakeButton();
+    showView("home");
+  }
+  document.getElementById("back-btn").addEventListener("click", () => {
+    if (views.home.hidden) goHome();
+    else window.location.href = "../../math.html";
+  });
+
+  refreshMistakeButton();
+  if (location.hash === "#progress") openStats();
+</script>
+
+</body>
+</html>
