@@ -691,8 +691,109 @@ def build_answers(n):
     return path
 
 
+# ---------------------------------------------------------------- single practice sheets (Sections B and C only)
+
+SHEETS = {
+    1: dict(short=[(5838, 7), (4536, 8), (7281, 9), (6342, 6)],
+            two=[(6273, 17), (9504, 24), (9792, 32), (7616, 34)]),
+}
+SHEET_TOTAL = 12
+
+
+def build_sheet(n):
+    t = SHEETS[n]
+    used = {q for tt in TESTS.values() for q in tt['short'] + tt['two']}
+    for a, b in t['short'] + t['two']:
+        assert a % b == 0 and 1000 <= a <= 9999 and (a, b) not in used, (a, b)
+    path = os.path.join(HERE, f'division_sheet{n}.pdf')
+    c = canvas.Canvas(path, pagesize=A4)
+    c.setTitle(f'Dividing Large Numbers - Practice Sheet {n}')
+    header(c, f'Practice Sheet {n}', 'Dividing Large Numbers  -  Year 6', name_line=True)
+    y = H - 100
+    y = para(c, M, y, 'No calculator. Show your working in the squared boxes. Use short division or long division, '
+             'and write the multiples of the divisor down the side if it helps.', size=10.5)
+    c.setFont('Helvetica-Bold', 12)
+    c.drawRightString(W - M, y - 6, f'Score:  ______ / {SHEET_TOTAL}')
+    y -= 34
+
+    y = section(c, y, 'Section B: Short division (1 mark each)')
+    bw = (W - 2 * M - 30) / 4
+    for i, (a, b) in enumerate(t['short']):
+        x = M + i * (bw + 10)
+        q_label(c, x, y - 16, f'B{i + 1}')
+        c.setFont('Helvetica-Bold', 13)
+        c.drawString(x + 24, y - 14, f'{fmt(a)} ÷ {b}')
+        work_box(c, x, y - 26, bw, 92)
+        answer_line(c, x, y - 134, '=', bw - 20)
+    y -= 166
+
+    y = section(c, y, 'Section C: Dividing by a 2-digit number (2 marks each)')
+    bw2 = (W - 2 * M) / 2 - 6
+    for i, (a, b) in enumerate(t['two']):
+        col = i % 2
+        if col == 0 and i:
+            y -= 214
+        x = M + col * (bw2 + 12)
+        q_label(c, x, y - 16, f'C{i + 1}')
+        c.setFont('Helvetica-Bold', 13)
+        c.drawString(x + 24, y - 14, f'{fmt(a)} ÷ {b}')
+        work_box(c, x, y - 26, bw2, 150)
+        answer_line(c, x, y - 194, 'Answer:', 100)
+    footer(c, f"Alice's Maths  -  Dividing Large Numbers  -  Practice Sheet {n}")
+    c.showPage()
+    c.save()
+    return path
+
+
+def build_sheet_answers(n):
+    t = SHEETS[n]
+    path = os.path.join(HERE, f'division_sheet{n}_answers.pdf')
+    c = canvas.Canvas(path, pagesize=A4)
+    c.setTitle(f'Dividing Large Numbers - Practice Sheet {n} Answers')
+    header(c, f'Practice Sheet {n}: Answers', f'Dividing Large Numbers  -  total {SHEET_TOTAL} marks')
+    y = H - 104
+
+    def row(label, text, mark):
+        nonlocal y
+        q_label(c, M, y - 2, label)
+        yy = para(c, M + 28, y, text, size=10.5, width=W - 2 * M - 90)
+        c.setFont('Helvetica', 9)
+        c.setFillColor(GREY)
+        c.drawRightString(W - M, y, mark)
+        c.setFillColor(black)
+        y = yy - 3
+
+    y = section(c, y, 'Section B (1 mark each)')
+    y -= 12
+    for i, (a, b) in enumerate(t['short']):
+        q = a // b
+        extra = '  (the 0 must be there!)' if '0' in str(q) else ''
+        row(f'B{i + 1}', f'{fmt(a)} ÷ {b} = **{fmt(q)}**{extra}', '1 mark')
+
+    y = section(c, y - 14, 'Section C (1 mark for a correct method, 1 for the answer)')
+    y -= 12
+    for i, (a, b) in enumerate(t['two']):
+        q = a // b
+        extra = '  (the 0 must be there!)' if '0' in str(q) else ''
+        row(f'C{i + 1}', f'{fmt(a)} ÷ {b} = **{fmt(q)}**{extra}. Check: {fmt(q)} × {b} = {fmt(a)}', '2 marks')
+
+    y -= 6
+    c.setFillColor(TEAL_SOFT)
+    c.roundRect(M, y - 52, W - 2 * M, 50, 6, stroke=0, fill=1)
+    c.setFillColor(black)
+    para(c, M + 10, y - 18, '**Marking tip:** if the method is right but there is one small slip (e.g. a times-table fact), give the method mark. '
+         'Any times-table slips are worth practising on the Times Tables page.', size=10, width=W - 2 * M - 20)
+    footer(c, f"Alice's Maths  -  Practice Sheet {n} answers")
+    c.showPage()
+    c.save()
+    return path
+
+
 if __name__ == '__main__':
     print(build_reference())
     for n in TESTS:
         print(build_test(n))
         print(build_answers(n))
+    for n in SHEETS:
+        print(build_sheet(n))
+        print(build_sheet_answers(n))
