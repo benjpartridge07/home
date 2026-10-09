@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warhammer Deals</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#2f6fed;
+    --accent-soft:#eaf0fe;
+    --good:#0f9d78;
+    --good-soft:#e3f7ef;
+    --warn:#a15c00;
+    --warn-soft:#fff3e0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header, main{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 1.5rem;
+  }
+  header{ padding-top:2.5rem; padding-bottom:1rem; }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header h1{ margin:0 0 .25rem; font-size:1.9rem; }
+  header p{ margin:0; color:var(--text-dim); font-size:1rem; }
+  main{ padding-bottom:3rem; }
+  h2{ font-size:1.25rem; margin:2.25rem 0 .3rem; }
+  .section-sub{ margin:0 0 .9rem; color:var(--text-dim); font-size:.9rem; line-height:1.5; }
+  .note{
+    background:var(--warn-soft);
+    color:var(--warn);
+    border-radius:12px;
+    padding:.75rem 1rem;
+    font-size:.9rem;
+    line-height:1.5;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1rem;
+  }
+  @media (max-width:700px){ .grid{ grid-template-columns:1fr; } }
+  .deal{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:1.25rem 1.25rem 1rem;
+  }
+  .deal .top{ display:flex; justify-content:space-between; align-items:flex-start; gap:.5rem; }
+  .deal h3{ margin:0 0 .2rem; font-size:1.1rem; }
+  .deal .sub{ color:var(--text-dim); font-size:.85rem; margin:0 0 .75rem; }
+  .pill{
+    display:inline-block;
+    border-radius:999px;
+    padding:.15rem .6rem;
+    font-size:.75rem;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .pill.good{ background:var(--good-soft); color:var(--good); }
+  .pill.wait{ background:var(--warn-soft); color:var(--warn); }
+  .best{
+    display:inline-block;
+    background:var(--accent-soft);
+    color:var(--accent);
+    font-weight:700;
+    border-radius:999px;
+    padding:.2rem .7rem;
+    font-size:.95rem;
+    margin-bottom:.6rem;
+  }
+  .deal ul{ margin:0; padding-left:1.1rem; font-size:.9rem; line-height:1.6; }
+  .deal .verdict{ margin:.6rem 0 0; font-size:.9rem; line-height:1.5; }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    font-size:.9rem;
+  }
+  th, td{ text-align:left; padding:.55rem .8rem; border-bottom:1px solid var(--border); }
+  th{ background:var(--accent-soft); }
+  td.num{ white-space:nowrap; }
+  tr:last-child td{ border-bottom:none; }
+  .table-wrap{ overflow-x:auto; }
+  .links{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .links a{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:.35rem .8rem;
+    text-decoration:none;
+    color:var(--text);
+    font-size:.9rem;
+  }
+  .links a:hover{ border-color:var(--accent); color:var(--accent); }
+  ul.tips{ font-size:.9rem; line-height:1.6; padding-left:1.2rem; margin:0; }
+  p.small{ color:var(--text-dim); font-size:.85rem; line-height:1.5; }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="../index.html">&larr; Eric's Projects</a>
+  <h1>⚔️ Warhammer Deals</h1>
+  <p>The best prices from trusted shops, especially T'au and Kroot. Last checked: 9 October 2026.</p>
+</header>
+
+<main>
+
+  <p class="note"><strong>Rule of thumb:</strong> Games Workshop's own shop and Warhammer stores always charge full price (RRP). Independent UK shops like <strong>Element Games</strong> and <strong>Wayland Games</strong> are always about <strong>15% cheaper</strong> on new kits, so never pay full price for anything still in stock with them. Prices change, so check before buying.</p>
+
+  <h2>🔥 Best T'au &amp; Kroot deals right now</h2>
+  <p class="section-sub">The biggest savings I found.</p>
+  <div class="grid">
+
+    <div class="deal">
+      <div class="top"><h3>Combat Patrol: T'au Empire</h3><span class="pill good">Save £16</span></div>
+      <p class="sub">The best-value way to start or grow a T'au army</p>
+      <span class="best">£92.65 &mdash; Element Games</span>
+      <ul>
+        <li>RRP £109 &middot; Firestorm Games about £96 &middot; Amazon about £95&ndash;97</li>
+        <li>In stock</li>
+      </ul>
+      <p class="verdict">A Combat Patrol is always the cheapest way to get lots of models. Element is the cheapest new price I found.</p>
+    </div>
+
+    <div class="deal">
+      <div class="top"><h3>Combat Patrol: Kroot</h3><span class="pill wait">Rare now</span></div>
+      <p class="sub">Games Workshop has stopped making it</p>
+      <span class="best">RRP was £105</span>
+      <ul>
+        <li>Element Games and others can no longer get it</li>
+        <li>Amazon had a few left at about £95 (check if they're still there)</li>
+      </ul>
+      <p class="verdict">If you see a <strong>new</strong> one for £95 or less, it's a good buy, because prices will go up now it's discontinued. On eBay, compare with recent sold prices first.</p>
+    </div>
+
+    <div class="deal">
+      <div class="top"><h3>Kroot Hunting Pack</h3><span class="pill wait">Check</span></div>
+      <p class="sub">Big Kroot army set &middot; RRP £135</p>
+      <span class="best">Was £121.50 at Wayland</span>
+      <ul>
+        <li>I couldn't confirm a current discount price</li>
+        <li>Discount shops should have it at about £115&ndash;120 if it's in stock</li>
+      </ul>
+      <p class="verdict">Lots of Kroot in one box. Don't pay the full £135.</p>
+    </div>
+
+    <div class="deal">
+      <div class="top"><h3>T'au Starter Bundle</h3><span class="pill good">Save £35</span></div>
+      <p class="sub">Element Games' own bundle of T'au kits</p>
+      <span class="best">£172.23 &mdash; Element Games</span>
+      <ul>
+        <li>Worth £207.50 at RRP. Element also has bigger bundles: Superior Firepower £184.27 (worth £222) and Mont'ka £244.03 (worth £294).</li>
+      </ul>
+      <p class="verdict">Only worth it if you'd use everything in the box. Check the contents first.</p>
+    </div>
+
+  </div>
+
+  <h2>🦴 Kroot kits: price list</h2>
+  <p class="section-sub">Element Games prices (about 15% off RRP). All in stock unless noted.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Kit</th><th>RRP</th><th>Element</th><th>You save</th></tr>
+    <tr><td>Kroot Carnivore Squad</td><td class="num">£37.00</td><td class="num">£31.43</td><td class="num">£5.57 &middot; back in stock about 23 Oct</td></tr>
+    <tr><td>Kroot Farstalkers</td><td class="num">£41.50</td><td class="num">£35.28</td><td class="num">£6.22</td></tr>
+    <tr><td>Krootox Rampagers</td><td class="num">£41.50</td><td class="num">£35.29</td><td class="num">£6.21</td></tr>
+    <tr><td>Krootox Rider</td><td class="num">£29.50</td><td class="num">£25.09</td><td class="num">£4.41</td></tr>
+    <tr><td>Kroot Hounds</td><td class="num">£29.00</td><td class="num">£24.65</td><td class="num">£4.35</td></tr>
+    <tr><td>Kroot Lone-Spear</td><td class="num">£37.00</td><td class="num">£31.43</td><td class="num">£5.57</td></tr>
+    <tr><td>Kroot Trail Shaper / Flesh Shaper</td><td class="num">£23.50</td><td class="num">£23.50</td><td class="num">no discount shown</td></tr>
+    <tr><td>Kroot War Shaper</td><td class="num">£26.00</td><td class="num">£26.00</td><td class="num">no discount shown</td></tr>
+  </table>
+  </div>
+  <p class="small">Battleground Gaming has had Farstalkers at £31.50 (20% off), so it's worth comparing them too.</p>
+
+  <h2>🔷 Other T'au kits: price list</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Kit</th><th>RRP</th><th>Element</th></tr>
+    <tr><td>Fire Warriors / Breacher Team</td><td class="num">£39.50</td><td class="num">£33.59</td></tr>
+    <tr><td>XV8 Crisis Battlesuits</td><td class="num">£57.00</td><td class="num">£48.47</td></tr>
+    <tr><td>XV88 Broadside Battlesuit</td><td class="num">£41.50</td><td class="num">£35.24</td></tr>
+    <tr><td>XV104 Riptide Battlesuit</td><td class="num">£77.50</td><td class="num">£65.85</td></tr>
+    <tr><td>Ghostkeel Battlesuit</td><td class="num">£61.00</td><td class="num">£51.86</td></tr>
+    <tr><td>Hammerhead Gunship</td><td class="num">£49.50</td><td class="num">£42.10</td></tr>
+    <tr><td>TY7 Devilfish</td><td class="num">£42.00</td><td class="num">£35.73</td></tr>
+    <tr><td>Pathfinder Team</td><td class="num">£29.50</td><td class="num">£25.10</td></tr>
+    <tr><td>Commander Farsight</td><td class="num">£44.00</td><td class="num">£37.41</td></tr>
+    <tr><td>Commander Shadowsun</td><td class="num">£37.00</td><td class="num">£31.42</td></tr>
+    <tr><td>KV128 Stormsurge</td><td class="num">£123.00</td><td class="num">£104.55</td></tr>
+    <tr><td>Codex: T'au Empire (10th Ed)</td><td class="num">£39.50</td><td class="num">£33.58</td></tr>
+  </table>
+  </div>
+  <p class="small">⚠️ 11th Edition came out in June 2026. A new T'au codex is rumoured to come soon, so hold off on buying the 10th Edition codex.</p>
+
+  <h2>🛒 eBay: where the real bargains are</h2>
+  <p class="section-sub">eBay is where you'll find the biggest savings, especially big second-hand army lots. I can't search eBay automatically, so these links open ready-made UK searches, cheapest first.</p>
+  <div class="links">
+    <a href="https://www.ebay.co.uk/sch/i.html?_nkw=kroot+warhammer&LH_PrefLoc=1&_sop=15" target="_blank" rel="noopener">Kroot (all)</a>
+    <a href="https://www.ebay.co.uk/sch/i.html?_nkw=kroot+sprue+new&LH_PrefLoc=1&_sop=15" target="_blank" rel="noopener">Kroot new on sprue</a>
+    <a href="https://www.ebay.co.uk/sch/i.html?_nkw=tau+army+bundle+warhammer&LH_PrefLoc=1&_sop=15" target="_blank" rel="noopener">T'au army bundles</a>
+    <a href="https://www.ebay.co.uk/sch/i.html?_nkw=combat+patrol+kroot&LH_PrefLoc=1&_sop=15" target="_blank" rel="noopener">Combat Patrol: Kroot</a>
+    <a href="https://www.ebay.co.uk/sch/i.html?_nkw=tau+combat+patrol&LH_PrefLoc=1&_sop=15" target="_blank" rel="noopener">Combat Patrol: T'au</a>
+    <a href="https://www.ebay.co.uk/sch/i.html?_nkw=kroot+hunting+pack&LH_PrefLoc=1&_sop=15" target="_blank" rel="noopener">Kroot Hunting Pack</a>
+    <a href="https://www.ebay.co.uk/sch/i.html?_nkw=kroot+warhammer&LH_PrefLoc=1&LH_Sold=1&LH_Complete=1" target="_blank" rel="noopener">What Kroot actually sells for</a>
+  </div>
+  <h3 style="font-size:1rem;margin:1.1rem 0 .4rem;">eBay tips</h3>
+  <ul class="tips">
+    <li><strong>Check sold prices first</strong> (last link above). That's what things are really worth, not what sellers are asking.</li>
+    <li><strong>"NoS" or "new on sprue"</strong> means unbuilt and unpainted, which is the best value.</li>
+    <li><strong>Big mixed lots</strong> of built or painted models are usually the cheapest per model. Strip the paint with isopropyl alcohol.</li>
+    <li>Avoid listings that say <strong>"3D printed", "recast" or "proxy"</strong>, or have stock photos and prices that look too good to be true.</li>
+    <li>Stick to sellers with <strong>98%+ feedback</strong>, and pay through eBay so you're covered by the Money Back Guarantee.</li>
+  </ul>
+
+  <h2>🎨 Other offers</h2>
+  <ul class="tips">
+    <li><strong>Warhammer stores, paint pick 'n' mix:</strong> buy any 10 Warhammer Colour paints and the most expensive one is free.</li>
+    <li><strong>Warhammer stores, from Sat 10 Oct:</strong> free build or paint sessions, plus free collectable coins on 3 Oct and 24 Oct while stocks last.</li>
+    <li><strong>Element Games:</strong> free UK delivery on orders over £80.</li>
+    <li><strong>Black Friday (late November):</strong> Wayland, Element and Amazon usually add extra discounts on top. It's a good time for big boxes like Combat Patrols.</li>
+  </ul>
+
+  <h2>🏪 Trusted shops</h2>
+  <div class="links">
+    <a href="https://elementgames.co.uk/games-workshop/warhammer-40k/tau-empire" target="_blank" rel="noopener">Element Games (T'au)</a>
+    <a href="https://www.waylandgames.co.uk" target="_blank" rel="noopener">Wayland Games</a>
+    <a href="https://www.firestormgames.co.uk" target="_blank" rel="noopener">Firestorm Games</a>
+    <a href="https://battlegroundgaming.co.uk" target="_blank" rel="noopener">Battleground Gaming</a>
+    <a href="https://www.amazon.co.uk/s?k=warhammer+tau" target="_blank" rel="noopener">Amazon UK</a>
+    <a href="https://www.ebay.co.uk/sch/i.html?_nkw=tau+kroot+warhammer&LH_PrefLoc=1" target="_blank" rel="noopener">eBay UK</a>
+    <a href="https://www.warhammer.com/en-GB/shop/warhammer-40000/tau-empire" target="_blank" rel="noopener">Warhammer.com (full price, for checking RRP)</a>
+  </div>
+
+</main>
+
+</body>
+</html>
