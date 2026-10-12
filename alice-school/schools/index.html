@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alice's Secondary School</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#0e9488;
+    --accent-soft:#e3f7f4;
+    --warn:#b45309;
+    --warn-soft:#fef3e2;
+    --bad:#b91c1c;
+    --bad-soft:#fdecec;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.5;
+  }
+  header{ padding:2.5rem 1.5rem 1rem; max-width:900px; margin:0 auto; }
+  .back-link{ display:inline-flex; align-items:center; gap:.3rem; color:var(--text-dim); text-decoration:none; font-size:.9rem; margin-bottom:.75rem; }
+  .back-link:hover{ color:var(--accent); }
+  header h1{ margin:0 0 .25rem; font-size:1.9rem; }
+  header p{ margin:0; color:var(--text-dim); }
+  main{ max-width:900px; margin:0 auto; padding:0 1.5rem 3rem; }
+  h2{ font-size:1.3rem; margin:2rem 0 .6rem; }
+  .section-sub{ color:var(--text-dim); margin:-.3rem 0 1rem; font-size:.95rem; }
+
+  .urgent{
+    background:var(--warn-soft);
+    border:1px solid #f5c98a;
+    border-left:6px solid var(--warn);
+    border-radius:12px;
+    padding:1.1rem 1.25rem;
+    margin-top:1rem;
+  }
+  .urgent h2{ margin:0 0 .4rem; color:var(--warn); font-size:1.25rem; }
+  .urgent p{ margin:.3rem 0; }
+  .countdown{ font-weight:700; }
+  .btn{
+    display:inline-block; margin-top:.6rem; background:var(--accent); color:#fff; text-decoration:none;
+    padding:.6rem 1rem; border-radius:10px; font-weight:600;
+  }
+
+  .timeline{ list-style:none; padding:0; margin:0; border-left:3px solid var(--accent-soft); }
+  .timeline li{ position:relative; padding:.35rem 0 .75rem 1.25rem; }
+  .timeline li::before{
+    content:""; position:absolute; left:-8px; top:.65rem; width:13px; height:13px; border-radius:50%;
+    background:var(--card); border:3px solid var(--accent);
+  }
+  .timeline li.done::before{ background:var(--accent); }
+  .timeline li.key::before{ border-color:var(--warn); background:var(--warn); }
+  .timeline strong{ display:block; }
+  .timeline span{ color:var(--text-dim); font-size:.92rem; }
+
+  .grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem; }
+  @media (max-width:700px){ .grid{ grid-template-columns:1fr; } }
+  .school{
+    background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.1rem 1.2rem;
+  }
+  .school .top{ display:flex; justify-content:space-between; align-items:flex-start; gap:.6rem; }
+  .school h3{ margin:0; font-size:1.1rem; }
+  .pill{ white-space:nowrap; font-size:.75rem; font-weight:700; padding:.2rem .55rem; border-radius:999px; }
+  .pill.best{ background:var(--accent-soft); color:var(--accent); }
+  .pill.ok{ background:#eef2ff; color:#4338ca; }
+  .pill.hard{ background:var(--warn-soft); color:var(--warn); }
+  .pill.no{ background:var(--bad-soft); color:var(--bad); }
+  .school .sub{ color:var(--text-dim); font-size:.88rem; margin:.25rem 0 .6rem; }
+  .school ul{ margin:.3rem 0 .6rem; padding-left:1.1rem; font-size:.92rem; }
+  .school li{ margin:.2rem 0; }
+  .school .verdict{ margin:0; font-size:.92rem; font-weight:600; }
+  .school a{ color:var(--accent); }
+
+  .card{ background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.1rem 1.25rem; }
+  .card ul{ margin:.2rem 0; padding-left:1.1rem; }
+  .card li{ margin:.35rem 0; }
+
+  .checklist{ list-style:none; padding:0; margin:0; }
+  .checklist li{ display:flex; gap:.6rem; align-items:flex-start; padding:.45rem 0; border-bottom:1px solid var(--border); }
+  .checklist li:last-child{ border-bottom:none; }
+  .checklist input{ margin-top:.3rem; width:18px; height:18px; accent-color:var(--accent); flex-shrink:0; }
+  .checklist label{ cursor:pointer; }
+  .checklist input:checked + label{ color:var(--text-dim); text-decoration:line-through; }
+
+  .sources{ font-size:.85rem; color:var(--text-dim); }
+  .sources a{ color:var(--text-dim); }
+</style>
+</head>
+<body>
+<nav id="alice-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../index.html" style="color:#0e9488;text-decoration:none;font-weight:600;">Alice</a>
+    <a href="../english/index.html" style="color:#0e9488;text-decoration:none;font-weight:600;">English</a>
+    <a href="../math/index.html" style="color:#0e9488;text-decoration:none;font-weight:600;">Maths</a>
+    <a href="index.html" style="color:#0e9488;text-decoration:underline;font-weight:600;">Schools</a>
+</nav>
+
+<header>
+  <a class="back-link" href="../index.html">&larr; Alice</a>
+  <h1>🏫 Secondary School</h1>
+  <p>Alice is in Year 6, so she starts secondary school in <strong>September 2027</strong>. Here are the schools she could go to from Newport, and how and when to apply. Checked 12 October 2026.</p>
+</header>
+
+<main>
+
+  <div class="urgent">
+    <h2>⏰ Apply by Saturday 31 October 2026</h2>
+    <p>Applications for September 2027 are <strong>open now</strong>. <span class="countdown" id="countdown"></span></p>
+    <p>Apply online through Telford &amp; Wrekin Council, even for schools in Shropshire. You can list up to <strong>4 schools</strong> in order of preference. Applications after 31 October are only looked at once all the on-time ones are done, so popular schools may already be full.</p>
+    <a class="btn" href="https://www.telford.gov.uk/admissions" target="_blank" rel="noopener">Apply at telford.gov.uk/admissions &rarr;</a>
+  </div>
+
+  <h2>📅 Key dates</h2>
+  <ul class="timeline">
+    <li class="done"><strong>September&ndash;October 2026</strong><span>School open evenings. Most have already happened, but schools will usually show you around if you phone.</span></li>
+    <li class="key"><strong>31 October 2026: closing date</strong><span>The online application must be in by this date.</span></li>
+    <li><strong>1 March 2027: National Offer Day</strong><span>The council emails you which school Alice has been offered.</span></li>
+    <li><strong>31 March 2027</strong><span>Deadline to appeal if you don't get the school you want. Appeals are heard April to June.</span></li>
+    <li><strong>30 June 2027</strong><span>Deadline to apply for free school travel (bus pass) if Alice qualifies.</span></li>
+    <li><strong>6&ndash;7 July 2027</strong><span>Year 6 children visit their new school.</span></li>
+    <li><strong>September 2027</strong><span>Alice starts Year 7.</span></li>
+  </ul>
+
+  <h2>✅ Schools Alice could realistically get into</h2>
+  <p class="section-sub">These schools don't need the 11+. Distances are rough driving distances from Newport. &ldquo;Places last year&rdquo; is from the council's figures for September 2026 entry.</p>
+  <div class="grid">
+
+    <div class="school">
+      <div class="top"><h3>The Burton Borough School</h3><span class="pill best">Catchment school</span></div>
+      <p class="sub">Newport (Audley Avenue, TF10) &middot; mixed, ages 11&ndash;16 &middot; Learning Community Trust</p>
+      <ul>
+        <li><strong>In Newport</strong>, so Alice could walk or cycle with friends</li>
+        <li>Places last year: 242, and only 231 were filled, so <strong>everyone who applied got in</strong></li>
+        <li>Ofsted: <em>Requires Improvement</em> in 2021, the last full grade. The school joined a new trust in 2024 and has had a new head since September 2024, so that grade is old.</li>
+        <li>Open events (30 Sept to 2 Oct) have passed. Phone <strong>01952 951408</strong> to ask for a tour.</li>
+      </ul>
+      <p class="verdict">The safe choice. Always include it on the form, even if it isn't first. <a href="https://burtonborough.org.uk" target="_blank" rel="noopener">Website</a></p>
+    </div>
+
+    <div class="school">
+      <div class="top"><h3>Ercall Wood Academy</h3><span class="pill ok">Good chance</span></div>
+      <p class="sub">Wellington, Telford &middot; about 9 miles &middot; ages 11&ndash;18</p>
+      <ul>
+        <li>Ofsted January 2025: <strong>Good in every area</strong> (up from Requires Improvement)</li>
+        <li>Places last year: 240, and only 205 were filled, so there was room</li>
+        <li>Open events (30 Sept to 2 Oct) have passed. Phone 01952 387300.</li>
+        <li>Travel: about 25 minutes by car. Check the bus route.</li>
+      </ul>
+      <p class="verdict">The best recent Ofsted of the schools with spare places. <a href="https://www.ercallwood.lct.education" target="_blank" rel="noopener">Website</a></p>
+    </div>
+
+    <div class="school">
+      <div class="top"><h3>Idsall School</h3><span class="pill ok">Good chance</span></div>
+      <p class="sub">Shifnal (Shropshire) &middot; about 10 miles &middot; ages 11&ndash;18</p>
+      <ul>
+        <li>Ofsted November 2024: Quality of education <em>Requires Improvement</em>. Behaviour, personal development, leadership and sixth form all <strong>Good</strong>.</li>
+        <li>About 216 places, with 195 offers last year, so there was room</li>
+        <li>It's in Shropshire, but you still put it on the <strong>Telford &amp; Wrekin</strong> form</li>
+        <li>Phone 01952 468400 about visiting</li>
+      </ul>
+      <p class="verdict">A solid backup with a smaller-town feel. <a href="https://www.idsallschool.org" target="_blank" rel="noopener">Website</a></p>
+    </div>
+
+    <div class="school">
+      <div class="top"><h3>Charlton School</h3><span class="pill hard">Hard to get</span></div>
+      <p class="sub">Wellington, Telford &middot; about 9 miles</p>
+      <ul>
+        <li>Ofsted May 2023: <strong>Good</strong></li>
+        <li>Oversubscribed: last year's last place went to a child about 2.7 miles away (4,375 m), so from Newport the chance is very low</li>
+      </ul>
+      <p class="verdict">Only worth listing as a long shot, below the schools above. <a href="https://www.charlton.uk.com" target="_blank" rel="noopener">Website</a></p>
+    </div>
+
+    <div class="school">
+      <div class="top"><h3>Holy Trinity Academy</h3><span class="pill hard">Hard to get</span></div>
+      <p class="sub">Priorslee, Telford &middot; about 7 miles &middot; Church of England</p>
+      <ul>
+        <li>Very popular: 735 applications for 210 places</li>
+        <li>Last year's last place went to a child about a mile away (1,726 m), and church-goers may get priority</li>
+      </ul>
+      <p class="verdict">Very unlikely from Newport. <a href="https://www.holytrinity.academy" target="_blank" rel="noopener">Website</a></p>
+    </div>
+
+  </div>
+
+  <h2>❌ Not possible for 2027</h2>
+  <div class="grid">
+    <div class="school">
+      <div class="top"><h3>Newport Girls' High School</h3><span class="pill no">Needs 11+</span></div>
+      <p class="sub">Newport &middot; grammar school</p>
+      <p class="verdict">Selective. The 11+ test was on 14 September 2026, and Alice didn't take it. Pupils can sometimes join in Year 12 for sixth form.</p>
+    </div>
+    <div class="school">
+      <div class="top"><h3>Haberdashers' Adams</h3><span class="pill no">Needs 11+</span></div>
+      <p class="sub">Newport &middot; grammar school</p>
+      <p class="verdict">Selective, so it's out for Year 7 too. Its sixth form takes girls as well, which could be an option at 16.</p>
+    </div>
+    <div class="school">
+      <div class="top"><h3>Thomas Telford School</h3><span class="pill no">Deadline passed</span></div>
+      <p class="sub">Telford town centre &middot; city technology college</p>
+      <p class="verdict">You have to apply to this school directly, not on the council form. Its deadline was <strong>21 September 2026</strong>, so it's too late now.</p>
+    </div>
+  </div>
+
+  <h2>💡 Good to know</h2>
+  <div class="card">
+    <ul>
+      <li><strong>Putting a school second doesn't hurt your chances there.</strong> Each school looks at every application by its own rules, without seeing your ranking. If Alice qualifies for more than one, she's offered the highest one on your list. So put the school you like most first.</li>
+      <li><strong>Use all 4 choices and always include Burton Borough</strong> (the catchment school). Listing only one school gives no extra priority.</li>
+      <li><strong>If no listed school has room</strong>, the council offers a place at the catchment school or the nearest school with space.</li>
+      <li><strong>Free bus pass:</strong> Alice may get one if she goes to her nearest or catchment school and it's over 3 miles away. Lower-income families can also get help for one of the 3 nearest suitable schools between 2 and 6 miles away. Apply at travelassistance.telford.gov.uk by 30 June 2027.</li>
+      <li><strong>Free school meals:</strong> from September 2026, children in households on Universal Credit get free school meals. It's worth checking it carries on into Year 7.</li>
+      <li><strong>Questions:</strong> Telford &amp; Wrekin School Admissions, admissions@telford.gov.uk.</li>
+    </ul>
+  </div>
+
+  <h2>📝 To-do checklist</h2>
+  <div class="card">
+    <ul class="checklist" id="checklist">
+      <li><input type="checkbox" id="c1"><label for="c1">Talk to Alice about which schools she likes, and where her friends are going</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">Phone Burton Borough (01952 951408) to book a look round</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">Phone Ercall Wood (01952 387300) and/or Idsall (01952 468400) to visit</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">Decide the order of the 4 choices</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">Apply online at telford.gov.uk/admissions before 31 October</label></li>
+      <li><input type="checkbox" id="c6"><label for="c6">Save the confirmation email</label></li>
+      <li><input type="checkbox" id="c7"><label for="c7">1 March 2027: check the offer email</label></li>
+      <li><input type="checkbox" id="c8"><label for="c8">Apply for a bus pass by 30 June 2027 (if needed)</label></li>
+    </ul>
+  </div>
+
+  <h2>Sources</h2>
+  <p class="sources">
+    <a href="https://www.telford.gov.uk/media/352fuwda/guide-to-secondary-school-admissions-27-28-final.pdf" target="_blank" rel="noopener">Telford &amp; Wrekin guide to secondary school admissions 2027/28</a> (dates, open events, last year's places, travel help) &middot;
+    <a href="https://newsroom.telford.gov.uk/news/school-place-applications-for-september-2027-are-now-open" target="_blank" rel="noopener">Council news: applications for September 2027 open</a> &middot;
+    <a href="https://reports.ofsted.gov.uk/provider/23/150363" target="_blank" rel="noopener">Ofsted: Burton Borough</a> &middot;
+    <a href="https://reports.ofsted.gov.uk/provider/23/145707" target="_blank" rel="noopener">Ofsted: Ercall Wood</a> &middot;
+    <a href="https://reports.ofsted.gov.uk/provider/23/140922" target="_blank" rel="noopener">Ofsted: Idsall</a> &middot;
+    <a href="https://www.shropshirestar.com/news/education/2025/02/18/wellington-school-celebrates-moving-out-of-ofsted-requires-improvement-rating" target="_blank" rel="noopener">Shropshire Star on Ercall Wood's 2025 Ofsted</a>
+  </p>
+
+</main>
+
+<script>
+  // Days left until the closing date
+  (function(){
+    var el = document.getElementById('countdown');
+    var deadline = new Date(2026, 9, 31, 23, 59, 59);
+    var days = Math.ceil((deadline - new Date()) / 86400000);
+    if (days > 1) el.textContent = days + ' days left.';
+    else if (days === 1) el.textContent = 'Last day!';
+    else el.textContent = 'The on-time deadline has passed. You can still apply late.';
+  })();
+
+  // Remember ticked checklist items on this device
+  (function(){
+    var KEY = 'aliceSchoolsChecklist';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+    document.querySelectorAll('#checklist input').forEach(function(box){
+      box.checked = !!saved[box.id];
+      box.addEventListener('change', function(){
+        saved[box.id] = box.checked;
+        try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
