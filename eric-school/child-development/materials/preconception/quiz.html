@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre-conception Quiz</title>
+<style>
+  :root{
+    --bg:#f5f6f8; --card:#ffffff; --border:#e2e4e9; --text:#1b1e24; --text-dim:#5b616e;
+    --accent:#db2777; --accent-soft:#fce7f3;
+    --good:#15803d; --good-soft:#e7f6ec; --bad:#b91c1c; --bad-soft:#fdecec;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; font-family:-apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+  header{ padding:2rem 1.5rem .5rem; max-width:720px; margin:0 auto; }
+  .back-link{ color:var(--text-dim); text-decoration:none; font-size:.9rem; }
+  .back-link:hover{ color:var(--accent); }
+  header h1{ margin:.6rem 0 .2rem; font-size:1.7rem; }
+  header p{ margin:0; color:var(--text-dim); }
+  main{ max-width:720px; margin:0 auto; padding:1rem 1.5rem 3rem; }
+  .card{ background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.25rem; }
+  .progress{ display:flex; justify-content:space-between; color:var(--text-dim); font-size:.9rem; margin-bottom:.5rem; }
+  .bar{ height:8px; background:var(--accent-soft); border-radius:99px; overflow:hidden; margin-bottom:1rem; }
+  .bar div{ height:100%; background:var(--accent); width:0; transition:width .3s; }
+  .question{ font-size:1.15rem; font-weight:600; margin:0 0 1rem; }
+  .options{ display:grid; gap:.6rem; }
+  .opt{
+    text-align:left; font:inherit; padding:.8rem 1rem; border:2px solid var(--border); border-radius:10px;
+    background:#fff; cursor:pointer; color:var(--text);
+  }
+  .opt:hover:not(:disabled){ border-color:var(--accent); }
+  .opt:disabled{ cursor:default; }
+  .opt.right{ border-color:var(--good); background:var(--good-soft); }
+  .opt.wrong{ border-color:var(--bad); background:var(--bad-soft); }
+  .feedback{ margin-top:1rem; padding:.8rem 1rem; border-radius:10px; display:none; }
+  .feedback.show{ display:block; }
+  .feedback.good{ background:var(--good-soft); border-left:4px solid var(--good); }
+  .feedback.bad{ background:var(--bad-soft); border-left:4px solid var(--bad); }
+  .btn{ font:inherit; font-weight:600; margin-top:1rem; padding:.7rem 1.2rem; border:none; border-radius:10px; background:var(--accent); color:#fff; cursor:pointer; }
+  .btn.secondary{ background:#fff; color:var(--accent); border:2px solid var(--accent); }
+  .hidden{ display:none; }
+  .score{ font-size:2.5rem; font-weight:800; color:var(--accent); margin:.2rem 0; }
+  .review li{ margin:.5rem 0; }
+  .review .why{ color:var(--text-dim); font-size:.92rem; }
+</style>
+</head>
+<body>
+<nav id="eric-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../../../biology.html" style="color:#2f9d5c;text-decoration:none;font-weight:600;">Biology</a>
+    <a href="../../../math.html" style="color:#7c3aed;text-decoration:none;font-weight:600;">Maths</a>
+    <a href="../../../physics.html" style="color:#2f6fed;text-decoration:none;font-weight:600;">Physics</a>
+    <a href="../../../chemistry.html" style="color:#c4571f;text-decoration:none;font-weight:600;">Chemistry</a>
+    <a href="../../index.html" style="color:#db2777;text-decoration:none;font-weight:600;">Child Development</a>
+</nav>
+
+<header>
+  <a class="back-link" href="../../index.html">&larr; Child Development</a>
+  <h1>🧠 Pre-conception Health Quiz</h1>
+  <p>15 questions. After each answer you'll see <em>why</em> it's right, so read the explanations!</p>
+</header>
+
+<main>
+  <div class="card" id="quiz">
+    <div class="progress"><span id="qnum"></span><span id="running"></span></div>
+    <div class="bar"><div id="barfill"></div></div>
+    <p class="question" id="question"></p>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="btn hidden" id="next">Next question &rarr;</button>
+  </div>
+
+  <div class="card hidden" id="results">
+    <h2 style="margin:0;">Finished!</h2>
+    <div class="score" id="score"></div>
+    <p id="verdict"></p>
+    <p id="best" style="color:var(--text-dim);font-size:.9rem;"></p>
+    <div id="reviewWrap">
+      <h3>Look at these again:</h3>
+      <ul class="review" id="review"></ul>
+    </div>
+    <button class="btn" id="again">Try again (new order)</button>
+  </div>
+</main>
+
+<script>
+var QUESTIONS = [
+  { q: 'What does "pre-conception health" mean?',
+    o: ['How healthy a baby is when it is born', 'How healthy both parents are before trying for a baby', 'How healthy the mother is during pregnancy', 'The checks a baby has after birth'],
+    a: 1, why: '"Pre" means before and "conception" is when the sperm fertilises the egg. So it is the health of BOTH parents before the baby is made.' },
+  { q: 'Whose pre-conception health matters?',
+    o: ['Only the woman\'s', 'Only the man\'s', 'Both the man\'s and the woman\'s', 'Only the doctor needs to check'],
+    a: 2, why: 'Both. The woman provides the egg and carries the baby, and the man provides the sperm. Unhealthy habits in either partner can lower fertility.' },
+  { q: 'Why does a woman\'s health matter even before she knows she is pregnant?',
+    o: ['Because the baby\'s brain, spine and heart start forming in the first few weeks', 'Because the baby can hear from day one', 'Because she can only get pregnant once', 'It doesn\'t matter until she knows'],
+    a: 0, why: 'The baby\'s main organs start forming in the first few weeks, often before a pregnancy test would show positive. So her health beforehand affects the baby right from the start.' },
+  { q: 'About how long does it take for a man\'s sperm to develop?',
+    o: ['About 1 day', 'About 1 week', 'About 3 months', 'About 2 years'],
+    a: 2, why: 'Sperm take around 2 to 3 months to develop. So a man\'s smoking, drinking or drug use in the months BEFORE conception can damage the sperm that make the baby.' },
+  { q: 'Which supplement are women advised to take before getting pregnant?',
+    o: ['Vitamin C', 'Folic acid', 'Iron', 'Protein powder'],
+    a: 1, why: 'Folic acid (400 micrograms a day) is advised before trying for a baby and until 12 weeks pregnant.' },
+  { q: 'Folic acid lowers the risk of which condition in the baby?',
+    o: ['Spina bifida', 'Asthma', 'Chickenpox', 'Short-sightedness'],
+    a: 0, why: 'Folic acid lowers the risk of neural tube defects such as spina bifida, where the baby\'s spine doesn\'t close properly.' },
+  { q: 'How can being very overweight affect a woman\'s fertility?',
+    o: ['It makes her produce more eggs', 'It has no effect', 'It upsets the hormones that control ovulation', 'It only affects men'],
+    a: 2, why: 'Weight affects hormones. If the hormones that control ovulation (releasing an egg) are upset, periods can become irregular and it is harder to conceive.' },
+  { q: 'How can being overweight affect a man\'s fertility?',
+    o: ['It increases his sperm count', 'It can lower testosterone and reduce sperm count and quality', 'It has no effect on men', 'It only affects his heart'],
+    a: 1, why: 'Being overweight can lower testosterone and reduce how many sperm there are and how healthy they are.' },
+  { q: 'Which of these is an effect of smoking on a MAN\'s fertility?',
+    o: ['It lowers sperm count and can damage the DNA in sperm', 'It makes sperm swim faster', 'It only affects his lungs', 'It increases testosterone'],
+    a: 0, why: 'Smoking lowers sperm count, makes sperm swim less well (poor motility) and can damage the DNA inside sperm.' },
+  { q: 'Smoking raises a woman\'s risk of an ectopic pregnancy. What is that?',
+    o: ['Having twins', 'The baby growing outside the womb, usually in a fallopian tube', 'A pregnancy that lasts longer than 9 months', 'A very large baby'],
+    a: 1, why: 'An ectopic pregnancy is when the fertilised egg grows outside the womb, usually in a fallopian tube. It is dangerous, and the pregnancy cannot continue.' },
+  { q: 'What is the NHS advice about alcohol for a woman trying to get pregnant?',
+    o: ['Up to 14 units a week is fine', 'Only drink at weekends', 'Don\'t drink any alcohol', 'Red wine is OK'],
+    a: 2, why: 'The safest amount is none. She might be pregnant for weeks without knowing, and alcohol can harm the baby and cause Fetal Alcohol Spectrum Disorder (FASD).' },
+  { q: 'Which drug, used for bodybuilding, can stop a man producing sperm altogether?',
+    o: ['Paracetamol', 'Anabolic steroids', 'Caffeine', 'Vitamins'],
+    a: 1, why: 'Anabolic steroids can switch off the body\'s own sperm production, which is why they can have a very big effect on fertility.' },
+  { q: 'At what age does a woman\'s fertility start to fall faster?',
+    o: ['After 20', 'After 25', 'After 35', 'It never falls'],
+    a: 2, why: 'Fertility starts to fall in the early 30s and faster after 35, because a woman is born with all her eggs and they become fewer and lower quality with age.' },
+  { q: 'Why does a man\'s fertility fall more SLOWLY with age than a woman\'s?',
+    o: ['Men make new sperm all their lives', 'Men are born with all their sperm', 'Men don\'t age', 'Sperm last forever'],
+    a: 0, why: 'Men keep making new sperm throughout life, while women are born with all the eggs they will ever have. From about 40, sperm quality slowly drops.' },
+  { q: 'Which of these factors is the ONLY one a couple cannot change?',
+    o: ['Smoking', 'Weight', 'Drinking alcohol', 'Age'],
+    a: 3, why: 'You can stop smoking, lose weight or stop drinking, but you can\'t change your age. That is why planning WHEN to have a baby matters.' }
+];
+
+var order, idx, score, missed;
+var $ = function(id){ return document.getElementById(id); };
+
+function shuffle(arr){
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+  }
+  return arr;
+}
+
+function start(){
+  order = shuffle(QUESTIONS.map(function(_, i){ return i; }));
+  idx = 0; score = 0; missed = [];
+  $('quiz').classList.remove('hidden');
+  $('results').classList.add('hidden');
+  show();
+}
+
+function show(){
+  var item = QUESTIONS[order[idx]];
+  $('qnum').textContent = 'Question ' + (idx + 1) + ' of ' + order.length;
+  $('running').textContent = 'Score: ' + score;
+  $('barfill').style.width = (idx / order.length * 100) + '%';
+  $('question').textContent = item.q;
+  $('feedback').className = 'feedback';
+  $('next').classList.add('hidden');
+  var box = $('options');
+  box.innerHTML = '';
+  // Shuffle the options too, so position doesn't give the answer away
+  shuffle(item.o.map(function(_, i){ return i; })).forEach(function(oi){
+    var b = document.createElement('button');
+    b.className = 'opt';
+    b.textContent = item.o[oi];
+    b.dataset.i = oi;
+    b.onclick = function(){ choose(oi); };
+    box.appendChild(b);
+  });
+}
+
+function choose(oi){
+  var item = QUESTIONS[order[idx]];
+  var right = oi === item.a;
+  if (right) score++; else missed.push(item);
+  document.querySelectorAll('.opt').forEach(function(b){
+    b.disabled = true;
+    if (+b.dataset.i === item.a) b.classList.add('right');
+    else if (+b.dataset.i === oi) b.classList.add('wrong');
+  });
+  var fb = $('feedback');
+  fb.className = 'feedback show ' + (right ? 'good' : 'bad');
+  fb.innerHTML = '<strong>' + (right ? '✅ Correct!' : '❌ Not quite.') + '</strong> ' + item.why;
+  $('running').textContent = 'Score: ' + score;
+  var nb = $('next');
+  nb.textContent = idx === order.length - 1 ? 'See my score' : 'Next question →';
+  nb.classList.remove('hidden');
+  nb.focus();
+}
+
+$('next').onclick = function(){
+  idx++;
+  if (idx < order.length) show(); else finish();
+};
+
+function finish(){
+  $('quiz').classList.add('hidden');
+  $('results').classList.remove('hidden');
+  var total = order.length;
+  $('score').textContent = score + ' / ' + total;
+  var pct = score / total;
+  $('verdict').textContent = pct === 1 ? 'Perfect! You really understand this topic.'
+    : pct >= 0.8 ? 'Great work. Just look over the ones below.'
+    : pct >= 0.5 ? 'Good start. Re-read the PDF sections for the ones below, then try again.'
+    : 'Read the homework help PDF again, then have another go. You\'ll get there!';
+
+  var best = 0;
+  try { best = +localStorage.getItem('eric_preconception_best') || 0; } catch (e) {}
+  if (score > best) {
+    best = score;
+    try { localStorage.setItem('eric_preconception_best', String(best)); } catch (e) {}
+  }
+  $('best').textContent = 'Your best score on this device: ' + best + ' / ' + total;
+
+  var list = $('review');
+  list.innerHTML = '';
+  $('reviewWrap').style.display = missed.length ? '' : 'none';
+  missed.forEach(function(item){
+    var li = document.createElement('li');
+    li.innerHTML = '<strong></strong><br><span class="why"></span>';
+    li.querySelector('strong').textContent = item.q + ' → ' + item.o[item.a];
+    li.querySelector('.why').textContent = item.why;
+    list.appendChild(li);
+  });
+}
+
+$('again').onclick = start;
+start();
+</script>
+</body>
+</html>
