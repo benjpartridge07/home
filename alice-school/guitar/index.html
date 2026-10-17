@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alice's Guitar</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#0e9488;
+    --accent-soft:#e0f5f3;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{
+    padding:2.5rem 1.5rem 1.5rem;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.3rem;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:.9rem;
+    margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header h1{
+    margin:0 0 .25rem;
+    font-size:1.9rem;
+  }
+  header p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:1rem;
+  }
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:1.5rem 1.5rem 3rem;
+  }
+  h2.section-heading{
+    font-size:1.1rem;
+    margin:0 0 1rem;
+  }
+  .teacher{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-left:4px solid var(--accent);
+    border-radius:10px;
+    padding:1rem 1.25rem;
+    margin-bottom:.9rem;
+  }
+  .teacher-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.75rem;
+    flex-wrap:wrap;
+  }
+  .teacher-name{
+    font-weight:600;
+    font-size:1.05rem;
+  }
+  .teacher-price{
+    font-size:.85rem;
+    font-weight:600;
+    color:var(--accent);
+    background:var(--accent-soft);
+    padding:.15rem .6rem;
+    border-radius:999px;
+  }
+  .teacher-meta{
+    margin:.3rem 0 0;
+    color:var(--text-dim);
+    font-size:.88rem;
+  }
+  .teacher-note{
+    margin:.4rem 0 0;
+    font-size:.88rem;
+    line-height:1.5;
+  }
+  .teacher a{ color:var(--accent); }
+  .sub-card{
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:.75rem 1rem;
+    margin-top:.8rem;
+  }
+  .sub-card-title{ font-weight:600; font-size:.95rem; }
+  .materials-list{ margin:.4rem 0 0; padding-left:1.1rem; font-size:.88rem; line-height:1.6; }
+  .materials-group{ margin-top:.5rem; }
+  .materials-group summary{ cursor:pointer; color:var(--accent); font-weight:600; font-size:.92rem; }
+  .materials-group summary:hover{ text-decoration:underline; }
+  .materials-online{ margin:.6rem 0 0; font-size:.9rem; font-weight:600; }
+  .materials-hint{ font-weight:400; text-transform:none; letter-spacing:0; color:var(--text-dim); font-size:.8rem; }
+  .materials-sub{ margin:.6rem 0 0; color:var(--text-dim); font-size:.8rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em; }
+</style>
+</head>
+<body>
+<nav id="alice-nav-bar" style="position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;background:#ffffff;border-bottom:1px solid #e2e4e9;box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:.9rem;flex-wrap:wrap;">
+    <a href="../../index.html" style="color:#1b1e24;text-decoration:none;font-weight:700;">Home</a>
+    <a href="../index.html" style="color:#0e9488;text-decoration:none;font-weight:600;">Alice</a>
+    <a href="../english/index.html" style="color:#0e9488;text-decoration:none;font-weight:600;">English</a>
+    <a href="../math/index.html" style="color:#0e9488;text-decoration:none;font-weight:600;">Maths</a>
+    <a href="../schools/index.html" style="color:#0e9488;text-decoration:none;font-weight:600;">Schools</a>
+    <a href="index.html" style="color:#0e9488;text-decoration:underline;font-weight:600;">Guitar</a>
+</nav>
+
+<header>
+  <a class="back-link" href="../index.html">&larr; Alice's Projects</a>
+  <h1>Alice's Guitar</h1>
+  <p>Alice's guitar lessons with Dan Jones, and the material he gives her to practise.</p>
+</header>
+
+<main>
+
+  <div class="teacher">
+    <div class="teacher-top">
+      <span class="teacher-name">Dan Jones Guitar School</span>
+      <span class="teacher-price">Price on request</span>
+    </div>
+    <p class="teacher-meta">Room 30, Unit A3, The Business Development Centre, Stafford Park 4, Telford TF3 3BA &middot; 07872 101960</p>
+    <p class="teacher-note">Electric &amp; acoustic via the Rockschool exam syllabus, one-to-one or small group. Enhanced DBS check + child-protection trained, 21+ years teaching, 100% exam pass rate claimed. <a href="https://www.danjonesguitarschool.co.uk/" target="_blank" rel="noopener">Website</a></p>
+
+    <div class="sub-card">
+      <span class="sub-card-title">Materials</span>
+      <details class="materials-group">
+        <summary>1 - Guitar Playing Tracks</summary>
+        <p class="materials-online">🌐 <a href="https://internetserviceseu-my.sharepoint.com/:f:/g/personal/dan_zx3_at/IgBXwr6xYEi6Tq5PSb-EdzFUAf7bA182yuVtKlW9wHwgLec?e=SWmnVN" target="_blank" rel="noopener">Open Dan's online folder</a> <span class="materials-hint">(open this first on a new device if a song asks you to sign in)</span></p>
+        <p class="materials-sub">Chord sheets</p>
+        <ul class="materials-list">
+          <li>📄 <a href="https://internetserviceseu-my.sharepoint.com/personal/dan_zx3_at/_layouts/15/onedrive.aspx?ga=1&amp;id=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks%2FBeginner%20Chords%20G%20Em%20C%20D%2Epdf&amp;parent=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks" target="_blank" rel="noopener">Beginner Chords (G, Em, C, D)</a></li>
+          <li>📄 <a href="https://internetserviceseu-my.sharepoint.com/personal/dan_zx3_at/_layouts/15/onedrive.aspx?ga=1&amp;id=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks%2FBlues%20Chords%20E%20A%20D%2Epdf&amp;parent=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks" target="_blank" rel="noopener">Blues Chords (E, A, D)</a></li>
+        </ul>
+        <p class="materials-sub">Play-along videos</p>
+        <ul class="materials-list">
+          <li>🎬 <a href="https://internetserviceseu-my.sharepoint.com/personal/dan_zx3_at/_layouts/15/onedrive.aspx?ga=1&amp;id=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks%2FCall%20Me%20Maybe%2Emp4&amp;parent=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks" target="_blank" rel="noopener">Call Me Maybe</a></li>
+          <li>🎬 <a href="https://internetserviceseu-my.sharepoint.com/personal/dan_zx3_at/_layouts/15/onedrive.aspx?ga=1&amp;id=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks%2FCrocodile%20Rock%2Emp4&amp;parent=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks" target="_blank" rel="noopener">Crocodile Rock</a></li>
+          <li>🎬 <a href="https://internetserviceseu-my.sharepoint.com/personal/dan_zx3_at/_layouts/15/onedrive.aspx?ga=1&amp;id=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks%2FPerfect%20Ed%20Sheeran%2Emp4&amp;parent=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks" target="_blank" rel="noopener">Perfect (Ed Sheeran)</a></li>
+          <li>🎬 <a href="https://internetserviceseu-my.sharepoint.com/personal/dan_zx3_at/_layouts/15/onedrive.aspx?ga=1&amp;id=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks%2FShot%20Gun%2Em4v&amp;parent=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks" target="_blank" rel="noopener">Shot Gun</a></li>
+          <li>🎬 <a href="https://internetserviceseu-my.sharepoint.com/personal/dan_zx3_at/_layouts/15/onedrive.aspx?ga=1&amp;id=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks%2FThree%20Little%20Birds%2Em4v&amp;parent=%2Fpersonal%2Fdan%5Fzx3%5Fat%2FDocuments%2FGuitar%20Playalong%20tracks" target="_blank" rel="noopener">Three Little Birds</a></li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
