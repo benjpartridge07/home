@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Business Transformation Ideas</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:#e2e4e9;
+    --text:#1b1e24;
+    --text-dim:#5b616e;
+    --accent:#9333ea;
+    --accent-soft:#f3e8ff;
+    --navy:#0f3460;
+    --navy-soft:#e8edf5;
+    --teal:#0d9488;
+    --teal-soft:#e3f6f4;
+    --amber:#b45309;
+    --amber-soft:#fef3c7;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{ padding:2.5rem 1.5rem 1.5rem; max-width:960px; margin:0 auto; }
+  .back-link{
+    display:inline-flex; align-items:center; gap:.3rem;
+    color:var(--text-dim); text-decoration:none; font-size:.9rem; margin-bottom:.75rem;
+  }
+  .back-link:hover{ color:var(--accent); }
+  header h1{ margin:0 0 .35rem; font-size:1.9rem; }
+  header p.subtitle{ margin:0; color:var(--text-dim); font-size:1.05rem; line-height:1.5; }
+  main{ max-width:960px; margin:0 auto; padding:0 1.5rem 3.5rem; }
+  section{ margin-top:2.25rem; }
+  section > h2{
+    font-size:.78rem; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--text-dim); margin:0 0 1rem;
+  }
+
+  /* Contest facts */
+  .facts{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem;
+  }
+  @media (max-width:760px){ .facts{ grid-template-columns:repeat(2,1fr); } }
+  .fact{
+    background:var(--card); border:1px solid var(--border); border-radius:12px; padding:.9rem 1rem;
+  }
+  .fact .label{ font-size:.7rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-dim); font-weight:700; }
+  .fact .value{ font-size:1.05rem; font-weight:700; margin-top:.25rem; }
+  .fact .note{ font-size:.78rem; color:var(--text-dim); margin-top:.2rem; line-height:1.4; }
+  .criteria-box{
+    margin-top:1rem; background:var(--navy-soft); border-radius:10px;
+    padding:1rem 1.25rem; font-size:.9rem; line-height:1.6;
+  }
+  .criteria-box b{ color:var(--navy); }
+
+  /* Idea cards */
+  .idea-card{
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:1.75rem; margin-top:1.25rem;
+  }
+  .idea-card.top-pick{ border:2px solid var(--teal); }
+  .idea-head{ display:flex; align-items:center; gap:.9rem; margin-bottom:.9rem; flex-wrap:wrap; }
+  .idea-num{
+    width:38px; height:38px; border-radius:10px; background:var(--teal-soft); color:var(--teal);
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.05rem; flex-shrink:0;
+  }
+  .idea-head-text{ flex:1; min-width:200px; }
+  .idea-head-text .eyebrow{
+    font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--teal); font-weight:700; margin:0;
+  }
+  .idea-head-text h3{ margin:.1rem 0 0; font-size:1.2rem; }
+  .badge{
+    font-size:.72rem; font-weight:700; padding:.3rem .6rem; border-radius:999px;
+    background:var(--teal); color:#fff; white-space:nowrap;
+  }
+  .badge.alt{ background:var(--accent-soft); color:var(--accent); }
+  .idea-card .today{ font-size:.88rem; color:var(--text-dim); line-height:1.55; margin:0 0 .75rem; }
+  .idea-card .today b{ color:var(--text); }
+  .idea-card .how{
+    font-size:.92rem; line-height:1.6; margin:0 0 1rem;
+    background:var(--teal-soft); padding:.85rem 1rem; border-radius:10px;
+  }
+  .steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; }
+  @media (max-width:700px){ .steps{ grid-template-columns:repeat(2,1fr); } }
+  .step{ background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:.75rem .85rem; }
+  .step .step-num{ font-size:.7rem; font-weight:700; color:var(--teal); font-family:'Courier New', monospace; }
+  .step .step-title{ font-size:.85rem; font-weight:600; margin:.2rem 0 .3rem; }
+  .step .step-desc{ font-size:.78rem; color:var(--text-dim); line-height:1.4; }
+
+  .score{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:.6rem; margin-top:1rem;
+  }
+  @media (max-width:700px){ .score{ grid-template-columns:1fr 1fr; } }
+  .score div{
+    border-top:3px solid var(--navy); background:var(--navy-soft); border-radius:0 0 8px 8px;
+    padding:.6rem .7rem; font-size:.78rem; line-height:1.45; color:var(--text);
+  }
+  .score div b{ display:block; font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--navy); margin-bottom:.2rem; }
+  .measure{
+    margin-top:.9rem; font-size:.85rem; line-height:1.55;
+    background:var(--amber-soft); border-radius:8px; padding:.65rem .9rem;
+  }
+  .measure b{ color:var(--amber); }
+
+  /* Comparison table */
+  .table-wrap{ overflow-x:auto; background:var(--card); border:1px solid var(--border); border-radius:12px; }
+  table{ border-collapse:collapse; width:100%; font-size:.86rem; min-width:640px; }
+  th, td{ text-align:left; padding:.7rem .9rem; border-bottom:1px solid var(--border); vertical-align:top; }
+  th{ font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-dim); background:var(--bg); }
+  tr:last-child td{ border-bottom:none; }
+
+  /* Tips + timeline */
+  .tips{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media (max-width:700px){ .tips{ grid-template-columns:1fr; } }
+  .tip{
+    background:var(--card); border:1px solid var(--border); border-left:4px solid var(--teal);
+    border-radius:0 12px 12px 0; padding:1rem 1.2rem;
+  }
+  .tip h4{ margin:0 0 .35rem; font-size:.95rem; }
+  .tip p{ margin:0; font-size:.85rem; color:var(--text-dim); line-height:1.55; }
+  .timeline{ list-style:none; margin:0; padding:0; }
+  .timeline li{
+    background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:.8rem 1rem; margin-bottom:.6rem; font-size:.88rem; line-height:1.55;
+  }
+  .timeline li b{ color:var(--navy); }
+  .next-steps{
+    margin-top:2.25rem; background:var(--navy); color:#fff; border-radius:14px; padding:1.5rem 1.75rem;
+  }
+  .next-steps h2{ color:#cbd8ec; font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; margin:0 0 .6rem; }
+  .next-steps p{ margin:0; font-size:.95rem; line-height:1.7; }
+  .next-steps b{ color:#7dd3c8; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🚀 Business Transformation Ideas</h1>
+  <p class="subtitle">Ideas for the <b>NSSOL Generative AI Utilization Contest 2026</b>, Business Transformation Category. These are use cases that change a whole business process and show real, measurable results, built for an ERP, tailored solutions and IT infrastructure company.</p>
+</header>
+
+<main>
+
+  <section>
+    <h2>The contest at a glance</h2>
+    <div class="facts">
+      <div class="fact"><div class="label">Apply by</div><div class="value">4 Dec 2026</div><div class="note">Applications are open now</div></div>
+      <div class="fact"><div class="label">Final round</div><div class="value">17 Feb 2027</div><div class="note">About 10 finalists present; overseas finalists usually join online</div></div>
+      <div class="fact"><div class="label">Who can enter</div><div class="value">Individual or team</div><div class="note">You can send several entries, but each entry goes in only one category</div></div>
+      <div class="fact"><div class="label">Grand Prize</div><div class="value">JPY 200,000</div><div class="note">1 award (other prizes are listed in the guidelines)</div></div>
+    </div>
+    <div class="criteria-box">
+      <b>Judged on:</b> Business Impact &middot; Scalability &middot; Innovation &middot; Technical Excellence.<br>
+      <b>Tools:</b> Microsoft 365 Copilot, GitHub Copilot, Gemini, Claude, or another <i>approved</i> Generative AI service. Each idea below says which tools it would use, so check they are on the company&rsquo;s approved list.
+    </div>
+  </section>
+
+  <section>
+    <h2>Six ideas</h2>
+
+    <!-- 1 -->
+    <div class="idea-card top-pick">
+      <div class="idea-head">
+        <div class="idea-num">1</div>
+        <div class="idea-head-text">
+          <p class="eyebrow">Sales &middot; Customer retention</p>
+          <h3>Renewal &amp; Account Continuity Engine</h3>
+        </div>
+        <span class="badge">⭐ Top pick, Ann&rsquo;s own idea</span>
+      </div>
+      <p class="today"><b>Today:</b> Renewal dates for yearly maintenance, licence and support contracts live in each salesperson&rsquo;s memory or personal notes. When someone is busy or leaves, renewals can be missed and the customer relationship is at risk.</p>
+      <p class="how"><b>With Generative AI:</b> AI reads contracts, invoices and CRM records, builds one shared renewal list, and reminds the account owner 90, 60 and 30 days before each contract ends. It also drafts the renewal proposal from the original terms. When someone leaves, AI writes a one-page handover brief for each of their accounts, so nothing depends on one person.</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div class="step-title">Extract</div><div class="step-desc">AI pulls end dates, values and contacts out of contract PDFs and spreadsheets</div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-title">Remind</div><div class="step-desc">Staged reminders to the owner and their manager in Outlook or Teams</div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-title">Draft</div><div class="step-desc">A first-draft renewal proposal based on last year&rsquo;s terms</div></div>
+        <div class="step"><div class="step-num">04</div><div class="step-title">Hand over</div><div class="step-desc">Account briefs created automatically when staff change roles</div></div>
+      </div>
+      <div class="score">
+        <div><b>Impact</b>Protects recurring revenue; a missed renewal is easy to put a THB value on</div>
+        <div><b>Scalability</b>Every NSSOL Group company sells contracts that renew each year</div>
+        <div><b>Innovation</b>Moves from relying on memory to a shared, AI-managed process</div>
+        <div><b>Technical</b>Document extraction plus Copilot / Power Automate reminders</div>
+      </div>
+      <p class="measure"><b>Measure for the entry:</b> how many renewals are tracked; renewals caught early that would otherwise have been late; hours saved preparing renewal proposals; and how long a handover takes before and after.</p>
+    </div>
+
+    <!-- 2 -->
+    <div class="idea-card">
+      <div class="idea-head">
+        <div class="idea-num">2</div>
+        <div class="idea-head-text">
+          <p class="eyebrow">Pre-sales &middot; Proposals</p>
+          <h3>RFP-to-Proposal Copilot</h3>
+        </div>
+        <span class="badge alt">Strong runner-up</span>
+      </div>
+      <p class="today"><b>Today:</b> Each customer RFP or TOR (often in Thai, English or Japanese) is read by hand, requirements are copied into spreadsheets, and proposals are rebuilt from old files. A big ERP proposal can take days of senior staff time.</p>
+      <p class="how"><b>With Generative AI:</b> AI reads the RFP, lists every requirement, matches each one to the ERP module or past project that covers it, flags gaps and risks, and drafts the proposal and a first estimate based on similar past projects. Staff review and refine it instead of starting from a blank page.</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div class="step-title">Read</div><div class="step-desc">Turn the RFP into a structured requirements list in any language</div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-title">Match</div><div class="step-desc">Map requirements to standard ERP features and past solutions</div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-title">Draft</div><div class="step-desc">Proposal sections, a compliance matrix and a draft estimate</div></div>
+        <div class="step"><div class="step-num">04</div><div class="step-title">Learn</div><div class="step-desc">Won and lost proposals feed back in to improve the next one</div></div>
+      </div>
+      <div class="score">
+        <div><b>Impact</b>Faster replies and more bids handled by the same team</div>
+        <div><b>Scalability</b>Every group company answers RFPs</div>
+        <div><b>Innovation</b>Works across languages, which suits Thai, Japanese and English customers</div>
+        <div><b>Technical</b>Search over past proposals (RAG) plus structured outputs</div>
+      </div>
+      <p class="measure"><b>Measure for the entry:</b> hours to the first draft, before and after, on 2&ndash;3 real past RFPs; the share of requirements AI mapped correctly; and how many requirements it caught that people had missed.</p>
+    </div>
+
+    <!-- 3 -->
+    <div class="idea-card">
+      <div class="idea-head">
+        <div class="idea-num">3</div>
+        <div class="idea-head-text">
+          <p class="eyebrow">ERP delivery &middot; Requirements</p>
+          <h3>Workshop-to-Fit-Gap Assistant</h3>
+        </div>
+      </div>
+      <p class="today"><b>Today:</b> ERP projects start with many requirement workshops. Consultants take notes, write minutes, then spend more days turning them into fit-gap documents and specifications, and details get lost along the way.</p>
+      <p class="how"><b>With Generative AI:</b> Teams meeting transcripts are turned straight into requirement lists. AI classifies each one as standard fit, configuration or customisation, drafts the fit-gap document and functional specs, and keeps a link from every requirement back to the meeting where it was agreed.</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div class="step-title">Capture</div><div class="step-desc">Transcribe workshops (Teams + Copilot)</div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-title">Classify</div><div class="step-desc">Fit, configure or customise, by business process</div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-title">Document</div><div class="step-desc">Draft fit-gap and specs in the company template</div></div>
+        <div class="step"><div class="step-num">04</div><div class="step-title">Trace</div><div class="step-desc">Each requirement links back to its source meeting</div></div>
+      </div>
+      <div class="score">
+        <div><b>Impact</b>Shorter analysis phase, fewer missed requirements and disputes later</div>
+        <div><b>Scalability</b>Fits every ERP and system-integration project, in any group company</div>
+        <div><b>Innovation</b>Turns meetings directly into deliverables</div>
+        <div><b>Technical</b>Speech-to-text, classification and template generation</div>
+      </div>
+      <p class="measure"><b>Measure for the entry:</b> days from the last workshop to an approved fit-gap document; how many requirements the customer changed later because they were missed.</p>
+    </div>
+
+    <!-- 4 -->
+    <div class="idea-card">
+      <div class="idea-head">
+        <div class="idea-num">4</div>
+        <div class="idea-head-text">
+          <p class="eyebrow">Support &middot; After go-live</p>
+          <h3>Multilingual Support Desk Copilot</h3>
+        </div>
+      </div>
+      <p class="today"><b>Today:</b> After go-live, support tickets and emails arrive in mixed languages. The same questions are answered again and again, and fixes known only to one engineer are hard to find.</p>
+      <p class="how"><b>With Generative AI:</b> AI sorts each ticket by module and urgency, searches past tickets and manuals for the likely fix, and drafts a reply in the customer&rsquo;s language for the engineer to check. Every solved ticket becomes a new knowledge-base article automatically.</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div class="step-title">Triage</div><div class="step-desc">Sort by module, priority and customer</div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-title">Suggest</div><div class="step-desc">Likely fixes from past tickets and manuals</div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-title">Reply</div><div class="step-desc">Draft answers in Thai, English or Japanese</div></div>
+        <div class="step"><div class="step-num">04</div><div class="step-title">Learn</div><div class="step-desc">Solved tickets become knowledge articles</div></div>
+      </div>
+      <div class="score">
+        <div><b>Impact</b>Faster response and resolution, so customers are happier at renewal time</div>
+        <div><b>Scalability</b>Any group company with a support desk</div>
+        <div><b>Innovation</b>A knowledge base that keeps itself up to date</div>
+        <div><b>Technical</b>RAG over ticket history, with a person approving each reply</div>
+      </div>
+      <p class="measure"><b>Measure for the entry:</b> average first-response time and resolution time; the share of AI-drafted replies sent with little editing; and the number of knowledge articles created.</p>
+    </div>
+
+    <!-- 5 -->
+    <div class="idea-card">
+      <div class="idea-head">
+        <div class="idea-num">5</div>
+        <div class="idea-head-text">
+          <p class="eyebrow">Development &middot; Tailored solutions</p>
+          <h3>Legacy Customisation Rescue (GitHub Copilot)</h3>
+        </div>
+      </div>
+      <p class="today"><b>Today:</b> Years of customer-specific code and ERP add-ons have little documentation. Upgrades and changes are slow and risky, and they depend on the few developers who remember how the code works.</p>
+      <p class="how"><b>With Generative AI:</b> GitHub Copilot and Claude read the old code, write plain-language documentation, generate unit tests, and suggest how to update the customisations for a new ERP version, so upgrades become faster and safer.</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div class="step-title">Explain</div><div class="step-desc">Write documentation and diagrams for undocumented code</div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-title">Test</div><div class="step-desc">Generate tests before anything is changed</div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-title">Upgrade</div><div class="step-desc">Suggested code changes for the new version</div></div>
+        <div class="step"><div class="step-num">04</div><div class="step-title">Review</div><div class="step-desc">Developers approve; the docs stay with the code</div></div>
+      </div>
+      <div class="score">
+        <div><b>Impact</b>Shorter upgrade projects and less dependence on key people</div>
+        <div><b>Scalability</b>Every group company has legacy code</div>
+        <div><b>Innovation</b>Turns undocumented legacy code into a reusable asset</div>
+        <div><b>Technical</b>The strongest &ldquo;Technical Excellence&rdquo; story of the six</div>
+      </div>
+      <p class="measure"><b>Measure for the entry:</b> hours to understand and document one module, before and after; test coverage before and after; and days of upgrade effort saved on a pilot customisation.</p>
+    </div>
+
+    <!-- 6 -->
+    <div class="idea-card">
+      <div class="idea-head">
+        <div class="idea-num">6</div>
+        <div class="idea-head-text">
+          <p class="eyebrow">Project management &middot; PMO</p>
+          <h3>Project Health Early-Warning System</h3>
+        </div>
+      </div>
+      <p class="today"><b>Today:</b> Project problems such as slipping tasks, growing issue lists and scope creep often show up in status reports and emails weeks before anyone escalates them. By then, the cost of a late or over-budget project is already high.</p>
+      <p class="how"><b>With Generative AI:</b> Each week, AI reads status reports, issue logs, timesheets and project emails, summarises every project in a few lines for management, and flags risk signals early, with a suggested action.</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div class="step-title">Collect</div><div class="step-desc">Status reports, issue logs and effort data</div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-title">Summarise</div><div class="step-desc">A one-page weekly portfolio view for management</div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-title">Flag</div><div class="step-desc">Spot risk patterns such as scope creep and repeated delays</div></div>
+        <div class="step"><div class="step-num">04</div><div class="step-title">Act</div><div class="step-desc">Suggested next steps and escalation</div></div>
+      </div>
+      <div class="score">
+        <div><b>Impact</b>Fewer late or loss-making projects</div>
+        <div><b>Scalability</b>Works for any project portfolio, so it suits group-wide use</div>
+        <div><b>Innovation</b>Catches problems early instead of reporting them afterwards</div>
+        <div><b>Technical</b>Summarisation plus risk-signal detection</div>
+      </div>
+      <p class="measure"><b>Measure for the entry:</b> time management spends preparing status reviews; how many weeks earlier risks were flagged on past projects (test it on old project data).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Which one to enter?</h2>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Idea</th><th>Data needed</th><th>Pilot ready by 4 Dec?</th><th>Strongest criterion</th></tr>
+        <tr><td><b>1. Renewal &amp; Account Continuity</b></td><td>Contracts, invoices, CRM</td><td>Yes: a small set of contracts is enough</td><td>Business Impact</td></tr>
+        <tr><td><b>2. RFP-to-Proposal Copilot</b></td><td>Past RFPs and proposals</td><td>Yes: test it on old RFPs</td><td>Business Impact, Innovation</td></tr>
+        <tr><td><b>3. Workshop-to-Fit-Gap</b></td><td>Workshop recordings or minutes</td><td>Possible, needs a live project</td><td>Scalability</td></tr>
+        <tr><td><b>4. Support Desk Copilot</b></td><td>Ticket history, manuals</td><td>Possible</td><td>Business Impact</td></tr>
+        <tr><td><b>5. Legacy Customisation Rescue</b></td><td>Source code</td><td>Yes, with a developer on the team</td><td>Technical Excellence</td></tr>
+        <tr><td><b>6. Project Health Early Warning</b></td><td>Status reports, issue logs</td><td>Yes: test it on old projects</td><td>Scalability</td></tr>
+      </table>
+    </div>
+    <div class="criteria-box" style="margin-top:1rem">
+      <b>Suggestion:</b> enter <b>Idea 1</b>. It&rsquo;s Ann&rsquo;s own idea, it builds on the earlier Renewal Radar work, and its results are easy to show in money. Because multiple entries are allowed, <b>Idea 2</b> would make a strong second entry with a different team.
+    </div>
+  </section>
+
+  <section>
+    <h2>Making it a winning entry</h2>
+    <div class="tips">
+      <div class="tip"><h4>Show real numbers</h4><p>Judges want &ldquo;tangible results&rdquo;. Run a small pilot and report before-and-after hours, days or THB, even from a sample of 10&ndash;20 cases.</p></div>
+      <div class="tip"><h4>Explain how it spreads</h4><p>Scalability is scored, so show how another NSSOL Group company could reuse it with its own data: same steps, same tools.</p></div>
+      <div class="tip"><h4>Include a simple diagram</h4><p>For Technical Excellence, show where the data comes from, which approved AI tool does what, where a person checks the output, and how customer data stays secure.</p></div>
+      <div class="tip"><h4>Tell it as a story</h4><p>Problem, then a real example, then the AI process, then results, then what&rsquo;s next. The finalists present on 17 Feb, so a short live demo helps.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Timeline to 4 December</h2>
+    <ul class="timeline">
+      <li><b>12&ndash;18 Nov:</b> choose the idea and the team, and collect a small set of sample data (anonymise customer names if needed).</li>
+      <li><b>19&ndash;25 Nov:</b> build the pilot with approved tools such as Copilot or Claude, and record the &ldquo;before&rdquo; numbers.</li>
+      <li><b>26 Nov&ndash;2 Dec:</b> run the pilot, measure the &ldquo;after&rdquo; numbers, and fill in the application form (named <i>[PenName_TeamName]Generative_AI_Contest_2026_ApplicationForm_yyyymmdd.pptx</i>).</li>
+      <li><b>By 3 Dec:</b> submit, one day early to be safe.</li>
+    </ul>
+  </section>
+
+  <div class="next-steps">
+    <h2>Next steps</h2>
+    <p>Ann can tell us which idea she likes, and we can draft the <b>application form content</b> for it: the problem, solution, results and diagram. Ideas for the <b>Individual Use Category</b> can go on a separate page.</p>
+  </div>
+
+</main>
+
+</body>
+</html>
