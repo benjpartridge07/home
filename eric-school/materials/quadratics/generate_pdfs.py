@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Generate four practice tests + answer sheets for
+"""Generate eight practice tests + answer sheets for
 Quadratics: Expanding & Factorising (GCSE Maths, AQA 8300, Higher tier).
 
 Every test has the same six sections and 40 marks, in the order the
@@ -343,6 +343,227 @@ TESTS = {
              '(4n<sup>2</sup> + 4n + 1) (1) &nbsp; &minus; (4n<sup>2</sup> &minus; 4n + 1) (1) &nbsp; = 8n, which is <b>8 &times; an integer, so a multiple of 8</b> (1)'),
             ('F3', 'Without a calculator, work out 8.7<sup>2</sup> &minus; 1.3<sup>2</sup>', 1,
              '(8.7 + 1.3)(8.7 &minus; 1.3) = 10 &times; 7.4 = <b>74</b> (1)'),
+        ]),
+    ],
+    5: [
+        ('A', [
+            ('A1', 'Expand and simplify (x + 6)(x + 8)', 2,
+             'x<sup>2</sup> + 8x + 6x + 48 (1) &nbsp; = <b>x<sup>2</sup> + 14x + 48</b> (1)'),
+            ('A2', 'Expand and simplify (x &minus; 10)(x + 4)', 2,
+             'x<sup>2</sup> + 4x &minus; 10x &minus; 40 (1) &nbsp; = <b>x<sup>2</sup> &minus; 6x &minus; 40</b> (1)'),
+            ('A3', 'Expand and simplify (x + 9)<sup>2</sup>', 2,
+             '(x + 9)(x + 9) = x<sup>2</sup> + 9x + 9x + 81 (1) &nbsp; = <b>x<sup>2</sup> + 18x + 81</b> (1)'),
+            ('A4', 'Expand and simplify (5x &minus; 2)(2x + 3)', 2,
+             '10x<sup>2</sup> + 15x &minus; 4x &minus; 6 (1) &nbsp; = <b>10x<sup>2</sup> + 11x &minus; 6</b> (1)'),
+        ]),
+        ('B', [
+            ('B1', 'Expand and simplify (x + 4)(x &minus; 3)(x + 1)', 3,
+             '(x + 4)(x &minus; 3) = x<sup>2</sup> + x &minus; 12 (1) &nbsp; (x<sup>2</sup> + x &minus; 12)(x + 1) = x<sup>3</sup> + x<sup>2</sup> + x<sup>2</sup> + x &minus; 12x &minus; 12 (1) '
+             '&nbsp; = <b>x<sup>3</sup> + 2x<sup>2</sup> &minus; 11x &minus; 12</b> (1)'),
+            ('B2', 'Expand and simplify (2x + 3)(x &minus; 1)(x + 5)', 3,
+             '(2x + 3)(x &minus; 1) = 2x<sup>2</sup> + x &minus; 3 (1) &nbsp; (2x<sup>2</sup> + x &minus; 3)(x + 5) = 2x<sup>3</sup> + 10x<sup>2</sup> + x<sup>2</sup> + 5x &minus; 3x &minus; 15 (1) '
+             '&nbsp; = <b>2x<sup>3</sup> + 11x<sup>2</sup> + 2x &minus; 15</b> (1)'),
+        ]),
+        ('C', [
+            ('C1', 'Factorise x<sup>2</sup> + 11x + 24', 2,
+             'Multiply to 24, add to 11: 3 and 8 (1) &nbsp; <b>(x + 3)(x + 8)</b> (1)'),
+            ('C2', 'Factorise x<sup>2</sup> &minus; 8x &minus; 33', 2,
+             'Multiply to &minus;33, add to &minus;8: &minus;11 and 3 (1) &nbsp; <b>(x &minus; 11)(x + 3)</b> (1)'),
+            ('C3', 'Factorise x<sup>2</sup> &minus; 121', 1,
+             'Difference of two squares: <b>(x + 11)(x &minus; 11)</b> (1)'),
+            ('C4', 'Factorise fully 3x<sup>2</sup> &minus; 27x + 60', 2,
+             '3(x<sup>2</sup> &minus; 9x + 20) (1) &nbsp; = <b>3(x &minus; 4)(x &minus; 5)</b> (1)'),
+        ]),
+        ('D', [
+            ('D1', 'Factorise 2x<sup>2</sup> + 11x + 12', 2,
+             '2 &times; 12 = 24; numbers: 8 and 3, so 2x<sup>2</sup> + 8x + 3x + 12 = 2x(x + 4) + 3(x + 4) (1) &nbsp; <b>(2x + 3)(x + 4)</b> (1)'),
+            ('D2', 'Factorise 3x<sup>2</sup> &minus; 7x &minus; 6', 2,
+             '3 &times; &minus;6 = &minus;18; numbers: &minus;9 and 2, so 3x<sup>2</sup> &minus; 9x + 2x &minus; 6 = 3x(x &minus; 3) + 2(x &minus; 3) (1) &nbsp; <b>(3x + 2)(x &minus; 3)</b> (1)'),
+            ('D3', 'Factorise fully 6x<sup>2</sup> &minus; 3x &minus; 30', 2,
+             '3(2x<sup>2</sup> &minus; x &minus; 10) (1) &nbsp; = <b>3(2x &minus; 5)(x + 2)</b> (1)'),
+        ]),
+        ('E', [
+            ('E1', 'Solve x<sup>2</sup> + 3x &minus; 40 = 0', 3,
+             '(x + 8)(x &minus; 5) = 0 (1) &nbsp; x + 8 = 0 or x &minus; 5 = 0 (1) &nbsp; <b>x = &minus;8 or x = 5</b> (1)'),
+            ('E2', 'Simplify fully', 3,
+             'Numerator = (x + 5)(x &minus; 5) (1) &nbsp; denominator = (x + 5)(x &minus; 3) (1) &nbsp; cancel (x + 5): <b>(x &minus; 5) / (x &minus; 3)</b> (1)',
+             ('x<sup>2</sup> &minus; 25', 'x<sup>2</sup> + 2x &minus; 15')),
+        ]),
+        ('F', [
+            ('F1', '(a) Write x<sup>2</sup> &minus; 10x + 18 in the form (x + a)<sup>2</sup> + b. &nbsp; '
+                   '(b) Hence write down the coordinates of the turning point of y = x<sup>2</sup> &minus; 10x + 18.', 3,
+             '(a) (x &minus; 5)<sup>2</sup> = x<sup>2</sup> &minus; 10x + 25 (1) &nbsp; so x<sup>2</sup> &minus; 10x + 18 = <b>(x &minus; 5)<sup>2</sup> &minus; 7</b> (1)<br/>'
+             '(b) <b>(5, &minus;7)</b> (1)'),
+            ('F2', 'n is an integer. Prove that (n + 3)<sup>2</sup> &minus; (n + 1)<sup>2</sup> is always a multiple of 4.', 3,
+             '(n<sup>2</sup> + 6n + 9) &minus; (n<sup>2</sup> + 2n + 1) (1) &nbsp; = 4n + 8 (1) &nbsp; = 4(n + 2), which is <b>4 &times; an integer, so a multiple of 4</b> (1)'),
+            ('F3', 'Without a calculator, work out 65<sup>2</sup> &minus; 35<sup>2</sup>', 1,
+             '(65 + 35)(65 &minus; 35) = 100 &times; 30 = <b>3000</b> (1)'),
+        ]),
+    ],
+    6: [
+        ('A', [
+            ('A1', 'Expand and simplify (x + 5)(x + 12)', 2,
+             'x<sup>2</sup> + 12x + 5x + 60 (1) &nbsp; = <b>x<sup>2</sup> + 17x + 60</b> (1)'),
+            ('A2', 'Expand and simplify (x &minus; 3)(x &minus; 11)', 2,
+             'x<sup>2</sup> &minus; 11x &minus; 3x + 33 (1) &nbsp; = <b>x<sup>2</sup> &minus; 14x + 33</b> (1)'),
+            ('A3', 'Expand and simplify (3x &minus; 4)<sup>2</sup>', 2,
+             '(3x &minus; 4)(3x &minus; 4) = 9x<sup>2</sup> &minus; 12x &minus; 12x + 16 (1) &nbsp; = <b>9x<sup>2</sup> &minus; 24x + 16</b> (1)'),
+            ('A4', 'Fill in the two missing numbers: (x + 7)(x &minus; ___ ) = x<sup>2</sup> + 2x &minus; ___', 2,
+             '7 &minus; ? = 2, so the first missing number is <b>5</b> (1) &nbsp; 7 &times; 5 = 35, so the second is <b>35</b> (1)'),
+        ]),
+        ('B', [
+            ('B1', 'Expand and simplify (x &minus; 3)(x &minus; 2)(x + 6)', 3,
+             '(x &minus; 3)(x &minus; 2) = x<sup>2</sup> &minus; 5x + 6 (1) &nbsp; (x<sup>2</sup> &minus; 5x + 6)(x + 6) = x<sup>3</sup> + 6x<sup>2</sup> &minus; 5x<sup>2</sup> &minus; 30x + 6x + 36 (1) '
+             '&nbsp; = <b>x<sup>3</sup> + x<sup>2</sup> &minus; 24x + 36</b> (1)'),
+            ('B2', 'Expand and simplify (x &minus; 3)<sup>3</sup>', 3,
+             '(x &minus; 3)<sup>2</sup> = x<sup>2</sup> &minus; 6x + 9 (1) &nbsp; (x<sup>2</sup> &minus; 6x + 9)(x &minus; 3) = x<sup>3</sup> &minus; 3x<sup>2</sup> &minus; 6x<sup>2</sup> + 18x + 9x &minus; 27 (1) '
+             '&nbsp; = <b>x<sup>3</sup> &minus; 9x<sup>2</sup> + 27x &minus; 27</b> (1)'),
+        ]),
+        ('C', [
+            ('C1', 'Factorise x<sup>2</sup> + 3x &minus; 54', 2,
+             'Multiply to &minus;54, add to 3: 9 and &minus;6 (1) &nbsp; <b>(x + 9)(x &minus; 6)</b> (1)'),
+            ('C2', 'Factorise x<sup>2</sup> &minus; 17x + 72', 2,
+             'Multiply to 72, add to &minus;17: &minus;8 and &minus;9 (1) &nbsp; <b>(x &minus; 8)(x &minus; 9)</b> (1)'),
+            ('C3', 'Factorise 16x<sup>2</sup> &minus; 25', 1,
+             '(4x)<sup>2</sup> &minus; 5<sup>2</sup> = <b>(4x + 5)(4x &minus; 5)</b> (1)'),
+            ('C4', 'Factorise fully 7x<sup>2</sup> &minus; 7', 2,
+             '7(x<sup>2</sup> &minus; 1) (1) &nbsp; = <b>7(x + 1)(x &minus; 1)</b> (1)'),
+        ]),
+        ('D', [
+            ('D1', 'Factorise 2x<sup>2</sup> &minus; 9x + 10', 2,
+             '2 &times; 10 = 20; numbers: &minus;4 and &minus;5, so 2x<sup>2</sup> &minus; 4x &minus; 5x + 10 = 2x(x &minus; 2) &minus; 5(x &minus; 2) (1) &nbsp; <b>(2x &minus; 5)(x &minus; 2)</b> (1)'),
+            ('D2', 'Factorise 4x<sup>2</sup> + 4x &minus; 3', 2,
+             '4 &times; &minus;3 = &minus;12; numbers: 6 and &minus;2, so 4x<sup>2</sup> + 6x &minus; 2x &minus; 3 = 2x(2x + 3) &minus; 1(2x + 3) (1) &nbsp; <b>(2x &minus; 1)(2x + 3)</b> (1)'),
+            ('D3', 'Factorise 9x<sup>2</sup> &minus; 12x + 4', 2,
+             '9 &times; 4 = 36; numbers: &minus;6 and &minus;6, so 9x<sup>2</sup> &minus; 6x &minus; 6x + 4 = 3x(3x &minus; 2) &minus; 2(3x &minus; 2) (1) &nbsp; <b>(3x &minus; 2)<sup>2</sup></b> (1)'),
+        ]),
+        ('E', [
+            ('E1', 'Solve x<sup>2</sup> + 7x = 18', 3,
+             'x<sup>2</sup> + 7x &minus; 18 = 0 (1) &nbsp; (x + 9)(x &minus; 2) = 0 (1) &nbsp; <b>x = &minus;9 or x = 2</b> (1)'),
+            ('E2', 'Simplify fully', 3,
+             'Numerator = (2x &minus; 1)(x + 3) (1) &nbsp; denominator = (2x + 1)(2x &minus; 1) (1) &nbsp; cancel (2x &minus; 1): <b>(x + 3) / (2x + 1)</b> (1)',
+             ('2x<sup>2</sup> + 5x &minus; 3', '4x<sup>2</sup> &minus; 1')),
+        ]),
+        ('F', [
+            ('F1', 'A rectangle is (2x + 3) cm long and (x &minus; 1) cm wide. Its area is 18 cm<sup>2</sup>.<br/>'
+                   '(a) Show that 2x<sup>2</sup> + x &minus; 21 = 0. &nbsp; (b) Solve the equation and find the perimeter of the rectangle.', 4,
+             '(a) (2x + 3)(x &minus; 1) = 2x<sup>2</sup> + x &minus; 3 (1) &nbsp; 2x<sup>2</sup> + x &minus; 3 = 18, so 2x<sup>2</sup> + x &minus; 21 = 0 (1)<br/>'
+             '(b) (2x + 7)(x &minus; 3) = 0 so x = 3 or x = &minus;3.5; a length can&rsquo;t be negative, so x = 3 (1) &nbsp; '
+             'the rectangle is 9 cm by 2 cm, so <b>perimeter = 22 cm</b> (1)'),
+            ('F2', 'Show that (2x + 3)<sup>2</sup> &minus; (2x &minus; 3)<sup>2</sup> = 24x for every value of x', 2,
+             '(4x<sup>2</sup> + 12x + 9) &minus; (4x<sup>2</sup> &minus; 12x + 9) (1) &nbsp; = 4x<sup>2</sup> + 12x + 9 &minus; 4x<sup>2</sup> + 12x &minus; 9 = <b>24x</b> (1)'),
+            ('F3', 'Without a calculator, work out 9.6<sup>2</sup> &minus; 0.4<sup>2</sup>', 1,
+             '(9.6 + 0.4)(9.6 &minus; 0.4) = 10 &times; 9.2 = <b>92</b> (1)'),
+        ]),
+    ],
+    7: [
+        ('A', [
+            ('A1', 'Expand and simplify (x + 7)(x &minus; 2)', 2,
+             'x<sup>2</sup> &minus; 2x + 7x &minus; 14 (1) &nbsp; = <b>x<sup>2</sup> + 5x &minus; 14</b> (1)'),
+            ('A2', 'Expand and simplify (x &minus; 1)(x &minus; 12)', 2,
+             'x<sup>2</sup> &minus; 12x &minus; x + 12 (1) &nbsp; = <b>x<sup>2</sup> &minus; 13x + 12</b> (1)'),
+            ('A3', 'Expand and simplify (2x &minus; 7)(3x &minus; 1)', 2,
+             '6x<sup>2</sup> &minus; 2x &minus; 21x + 7 (1) &nbsp; = <b>6x<sup>2</sup> &minus; 23x + 7</b> (1)'),
+            ('A4', 'A square has sides of length (2x + 3) cm. Find an expression for its area. Give your answer in expanded form.', 2,
+             '(2x + 3)(2x + 3) = 4x<sup>2</sup> + 6x + 6x + 9 (1) &nbsp; = <b>(4x<sup>2</sup> + 12x + 9) cm<sup>2</sup></b> (1)'),
+        ]),
+        ('B', [
+            ('B1', 'Expand and simplify (x + 1)(x + 4)(x &minus; 5)', 3,
+             '(x + 1)(x + 4) = x<sup>2</sup> + 5x + 4 (1) &nbsp; (x<sup>2</sup> + 5x + 4)(x &minus; 5) = x<sup>3</sup> &minus; 5x<sup>2</sup> + 5x<sup>2</sup> &minus; 25x + 4x &minus; 20 (1) '
+             '&nbsp; = <b>x<sup>3</sup> &minus; 21x &minus; 20</b> (1)'),
+            ('B2', 'Expand and simplify (x + 3)(2x &minus; 1)<sup>2</sup>', 3,
+             '(2x &minus; 1)<sup>2</sup> = 4x<sup>2</sup> &minus; 4x + 1 (1) &nbsp; (4x<sup>2</sup> &minus; 4x + 1)(x + 3) = 4x<sup>3</sup> + 12x<sup>2</sup> &minus; 4x<sup>2</sup> &minus; 12x + x + 3 (1) '
+             '&nbsp; = <b>4x<sup>3</sup> + 8x<sup>2</sup> &minus; 11x + 3</b> (1)'),
+        ]),
+        ('C', [
+            ('C1', 'Factorise x<sup>2</sup> + 14x + 45', 2,
+             'Multiply to 45, add to 14: 5 and 9 (1) &nbsp; <b>(x + 5)(x + 9)</b> (1)'),
+            ('C2', 'Factorise x<sup>2</sup> &minus; 2x &minus; 63', 2,
+             'Multiply to &minus;63, add to &minus;2: &minus;9 and 7 (1) &nbsp; <b>(x &minus; 9)(x + 7)</b> (1)'),
+            ('C3', 'Factorise 49 &minus; 4x<sup>2</sup>', 1,
+             '7<sup>2</sup> &minus; (2x)<sup>2</sup> = <b>(7 + 2x)(7 &minus; 2x)</b> (1)'),
+            ('C4', 'x<sup>2</sup> + bx &minus; 20 factorises to (x &minus; 4)(x + a). Find the values of a and b.', 2,
+             '&minus;4 &times; a = &minus;20 so <b>a = 5</b> (1) &nbsp; b = &minus;4 + 5, so <b>b = 1</b> (1)'),
+        ]),
+        ('D', [
+            ('D1', 'Factorise 3x<sup>2</sup> + 14x + 8', 2,
+             '3 &times; 8 = 24; numbers: 12 and 2, so 3x<sup>2</sup> + 12x + 2x + 8 = 3x(x + 4) + 2(x + 4) (1) &nbsp; <b>(3x + 2)(x + 4)</b> (1)'),
+            ('D2', 'Factorise 5x<sup>2</sup> &minus; 12x + 4', 2,
+             '5 &times; 4 = 20; numbers: &minus;10 and &minus;2, so 5x<sup>2</sup> &minus; 10x &minus; 2x + 4 = 5x(x &minus; 2) &minus; 2(x &minus; 2) (1) &nbsp; <b>(5x &minus; 2)(x &minus; 2)</b> (1)'),
+            ('D3', 'Factorise fully 12x<sup>2</sup> + 22x &minus; 4', 2,
+             '2(6x<sup>2</sup> + 11x &minus; 2) (1) &nbsp; = <b>2(6x &minus; 1)(x + 2)</b> (1)'),
+        ]),
+        ('E', [
+            ('E1', 'Solve 2x<sup>2</sup> &minus; 7x + 3 = 0', 3,
+             '(2x &minus; 1)(x &minus; 3) = 0 (1) &nbsp; 2x &minus; 1 = 0 or x &minus; 3 = 0 (1) &nbsp; <b>x = 0.5 or x = 3</b> (1)'),
+            ('E2', 'Simplify fully', 3,
+             'Numerator = (x &minus; 5)(x + 2) (1) &nbsp; denominator = (x + 2)(x &minus; 2) (1) &nbsp; cancel (x + 2): <b>(x &minus; 5) / (x &minus; 2)</b> (1)',
+             ('x<sup>2</sup> &minus; 3x &minus; 10', 'x<sup>2</sup> &minus; 4')),
+        ]),
+        ('F', [
+            ('F1', '(a) Write x<sup>2</sup> + 6x &minus; 4 in the form (x + a)<sup>2</sup> + b. &nbsp; '
+                   '(b) Hence write down the minimum value of x<sup>2</sup> + 6x &minus; 4.', 3,
+             '(a) (x + 3)<sup>2</sup> = x<sup>2</sup> + 6x + 9 (1) &nbsp; so x<sup>2</sup> + 6x &minus; 4 = <b>(x + 3)<sup>2</sup> &minus; 13</b> (1)<br/>'
+             '(b) a square can&rsquo;t be negative, so the <b>minimum value is &minus;13</b> (when x = &minus;3) (1)'),
+            ('F2', 'Prove that if you multiply two consecutive even numbers and add 1, the answer is always a square number.', 3,
+             'Let the numbers be 2n and 2n + 2 (1) &nbsp; 2n(2n + 2) + 1 = 4n<sup>2</sup> + 4n + 1 (1) &nbsp; = (2n + 1)<sup>2</sup>, which is <b>a square number</b> (1)'),
+            ('F3', 'Without a calculator, work out 76<sup>2</sup> &minus; 24<sup>2</sup>', 1,
+             '(76 + 24)(76 &minus; 24) = 100 &times; 52 = <b>5200</b> (1)'),
+        ]),
+    ],
+    8: [
+        ('A', [
+            ('A1', 'Expand and simplify (x + 10)(x + 3)', 2,
+             'x<sup>2</sup> + 3x + 10x + 30 (1) &nbsp; = <b>x<sup>2</sup> + 13x + 30</b> (1)'),
+            ('A2', 'Expand and simplify (x &minus; 4)(x + 13)', 2,
+             'x<sup>2</sup> + 13x &minus; 4x &minus; 52 (1) &nbsp; = <b>x<sup>2</sup> + 9x &minus; 52</b> (1)'),
+            ('A3', 'Expand and simplify (x &minus; 2y)(x + 5y)', 2,
+             'x<sup>2</sup> + 5xy &minus; 2xy &minus; 10y<sup>2</sup> (1) &nbsp; = <b>x<sup>2</sup> + 3xy &minus; 10y<sup>2</sup></b> (1)'),
+            ('A4', 'Expand and simplify 3(x + 2)<sup>2</sup> &minus; (x + 4)(x &minus; 1)', 2,
+             '(3x<sup>2</sup> + 12x + 12) &minus; (x<sup>2</sup> + 3x &minus; 4) (1) &nbsp; = <b>2x<sup>2</sup> + 9x + 16</b> (1)'),
+        ]),
+        ('B', [
+            ('B1', 'Expand and simplify (x &minus; 4)(x + 1)(x + 3)', 3,
+             '(x &minus; 4)(x + 1) = x<sup>2</sup> &minus; 3x &minus; 4 (1) &nbsp; (x<sup>2</sup> &minus; 3x &minus; 4)(x + 3) = x<sup>3</sup> + 3x<sup>2</sup> &minus; 3x<sup>2</sup> &minus; 9x &minus; 4x &minus; 12 (1) '
+             '&nbsp; = <b>x<sup>3</sup> &minus; 13x &minus; 12</b> (1)'),
+            ('B2', 'Expand and simplify (2x + 1)<sup>3</sup>', 3,
+             '(2x + 1)<sup>2</sup> = 4x<sup>2</sup> + 4x + 1 (1) &nbsp; (4x<sup>2</sup> + 4x + 1)(2x + 1) = 8x<sup>3</sup> + 4x<sup>2</sup> + 8x<sup>2</sup> + 4x + 2x + 1 (1) '
+             '&nbsp; = <b>8x<sup>3</sup> + 12x<sup>2</sup> + 6x + 1</b> (1)'),
+        ]),
+        ('C', [
+            ('C1', 'Factorise x<sup>2</sup> + 10x + 21', 2,
+             'Multiply to 21, add to 10: 3 and 7 (1) &nbsp; <b>(x + 3)(x + 7)</b> (1)'),
+            ('C2', 'Factorise x<sup>2</sup> &minus; 9x &minus; 36', 2,
+             'Multiply to &minus;36, add to &minus;9: &minus;12 and 3 (1) &nbsp; <b>(x &minus; 12)(x + 3)</b> (1)'),
+            ('C3', 'Factorise 25x<sup>2</sup> &minus; 64', 1,
+             '(5x)<sup>2</sup> &minus; 8<sup>2</sup> = <b>(5x + 8)(5x &minus; 8)</b> (1)'),
+            ('C4', 'Factorise fully 2x<sup>3</sup> &minus; 18x', 2,
+             '2x(x<sup>2</sup> &minus; 9) (1) &nbsp; = <b>2x(x + 3)(x &minus; 3)</b> (1)'),
+        ]),
+        ('D', [
+            ('D1', 'Factorise 2x<sup>2</sup> + 3x &minus; 20', 2,
+             '2 &times; &minus;20 = &minus;40; numbers: 8 and &minus;5, so 2x<sup>2</sup> + 8x &minus; 5x &minus; 20 = 2x(x + 4) &minus; 5(x + 4) (1) &nbsp; <b>(2x &minus; 5)(x + 4)</b> (1)'),
+            ('D2', 'Factorise 3x<sup>2</sup> &minus; 17x + 10', 2,
+             '3 &times; 10 = 30; numbers: &minus;15 and &minus;2, so 3x<sup>2</sup> &minus; 15x &minus; 2x + 10 = 3x(x &minus; 5) &minus; 2(x &minus; 5) (1) &nbsp; <b>(3x &minus; 2)(x &minus; 5)</b> (1)'),
+            ('D3', 'Factorise 6x<sup>2</sup> &minus; 13x &minus; 5', 2,
+             '6 &times; &minus;5 = &minus;30; numbers: &minus;15 and 2, so 6x<sup>2</sup> &minus; 15x + 2x &minus; 5 = 3x(2x &minus; 5) + 1(2x &minus; 5) (1) &nbsp; <b>(3x + 1)(2x &minus; 5)</b> (1)'),
+        ]),
+        ('E', [
+            ('E1', 'Solve x(x + 4) = 21', 3,
+             'x<sup>2</sup> + 4x &minus; 21 = 0 (1) &nbsp; (x + 7)(x &minus; 3) = 0 (1) &nbsp; <b>x = &minus;7 or x = 3</b> (1)'),
+            ('E2', 'Simplify fully', 3,
+             'Numerator = 3(x + 2)(x &minus; 2) (1) &nbsp; denominator = (x + 3)(x &minus; 2) (1) &nbsp; cancel (x &minus; 2): <b>3(x + 2) / (x + 3)</b> (1)',
+             ('3x<sup>2</sup> &minus; 12', 'x<sup>2</sup> + x &minus; 6')),
+        ]),
+        ('F', [
+            ('F1', 'Write 3x<sup>2</sup> &minus; 12x + 5 in the form a(x + b)<sup>2</sup> + c', 3,
+             '3(x<sup>2</sup> &minus; 4x) + 5 (1) &nbsp; = 3[(x &minus; 2)<sup>2</sup> &minus; 4] + 5 (1) &nbsp; = <b>3(x &minus; 2)<sup>2</sup> &minus; 7</b> (1)'),
+            ('F2', 'A square lawn has sides of x metres. A path 2 m wide goes all the way round the outside of the lawn. '
+                   'Show that the area of the path is (8x + 16) m<sup>2</sup>.', 3,
+             'The outer square has sides of (x + 4) m (1) &nbsp; (x + 4)<sup>2</sup> = x<sup>2</sup> + 8x + 16 (1) &nbsp; '
+             'path = (x<sup>2</sup> + 8x + 16) &minus; x<sup>2</sup> = <b>(8x + 16) m<sup>2</sup></b> (1)'),
+            ('F3', 'Without a calculator, work out 12.5<sup>2</sup> &minus; 7.5<sup>2</sup>', 1,
+             '(12.5 + 7.5)(12.5 &minus; 7.5) = 20 &times; 5 = <b>100</b> (1)'),
         ]),
     ],
 }
